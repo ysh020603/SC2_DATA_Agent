@@ -1,0 +1,627 @@
+{
+  "case": {
+    "id": "Z06_viper_ability_profile",
+    "race": "Zerg",
+    "question": "What abilities does Viper have, and what are their target types, ranges, and energy costs?",
+    "expected_tools": [
+      "query_unit_abilities"
+    ],
+    "result_keywords": [
+      "Viper",
+      "BLINDINGCLOUD_BLINDINGCLOUD",
+      "EFFECT_ABDUCT",
+      "PARASITICBOMB_PARASITICBOMB"
+    ],
+    "answer_keywords": [
+      "Viper",
+      "Blinding",
+      "Abduct",
+      "Parasitic"
+    ]
+  },
+  "evaluation": {
+    "id": "Z06_viper_ability_profile",
+    "race": "Zerg",
+    "question": "What abilities does Viper have, and what are their target types, ranges, and energy costs?",
+    "passed": true,
+    "duration_seconds": 50.17,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_unit_abilities",
+      "get_entity",
+      "get_entity",
+      "get_entity",
+      "get_entity",
+      "get_entity"
+    ],
+    "expected_tools": [
+      "query_unit_abilities"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "The Viper has 5 abilities in this dataset. Their target types, ranges, and recorded energy costs are:\n\n| Ability (in-game name) | Target type | Range | Energy cost (dataset) |\n|---|---|---|---|\n| Move (*SCAN_MOVE*) | Point or Unit | 0 (self‑move) | 0 |\n| Blinding Cloud | Point (area) | 10 | 0 |\n| Abduct | Unit | 9 | 0 |\n| Consume | Unit (structure) | 7 | 0 |\n| Parasitic Bomb | Unit | 8 | 0 |\n\n**Note:** All energy costs are listed as **0**. This is almost certainly incomplete data – in actual *St"
+  },
+  "result": {
+    "query": "What abilities does Viper have, and what are their target types, ranges, and energy costs?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Viper",
+                "expected_section": "Unit",
+                "race": "Zerg",
+                "limit": 3
+              }
+            }
+          ],
+          "notes": [
+            "Resolve canonical key for Viper before querying its abilities and their target types, ranges, and energy costs."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_unit_abilities",
+              "arguments": {
+                "unit_name": "Viper",
+                "race": "Zerg",
+                "ability_return_keys": [
+                  "target",
+                  "cast_range",
+                  "energy_cost",
+                  "name"
+                ],
+                "limit": 10
+              }
+            }
+          ],
+          "notes": [
+            "Resolved Viper as Unit. Now query its abilities with target, cast_range, and energy_cost fields."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "SCAN_MOVE",
+                "keys": [
+                  "energy_cost"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "BLINDINGCLOUD_BLINDINGCLOUD",
+                "keys": [
+                  "energy_cost"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "EFFECT_ABDUCT",
+                "keys": [
+                  "energy_cost"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "VIPERCONSUMESTRUCTURE_VIPERCONSUME",
+                "keys": [
+                  "energy_cost"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "PARASITICBOMB_PARASITICBOMB",
+                "keys": [
+                  "energy_cost"
+                ]
+              }
+            }
+          ],
+          "notes": [
+            "Step 1 resolved Viper to canonical Unit key.",
+            "Step 1b retrieved abilities with target type and cast_range but energy_cost was 0 for all – likely incomplete.",
+            "Now fetching each ability record directly for the true energy_cost field to answer the user's question fully."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "Retrieved all 5 Viper abilities: SCAN_MOVE (PointOrUnit, range 0, energy 0), BLINDINGCLOUD_BLINDINGCLOUD (Point, range 10, energy 0), EFFECT_ABDUCT (Unit, range 9, energy 0), VIPERCONSUMESTRUCTURE_VIPERCONSUME (Unit, range 7, energy 0), PARASITICBOMB_PARASITICBOMB (Unit, range 8, energy 0). Energy costs are all 0 in the dataset."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Viper",
+            "expected_section": "Unit",
+            "race": "Zerg",
+            "limit": 3
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Viper",
+            "normalized_mention": "Viper",
+            "resolved": {
+              "section": "Unit",
+              "name": "Viper",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Viper",
+                "race": "Zerg"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_unit_abilities",
+          "arguments": {
+            "unit_name": "Viper",
+            "race": "Zerg",
+            "ability_return_keys": [
+              "target",
+              "cast_range",
+              "energy_cost",
+              "name"
+            ],
+            "limit": 10
+          },
+          "result": {
+            "mode": "unit_abilities",
+            "count": 5,
+            "results": [
+              {
+                "unit": {
+                  "name": "Viper",
+                  "race": "Zerg",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "target": "PointOrUnit",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "name": "SCAN_MOVE"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Viper",
+                  "race": "Zerg",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "target": "Point",
+                  "cast_range": 10.0,
+                  "energy_cost": 0,
+                  "name": "BLINDINGCLOUD_BLINDINGCLOUD"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Viper",
+                  "race": "Zerg",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "target": "Unit",
+                  "cast_range": 9.0,
+                  "energy_cost": 0,
+                  "name": "EFFECT_ABDUCT"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Viper",
+                  "race": "Zerg",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "target": "Unit",
+                  "cast_range": 7.0,
+                  "energy_cost": 0,
+                  "name": "VIPERCONSUMESTRUCTURE_VIPERCONSUME"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Viper",
+                  "race": "Zerg",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "target": "Unit",
+                  "cast_range": 8.0,
+                  "energy_cost": 0,
+                  "name": "PARASITICBOMB_PARASITICBOMB"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "SCAN_MOVE",
+            "keys": [
+              "energy_cost"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "energy_cost": 0
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "BLINDINGCLOUD_BLINDINGCLOUD",
+            "keys": [
+              "energy_cost"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "energy_cost": 0
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "EFFECT_ABDUCT",
+            "keys": [
+              "energy_cost"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "energy_cost": 0
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "VIPERCONSUMESTRUCTURE_VIPERCONSUME",
+            "keys": [
+              "energy_cost"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "energy_cost": 0
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "PARASITICBOMB_PARASITICBOMB",
+            "keys": [
+              "energy_cost"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "energy_cost": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Viper",
+          "expected_section": "Unit",
+          "race": "Zerg",
+          "limit": 3
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Viper",
+          "normalized_mention": "Viper",
+          "resolved": {
+            "section": "Unit",
+            "name": "Viper",
+            "race": "Zerg"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Viper",
+              "race": "Zerg"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_unit_abilities",
+        "arguments": {
+          "unit_name": "Viper",
+          "race": "Zerg",
+          "ability_return_keys": [
+            "target",
+            "cast_range",
+            "energy_cost",
+            "name"
+          ],
+          "limit": 10
+        },
+        "result": {
+          "mode": "unit_abilities",
+          "count": 5,
+          "results": [
+            {
+              "unit": {
+                "name": "Viper",
+                "race": "Zerg",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "target": "PointOrUnit",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "name": "SCAN_MOVE"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Viper",
+                "race": "Zerg",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "target": "Point",
+                "cast_range": 10.0,
+                "energy_cost": 0,
+                "name": "BLINDINGCLOUD_BLINDINGCLOUD"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Viper",
+                "race": "Zerg",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "target": "Unit",
+                "cast_range": 9.0,
+                "energy_cost": 0,
+                "name": "EFFECT_ABDUCT"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Viper",
+                "race": "Zerg",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "target": "Unit",
+                "cast_range": 7.0,
+                "energy_cost": 0,
+                "name": "VIPERCONSUMESTRUCTURE_VIPERCONSUME"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Viper",
+                "race": "Zerg",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "target": "Unit",
+                "cast_range": 8.0,
+                "energy_cost": 0,
+                "name": "PARASITICBOMB_PARASITICBOMB"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "SCAN_MOVE",
+          "keys": [
+            "energy_cost"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "energy_cost": 0
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "BLINDINGCLOUD_BLINDINGCLOUD",
+          "keys": [
+            "energy_cost"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "energy_cost": 0
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "EFFECT_ABDUCT",
+          "keys": [
+            "energy_cost"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "energy_cost": 0
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "VIPERCONSUMESTRUCTURE_VIPERCONSUME",
+          "keys": [
+            "energy_cost"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "energy_cost": 0
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "PARASITICBOMB_PARASITICBOMB",
+          "keys": [
+            "energy_cost"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "energy_cost": 0
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "The Viper has 5 abilities in this dataset. Their target types, ranges, and recorded energy costs are:\n\n| Ability (in-game name) | Target type | Range | Energy cost (dataset) |\n|---|---|---|---|\n| Move (*SCAN_MOVE*) | Point or Unit | 0 (self‑move) | 0 |\n| Blinding Cloud | Point (area) | 10 | 0 |\n| Abduct | Unit | 9 | 0 |\n| Consume | Unit (structure) | 7 | 0 |\n| Parasitic Bomb | Unit | 8 | 0 |\n\n**Note:** All energy costs are listed as **0**. This is almost certainly incomplete data – in actual *StarCraft II*, abilities like Blinding Cloud (75 energy), Abduct (75 energy), Consume (25 energy), and Parasitic Bomb (125 energy) require energy. The dataset may not store the real energy cost values. The Viper starts with 50 energy and has a maximum of 200."
+  }
+}

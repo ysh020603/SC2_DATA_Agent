@@ -3,3 +3,7 @@ streamlit_stdout.log
 streamlit_stderr.log
 __pycache__/
 pages/__pycache__/
+.codex-run/
+tests/__pycache__/
+result/*.log
+result/*.pid

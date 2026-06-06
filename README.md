@@ -18,7 +18,7 @@ DATA_BASE/data_base.json
 | `Unit` | 单位与建筑，包括神族、虫族、人族的作战单位、生产建筑、科技建筑、变形形态等 | 204 |
 | `Upgrade` | 升级与科技，例如攻防升级、技能解锁、特殊科技等 | 124 |
 
-每个对象保留了 `data.json` 中的原始字段，并额外加入：
+每个对象保留了 `data.json` 中适合检索的原始字段，内部数字 id 已替换为对应名称，并额外加入：
 
 | Key | 类型 | 说明 |
 | --- | --- | --- |
@@ -27,9 +27,10 @@ DATA_BASE/data_base.json
 
 常见字段包括：
 
-- 基础信息：`id`、`name`、`race`
+- 基础信息：`name`、`race`
 - 资源与时间：`minerals`、`gas`、`supply`、`time`、`cost.minerals`、`cost.gas`、`cost.time`
 - 战斗属性：`max_health`、`max_shield`、`armor`、`sight`、`speed`、`weapons`
+- 关系字段：`ability_name`、`produces_name`、`upgrade_name`、`building_name`、`normal_mode_name`
 - 标签属性：`attributes`、`is_structure`、`is_flying`、`is_worker`、`is_townhall`
 - 建筑约束：`needs_power`、`needs_creep`、`needs_geyser`、`accepts_addon`、`is_addon`
 - 技能属性：`cast_range`、`energy_cost`、`cooldown`、`target`、`allow_autocast`
@@ -132,7 +133,7 @@ Mothership:
 检索条件可以组合使用。默认返回完整记录，也可以指定只返回某些 key，例如：
 
 ```python
-keys=["_section", "id", "name", "race", "tech_chain"]
+keys=["_section", "name", "race", "tech_chain"]
 ```
 
 支持嵌套字段：

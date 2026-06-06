@@ -1,0 +1,1415 @@
+{
+  "case": {
+    "id": "Z01_larva_morph_outputs",
+    "race": "Zerg",
+    "question": "What units can Zerg Larva morph into, and what are their mineral, gas, and supply costs?",
+    "expected_tools": [
+      "query_production_outputs"
+    ],
+    "result_keywords": [
+      "Larva",
+      "Drone",
+      "Zergling",
+      "Roach",
+      "Hydralisk"
+    ],
+    "answer_keywords": [
+      "Drone",
+      "Zergling",
+      "Roach",
+      "Hydralisk"
+    ]
+  },
+  "evaluation": {
+    "id": "Z01_larva_morph_outputs",
+    "race": "Zerg",
+    "question": "What units can Zerg Larva morph into, and what are their mineral, gas, and supply costs?",
+    "passed": true,
+    "duration_seconds": 39.06,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_production_outputs",
+      "query_production_outputs"
+    ],
+    "expected_tools": [
+      "query_production_outputs"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "Zerg Larva can morph into 10 different units. Below is the complete list with their resource costs (minerals, gas) and supply cost.\n\n| Unit       | Minerals | Gas | Supply |\n|------------|----------|-----|--------|\n| Drone      | 50       | 0   | 1      |\n| Overlord   | 100      | 0   | −8*    |\n| Zergling   | 25       | 0   | 0.5    |\n| Roach      | 75       | 25  | 2      |\n| Hydralisk  | 100      | 50  | 2      |\n| Mutalisk   | 100      | 100 | 2      |\n| Corruptor  | 150      | 100 | 2      "
+  },
+  "result": {
+    "query": "What units can Zerg Larva morph into, and what are their mineral, gas, and supply costs?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Larva",
+                "expected_section": "Unit",
+                "race": "Zerg",
+                "limit": 1
+              }
+            },
+            {
+              "tool": "query_production_outputs",
+              "arguments": {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "output_sections": [
+                  "Unit"
+                ],
+                "target_types": [
+                  "Morph"
+                ],
+                "return_keys": [
+                  "name",
+                  "minerals",
+                  "gas",
+                  "supply"
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "notes": [
+            "Step 1: Resolve canonical key for 'Larva' to confirm section and name.",
+            "Step 2: Query production outputs for Larva with target type 'Morph' to get all morphed units and their resource costs."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_production_outputs",
+              "arguments": {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "output_sections": [
+                  "Unit"
+                ],
+                "target_types": [
+                  "Morph"
+                ],
+                "return_keys": [
+                  "name",
+                  "minerals",
+                  "gas",
+                  "supply"
+                ],
+                "sort": [
+                  {
+                    "field": "name",
+                    "order": "asc"
+                  }
+                ],
+                "limit": 20
+              }
+            }
+          ],
+          "notes": [
+            "Previous result count was 10 but only 8 units listed, likely missing Corruptor and Swarm Host.",
+            "Re-querying with a higher limit and sorting by name to ensure all Larva morph targets are captured."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "Completed: Resolved Zerg Larva, then used query_production_outputs with target_types 'Morph' to retrieve all 8 morphable units and their mineral, gas, and supply costs."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Larva",
+            "expected_section": "Unit",
+            "race": "Zerg",
+            "limit": 1
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Larva",
+            "normalized_mention": "Larva",
+            "resolved": {
+              "section": "Unit",
+              "name": "Larva",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Larva",
+                "race": "Zerg"
+              }
+            ]
+          }
+        },
+        {
+          "step": 0,
+          "tool": "query_production_outputs",
+          "arguments": {
+            "producer_name": "Larva",
+            "producer_section": "Unit",
+            "output_sections": [
+              "Unit"
+            ],
+            "target_types": [
+              "Morph"
+            ],
+            "return_keys": [
+              "name",
+              "minerals",
+              "gas",
+              "supply"
+            ],
+            "limit": 50
+          },
+          "result": {
+            "mode": "production_outputs",
+            "producer": {
+              "section": "Unit",
+              "name": "Larva",
+              "race": "Zerg"
+            },
+            "count": 10,
+            "results": [
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Drone",
+                  "minerals": 50,
+                  "gas": 0,
+                  "supply": 1.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_DRONE",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Drone"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Overlord",
+                  "minerals": 100,
+                  "gas": 0,
+                  "supply": -8.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_OVERLORD",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Overlord"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Zergling",
+                  "minerals": 25,
+                  "gas": 0,
+                  "supply": 0.5
+                },
+                "ability": {
+                  "name": "LARVATRAIN_ZERGLING",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Zergling"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "SpawningPool"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Hydralisk",
+                  "minerals": 100,
+                  "gas": 50,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_HYDRALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Hydralisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "HydraliskDen"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Mutalisk",
+                  "minerals": 100,
+                  "gas": 100,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_MUTALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Mutalisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Spire"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Ultralisk",
+                  "minerals": 275,
+                  "gas": 200,
+                  "supply": 6.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_ULTRALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Ultralisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "UltraliskCavern"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Roach",
+                  "minerals": 75,
+                  "gas": 25,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_ROACH",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Roach"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "RoachWarren"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Infestor",
+                  "minerals": 100,
+                  "gas": 150,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_INFESTOR",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Infestor"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "InfestationPit"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Corruptor",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_CORRUPTOR",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Corruptor"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Spire"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Viper",
+                  "minerals": 100,
+                  "gas": 200,
+                  "supply": 3.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_VIPER",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Viper"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Hive"
+                  }
+                ],
+                "required_addon": null
+              }
+            ],
+            "resolution": {
+              "mode": "entity_key_resolution",
+              "mention": "Larva",
+              "normalized_mention": "Larva",
+              "resolved": {
+                "section": "Unit",
+                "name": "Larva",
+                "race": "Zerg"
+              },
+              "confidence": 1.0,
+              "candidates": [
+                {
+                  "section": "Unit",
+                  "name": "Larva",
+                  "race": "Zerg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_production_outputs",
+          "arguments": {
+            "producer_name": "Larva",
+            "producer_section": "Unit",
+            "output_sections": [
+              "Unit"
+            ],
+            "target_types": [
+              "Morph"
+            ],
+            "return_keys": [
+              "name",
+              "minerals",
+              "gas",
+              "supply"
+            ],
+            "sort": [
+              {
+                "field": "name",
+                "order": "asc"
+              }
+            ],
+            "limit": 20
+          },
+          "result": {
+            "mode": "production_outputs",
+            "producer": {
+              "section": "Unit",
+              "name": "Larva",
+              "race": "Zerg"
+            },
+            "count": 10,
+            "results": [
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Drone",
+                  "minerals": 50,
+                  "gas": 0,
+                  "supply": 1.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_DRONE",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Drone"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Overlord",
+                  "minerals": 100,
+                  "gas": 0,
+                  "supply": -8.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_OVERLORD",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Overlord"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Zergling",
+                  "minerals": 25,
+                  "gas": 0,
+                  "supply": 0.5
+                },
+                "ability": {
+                  "name": "LARVATRAIN_ZERGLING",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Zergling"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "SpawningPool"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Hydralisk",
+                  "minerals": 100,
+                  "gas": 50,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_HYDRALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Hydralisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "HydraliskDen"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Mutalisk",
+                  "minerals": 100,
+                  "gas": 100,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_MUTALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Mutalisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Spire"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Ultralisk",
+                  "minerals": 275,
+                  "gas": 200,
+                  "supply": 6.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_ULTRALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Ultralisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "UltraliskCavern"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Roach",
+                  "minerals": 75,
+                  "gas": 25,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_ROACH",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Roach"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "RoachWarren"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Infestor",
+                  "minerals": 100,
+                  "gas": 150,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_INFESTOR",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Infestor"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "InfestationPit"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Corruptor",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 2.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_CORRUPTOR",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Corruptor"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Spire"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Larva",
+                "producer_section": "Unit",
+                "target_type": "Morph",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Viper",
+                  "minerals": 100,
+                  "gas": 200,
+                  "supply": 3.0
+                },
+                "ability": {
+                  "name": "LARVATRAIN_VIPER",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Viper"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Hive"
+                  }
+                ],
+                "required_addon": null
+              }
+            ],
+            "resolution": {
+              "mode": "entity_key_resolution",
+              "mention": "Larva",
+              "normalized_mention": "Larva",
+              "resolved": {
+                "section": "Unit",
+                "name": "Larva",
+                "race": "Zerg"
+              },
+              "confidence": 1.0,
+              "candidates": [
+                {
+                  "section": "Unit",
+                  "name": "Larva",
+                  "race": "Zerg"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Larva",
+          "expected_section": "Unit",
+          "race": "Zerg",
+          "limit": 1
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Larva",
+          "normalized_mention": "Larva",
+          "resolved": {
+            "section": "Unit",
+            "name": "Larva",
+            "race": "Zerg"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Larva",
+              "race": "Zerg"
+            }
+          ]
+        }
+      },
+      {
+        "step": 0,
+        "tool": "query_production_outputs",
+        "arguments": {
+          "producer_name": "Larva",
+          "producer_section": "Unit",
+          "output_sections": [
+            "Unit"
+          ],
+          "target_types": [
+            "Morph"
+          ],
+          "return_keys": [
+            "name",
+            "minerals",
+            "gas",
+            "supply"
+          ],
+          "limit": 50
+        },
+        "result": {
+          "mode": "production_outputs",
+          "producer": {
+            "section": "Unit",
+            "name": "Larva",
+            "race": "Zerg"
+          },
+          "count": 10,
+          "results": [
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Drone",
+                "minerals": 50,
+                "gas": 0,
+                "supply": 1.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_DRONE",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Drone"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Overlord",
+                "minerals": 100,
+                "gas": 0,
+                "supply": -8.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_OVERLORD",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Overlord"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Zergling",
+                "minerals": 25,
+                "gas": 0,
+                "supply": 0.5
+              },
+              "ability": {
+                "name": "LARVATRAIN_ZERGLING",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Zergling"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "SpawningPool"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Hydralisk",
+                "minerals": 100,
+                "gas": 50,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_HYDRALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Hydralisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "HydraliskDen"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Mutalisk",
+                "minerals": 100,
+                "gas": 100,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_MUTALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Mutalisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Spire"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Ultralisk",
+                "minerals": 275,
+                "gas": 200,
+                "supply": 6.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_ULTRALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Ultralisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "UltraliskCavern"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Roach",
+                "minerals": 75,
+                "gas": 25,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_ROACH",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Roach"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "RoachWarren"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Infestor",
+                "minerals": 100,
+                "gas": 150,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_INFESTOR",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Infestor"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "InfestationPit"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Corruptor",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_CORRUPTOR",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Corruptor"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Spire"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Viper",
+                "minerals": 100,
+                "gas": 200,
+                "supply": 3.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_VIPER",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Viper"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Hive"
+                }
+              ],
+              "required_addon": null
+            }
+          ],
+          "resolution": {
+            "mode": "entity_key_resolution",
+            "mention": "Larva",
+            "normalized_mention": "Larva",
+            "resolved": {
+              "section": "Unit",
+              "name": "Larva",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Larva",
+                "race": "Zerg"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_production_outputs",
+        "arguments": {
+          "producer_name": "Larva",
+          "producer_section": "Unit",
+          "output_sections": [
+            "Unit"
+          ],
+          "target_types": [
+            "Morph"
+          ],
+          "return_keys": [
+            "name",
+            "minerals",
+            "gas",
+            "supply"
+          ],
+          "sort": [
+            {
+              "field": "name",
+              "order": "asc"
+            }
+          ],
+          "limit": 20
+        },
+        "result": {
+          "mode": "production_outputs",
+          "producer": {
+            "section": "Unit",
+            "name": "Larva",
+            "race": "Zerg"
+          },
+          "count": 10,
+          "results": [
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Drone",
+                "minerals": 50,
+                "gas": 0,
+                "supply": 1.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_DRONE",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Drone"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Overlord",
+                "minerals": 100,
+                "gas": 0,
+                "supply": -8.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_OVERLORD",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Overlord"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Zergling",
+                "minerals": 25,
+                "gas": 0,
+                "supply": 0.5
+              },
+              "ability": {
+                "name": "LARVATRAIN_ZERGLING",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Zergling"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "SpawningPool"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Hydralisk",
+                "minerals": 100,
+                "gas": 50,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_HYDRALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Hydralisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "HydraliskDen"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Mutalisk",
+                "minerals": 100,
+                "gas": 100,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_MUTALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Mutalisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Spire"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Ultralisk",
+                "minerals": 275,
+                "gas": 200,
+                "supply": 6.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_ULTRALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Ultralisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "UltraliskCavern"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Roach",
+                "minerals": 75,
+                "gas": 25,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_ROACH",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Roach"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "RoachWarren"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Infestor",
+                "minerals": 100,
+                "gas": 150,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_INFESTOR",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Infestor"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "InfestationPit"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Corruptor",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 2.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_CORRUPTOR",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Corruptor"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Spire"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer_name": "Larva",
+              "producer_section": "Unit",
+              "target_type": "Morph",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Viper",
+                "minerals": 100,
+                "gas": 200,
+                "supply": 3.0
+              },
+              "ability": {
+                "name": "LARVATRAIN_VIPER",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Viper"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Hive"
+                }
+              ],
+              "required_addon": null
+            }
+          ],
+          "resolution": {
+            "mode": "entity_key_resolution",
+            "mention": "Larva",
+            "normalized_mention": "Larva",
+            "resolved": {
+              "section": "Unit",
+              "name": "Larva",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Larva",
+                "race": "Zerg"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "answer": "Zerg Larva can morph into 10 different units. Below is the complete list with their resource costs (minerals, gas) and supply cost.\n\n| Unit       | Minerals | Gas | Supply |\n|------------|----------|-----|--------|\n| Drone      | 50       | 0   | 1      |\n| Overlord   | 100      | 0   | −8*    |\n| Zergling   | 25       | 0   | 0.5    |\n| Roach      | 75       | 25  | 2      |\n| Hydralisk  | 100      | 50  | 2      |\n| Mutalisk   | 100      | 100 | 2      |\n| Corruptor  | 150      | 100 | 2      |\n| Infestor   | 100      | 150 | 2      |\n| Viper      | 100      | 200 | 3      |\n| Ultralisk  | 275      | 200 | 6      |\n\n* Overlord has a negative supply cost (−8), meaning it provides 8 supply.\n\nThese are all the units that can be morphed directly from a Larva. The data is complete and accurate based on the tool results."
+  }
+}

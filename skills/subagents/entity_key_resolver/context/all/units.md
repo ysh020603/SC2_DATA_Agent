@@ -1,0 +1,208 @@
+# All Unit Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `Adept` (Protoss) - Adepts are "highly trained battlefield commanders", warped in at the Gateway after the Cybernetics Core has finished. They were first introduced in Legacy of the Void . Two definin
+- `AdeptPhaseShift` (Protoss)
+- `ArbiterMP` (Protoss)
+- `Archon` (Protoss) - The Archon is a powerful Protoss short-range unit. It excels against biological units and structures. An Archon is created when two of either Dark Templar or High Templar merge tog
+- `Assimilator` (Protoss) - The Assimilator , a Protoss structure that can only be built on top of Vespene Geysers, allows the player to collect Vespene Gas. Probes sent to an Assimilator will return Vespene 
+- `AssimilatorRich` (Protoss)
+- `Carrier` (Protoss) - Carriers are the capital ships in the Protoss air force, built at the Stargate with the Fleet Beacon as a prerequisite. Unlike other units, Carriers do not engage the enemy directl
+- `Colossus` (Protoss) - The Colossus ( plural -lossi, -lossuses) is a massive Protoss battle strider that towers over all other ground units on the battlefield. It is built at the Robotics Facility , but 
+- `CorsairMP` (Protoss)
+- `CyberneticsCore` (Protoss) - The Cybernetics Core (sometimes referred to as Cyber Core or just Core ) is a structure on the Protoss Technology Tree , which requires a Gateway before it can be warped in. The Cy
+- `DarkShrine` (Protoss) - The Dark Shrine is a structure on the Protoss Technology Tree . Its only function is to unlock the powerful Dark Templar stealth melee unit at the Gateway and/or Warp Gate . The Da
+- `DarkTemplar` (Protoss) - The Dark Templar (often abbreviated to DT ) is a permanently cloaked Protoss assassin and a huge disruption to most standard builds for both sides. Dark Templar are warped-in at th
+- `Disruptor` (Protoss) - The Disruptor is a Protoss Construct unit with no auto attack, produced from the Robotics Facility after finishing the Robotics Bay . It was introduced in Legacy of the Void . Orig
+- `DisruptorPhased` (Protoss)
+- `FleetBeacon` (Protoss) - The Fleet Beacon is a structure on the Protoss Technology Tree that unlocks capital ship level air units, specifically the Carrier and the Tempest at the Stargate and the Mothershi
+- `Forge` (Protoss) - The Forge is a structure in the Protoss Tech Tree , which requires a Nexus before it can be warped in. The Forge is the research center for Ground Weapons , Ground Armor , and Shie
+- `Gateway` (Protoss) - The Gateway is a unit production structure for the Protoss , responsible for warping in ground units. Gateways can be warped in by a Probe only within range of the Psionic Matrix ,
+- `HighTemplar` (Protoss) - The High Templar (often abbreviated to HT ) is a spell-casting unit for the Protoss . The High Templar is warped in from a Gateway , with the Templar Archives as a prerequisite. Hi
+- `IceProtossCrates` (Protoss)
+- `Immortal` (Protoss) - The Immortal is a durable ranged, mechanized strider for the Protoss army, produced at the Robotics Facility . Their Barrier ability makes them specialists at taking damage. Additi
+- `Interceptor` (Protoss) - The Interceptor is a small, autonomous flying unit that gives the Protoss Carrier its offensive capabilities. Each Carrier warps in with an initial set of 4 Interceptors that can a
+- `Mothership` (Protoss) - The Mothership is the most powerful unit in the Protoss arsenal: Once a Fleet Beacon has been built, it may be warped in at a Nexus . Because of its extensive capabilities, the Mot
+- `MothershipCore` (Protoss) - The Mothership Core was a flying support caster for the Protoss that could be built from the Nexus once the Cybernetics Core is finished. Its primary roles were base defence and ar
+- `Nexus` (Protoss) - The Nexus ( plural Nexi, [ 1 ] Nexuses, [ 2 ] nexūs) is the fundamental building for the Protoss . It warps in the Protoss worker, the Probe . Since patch 4.0.0, after the Fleet Be
+- `Observer` (Protoss) - The Observer is a flying cloaked spy drone and Detector for the Protoss , built at the Robotics Facility . It is permanently cloaked, so opponents need detection in order to see an
+- `ObserverSiegeMode` (Protoss)
+- `Oracle` (Protoss) - The Oracle is a flying harassment and support caster for the Protoss that is produced from the Stargate . In LotV the ability Stasis Ward was added. While fairly expensive and frag
+- `OracleStasisTrap` (Protoss) - The Stasis Ward is a Protoss structure that is constructed by an Oracle . When an enemy Ground unit draws near, the Stasis Ward traps all nearby enemy ground units for 21 seconds. 
+- `Phoenix` (Protoss) - The Phoenix is a swift and deadly spacecraft well suited for air-to-air combat (even while moving). It warps in at the Stargate . Made either pre-emptively to counter early air thr
+- `PhotonCannon` (Protoss) - The Photon Cannon (often shortened to just Cannon ) is the sole static defense building for the Protoss . The player must control a Forge before building Photon Cannons. It's more 
+- `Probe` (Protoss) - The Probe is the Protoss worker unit, warped in at the Nexus . It harvests resources , has a low-powered melee attack, and can warp-in any Protoss building. All Protoss buildings o
+- `ProtossCrates` (Protoss)
+- `Pylon` (Protoss) - The Pylon is the Protoss supply building and the primary source of the Psionic Matrix power field. After warping in, the Pylon is surrounded by a circular field of the Psionic Matr
+- `PylonOvercharged` (Protoss)
+- `ReleaseInterceptorsBeacon` (Protoss)
+- `Replicant` (Protoss)
+- `ResourceBlocker` (Protoss)
+- `RoboticsBay` (Protoss) - The Robotics Bay (often abbreviated to Robo Bay ) is a structure on the Protoss Technology Tree that unlocks the Colossus and the Disruptor units at the Robotics Facility . It also
+- `RoboticsFacility` (Protoss) - The Robotics Facility (or Robo ), is a unit producing structure for the Protoss , which requires a Cybernetics Core before it can be warped in. The Robotics Facility can produce th
+- `ScoutMP` (Protoss)
+- `Sentry` (Protoss) - The Sentry is an unusual Protoss spell-casting unit produced from the Gateway after the Cybernetics Core has been built. The Sentry's spells are very powerful: Force Field , Guardi
+- `ShieldBattery` (Protoss) - The Shield Battery is a structure that restores Protoss shields . While it was always part of the multiplayer in Brood War , it was only introduced to StarCraft II 's multiplayer i
+- `Stalker` (Protoss) - The Stalker is a fast-moving, ranged Protoss ground unit, capable of hitting both air and ground targets. They are warped in at the Gateway , and require a Cybernetics Core . The S
+- `Stargate` (Protoss) - The Stargate is a unit producing structure for the Protoss , responsible for producing most of the Protoss air units. It requires a Cybernetics Core before it can be warped in. The
+- `Tempest` (Protoss) - The Tempest is a powerful capital ship for the Protoss that can be built from the Stargate once the Fleet Beacon has been completed. Its primary role is as a heavy bombardment unit
+- `TemplarArchive` (Protoss) - The Templar Archives is a structure on the Protoss Technology Tree that unlocks the High Templar spell caster unit and the Psionic Storm upgrade. The Templar Archives requires a Tw
+- `TwilightCouncil` (Protoss) - The Twilight Council is a structure on the Protoss Technology Tree , which requires a Cybernetics Core before it can be warped in. The Twilight Council enables research of the Char
+- `VoidMPImmortalReviveCorpse` (Protoss)
+- `VoidRay` (Protoss) - The Void Ray is an airborne siege cannon for the Protoss that is built at the Stargate . Unlike the Void Ray in Wings of Liberty, its attack does not charge up over time. Instead, 
+- `WarpGate` (Protoss) - The Warp Gate is a unit producing structure for the Protoss , capable of warping in ground units. Warp Gates provide an ability unique to the Protoss: the rapid creation of units a
+- `WarpPrism` (Protoss) - The Warp Prism is a Protoss transport unit, produced at the Robotics Facility . In Legacy of the Void , it can pickup units from a larger distance (5 range away). The Warp Prism ca
+- `WarpPrismPhasing` (Protoss)
+- `Zealot` (Protoss) - The first unit available to a Protoss player. Of the basic units, in terms of raw health and damage the zealot is second to none. Their total HP even rivals that of many larger arm
+- `Armory` (Terran) - The Armory is a Terran tech building that requires a Factory to be built. It unlocks the Thor and Hellbat units at the Factory and the Level 2 & 3 Infantry upgrades at the Engineer
+- `AutoTurret` (Terran) - The Auto-Turret is a temporary and immobile structure deployed by the Raven at the cost of 50 energy. It automatically attacks nearby air and ground targets that come within its ra
+- `Banshee` (Terran) - The Banshee is a strong Air-to-Ground unit that is built from a Starport with a Tech Lab add-on. The Banshee has a number of common uses. Used early on in any match-up, they can ca
+- `Barracks` (Terran) - The Barracks (Rax for short) is the infantry production building for Terran; allowing them to build Marines , Marauders , Reapers and Ghosts . It is commonly used as part of a Terr
+- `BarracksFlying` (Terran)
+- `BarracksReactor` (Terran)
+- `BarracksTechLab` (Terran)
+- `Battlecruiser` (Terran) - The Battlecruiser is the Terran's capital ship. In LotV , the Battlecruiser has been granted the Tactical Jump ability, allowing it to teleport anywhere on the map (regardless of f
+- `Bunker` (Terran)
+- `BypassArmorDrone` (Terran)
+- `CommandCenter` (Terran) - The Command Center is the town center of a Terran base. It is the building where SCVs are created and where they bring their collected Minerals and Vespene Gas. The Command Center 
+- `CommandCenterFlying` (Terran)
+- `Cyclone` (Terran) - The Cyclone is a fast hit-and-away vehicle produced from a Factory with an attached Tech Lab . It was first introduced in Legacy of the Void . The Cyclone has an ability called Loc
+- `Elsecaro_Colonist_Hut` (Terran)
+- `EngineeringBay` (Terran) - The Engineering Bay (commonly abbreviated as E-Bay or Engi-Bay) is a structure in the Terran Tech Tree which requires a Command Center before it can be built. The Engineering Bay i
+- `Factory` (Terran) - The Factory is one of the advanced Terran tech buildings that allows Terran to build Hellions , Hellbats , Widow Mines , Siege Tanks , and Thors . The Factory requires a Barracks b
+- `FactoryFlying` (Terran)
+- `FactoryReactor` (Terran)
+- `FactoryTechLab` (Terran)
+- `FusionCore` (Terran) - The Fusion Core is a 3.5 tier building that allows the Battlecruiser to be built at the Starport . The Fusion Core requires a Starport to be built and can research Weapon Refit , t
+- `Ghost` (Terran) - The Ghost is a specialized infantry unit built from a Barracks with an attached Tech Lab once a Ghost Academy has been constructed. The Ghost stands as an Anti-Spellcaster unit and
+- `GhostAcademy` (Terran) - The Ghost Academy unlocks the Ghost unit, which can be built from the Barracks . The Ghost Academy can research upgrades for Ghosts and can arm itself with a Nuke that can be deplo
+- `GhostNova` (Terran)
+- `HERC` (Terran)
+- `HERCPlacement` (Terran)
+- `Hellion` (Terran) - A fast expansion-raiding unit and anti-Melee unit when transformed into Hellbats . With a line of effect attack, the same range as a Marine 's attack, Hellions excel at fighting in
+- `HellionTank` (Terran) - A tough melee-range unit with conical splash damage. After finishing an Armory Hellbats can be produced from the Factory or transformed from and into the Hellion (transformation ta
+- `Liberator` (Terran) - The Liberator is a fast and versatile Terran air unit introduced in Legacy of the Void . It can be built from the Starport and double produced from a Reactor . "In order to combat 
+- `LiberatorAG` (Terran)
+- `MULE` (Terran) - The Mobile Utility Lunar Excavator (MULE) is a temporary unit that can mine minerals (not gas) and repair for the Terran forces. MULEs are called down from the Orbital Command at t
+- `Marauder` (Terran) - Produced from a Barracks with a Tech Lab , most of this unit's attention will be against other armored units such as the Roach or the Stalker . Being almost the opposite of a Marin
+- `Marine` (Terran) - Marines are the all-purpose infantry unit produced from a Barracks . Having the quickest and cheapest production of all Terran units make the Mineral backbone that scales very well
+- `Medivac` (Terran) - A dual-purpose Dropship and Medic (12.6 Health per second), the Medivac can be produced immediately from a Starport , possibly with a Reactor . It has the Ignite Afterburners abili
+- `MissileTurret` (Terran) - The Missile Turret (or Turret for short) is the Terran's anti-air static defense as well as one of the Terran's detectors . Missile Turrets require an Engineering Bay in order to b
+- `Nuke` (Terran)
+- `OrbitalCommand` (Terran) - The Orbital Command is an upgraded version of the Command Center that grants the Terran player the ability to Calldown: MULEs , Calldown: Extra Supplies , and use Scanner Sweep . I
+- `OrbitalCommandFlying` (Terran)
+- `PlanetaryFortress` (Terran) - The Planetary Fortress is a static defense upgrade to the Command Center that requires an Engineering Bay to construct. The Planetary Fortress is a defense-oriented upgrade that ha
+- `PointDefenseDrone` (Terran) - The Point Defense Drone (or PDD for short) was a light-air Terran unit removed in the 4.0.0 patch, it is deployed by a Raven at the cost of 100 energy . The Drone is immobile and c
+- `Raven` (Terran) - The Raven is a flying support craft with Detection. Its abilities provide both defensive and offensive capabilities. The Raven is the spiritual successor to StarCraft: Brood War's 
+- `RavenRepairDrone` (Terran)
+- `Reactor` (Terran) - The Reactor is one of the two Terran add-on buildings , which can be built from and attached to Barracks , Factories and Starports . It enables the attached building to build two u
+- `Reaper` (Terran) - The Reaper is a Lightly Armored scouting unit with excellent freedom of movement, with an out-of-combat Health-regeneration ability. This unit can now be produced from a Barracks a
+- `Refinery` (Terran) - The Refinery is the gas extraction building for Terran. When constructed on top of a Vespene Gas Geyser, it allows the Terran player to collect Vespene Gas by sending SCVs into it.
+- `RefineryRich` (Terran)
+- `SCV` (Terran) - The SCV ( S pace C onstruction V ehicle) is the Terran worker unit. It harvests resources, constructs buildings and can repair all Terran mechanical units and buildings. As a build
+- `SensorTower` (Terran) - The Sensor Tower senses - but does not detect - any approaching uncloaked, unburrowed enemy units and displays them as red exclamation marks in the fog of war . An opponent can see
+- `SiegeTank` (Terran) - The long-ranged Siege Tank is a Mechanical unit with high damage, particularly versus Armored like Roaches and Stalkers . Against masses of smaller units, the Siege Tank can switch
+- `SiegeTankSieged` (Terran)
+- `Starport` (Terran) - The Starport is the Terran production building for air units. It requires a Factory before it can be built. It can be lifted off. Initially, the Starport can only produce Vikings ,
+- `StarportFlying` (Terran)
+- `StarportReactor` (Terran)
+- `StarportTechLab` (Terran)
+- `SupplyDepot` (Terran) - The Supply Depot is a building constructed by Terran for the purpose of providing supply. Each Supply Depot raises the Terran's supply cap by eight. Supply Depots are also used for
+- `SupplyDepotLowered` (Terran)
+- `TechLab` (Terran) - The Tech Lab is an add-on for the Barracks , Factory and Starport that unlocks new tech and upgrades. For example, a Barracks with a Tech Lab can produce Marauder and Ghost units. 
+- `Thor` (Terran) - The Thor is a Massive Terran walking gun battery with a strong single-target ground weapon and two long-range anti-air weapons. It is the unit with the highest health, highest armo
+- `ThorAALance` (Terran)
+- `ThorAP` (Terran)
+- `TowerMine` (Terran)
+- `Viking` (Terran)
+- `VikingAssault` (Terran)
+- `VikingFighter` (Terran) - The Viking is an anti-air fighter with the ability to transform into an assault walker, with the transformation taking a number of seconds. The Viking is strongest when supported b
+- `WarHound` (Terran)
+- `WidowMine` (Terran) - A Light Mechanical Mine produced from the Factory with a Reactor . Has no auto attack and must be Burrowed into the ground to use its "Activate Mine" ability to deal Splash damage 
+- `WidowMineBurrowed` (Terran)
+- `Baneling` (Zerg) - The Baneling is a suicide bomber unit morphed from Zerglings after a Baneling Nest has been constructed. Similar to the Infested Terran from Brood War, the Baneling is a suicidal u
+- `BanelingBurrowed` (Zerg)
+- `BanelingCocoon` (Zerg) - The Cocoon is the unit created from any morphable Zerg unit after it has begun mutating into another unit. The Cocoon from a morphing Larva is extremely durable, with 200 hit point
+- `BanelingNest` (Zerg) - The Baneling Nest is a Zerg building that enables a Zerg player to build and upgrade Banelings . The only upgrade available at the Baneling Nest is the Centrifugal Hooks ; which in
+- `BroodLord` (Zerg) - The Brood Lord is a flying heavy-assault Zerg air-to-ground unit that spawns Broodlings when it attacks. The Brood Lord can be morphed from a Corruptor once the Zerg player has mad
+- `BroodLordCocoon` (Zerg)
+- `Broodling` (Zerg) - The Broodling is a small Zerg unit that is spawned on death of most Zerg buildings and whenever Brood Lords attack. It is similar to a slightly weaker Zergling , but has a limited 
+- `Changeling` (Zerg) - The Changeling is a temporary Zerg unit spawned by an Overseer that lasts for 107 seconds. The Changeling spawns as a Zerg-looking unit, but upon seeing an enemy unit or building i
+- `ChangelingMarine` (Zerg)
+- `ChangelingMarineShield` (Zerg)
+- `ChangelingZealot` (Zerg)
+- `ChangelingZergling` (Zerg)
+- `ChangelingZerglingWings` (Zerg)
+- `Corruptor` (Zerg) - The Corruptor is a flying Zerg unit that has strong anti-air capabilities with decent speed. They are also distinguished from Mutalisk by their greater range and huge health pool, 
+- `CreepTumor` (Zerg) - The Creep Tumor is a dedicated creep - generating building initially spawned by Queens . After a brief initialisation phase after placement, the structure automatically burrows and
+- `CreepTumorBurrowed` (Zerg)
+- `CreepTumorQueen` (Zerg)
+- `DefilerMP` (Zerg)
+- `DefilerMPBurrowed` (Zerg)
+- `DevourerCocoonMP` (Zerg)
+- `DevourerMP` (Zerg)
+- `Drone` (Zerg) - The Drone is the basic worker unit for Zerg . It can harvest Minerals and Vespene Gas as well as build any Zerg structure at the cost of its life. Drones differ from Probes and SCV
+- `DroneBurrowed` (Zerg)
+- `Egg` (Zerg)
+- `EvolutionChamber` (Zerg) - The Evolution Chamber is a structure in the Zerg Tech Tree which requires a Hatchery before it can be morphed. The Evolution Chamber is the research center for Melee Attacks , Miss
+- `Extractor` (Zerg) - The Extractor is the Zerg building from which Drones collect Vespene Gas . The Extractor is the Zerg equivalent to the Terran Refinery and the Protoss Assimilator . Besides being t
+- `ExtractorRich` (Zerg)
+- `GreaterSpire` (Zerg) - The Greater Spire is one of two Zerg Tech Tree buildings that are available after the completion of Hive . After Hive is completed, a Zerg player may choose to upgrade their Spire 
+- `GuardianCocoonMP` (Zerg)
+- `GuardianMP` (Zerg)
+- `Hatchery` (Zerg) - The Hatchery is the center of every Zerg base and expansion. It provides the Zerg player with Larvae as well as Creep covering an area of 8x6. Through Larvae and creep, Hatcheries 
+- `Hive` (Zerg) - The Hive is the final upgrade to the Hatchery that unlocks the Zerg players tier-three buildings. To upgrade to Hive, you must have already upgraded to a Lair as well as built an I
+- `Hydralisk` (Zerg) - The Hydralisk is a ranged Lair -tech unit that can be morphed after building a Hydralisk Den . The Hydralisk's fast attack and high damage, along with not relying on bonuses to spe
+- `HydraliskBurrowed` (Zerg)
+- `HydraliskDen` (Zerg) - The Hydralisk Den is a Zerg building that allows the Zerg player to create Hydralisks . The Hydralisk Den requires a Lair to build, making it a tier-two tech building. It enables t
+- `InfestationPit` (Zerg) - The Infestation Pit is a second-tier Zerg building that unlocks the Hive , Infestor , and Swarm Host , as well as the Infestor upgrades. The player may upgrade Neural Parasite at t
+- `InfestedTerransEgg` (Zerg)
+- `InfestedTerransEggPlacement` (Zerg)
+- `Infestor` (Zerg) - The Infestor is an offensive spellcaster, meaning that its abilities are used to harm enemy units rather than support the player's units. It can be built after the Zerg player has 
+- `InfestorBurrowed` (Zerg)
+- `InfestorTerran` (Zerg) - The Infested Terran was a light , ground Zerg unit that was spawned by an Infestor using its Infested Terran spell . The spell, and with it the unit, were removed in Patch 4.11.0 i
+- `InfestorTerranBurrowed` (Zerg)
+- `Lair` (Zerg) - The Lair is a Zerg building that is the direct upgrade from a Hatchery . The Lair has 2,000 health compared to a Hatchery's 1,500. The Lair unlocks many useful tech buildings and u
+- `Larva` (Zerg) - The Larva is the base unit for Zerg. It can morph into one of the following: Despite having only 25 hit points, Larvae are extremely durable with their 10 armor preventing large am
+- `LocustMP` (Zerg) - The Locust is a temporary unit with timed life that is spawned in pairs by a Swarm Host . After spawning, Locusts begin as flying units and are unable to attack. They will fly over
+- `LocustMPFlying` (Zerg)
+- `LurkerDenMP` (Zerg) - The Lurker Den was developed in 2010, but cut in the alpha stages of StarCraft II , and has since been brought back with Legacy of the Void . The Lurker Den can be morphed from a D
+- `LurkerMP` (Zerg) - The Lurker is a Zerg unit that may attack only when burrowed and is also able to burrow without the mutation being evolved. A Hydralisk can be morphed to a Lurker when a Lurker Den
+- `LurkerMPBurrowed` (Zerg)
+- `LurkerMPEgg` (Zerg) - The Cocoon is the unit created from any morphable Zerg unit after it has begun mutating into another unit. The Cocoon from a morphing Larva is extremely durable, with 200 hit point
+- `Mutalisk` (Zerg) - The Mutalisk is an extremely fast air attack unit capable of attacking both air and ground units. The Mutalisk's projectile, called "Glaive Wurm", hits the target and then two subs
+- `NydusCanal` (Zerg) - The Nydus Worm is a Zerg structure used to move units quickly around the map. After the Nydus Network is created, you can build a Nydus Worm anywhere where you have vision without 
+- `NydusCanalAttacker` (Zerg)
+- `NydusCanalCreeper` (Zerg)
+- `NydusNetwork` (Zerg) - The Nydus Network is a tier-two Zerg building that is used to move units quickly around the map. It requires a Lair to build and can create Nydus Worms . A Nydus Worm can be built 
+- `Overlord` (Zerg) - The Overlord is the Zerg's supply generator, equivalent to the Terran's Supply Depot and the Protoss Pylon . The Overlord provides the Zerg player with 8 supply. More must be built
+- `OverlordCocoon` (Zerg)
+- `OverlordTransport` (Zerg)
+- `Overseer` (Zerg) - The Overseer is a Zerg unit that is morphed from an Overlord . It has some abilities which the Overlord does not have: the ability to Detect invisible units, spawn Changelings and 
+- `OverseerSiegeMode` (Zerg)
+- `Queen` (Zerg) - The Queen is an essential unit for the Zerg base, capable of being spawned from any Hatchery after a Spawning Pool has been built. The unit provides light defense against both grou
+- `QueenBurrowed` (Zerg)
+- `QueenMP` (Zerg)
+- `Ravager` (Zerg) - The Ravager is a ranged Zerg ground unit introduced in Legacy of the Void . It morphs from the Roach any time after completing a Roach Warren ; but is not an Armored unit like its 
+- `RavagerBurrowed` (Zerg)
+- `RavagerCocoon` (Zerg) - The Cocoon is the unit created from any morphable Zerg unit after it has begun mutating into another unit. The Cocoon from a morphing Larva is extremely durable, with 200 hit point
+- `Roach` (Zerg) - The Roach is an Armored -ground unit that can be produced after a Roach Warren has been built. The Roach is useful in all three match-ups because it can absorb large amounts of dam
+- `RoachBurrowed` (Zerg)
+- `RoachWarren` (Zerg) - The Roach Warren is a building that gives the Zerg player the ability to create and upgrade Roaches . The two upgrades that are available at the Roach Warren are Tunneling Claws , 
+- `ScourgeMP` (Zerg)
+- `SpawningPool` (Zerg) - The Spawning Pool is the first Zerg tech building; it unlocks Zerg's basic fighting units - Zerglings . Building the Spawning pool also unlocks the Lair , Roach Warren , Baneling N
+- `SpineCrawler` (Zerg) - The Spine Crawler is a Zerg static defense structure that deals 25 damage to ground units with a 5 point damage bonus to armored units. Although similar to the Sunken Colony , the 
+- `SpineCrawlerUprooted` (Zerg)
+- `Spire` (Zerg) - Requiring a Lair to build, this building contains access to all Flyer units and Upgrades listed below. The Spire is needed for the construction of the Zerg aerial units Mutalisk , 
+- `SporeCrawler` (Zerg) - The Spore Crawler is a Zerg base anti-air static defense structure, which deals 15 points of damage to air units and has the ability to detect cloaked units. Although similar to th
+- `SporeCrawlerUprooted` (Zerg)
+- `SwarmHostBurrowedMP` (Zerg)
+- `SwarmHostMP` (Zerg) - The Swarm Host is a Zerg siege unit that requires an Infestation Pit . It attacks in the form of spawning a pair of Locusts with an activated ability. The Locusts are slow-moving g
+- `TransportOverlordCocoon` (Zerg)
+- `Ultralisk` (Zerg) - The Ultralisk is the Zerg 's toughest late-game unit in StarCraft II. It can only be made once a Hive is researched and an Ultralisk Cavern is made. The Ultralisk has been upgraded
+- `UltraliskBurrowed` (Zerg)
+- `UltraliskCavern` (Zerg) - The Ultralisk Cavern is one of two Zerg tech buildings that are available after the completion of Hive . After the Ultralisk Cavern is completed, Ultralisks can be built and their 
+- `Viper` (Zerg) - The Viper is a Zerg flying support caster that requires a Hive . The Viper does not attack. Instead, it uses its spells to disrupt the positioning of enemy units. The Viper is part
+- `Zergling` (Zerg) - The Zergling is a small and fast melee attacker and the backbone of the Zerg army. Individual Zerglings are weak, but large groups can surround and terrorize enemy ground forces. I
+- `ZerglingBurrowed` (Zerg)

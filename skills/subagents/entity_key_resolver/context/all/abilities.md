@@ -1,0 +1,687 @@
+# All Ability Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `ADEPTPHASESHIFT_ADEPTPHASESHIFT` (Protoss, Point) - Activate the Adept's Phase Shift ability, allowing it to teleport to its psionic shade after a short delay, bypassing obstacles and enemy units.
+- `AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD` (Zerg, Point)
+- `ARBITERMPRECALL_ARBITERMPRECALL` (Protoss, Point)
+- `ARBITERMPSTASISFIELD_ARBITERMPSTASISFIELD` (Protoss, PointOrUnit)
+- `ARCHON_WARP_TARGET` (Unit)
+- `ARMORYRESEARCH_TERRANSHIPPLATINGLEVEL1` (Research) - Increase the armor of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPPLATINGLEVEL2` (Research) - Increase the armor of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPPLATINGLEVEL3` (Research) - Increase the armor of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL3` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANVEHICLEANDSHIPPLATINGLEVEL1` (Terran, Research) - Increases the armor of Terran Factory and Starport units.
+- `ARMORYRESEARCH_TERRANVEHICLEANDSHIPPLATINGLEVEL2` (Terran, Research) - Increases the armor of Terran Factory and Starport units.
+- `ARMORYRESEARCH_TERRANVEHICLEANDSHIPPLATINGLEVEL3` (Terran, Research) - Increases the armor of Terran Factory and Starport units.
+- `ARMORYRESEARCH_TERRANVEHICLEPLATINGLEVEL1` (Research) - Increase the armor of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEPLATINGLEVEL2` (Research) - Increase the armor of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEPLATINGLEVEL3` (Research) - Increase the armor of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEWEAPONSLEVEL3` (Terran, Research) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ATTACK` (PointOrUnit)
+- `ATTACKPROTOSSBUILDING_ATTACKBARRAGE` (Point)
+- `ATTACKPROTOSSBUILDING_ATTACKBUILDING` (PointOrUnit)
+- `ATTACKPROTOSSBUILDING_ATTACKTOWARDS` (Point)
+- `ATTACKWARPPRISM_ATTACKBARRAGE` (Point)
+- `ATTACKWARPPRISM_ATTACKTOWARDS` (Point)
+- `ATTACKWARPPRISM_ATTACKWARPPRISM` (PointOrUnit)
+- `ATTACK_ATTACK` (Protoss/Terran/Zerg, PointOrUnit) - Attack some unit or structure.
+- `ATTACK_ATTACKBARRAGE` (Point) - Attack barrage.
+- `ATTACK_ATTACKTOWARDS` (Point) - Attack towards target position.
+- `ATTACK_BATTLECRUISER` (Terran, PointOrUnit) - Command Battlecruiser to attack.
+- `ATTACK_REDIRECT` (PointOrUnit)
+- `BARRACKSREACTORMORPH_REACTOR` (Morph)
+- `BARRACKSTECHLABMORPH_TECHLABBARRACKS` (Morph)
+- `BARRACKSTECHLABRESEARCH_STIMPACK` (Terran, Research) - Every Marine and Marauder gain the Stimpack ability.
+- `BARRACKSTRAIN_GHOST` (Terran, Train) - Train a Ghost, a stealthy special forces unit that can snipe high-value targets, deploy tactical nukes, and use cloaking for strategic advantage.
+- `BARRACKSTRAIN_MARAUDER` (Terran, Train) - Train a Marauder, a heavily armored infantry unit that excels against armored targets with its concussive grenades, complementing Marine forces.
+- `BARRACKSTRAIN_MARINE` (Terran, Train) - Train a Marine, a versatile, low-cost infantry unit that provides reliable ranged damage and forms the backbone of most Terran armies.
+- `BARRACKSTRAIN_REAPER` (Terran, Train) - Train a Reaper, a fast, mobile infantry unit designed for early-game harassment and scouting, capable of jumping cliffs with its jetpack.
+- `BATTLECRUISERATTACK_ATTACKBARRAGE` (Point) - Launch artillery attacks on the target.
+- `BATTLECRUISERATTACK_ATTACKTOWARDS` (Point) - Conduct mobile attacks on the target.
+- `BATTLECRUISERMOVE_ACQUIREMOVE` (PointOrUnit) - Refines movement capabilities, enhancing maneuverability in combat scenarios.
+- `BATTLECRUISERMOVE_TURN` (PointOrUnit) - Adjusts the turning radius of the Battlecruiser, improving its ability to engage targets effectively.
+- `BATTLECRUISERSTOP_CHEER` (None)
+- `BATTLECRUISERSTOP_DANCE` (None)
+- `BATTLECRUISERSTOP_HOLDFIRE` (None)
+- `BEHAVIOR_BUILDINGATTACKOFF` (None)
+- `BEHAVIOR_BUILDINGATTACKON` (Zerg, None)
+- `BEHAVIOR_CLOAKOFF` (None)
+- `BEHAVIOR_CLOAKOFF_BANSHEE` (None)
+- `BEHAVIOR_CLOAKOFF_GHOST` (None)
+- `BEHAVIOR_CLOAKON` (None)
+- `BEHAVIOR_CLOAKON_BANSHEE` (Terran, None) - The Benshee becomes invisible until it runs out of energy or the player cancels Cloak.
+- `BEHAVIOR_CLOAKON_GHOST` (Terran, None) - The Ghost becomes invisible until it runs out of energy or the player cancels Cloak.
+- `BEHAVIOR_GENERATECREEPOFF` (None) - Stop generating Creep.
+- `BEHAVIOR_GENERATECREEPON` (Zerg, None) - Start to generate Creep.
+- `BEHAVIOR_HOLDFIREOFF` (None)
+- `BEHAVIOR_HOLDFIREOFF_GHOST` (None)
+- `BEHAVIOR_HOLDFIREOFF_LURKER` (None)
+- `BEHAVIOR_HOLDFIREON` (None)
+- `BEHAVIOR_HOLDFIREON_GHOST` (Terran, None) - Do not actively attack the enemy.
+- `BEHAVIOR_HOLDFIREON_LURKER` (Zerg, None)
+- `BEHAVIOR_PULSARBEAMOFF` (None)
+- `BEHAVIOR_PULSARBEAMON` (Protoss, None)
+- `BLINDINGCLOUD_BLINDINGCLOUD` (Zerg, Point)
+- `BROODLORDHANGAR_BROODLORDHANGAR` (None)
+- `BROODLORDQUEUE2_CANCEL` (None)
+- `BROODLORDQUEUE2_CANCELSLOT` (None)
+- `BUILDAUTOTURRET_AUTOTURRET` (Terran, Build) - Build an Auto-Turret, a temporary and immobile defense structure.
+- `BUILDINPROGRESSNYDUSCANAL_CANCEL` (None)
+- `BUILDNYDUSCANAL_CANCEL` (None)
+- `BUILDNYDUSCANAL_SUMMONNYDUSCANALATTACKER` (Build)
+- `BUILD_CREEPTUMOR` (Zerg, Build)
+- `BUILD_CREEPTUMOR_QUEEN` (Zerg, Build)
+- `BUILD_CREEPTUMOR_TUMOR` (Zerg, Build)
+- `BUILD_INTERCEPTORS` (Protoss, None)
+- `BUILD_LURKERDEN` (Zerg, Build) - Morph to be a Lurker Den to enhance defense ability.
+- `BUILD_NUKE` (Terran, None) - Build a nuke.
+- `BUILD_NYDUSWORM` (Zerg, Build)
+- `BUILD_REACTOR` (BuildInstant)
+- `BUILD_REACTOR_BARRACKS` (Terran, BuildInstant) - Allows structure create 2 units simultaneously.
+- `BUILD_REACTOR_FACTORY` (Terran, BuildInstant) - Allows structure create 2 units simultaneously.
+- `BUILD_REACTOR_STARPORT` (Terran, BuildInstant) - Allows structure create 2 units simultaneously.
+- `BUILD_SHIELDBATTERY` (Protoss, Build) - Build a Shield Battery to restore shields of a single friendly unit or building within 6 range.
+- `BUILD_STASISTRAP` (Protoss, Build)
+- `BUILD_TECHLAB` (BuildInstant)
+- `BUILD_TECHLAB_BARRACKS` (Terran, BuildInstant) - Unlocks Marauder and is a requirement for Ghost.
+- `BUILD_TECHLAB_FACTORY` (Terran, BuildInstant) - Unlocks Siege Tank and is a requirement for Thor.
+- `BUILD_TECHLAB_STARPORT` (Terran, BuildInstant) - Unlocks Raven and Banshee and is a requirement for Battlecruiser.
+- `BURROWBANELINGDOWN_CANCEL` (None)
+- `BURROWCREEPTUMORDOWN_BURROWDOWN` (Morph)
+- `BURROWDOWN` (Morph)
+- `BURROWDOWN_BANELING` (Zerg, Morph)
+- `BURROWDOWN_DRONE` (Zerg, Morph)
+- `BURROWDOWN_HYDRALISK` (Zerg, Morph)
+- `BURROWDOWN_INFESTOR` (Zerg, Morph)
+- `BURROWDOWN_INFESTORTERRAN` (Zerg, Morph)
+- `BURROWDOWN_LURKER` (Zerg, Morph)
+- `BURROWDOWN_QUEEN` (Zerg, Morph)
+- `BURROWDOWN_RAVAGER` (Zerg, Morph)
+- `BURROWDOWN_ROACH` (Zerg, Morph)
+- `BURROWDOWN_SWARMHOST` (Zerg, Morph)
+- `BURROWDOWN_ULTRALISK` (Zerg, Morph)
+- `BURROWDOWN_WIDOWMINE` (Terran, Morph)
+- `BURROWDOWN_ZERGLING` (Zerg, Morph)
+- `BURROWDRONEDOWN_CANCEL` (None)
+- `BURROWHYDRALISKDOWN_CANCEL` (None)
+- `BURROWINFESTORDOWN_CANCEL` (None)
+- `BURROWLURKERMPDOWN_CANCEL` (None)
+- `BURROWQUEENDOWN_CANCEL` (None)
+- `BURROWRAVAGERDOWN_CANCEL` (None)
+- `BURROWROACHDOWN_CANCEL` (None)
+- `BURROWUP` (Morph)
+- `BURROWUP_BANELING` (Zerg, Morph)
+- `BURROWUP_DRONE` (Zerg, Morph)
+- `BURROWUP_HYDRALISK` (Zerg, Morph)
+- `BURROWUP_INFESTOR` (Zerg, Morph)
+- `BURROWUP_INFESTORTERRAN` (Zerg, Morph)
+- `BURROWUP_LURKER` (Zerg, Morph)
+- `BURROWUP_QUEEN` (Zerg, Morph)
+- `BURROWUP_RAVAGER` (Zerg, Morph)
+- `BURROWUP_ROACH` (Zerg, Morph)
+- `BURROWUP_SWARMHOST` (Morph)
+- `BURROWUP_ULTRALISK` (Zerg, Morph)
+- `BURROWUP_WIDOWMINE` (Terran, Morph) - Enables the Widow Mine to emerge from the ground and regain mobility.
+- `BURROWUP_ZERGLING` (Zerg, Morph)
+- `BURROWZERGLINGDOWN_CANCEL` (None)
+- `CALLDOWNMULE_CALLDOWNMULE` (Terran, PointOrUnit) - Calls down a MULE, a temporary unit with a timed life of 64 seconds that can mine minerals and repair for the Terran forces.
+- `CANCEL` (None)
+- `CANCELSLOT_ADDON` (None)
+- `CANCELSLOT_HANGARQUEUE5` (None)
+- `CANCELSLOT_QUEUE1` (None)
+- `CANCELSLOT_QUEUE5` (None)
+- `CANCELSLOT_QUEUECANCELTOSELECTION` (None)
+- `CANCELSLOT_QUEUEPASSIVE` (None)
+- `CANCELSLOT_QUEUEPASSIVECANCELTOSELECTION` (None)
+- `CANCEL_ADEPTPHASESHIFT` (None)
+- `CANCEL_ADEPTSHADEPHASESHIFT` (Protoss, None)
+- `CANCEL_BARRACKSADDON` (None)
+- `CANCEL_BUILDINPROGRESS` (None)
+- `CANCEL_CREEPTUMOR` (None)
+- `CANCEL_FACTORYADDON` (None)
+- `CANCEL_GRAVITONBEAM` (None)
+- `CANCEL_HANGARQUEUE5` (Protoss, None)
+- `CANCEL_LAST` (None)
+- `CANCEL_LOCKON` (None)
+- `CANCEL_MORPHBROODLORD` (None)
+- `CANCEL_MORPHGREATERSPIRE` (None)
+- `CANCEL_MORPHHIVE` (None)
+- `CANCEL_MORPHLAIR` (None)
+- `CANCEL_MORPHLURKER` (None)
+- `CANCEL_MORPHMOTHERSHIP` (None)
+- `CANCEL_MORPHORBITAL` (None)
+- `CANCEL_MORPHOVERLORDTRANSPORT` (None)
+- `CANCEL_MORPHOVERSEER` (None)
+- `CANCEL_MORPHPLANETARYFORTRESS` (None)
+- `CANCEL_MORPHRAVAGER` (None)
+- `CANCEL_MORPHTHOREXPLOSIVEMODE` (None)
+- `CANCEL_NEURALPARASITE` (None)
+- `CANCEL_NUKE` (None)
+- `CANCEL_QUEUE1` (None)
+- `CANCEL_QUEUE5` (None)
+- `CANCEL_QUEUEADDON` (None)
+- `CANCEL_QUEUECANCELTOSELECTION` (None)
+- `CANCEL_QUEUEPASIVE` (None)
+- `CANCEL_QUEUEPASSIVECANCELTOSELECTION` (None)
+- `CANCEL_SLOT` (None)
+- `CANCEL_SPINECRAWLERROOT` (None)
+- `CANCEL_SPORECRAWLERROOT` (None)
+- `CANCEL_STARPORTADDON` (None)
+- `CANCEL_STASISTRAP` (None)
+- `CANCEL_VOIDRAYPRISMATICALIGNMENT` (None)
+- `CAUSTICSPRAY_CAUSTICSPRAY` (Zerg, Unit)
+- `CHANNELSNIPE_CANCEL` (None)
+- `COMMANDCENTERTRAIN_SCV` (Terran, Train) - Train a SCV, a Terran worker.
+- `COMMANDCENTERTRANSPORT_COMMANDCENTERTRANSPORT` (Unit)
+- `COMPOUNDMANSION_DOORELOWERED_COMPOUNDMANSION_DOORELOWERED` (None)
+- `COMPOUNDMANSION_DOORE_COMPOUNDMANSION_DOORE` (None)
+- `COMPOUNDMANSION_DOORNELOWERED_COMPOUNDMANSION_DOORNELOWERED` (None)
+- `COMPOUNDMANSION_DOORNE_COMPOUNDMANSION_DOORNE` (None)
+- `COMPOUNDMANSION_DOORNLOWERED_COMPOUNDMANSION_DOORNLOWERED` (None)
+- `COMPOUNDMANSION_DOORNWLOWERED_COMPOUNDMANSION_DOORNWLOWERED` (None)
+- `COMPOUNDMANSION_DOORNW_COMPOUNDMANSION_DOORNW` (None)
+- `COMPOUNDMANSION_DOORN_COMPOUNDMANSION_DOORN` (None)
+- `CONTAMINATE_CONTAMINATE` (Zerg, Unit) - The Overseer covers an enemy structure in slime. The structure will be unable to train units or research upgrades for 21 seconds.
+- `CORSAIRMPDISRUPTIONWEB_CORSAIRMPDISRUPTIONWEB` (Protoss, Point)
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRARMORLEVEL1` (Protoss, Research) - Upgrades the armor of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRARMORLEVEL2` (Protoss, Research) - Upgrades the armor of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRARMORLEVEL3` (Protoss, Research) - Upgrades the armor of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRWEAPONSLEVEL1` (Protoss, Research) - Upgrades the damage of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRWEAPONSLEVEL2` (Protoss, Research) - Upgrades the damage of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRWEAPONSLEVEL3` (Protoss, Research) - Upgrades the damage of Protoss air units.
+- `CYBERNETICSCORERESEARCH_RESEARCHHALLUCINATION` (Research)
+- `DEFILERMPBURROW_BURROWDOWN` (Zerg, Morph)
+- `DEFILERMPBURROW_CANCEL` (None)
+- `DEFILERMPCONSUME_DEFILERMPCONSUME` (Zerg, Unit)
+- `DEFILERMPDARKSWARM_DEFILERMPDARKSWARM` (Zerg, Point)
+- `DEFILERMPPLAGUE_DEFILERMPPLAGUE` (Zerg, Point)
+- `DEFILERMPUNBURROW_BURROWUP` (Zerg, Morph)
+- `DIGESTERCREEPSPRAY_DIGESTERCREEPSPRAY` (Zerg, Point)
+- `EFFECT_ABDUCT` (Zerg, Unit)
+- `EFFECT_ANTIARMORMISSILE` (Terran, Unit) - Deploys a Missile which pursues the target unit, and, upon contact, reduces the armor and shield armor of affected units by 2 for 21 seconds.
+- `EFFECT_BLINK` (Point)
+- `EFFECT_BLINK_STALKER` (Protoss, Point)
+- `EFFECT_CHARGE` (Protoss, Unit)
+- `EFFECT_CHRONOBOOSTENERGYCOST` (Protoss, Unit) - Reduce the unit production time or technological research time of the target building.
+- `EFFECT_CORROSIVEBILE` (Zerg, Point) - Launch a missile at the target location, dealing 60 damage to all units and destroying all Force Fields in the area upon impact.
+- `EFFECT_GHOSTSNIPE` (Terran, Unit) - Deal 25 damage to enemy biological units (50 for Psionic).
+- `EFFECT_INJECTLARVA` (Zerg, Unit)
+- `EFFECT_INTERFERENCEMATRIX` (Terran, Unit) - Disables a target unit rendering it unable to attack or use abilities for 11 seconds. Reveals Cloaked units. Can only target mechanical and psionic units.
+- `EFFECT_LOCUSTSWOOP` (Zerg, Point)
+- `EFFECT_MASSRECALL` (Point) - Instantly teleport the unit back to its current location.
+- `EFFECT_MASSRECALL_MOTHERSHIPCORE` (Protoss, Unit) - Instantly teleport the unit back to its current location.
+- `EFFECT_MASSRECALL_NEXUS` (Protoss, Point) - Instantly teleport the unit back to its current location.
+- `EFFECT_MASSRECALL_STRATEGICRECALL` (Protoss, Point) - Instantly teleport the unit back to its current location.
+- `EFFECT_MEDIVACIGNITEAFTERBURNERS` (Terran, None) - Speed boost that increases Medivac's movement speed to 5.95 and acceleration to 1400 for 4.3 seconds.
+- `EFFECT_PHOTONOVERCHARGE` (Protoss, Unit)
+- `EFFECT_PURIFICATIONNOVA` (Protoss, Point)
+- `EFFECT_REPAIR` (Unit)
+- `EFFECT_REPAIR_MULE` (Terran, Unit) - Repair some unit or strcture.
+- `EFFECT_REPAIR_REPAIRDRONE` (Terran, Unit)
+- `EFFECT_REPAIR_SCV` (Terran, Unit) - Repair some unit or strcture.
+- `EFFECT_SHADOWSTRIDE` (Protoss, Point)
+- `EFFECT_SPAWNLOCUSTS` (Zerg, Build)
+- `EFFECT_SPRAY` (Point)
+- `EFFECT_SPRAY_PROTOSS` (Protoss, Point) - Spray a marker.
+- `EFFECT_SPRAY_TERRAN` (Terran, Point) - Spray a marker.
+- `EFFECT_SPRAY_ZERG` (Zerg, Point) - Spray a marker.
+- `EFFECT_STIM` (None)
+- `EFFECT_STIM_MARAUDER` (Terran, None) - Increases the movement speed and firing rate by 50% at the cost of 20 HP.
+- `EFFECT_STIM_MARAUDER_REDIRECT` (None) - Increases inner Marauder movement speed and firing rate by 50% at the cost of 20 HP.
+- `EFFECT_STIM_MARINE` (Terran, None) - Increases the movement speed and firing rate by 50% at the cost of 10 HP.
+- `EFFECT_STIM_MARINE_REDIRECT` (None) - Increases inner Marine movement speed and firing rate by 50% at the cost of 10 HP.
+- `EFFECT_TACTICALJUMP` (Terran, Point) - After 4 seconds, warps to the target location. Battlecruiser is invincible while warping. Stuns and puts the Battlecruiser into a 1 second vulnerability phase before it teleports. 
+- `EFFECT_TIMEWARP` (Protoss, Point)
+- `EFFECT_VOIDRAYPRISMATICALIGNMENT` (Protoss, None)
+- `EMP_EMP` (Terran, Point) - The Ghost fires an EMP Round that removes up to 100 shields and energy from every unit and building within the AoE. Also reveals cloaked units.
+- `ENERGYRECHARGE_ENERGYRECHARGE` (Protoss, Unit) - Restore energy to designated units.
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYARMORLEVEL1` (Terran, Research) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYARMORLEVEL2` (Terran, Research) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYARMORLEVEL3` (Terran, Research) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYWEAPONSLEVEL3` (Terran, Research) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `EVOLUTIONCHAMBERRESEARCH_EVOLVEPROPULSIVEPERISTALSIS` (Research)
+- `EXPLODE_EXPLODE` (Zerg, None)
+- `FACTORYREACTORMORPH_REACTOR` (Morph)
+- `FACTORYTECHLABMORPH_TECHLABFACTORY` (Morph)
+- `FACTORYTECHLABRESEARCH_CYCLONERESEARCHHURRICANETHRUSTERS` (Research)
+- `FACTORYTECHLABRESEARCH_RESEARCHARMORPIERCINGROCKETS` (Research)
+- `FACTORYTECHLABRESEARCH_RESEARCHLOCKONRANGEUPGRADE` (Research)
+- `FACTORYTECHLABRESEARCH_RESEARCHTRANSFORMATIONSERVOS` (Research)
+- `FACTORYTRAIN_FACTORYTRAIN` (Train)
+- `FACTORYTRAIN_HELLION` (Terran, Train) - Train a Hellion, a fast harassment vehicle that incinerates light ground units in a line.
+- `FACTORYTRAIN_SIEGETANK` (Terran, Train) - Train a Siege Tank, a transforming artillery unit that bombards ground targets from long range with devastating area-of-effect damage.
+- `FACTORYTRAIN_THOR` (Terran, Train) - Train a Thor, a heavily-armored combat walker that excels against massive ground units and light air fleets.
+- `FACTORYTRAIN_WIDOWMINE` (Terran, Train) - Train a Widow Mine, a burrowing trap that launches a devastating missile at the first enemy ground or air unit to cross its path.
+- `FEEDBACK_FEEDBACK` (Protoss, Unit)
+- `FLEETBEACONRESEARCH_RESEARCHINTERCEPTORLAUNCHSPEEDUPGRADE` (Research)
+- `FLEETBEACONRESEARCH_RESEARCHVOIDRAYSPEEDUPGRADE` (Protoss, Research)
+- `FLEETBEACONRESEARCH_TEMPESTRANGEUPGRADE` (Research)
+- `FLEETBEACONRESEARCH_TEMPESTRESEARCHGROUNDATTACKUPGRADE` (Protoss, Research)
+- `FORCEFIELD_CANCEL` (None)
+- `FORCEFIELD_FORCEFIELD` (Protoss, Point) - Create a Force Field that blocks movement for 11 seconds.
+- `FORGERESEARCH_PROTOSSGROUNDARMORLEVEL1` (Protoss, Research) - Increases the armor of all Protoss ground forces.
+- `FORGERESEARCH_PROTOSSGROUNDARMORLEVEL2` (Protoss, Research) - Increases the armor of all Protoss ground forces.
+- `FORGERESEARCH_PROTOSSGROUNDARMORLEVEL3` (Protoss, Research) - Increases the armor of all Protoss ground forces.
+- `FORGERESEARCH_PROTOSSGROUNDWEAPONSLEVEL1` (Protoss, Research) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `FORGERESEARCH_PROTOSSGROUNDWEAPONSLEVEL2` (Protoss, Research) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `FORGERESEARCH_PROTOSSGROUNDWEAPONSLEVEL3` (Protoss, Research) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `FORGERESEARCH_PROTOSSSHIELDSLEVEL1` (Protoss, Research) - Upgrades the armor of shields for all Protoss units and structures.
+- `FORGERESEARCH_PROTOSSSHIELDSLEVEL2` (Protoss, Research) - Upgrades the armor of shields for all Protoss units and structures.
+- `FORGERESEARCH_PROTOSSSHIELDSLEVEL3` (Protoss, Research) - Upgrades the armor of shields for all Protoss units and structures.
+- `FUNGALGROWTH_FUNGALGROWTH` (Zerg, Point)
+- `FUSIONCORERESEARCH_RESEARCHBALLISTICRANGE` (Terran, Research)
+- `FUSIONCORERESEARCH_RESEARCHMEDIVACENERGYUPGRADE` (Terran, Research) - Double the energy regeneration rate of Medivac.
+- `FUSIONCORERESEARCH_RESEARCHRAPIDREIGNITIONSYSTEM` (Research)
+- `GATEWAYTRAIN_DARKTEMPLAR` (Protoss, Train) - Train a Dark Templar, a permanently cloaked assassin that deals devastating melee damage to any ground unit that cannot detect it.
+- `GATEWAYTRAIN_HIGHTEMPLAR` (Protoss, Train) - Train a High Templar, a powerful spellcaster that devastates armies with Psionic Storm and neutralizes enemy casters with Feedback.
+- `GATEWAYTRAIN_SENTRY` (Protoss, Train) - Train a Sentry, a tactical support caster that manipulates the battlefield with Force Fields and protects allies with a Guardian Shield.
+- `GATEWAYTRAIN_STALKER` (Protoss, Train) - Train a Stalker, a mobile ranged warrior that can Blink to outmaneuver foes and attack both ground and air targets.
+- `GATEWAYTRAIN_ZEALOT` (Protoss, Train) - Train a Zealot, a durable frontline warrior that charges to rapidly close with and attack ground enemies.
+- `GRAVITONBEAM_GRAVITONBEAM` (Protoss, Unit)
+- `GUARDIANSHIELD_GUARDIANSHIELD` (Protoss, None) - Create a shield bubble around the Sentry that reduces the damage of all incoming ranged attacks by 2 for 15 seconds.
+- `HALLUCINATION_ADEPT` (Protoss, None) - Create a fake Adept to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_ARCHON` (Protoss, None) - Create a fake Archon to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_COLOSSUS` (Protoss, None) - Create a fake Colossus to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_DISRUPTOR` (Protoss, None) - Create a fake Disruptor to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_HIGHTEMPLAR` (Protoss, None) - Create a fake High Templar to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_IMMORTAL` (Protoss, None) - Create a fake Immortal to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_ORACLE` (Protoss, None) - Create a fake Oracle to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_PHOENIX` (Protoss, None) - Create a fake Phoenix to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_PROBE` (Protoss, None) - Create a fake Probe to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_STALKER` (Protoss, None) - Create a fake Stalker to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_VOIDRAY` (Protoss, None) - Create a fake Void Ray to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_WARPPRISM` (Protoss, None) - Create a fake Warp Prism to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_ZEALOT` (Protoss, None) - Create a fake Zealot to serve as a durable scout or to draw enemy fire.
+- `HALT` (None)
+- `HALT_BUILDING` (None)
+- `HALT_TERRANBUILD` (None)
+- `HARVEST_GATHER` (Unit)
+- `HARVEST_GATHER_DRONE` (Zerg, Unit)
+- `HARVEST_GATHER_MULE` (Terran, Unit)
+- `HARVEST_GATHER_PROBE` (Protoss, Unit)
+- `HARVEST_GATHER_SCV` (Terran, Unit)
+- `HARVEST_RETURN` (None)
+- `HARVEST_RETURN_DRONE` (None)
+- `HARVEST_RETURN_MULE` (None)
+- `HARVEST_RETURN_PROBE` (None)
+- `HARVEST_RETURN_SCV` (None)
+- `HERDINTERACT_HERD` (Unit)
+- `HOLDPOSITION` (None)
+- `HOLDPOSITION_BATTLECRUISER` (Terran, None)
+- `HOLDPOSITION_HOLD` (Protoss/Terran/Zerg, None)
+- `HYDRALISKDENRESEARCH_RESEARCHFRENZY` (Zerg, Research)
+- `HYDRALISKFRENZY_HYDRALISKFRENZY` (Zerg, None)
+- `INFESTATIONPITRESEARCH_EVOLVEAMORPHOUSARMORCLOUD` (Research)
+- `INFESTATIONPITRESEARCH_RESEARCHLOCUSTLIFETIMEINCREASE` (Research)
+- `INFESTORENSNARE_INFESTORENSNARE` (Unit)
+- `KD8CHARGE_KD8CHARGE` (Terran, PointOrUnit) - Explodes after a short delay, dealing 5 damage and knocking back nearby units.
+- `LAIRRESEARCH_EVOLVEVENTRALSACKS` (Research)
+- `LAND` (MorphPlace)
+- `LAND_BARRACKS` (Terran, MorphPlace)
+- `LAND_COMMANDCENTER` (Terran, MorphPlace)
+- `LAND_FACTORY` (Terran, MorphPlace)
+- `LAND_ORBITALCOMMAND` (Terran, MorphPlace)
+- `LAND_STARPORT` (Terran, MorphPlace)
+- `LARVATRAIN_CORRUPTOR` (Zerg, Morph) - Train a Corruptor, a dedicated anti-air flying unit that deals bonus damage to massive targets and can morph into the powerful Brood Lord.
+- `LARVATRAIN_DRONE` (Zerg, Morph) - Train a Drone, a basic worker unit that gathers resources and sacrifices itself to create Zerg structures.
+- `LARVATRAIN_HYDRALISK` (Zerg, Morph) - Train a Hydralisk, a versatile ranged attacker effective against both ground and air units.
+- `LARVATRAIN_INFESTOR` (Zerg, Morph) - Train an Infestor, a powerful spellcaster capable of disabling and damaging groups of enemies or temporarily seizing control of a single unit.
+- `LARVATRAIN_MUTALISK` (Zerg, Morph) - Train a Mutalisk, a very fast flying harasser whose glaive attack bounces between multiple enemy targets.
+- `LARVATRAIN_OVERLORD` (Zerg, Morph) - Train an Overlord to provide supply and act as a scout.
+- `LARVATRAIN_ROACH` (Zerg, Morph) - Train a Roach, a durable, armored ground attacker that can rapidly regenerate health while burrowed.
+- `LARVATRAIN_ULTRALISK` (Zerg, Morph) - Train an Ultralisk, a massive, heavily-armored late-game beast that cleaves through ground units with its powerful melee attacks.
+- `LARVATRAIN_VIPER` (Zerg, Morph) - Train a Viper, a flying spellcaster that manipulates the battlefield by pulling key enemy units out of position or disabling them with clouds.
+- `LARVATRAIN_ZERGLING` (Zerg, Morph) - Train a Zergling, a cheap and extremely fast melee attacker, ideal for swarming and overwhelming enemies.
+- `LIBERATORMORPHTOAA_LIBERATORAAMODE` (Morph)
+- `LIBERATORMORPHTOAG_LIBERATORAGMODE` (Morph)
+- `LIFT` (Morph)
+- `LIFT_BARRACKS` (Terran, Morph)
+- `LIFT_COMMANDCENTER` (Terran, Morph)
+- `LIFT_FACTORY` (Terran, Morph)
+- `LIFT_ORBITALCOMMAND` (Terran, Morph)
+- `LIFT_STARPORT` (Terran, Morph)
+- `LOAD` (Unit)
+- `LOADALL` (None)
+- `LOADALL_COMMANDCENTER` (Terran, None)
+- `LOAD_BUNKER` (Terran, Unit) - Load a unit into a Bunker.
+- `LOAD_MEDIVAC` (Terran, Unit) - Load a unit into a Medivac.
+- `LOAD_NYDUSNETWORK` (Zerg, Unit)
+- `LOAD_NYDUSWORM` (Zerg, Unit)
+- `LOAD_OVERLORD` (Zerg, Unit) - The Overlord has a cargo space of 8.
+- `LOAD_WARPPRISM` (Protoss, Unit)
+- `LOCKON_LOCKON` (Terran, Unit) - Locks the Cyclone's weapons on the target unit, increasing the Cyclone's range to 9 and allowing it to move while firing. Canceled if the target moves out of range (9) or vision.
+- `LOCUSTMPFLYINGMORPHTOGROUND_LOCUSTMPFLYINGSWOOP` (Morph)
+- `LOCUSTMPFLYINGSWOOPATTACK_LOCUSTMPFLYINGSWOOP` (PointOrUnit)
+- `LOCUSTMPMORPHTOAIR_LOCUSTMPFLYINGSWOOP` (Morph)
+- `LURKERDENRESEARCH_RESEARCHLURKERRANGE` (Zerg, Research)
+- `MASSIVEKNOCKOVER_MASSIVEKNOCKOVER` (Unit)
+- `MEDIVACHEAL_HEAL` (Terran, Unit) - Enables a Medivac to heal nearby injured units.
+- `MERGEABLE_CANCEL` (None)
+- `MORPHBACKTOGATEWAY_CANCEL` (None)
+- `MORPHTOBANELING_BANELING` (Zerg, Morph)
+- `MORPHTOBANELING_CANCEL` (None)
+- `MORPHTOBROODLORD_BROODLORD` (Zerg, Morph)
+- `MORPHTOCOLLAPSIBLEPURIFIERTOWERDEBRIS_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLEPURIFIERTOWERDEBRIS_MORPHTOCOLLAPSIBLEPURIFIERTOWERDEBRIS` (Morph)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPLEFTGREEN_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPLEFTGREEN_MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPLEFTGREEN` (Morph)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPLEFT_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPLEFT_MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPLEFT` (Morph)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPRIGHTGREEN_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPRIGHTGREEN_MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPRIGHTGREEN` (Morph)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPRIGHT_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPRIGHT_MORPHTOCOLLAPSIBLEROCKTOWERDEBRISRAMPRIGHT` (Morph)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRIS_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLEROCKTOWERDEBRIS_MORPHTOCOLLAPSIBLEROCKTOWERDEBRIS` (Morph)
+- `MORPHTOCOLLAPSIBLETERRANTOWERDEBRISRAMPLEFT_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLETERRANTOWERDEBRISRAMPLEFT_MORPHTOCOLLAPSIBLETERRANTOWERDEBRISRAMPLEFT` (Morph)
+- `MORPHTOCOLLAPSIBLETERRANTOWERDEBRISRAMPRIGHT_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLETERRANTOWERDEBRISRAMPRIGHT_MORPHTOCOLLAPSIBLETERRANTOWERDEBRISRAMPRIGHT` (Morph)
+- `MORPHTOCOLLAPSIBLETERRANTOWERDEBRIS_CANCEL` (None)
+- `MORPHTOCOLLAPSIBLETERRANTOWERDEBRIS_MORPHTOCOLLAPSIBLETERRANTOWERDEBRIS` (Morph)
+- `MORPHTODEVOURERMP_CANCEL` (None)
+- `MORPHTODEVOURERMP_MORPHTODEVOURERMP` (Morph)
+- `MORPHTOGHOSTNOVA_MOVE` (Morph)
+- `MORPHTOGUARDIANMP_CANCEL` (None)
+- `MORPHTOGUARDIANMP_MORPHTOGUARDIANMP` (Morph)
+- `MORPHTOINFESTEDTERRAN_INFESTEDTERRANS` (Morph)
+- `MORPHTORAVAGER_RAVAGER` (Zerg, Morph) - Morphs the Roach into a Ravager to be better at remote AOE attacks.
+- `MORPHTOSWARMHOSTBURROWEDMP_CANCEL` (None)
+- `MORPH_ARCHON` (Protoss, Morph)
+- `MORPH_GATEWAY` (Protoss, Morph) - The Warpgate transforms back into a Gateway.
+- `MORPH_HELLBAT` (Terran, Morph) - Transforms the Hellion into its Hellbat form, short-range defense mode.
+- `MORPH_HELLION` (Terran, Morph) - Transforms the Hellbat into its Hellion form, remote support mode.
+- `MORPH_LIBERATORAAMODE` (Terran, Morph) - Reverts to Fighter Mode. In this mode, Liberators can move, but they can only target air units.
+- `MORPH_LIBERATORAGMODE` (Terran, MorphPlace) - Deploys into Defender Mode. In this mode, Liberators inflict single target damage to ground units. Liberators in this mode cannot move.
+- `MORPH_LURKER` (Zerg, Morph)
+- `MORPH_MOTHERSHIP` (Protoss, Morph)
+- `MORPH_OBSERVERMODE` (Protoss, Morph) - Transforms the Observer to standard Observer Mode. Allows the Observer to move at the cost of decreased sight radius.
+- `MORPH_OVERLORDTRANSPORT` (Zerg, Morph) - Upgrade to gain transport ability.
+- `MORPH_OVERSEER` (Zerg, Morph) - Morph to Overseer to detect invisible units but lose 8 supply.
+- `MORPH_OVERSEERMODE` (Zerg, Morph) - Morph to Overseer to detect invisible units but lose 8 supply.
+- `MORPH_OVERSIGHTMODE` (Zerg, Morph) - Grants the Overseer 25% wider vision, but removes its ability to move.
+- `MORPH_ROOT` (MorphPlace)
+- `MORPH_SUPPLYDEPOT_LOWER` (Terran, Morph)
+- `MORPH_SUPPLYDEPOT_RAISE` (Terran, Morph)
+- `MORPH_SURVEILLANCEMODE` (Protoss, Morph) - Transforms the Observer to Surveillance Mode. The Observer gains 25% wider vision, but loses the ability to move.
+- `MORPH_THOREXPLOSIVEMODE` (Terran, Morph) - Arms the Thor's Javelin missile launchers, which deal splash damage to nearby air units and additional damage to Light units.
+- `MORPH_THORHIGHIMPACTMODE` (Terran, Morph) - Activates the Thor's 250mm Punisher Cannons, which strike a single air target for heavy damage.
+- `MORPH_UPROOT` (Morph)
+- `MORPH_VIKINGASSAULTMODE` (Terran, Morph) - Transforms the Viking into Assault Mode where it becomes a Ground unit with a ground attack.
+- `MORPH_VIKINGFIGHTERMODE` (Terran, Morph) - Transforms the Viking into Fighter Mode where it becomes an Air unit with an anti-air attack.
+- `MORPH_WARPGATE` (Protoss, Morph) - Transforms the Gateway into a Warp Gate.
+- `MORPH_WARPPRISMPHASINGMODE` (Protoss, Morph)
+- `MORPH_WARPPRISMTRANSPORTMODE` (Protoss, Morph)
+- `MOTHERSHIPCLOAK_ORACLECLOAKFIELD` (Protoss, None)
+- `MOVE` (PointOrUnit) - Move to target position.
+- `MOVE_BATTLECRUISER` (Terran, PointOrUnit) - Command Battlecruiser to move.
+- `MOVE_MOVE` (Protoss/Terran/Zerg, PointOrUnit) - Move to target position.
+- `MOVE_TURN` (PointOrUnit)
+- `NEURALPARASITE_NEURALPARASITE` (Zerg, Unit)
+- `NEXUSINVULNERABILITY_NEXUSINVULNERABILITY` (Unit)
+- `NEXUSTRAINMOTHERSHIP_MOTHERSHIP` (Protoss, Train)
+- `NEXUSTRAIN_PROBE` (Protoss, Train) - Train a Probe.
+- `ORACLEREVELATION_ORACLEREVELATION` (Protoss, Point)
+- `ORACLESTASISTRAPACTIVATE_ACTIVATESTASISWARD` (None)
+- `PARASITICBOMBRELAYDODGE_PARASITICBOMB` (Point)
+- `PARASITICBOMB_PARASITICBOMB` (Zerg, Unit)
+- `PATROL` (PointOrUnit)
+- `PATROL_BATTLECRUISER` (Terran, PointOrUnit)
+- `PATROL_PATROL` (Protoss/Terran/Zerg, PointOrUnit) - Command unit to patrol from current position to target position.
+- `PHASINGMODE_CANCEL` (None)
+- `PICKUPPALLETGAS_PICKUPPALLETGAS` (Unit)
+- `PICKUPPALLETMINERALS_PICKUPPALLETMINERALS` (Unit)
+- `PICKUPSCRAPLARGE_PICKUPSCRAPLARGE` (Unit)
+- `PICKUPSCRAPMEDIUM_PICKUPSCRAPMEDIUM` (Unit)
+- `PICKUPSCRAPSMALL_PICKUPSCRAPSMALL` (Unit)
+- `PROTOSSBUILD_ASSIMILATOR` (Protoss, BuildOnUnit) - Build an assimilator, built on a Vespene Geyser that allows Probes to harvest gas.
+- `PROTOSSBUILD_CANCEL` (None)
+- `PROTOSSBUILD_CYBERNETICSCORE` (Protoss, Build) - Build a Cybernetics Core.
+- `PROTOSSBUILD_DARKSHRINE` (Protoss, Build) - Build a Dark Shrine.
+- `PROTOSSBUILD_FLEETBEACON` (Protoss, Build) - Build a Fleet Beacon.
+- `PROTOSSBUILD_FORGE` (Protoss, Build) - Build a Forge.
+- `PROTOSSBUILD_GATEWAY` (Protoss, Build) - Build a Gateway to training ground units.
+- `PROTOSSBUILD_NEXUS` (Protoss, Build) - Build a Nexus.
+- `PROTOSSBUILD_PHOTONCANNON` (Protoss, Build) - Build a Photon Cannon, a static defense structure that detects and attacks both ground and air units.
+- `PROTOSSBUILD_PYLON` (Protoss, Build) - Build a Pylon, providing supply and projects a power field.
+- `PROTOSSBUILD_ROBOTICSBAY` (Protoss, Build) - Build a Robotics Bay to unlocks the powerful Colossus and Disruptor units.
+- `PROTOSSBUILD_ROBOTICSFACILITY` (Protoss, Build) - Build a Robotics Facility.
+- `PROTOSSBUILD_STARGATE` (Protoss, Build) - Build a Protoss Stargate.
+- `PROTOSSBUILD_TEMPLARARCHIVE` (Protoss, Build) - Build a Templar Archive.
+- `PROTOSSBUILD_TWILIGHTCOUNCIL` (Protoss, Build) - Build a Twilight Council.
+- `PSISTORM_PSISTORM` (Protoss, Point)
+- `PURIFICATIONNOVAMORPHBACK_PURIFICATIONNOVA` (Morph)
+- `PURIFICATIONNOVA_PURIFICATIONNOVA` (None)
+- `PURIFYMORPHPYLONBACK_MOTHERSHIPCOREWEAPON` (Morph)
+- `PURIFYMORPHPYLON_MOTHERSHIPCOREWEAPON` (Morph)
+- `QUEENBUILD_CANCEL` (None)
+- `QUEENMPENSNARE_QUEENMPENSNARE` (Zerg, Point)
+- `QUEENMPINFESTCOMMANDCENTER_QUEENMPINFESTCOMMANDCENTER` (Zerg, None)
+- `QUEENMPSPAWNBROODLINGS_QUEENMPSPAWNBROODLINGS` (Zerg, Unit)
+- `RALLY_BUILDING` (Protoss/Terran/Zerg, PointOrUnit)
+- `RALLY_COMMANDCENTER` (Terran, PointOrUnit)
+- `RALLY_HATCHERY_UNITS` (Zerg, PointOrUnit)
+- `RALLY_HATCHERY_WORKERS` (Zerg, PointOrUnit)
+- `RALLY_MORPHING_UNIT` (PointOrUnit)
+- `RALLY_NEXUS` (Protoss, PointOrUnit)
+- `RALLY_UNITS` (PointOrUnit)
+- `RALLY_WORKERS` (PointOrUnit)
+- `REACTORMORPH_REACTORMORPH` (Morph)
+- `RESEARCH_ADAPTIVETALONS` (Zerg, Research) - Reduces the time Lurkers take to burrow from 2 seconds to 1.07 seconds.
+- `RESEARCH_ADEPTRESONATINGGLAIVES` (Protoss, Research) - Increases the attack speed of the Adept by 45%.
+- `RESEARCH_ANABOLICSYNTHESIS` (Zerg, Research) - Increases the movement speed of Ultralisks off creep.
+- `RESEARCH_BANSHEECLOAKINGFIELD` (Terran, Research) - Allows Banshees to use the Cloak ability.
+- `RESEARCH_BANSHEEHYPERFLIGHTROTORS` (Terran, Research) - Increases the movement speed of Banshees from 3.85 to 5.25.
+- `RESEARCH_BATTLECRUISERWEAPONREFIT` (Terran, Research) - Allows Battlecruisers to use the Yamato Cannon ability.
+- `RESEARCH_BLINK` (Protoss, Research) - Gives Stalkers the ability to teleport to a nearby target location.
+- `RESEARCH_BURROW` (Zerg, Research) - Enables all Zerg ground units to use the Burrow ability. Burrow allows a unit to take cover underground, rendering it unable to attack.
+- `RESEARCH_CENTRIFUGALHOOKS` (Zerg, Research) - Increases Baneling movement speed to 4.13 (+0.63). Banelings will roll instead of running. Requires a Lair.
+- `RESEARCH_CHARGE` (Protoss, Research) - Grants the Charge ability. Also increases the movement speed of Zealots to 4.725.
+- `RESEARCH_CHITINOUSPLATING` (Zerg, Research) - Increases the armor of all Ultralisks by 2.
+- `RESEARCH_COMBATSHIELD` (Terran, Research) - Every Marine gains a Combat Shield that gives 10 hitpoints.
+- `RESEARCH_CONCUSSIVESHELLS` (Terran, Research) - Marauders gain the Concussive Shells ability.
+- `RESEARCH_CYCLONELOCKONDAMAGE` (Terran, Research) - Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets.
+- `RESEARCH_CYCLONERAPIDFIRELAUNCHERS` (Research)
+- `RESEARCH_DRILLINGCLAWS` (Terran, Research) - Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading.
+- `RESEARCH_EXTENDEDTHERMALLANCE` (Protoss, Research)
+- `RESEARCH_GLIALREGENERATION` (Zerg, Research) - Increases Roach movement speed to 4.2 (+1.05) while unburrowed, and to 4.4 while burrowed under creep.
+- `RESEARCH_GRAVITICBOOSTER` (Protoss, Research)
+- `RESEARCH_GRAVITICDRIVE` (Protoss, Research)
+- `RESEARCH_GROOVEDSPINES` (Zerg, Research) - Increases the attack range of Hydralisks by +1.
+- `RESEARCH_HISECAUTOTRACKING` (Terran, Research) - Adds +1 attack range to Auto-Turrets, Missile Turrets, and Planetary Fortresses.
+- `RESEARCH_INFERNALPREIGNITER` (Terran, Research) - Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage.
+- `RESEARCH_MUSCULARAUGMENTS` (Zerg, Research) - Increases the movement speed of Hydralisks.
+- `RESEARCH_NEOSTEELFRAME` (Research)
+- `RESEARCH_NEURALPARASITE` (Zerg, Research) - Allows Infestors to use the Neural Parasite ability.
+- `RESEARCH_PERSONALCLOAKING` (Terran, Research) - Enables Ghosts to use the Cloak ability. Cloak renders a unit invisible to enemies unless it's revealed by detectors or effects.
+- `RESEARCH_PHOENIXANIONPULSECRYSTALS` (Protoss, Research)
+- `RESEARCH_PNEUMATIZEDCARAPACE` (Zerg, Research) - Increases the movement speed of Overlords to 3.00 and Overseers to 4.72.
+- `RESEARCH_PSISTORM` (Protoss, Research)
+- `RESEARCH_RAVENCORVIDREACTOR` (Terran, Research) - Increases the Raven's starting energy by 25.
+- `RESEARCH_RAVENRECALIBRATEDEXPLOSIVES` (Research)
+- `RESEARCH_SHADOWSTRIKE` (Protoss, Research)
+- `RESEARCH_SMARTSERVOS` (Terran, Research) - Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes.
+- `RESEARCH_TERRANSTRUCTUREARMORUPGRADE` (Terran, Research) - Increases the armor of the Point Defense Drone, Auto-Turret, Missile Turret, Planetary Fortress, and all other Terran structures by 2.
+- `RESEARCH_TUNNELINGCLAWS` (Zerg, Research) - Gives Roaches the ability to move while burrowed at a speed of 2.8.
+- `RESEARCH_WARPGATE` (Protoss, Research) - Allows Gateways to be changed into Warp Gates.
+- `RESEARCH_ZERGFLYERARMORLEVEL1` (Zerg, Research) - Increases the armor of all Zerg air units.
+- `RESEARCH_ZERGFLYERARMORLEVEL2` (Zerg, Research) - Increases the armor of all Zerg air units.
+- `RESEARCH_ZERGFLYERARMORLEVEL3` (Zerg, Research) - Increases the armor of all Zerg air units.
+- `RESEARCH_ZERGFLYERATTACKLEVEL1` (Zerg, Research) - Increases the attack damage of all Zerg air units.
+- `RESEARCH_ZERGFLYERATTACKLEVEL2` (Zerg, Research) - Increases the attack damage of all Zerg air units.
+- `RESEARCH_ZERGFLYERATTACKLEVEL3` (Zerg, Research) - Increases the attack damage of all Zerg air units.
+- `RESEARCH_ZERGGROUNDARMORLEVEL1` (Zerg, Research) - Increases the armor of all Zerg ground units.
+- `RESEARCH_ZERGGROUNDARMORLEVEL2` (Zerg, Research) - Increases the armor of all Zerg ground units.
+- `RESEARCH_ZERGGROUNDARMORLEVEL3` (Zerg, Research) - Increases the armor of all Zerg ground units.
+- `RESEARCH_ZERGLINGADRENALGLANDS` (Zerg, Research)
+- `RESEARCH_ZERGLINGMETABOLICBOOST` (Zerg, Research) - Increases Zergling movement speed by 60% to 6.58 (+2.45).
+- `RESEARCH_ZERGMELEEWEAPONSLEVEL1` (Zerg, Research) - Increases the attack damage of all Zerg ground/melee units.
+- `RESEARCH_ZERGMELEEWEAPONSLEVEL2` (Zerg, Research) - Increases the attack damage of all Zerg ground/melee units.
+- `RESEARCH_ZERGMELEEWEAPONSLEVEL3` (Zerg, Research) - Increases the attack damage of all Zerg ground/melee units.
+- `RESEARCH_ZERGMISSILEWEAPONSLEVEL1` (Zerg, Research) - Increases the attack damage of all Zerg ground/ranged units.
+- `RESEARCH_ZERGMISSILEWEAPONSLEVEL2` (Zerg, Research) - Increases the attack damage of all Zerg ground/ranged units.
+- `RESEARCH_ZERGMISSILEWEAPONSLEVEL3` (Zerg, Research) - Increases the attack damage of all Zerg ground/ranged units.
+- `ROACHWARRENRESEARCH_ROACHSUPPLY` (Research)
+- `ROBOTICSBAYRESEARCH_RESEARCHIMMORTALREVIVE` (Research)
+- `ROBOTICSFACILITYTRAIN_COLOSSUS` (Protoss, Train) - Train a Colossus, a massive walker whose twin thermal lances incinerate large groups of ground units from a long range.
+- `ROBOTICSFACILITYTRAIN_IMMORTAL` (Protoss, Train) - Train a Immortal, a heavily armored walker that demolishes armored targets and can activate a barrier to survive heavy fire.
+- `ROBOTICSFACILITYTRAIN_OBSERVER` (Protoss, Train) - Train an Observer, a permanently cloaked aerial scout that provides crucial vision and detects hidden enemy units.
+- `ROBOTICSFACILITYTRAIN_WARPPRISM` (Protoss, Train) - Train a Warpprism, an aerial transport that can deploy into a mobile power field, allowing you to warp in units anywhere on the battlefield.
+- `SALVAGEEFFECT_SALVAGE` (Terran, None)
+- `SAPSTRUCTURE_SAPSTRUCTURE` (Unit)
+- `SCANNERSWEEP_SCAN` (Terran, Point)
+- `SCAN_MOVE` (Protoss/Terran/Zerg, PointOrUnit)
+- `SEEKERDUMMYCHANNEL_SEEKERDUMMYCHANNEL` (None)
+- `SHATTER_SHATTER` (Unit)
+- `SHIELDBATTERYRECHARGEEX5_SHIELDBATTERYRECHARGE` (Protoss, Unit) - Recharges the shield of a close-by friendly Protoss unit for 119.1 shield per second.
+- `SHIELDBATTERYRECHARGEEX5_STOP` (None)
+- `SIEGEMODE_SIEGEMODE` (Terran, Morph) - Transforms a Siege Tank into Siege Mode, increasing its attack range and damage but preventing movement.
+- `SLAYNELEMENTALGRAB_SLAYNELEMENTALGRAB` (Unit)
+- `SMART` (Protoss/Terran/Zerg, PointOrUnit)
+- `SPAWNCHANGELING_SPAWNCHANGELING` (Zerg, Train) - Spawn a Changeling, a small unit with timed life and no attack. When a Changeling first encounters an enemy unit, it will match that unit's color and change into a Zealot, Marine, 
+- `SPINECRAWLERROOT_SPINECRAWLERROOT` (Zerg, MorphPlace) - Gain attack and lose mobility capability.
+- `SPINECRAWLERUPROOT_CANCEL` (None)
+- `SPINECRAWLERUPROOT_SPINECRAWLERUPROOT` (Zerg, Morph) - Gain mobility and lose attack capability.
+- `SPORECRAWLERROOT_SPORECRAWLERROOT` (Zerg, MorphPlace) - Gain attack and lose mobility capability.
+- `SPORECRAWLERUPROOT_CANCEL` (None)
+- `SPORECRAWLERUPROOT_SPORECRAWLERUPROOT` (Zerg, Morph) - Gain mobility and lose attack capability.
+- `STARGATETRAIN_CARRIER` (Protoss, Train) - Train a Carrier, a powerful capital ship that launches swarms of robotic Interceptors to overwhelm its targets.
+- `STARGATETRAIN_ORACLE` (Protoss, Train) - Train an Oracle, a swift harassment and support craft that can reveal enemy armies, trap units in stasis, and eliminate worker lines.
+- `STARGATETRAIN_PHOENIX` (Protoss, Train) - Train a Phoenix, a swift anti-air fighter that can lift and disable single ground units.
+- `STARGATETRAIN_TEMPEST` (Protoss, Train) - Train a Tempest, a long-range artillery ship that bombards key targets from extreme distances, specializing in destroying massive air units.
+- `STARGATETRAIN_VOIDRAY` (Protoss, Train) - Train a Void Ray, an assault ship whose beam focuses on a single target to rapidly ramp up its damage, melting armored units and buildings.
+- `STARPORTREACTORMORPH_REACTOR` (Morph)
+- `STARPORTTECHLABMORPH_TECHLABSTARPORT` (Morph)
+- `STARPORTTECHLABRESEARCH_RAVENRESEARCHENHANCEDMUNITIONS` (Research)
+- `STARPORTTECHLABRESEARCH_RESEARCHDURABLEMATERIALS` (Research) - Increases the duration of Auto-Turrets and Point Defense Drones from 180 to 240 seconds, and increases the duration of the Seeker Missile from 15 to 20 Seconds.
+- `STARPORTTECHLABRESEARCH_RESEARCHLIBERATORAGMODE` (Research)
+- `STARPORTTECHLABRESEARCH_RESEARCHRAPIDDEPLOYMENT` (Research)
+- `STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX` (Terran, Research) - Allows Ravens to use the Interference Matrix ability.
+- `STARPORTTECHLABRESEARCH_RESEARCHSEEKERMISSILE` (Research)
+- `STARPORTTRAIN_BANSHEE` (Terran, Train) - Train a Banshee, a cloaked air unit that excels at surprise attacks against ground targets.
+- `STARPORTTRAIN_BATTLECRUISER` (Terran, Train) - Train a Battle Cruiser, a powerful capital ship that can teleport across the map and unleash a devastating single-target blast.
+- `STARPORTTRAIN_LIBERATOR` (Terran, Train) - Train a Liberator, an air unit that transforms into a stationary platform to lockdown and destroy ground targets in a designated area.
+- `STARPORTTRAIN_MEDIVAC` (Terran, Train) - Train a Medivac, a flying support unit that heals biological forces and transports them across the battlefield.
+- `STARPORTTRAIN_RAVEN` (Terran, Train) - Train a Raven, a flying spellcaster that disrupts enemy armies with debilitating abilities and provides detection.
+- `STARPORTTRAIN_VIKINGFIGHTER` (Terran, Train) - Train a Viking Fighter, a transforming fighter that dominates the skies in air mode and provides ground support in assault mode.
+- `STOP` (None)
+- `STOPPROTOSSBUILDING_CHEER` (None)
+- `STOPPROTOSSBUILDING_DANCE` (None)
+- `STOPPROTOSSBUILDING_HOLDFIRE` (None)
+- `STOP_BATTLECRUISER` (Terran, None) - Immediately halts all movement and actions of the Battlecruiser.
+- `STOP_BUILDING` (None)
+- `STOP_CHEER` (None)
+- `STOP_DANCE` (None)
+- `STOP_HOLDFIRESPECIAL` (None)
+- `STOP_REDIRECT` (None)
+- `STOP_STOP` (Protoss/Terran/Zerg, None)
+- `SUPPLYDROP_SUPPLYDROP` (Terran, Unit)
+- `TACNUKESTRIKE_NUKECALLDOWN` (Point)
+- `TARSONIS_DOORELOWERED_TARSONIS_DOORELOWERED` (None)
+- `TARSONIS_DOORE_TARSONIS_DOORE` (None)
+- `TARSONIS_DOORNELOWERED_TARSONIS_DOORNELOWERED` (None)
+- `TARSONIS_DOORNE_TARSONIS_DOORNE` (None)
+- `TARSONIS_DOORNLOWERED_TARSONIS_DOORNLOWERED` (None)
+- `TARSONIS_DOORNWLOWERED_TARSONIS_DOORNWLOWERED` (None)
+- `TARSONIS_DOORNW_TARSONIS_DOORNW` (None)
+- `TARSONIS_DOORN_TARSONIS_DOORN` (None)
+- `TAUNT_TAUNT` (PointOrUnit)
+- `TECHLABMORPH_TECHLABMORPH` (Morph)
+- `TERRANBUILD_ARMORY` (Terran, Build) - Build a Armory to unlock the Hellbat, Thor and higher-level infantry upgrades.
+- `TERRANBUILD_BARRACKS` (Terran, Build) - Build a Barracks to produce infantry units (Marine, Reaper, Marauder, Ghost).
+- `TERRANBUILD_BUNKER` (Terran, Build) - Build a Bunker, a static defense building.
+- `TERRANBUILD_COMMANDCENTER` (Terran, Build) - Build a Command Center, the Terran base.
+- `TERRANBUILD_ENGINEERINGBAY` (Terran, Build) - Build an Engineer Bay to unlock Missile Turret, Sensor Tower and Planetary Fortress.
+- `TERRANBUILD_FACTORY` (Terran, Build) - Build a Factory to produce mechanical ground units (Hellion, Widow Mine, Siege Tank, Hellbat, Thor) and unlock the Starport and Armory.
+- `TERRANBUILD_FUSIONCORE` (Terran, Build) - Build a Fusion Core to unlock Battlecruiser.
+- `TERRANBUILD_GHOSTACADEMY` (Terran, Build) - Build a Ghost Academy to unlock the Ghost unit.
+- `TERRANBUILD_MISSILETURRET` (Terran, Build) - Build a Missile Turret to attack flying units.
+- `TERRANBUILD_REFINERY` (Terran, BuildOnUnit) - Build a Refinery on a Vespene Geyser.
+- `TERRANBUILD_SENSORTOWER` (Terran, Build) - Build a Sensor Tower, which senses any approaching uncloaked, unburrowed enemy units.
+- `TERRANBUILD_STARPORT` (Terran, Build) - Build a Starport to produce air units (Viking, Medivac, Banshee, Raven, Battlecruiser).
+- `TERRANBUILD_SUPPLYDEPOT` (Terran, Build) - Build a Supply Depot to increase 8 supplies and unlock Barracks.
+- `TESTZERG_CANCEL` (None)
+- `TESTZERG_TESTZERG` (Point)
+- `THORAPMODE_CANCEL` (None)
+- `TORNADOMISSILE_TORNADOMISSILE` (Terran, Unit)
+- `TOWERCAPTURE_TOWERCAPTURE` (Unit)
+- `TRAINQUEEN_QUEEN` (Zerg, Build) - Train a Queen, a vital defensive unit that injects larva into Hatchery to mass-produce army.
+- `TRAINWARP_ADEPT` (Protoss, TrainPlace) - Train an Adept, a ranged warrior that projects a psionic shade to teleport past enemy forces and harass light units.
+- `TRAIN_ADEPT` (Protoss, Train) - Train an Adept, a ranged warrior that projects a psionic shade to teleport past enemy forces and harass light units.
+- `TRAIN_CYCLONE` (Terran, Train) - Train a Cyclone, locking onto a single air or ground target to deal immense damage while moving to stay at range.
+- `TRAIN_DISRUPTOR` (Protoss, Train)
+- `TRAIN_HELLBAT` (Terran, Train) - Train a Hellbat, a tough, short-ranged walker that incinerates masses of light units with its wide flame attack.
+- `TRAIN_SWARMHOST` (Zerg, Train)
+- `TRANSFUSION_TRANSFUSION` (Zerg, Unit)
+- `TRANSPORTMODE_CANCEL` (None)
+- `TWILIGHTCOUNCILRESEARCH_RESEARCHAMPLIFIEDSHIELDING` (Research)
+- `TWILIGHTCOUNCILRESEARCH_RESEARCHPSIONICAMPLIFIERS` (Research)
+- `TWILIGHTCOUNCILRESEARCH_RESEARCHPSIONICSURGE` (Research)
+- `ULTRALISKWEAPONCOOLDOWN_ULTRALISKWEAPONCOOLDOWN` (None)
+- `UNLOADALL` (None)
+- `UNLOADALLAT` (PointOrUnit)
+- `UNLOADALLAT_MEDIVAC` (PointOrUnit)
+- `UNLOADALLAT_OVERLORD` (PointOrUnit)
+- `UNLOADALLAT_WARPPRISM` (PointOrUnit)
+- `UNLOADALL_BUNKER` (None) - Unload all units from a Bunker.
+- `UNLOADALL_COMMANDCENTER` (None)
+- `UNLOADALL_NYDASNETWORK` (None)
+- `UNLOADALL_NYDUSWORM` (None)
+- `UNLOADALL_WARPPRISM` (None)
+- `UNLOADUNIT` (None)
+- `UNLOADUNIT_BUNKER` (None)
+- `UNLOADUNIT_COMMANDCENTER` (None)
+- `UNLOADUNIT_MEDIVAC` (None)
+- `UNLOADUNIT_NYDASNETWORK` (None)
+- `UNLOADUNIT_OVERLORD` (None)
+- `UNLOADUNIT_WARPPRISM` (None)
+- `UNSIEGE_UNSIEGE` (Terran, Morph) - Converts a Siege Tank back from Siege Mode to its regular mode.
+- `UPGRADETOGREATERSPIRE_GREATERSPIRE` (Zerg, Morph)
+- `UPGRADETOHIVE_HIVE` (Zerg, Morph)
+- `UPGRADETOLAIR_LAIR` (Zerg, Morph) - Upgrade to be a Lair to unlock more units and upgrades.
+- `UPGRADETOORBITAL_ORBITALCOMMAND` (Terran, Morph) - Unlocks MULE (Faster Mineral Income), Extra Supplies (Doubles Supply Depot food), and use Scanner Sweep (Reveal any part of the map).
+- `UPGRADETOPLANETARYFORTRESS_PLANETARYFORTRESS` (Terran, Morph) - Enhance the defense capability of Command Center.
+- `UPGRADETOWARPGATE_CANCEL` (None)
+- `VIPERCONSUMESTRUCTURE_VIPERCONSUME` (Zerg, Unit)
+- `VIPERPARASITICBOMBRELAY_PARASITICBOMB` (Unit)
+- `VOIDMPIMMORTALREVIVEREBUILD_IMMORTAL` (Protoss, None)
+- `WARPABLE_CANCEL` (None)
+- `WARPGATETRAIN_DARKTEMPLAR` (Protoss, TrainPlace) - Train a Dark Templar, a permanently cloaked assassin that deals devastating melee damage to any ground unit that cannot detect it.
+- `WARPGATETRAIN_HIGHTEMPLAR` (Protoss, TrainPlace) - Train a High Templar, a powerful spellcaster that devastates armies with Psionic Storm and neutralizes enemy casters with Feedback.
+- `WARPGATETRAIN_SENTRY` (Protoss, TrainPlace) - Train a Sentry, a tactical support caster that manipulates the battlefield with Force Fields and protects allies with a Guardian Shield.
+- `WARPGATETRAIN_STALKER` (Protoss, TrainPlace) - Train a Stalker, a mobile ranged warrior that can Blink to outmaneuver foes and attack both ground and air targets.
+- `WARPGATETRAIN_ZEALOT` (Protoss, TrainPlace) - Train a Zealot, a durable frontline warrior that charges to rapidly close with and attack ground enemies.
+- `WIDOWMINEATTACK_WIDOWMINEATTACK` (Terran, Unit) - Command Widow Mine to attack.
+- `WIDOWMINEBURROW_CANCEL` (None)
+- `WORKERSTOPIDLEABILITYVESPENE_GATHER` (Unit)
+- `XELNAGAHEALINGSHRINE_XELNAGAHEALINGSHRINE` (None)
+- `XELNAGA_CAVERNS_DOORNEOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `XELNAGA_CAVERNS_DOORNOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `XELNAGA_CAVERNS_DOORNWOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `XELNAGA_CAVERNS_DOORSEOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `XELNAGA_CAVERNS_DOORSOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `XELNAGA_CAVERNS_DOORSWOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `XELNAGA_CAVERNS_DOORWOPENED_XELNAGA_CAVERNS_DOORDEFAULTOPEN` (None)
+- `YAMATO_YAMATOGUN` (Terran, Unit) - Blasts a target with a devastating plasma cannon, causing 240 damage.
+- `ZERGBUILD_BANELINGNEST` (Zerg, Build) - Build a Baneling Nest to unlock Baneling.
+- `ZERGBUILD_CANCEL` (None)
+- `ZERGBUILD_CREEPTUMOR` (Build) - Build a Creep Tumor to spread creep for vision and building.
+- `ZERGBUILD_EVOLUTIONCHAMBER` (Zerg, Build) - Build a Evolution Chamber to upgrade ground weapon and armor.
+- `ZERGBUILD_EXTRACTOR` (Zerg, BuildOnUnit) - Build a Extractor to harvest vespene gas.
+- `ZERGBUILD_HATCHERY` (Zerg, Build) - Build a Hatchery, the central Zerg structure.
+- `ZERGBUILD_HYDRALISKDEN` (Zerg, Build) - Build a Hydralisk Den to unlock Hydralisk.
+- `ZERGBUILD_INFESTATIONPIT` (Zerg, Build) - Build a Infestation Pit to unlock Infestor and Swarm Host.
+- `ZERGBUILD_NYDUSNETWORK` (Zerg, Build) - Build a Nydus Network to create a Nydus Worm at any visible location to enable rapid troop transport.
+- `ZERGBUILD_ROACHWARREN` (Zerg, Build) - Build a Roach Warren to produce Roach.
+- `ZERGBUILD_SPAWNINGPOOL` (Zerg, Build) - Build a Spawning Pool to unlock Zergling and Queen.
+- `ZERGBUILD_SPINECRAWLER` (Zerg, Build) - Build a Spine Crawler, a static defense that impales and damages ground units.
+- `ZERGBUILD_SPIRE` (Zerg, Build) - Build a Spire to unlock air units (Mutalisk and Corruptor).
+- `ZERGBUILD_SPORECRAWLER` (Zerg, Build) - Build a Spore Crawler, a static anti-air turret with detection.
+- `ZERGBUILD_ULTRALISKCAVERN` (Zerg, Build) - Build a Ultralisk Cavern to unlock Ultralisk.

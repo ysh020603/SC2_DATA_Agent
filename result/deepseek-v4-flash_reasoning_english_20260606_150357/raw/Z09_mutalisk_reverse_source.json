@@ -1,0 +1,593 @@
+{
+  "case": {
+    "id": "Z09_mutalisk_reverse_source",
+    "race": "Zerg",
+    "question": "Where does a Mutalisk come from, what prerequisite building does it require, and what does it cost?",
+    "expected_tools": [
+      "query_reverse_production_sources"
+    ],
+    "result_keywords": [
+      "Mutalisk",
+      "Larva",
+      "Spire"
+    ],
+    "answer_keywords": [
+      "Mutalisk",
+      "Larva",
+      "Spire"
+    ]
+  },
+  "evaluation": {
+    "id": "Z09_mutalisk_reverse_source",
+    "race": "Zerg",
+    "question": "Where does a Mutalisk come from, what prerequisite building does it require, and what does it cost?",
+    "passed": true,
+    "duration_seconds": 43.32,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_reverse_production_sources",
+      "get_entity"
+    ],
+    "expected_tools": [
+      "query_reverse_production_sources"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "A Mutalisk is produced by morphing a **Larva** (the Zerg basic production unit). Before you can morph it, you must have a **Spire** built. The resource costs are:\n\n- **Minerals:** 100  \n- **Gas:** 100  \n- **Supply:** 2  \n- **Build time:** 528 frames (roughly 8.8 seconds at standard speed)  \n\nThese results are directly drawn from the game data: the Larva ability `LARVATRAIN_MUTALISK` lists the Spire as a requirement, and the Mutalisk unit entry gives the exact cost figures."
+  },
+  "result": {
+    "query": "Where does a Mutalisk come from, what prerequisite building does it require, and what does it cost?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Mutalisk",
+                "expected_section": "Unit",
+                "race": "Zerg",
+                "limit": 1
+              }
+            }
+          ],
+          "notes": [
+            "Resolve canonical key for Mutalisk before querying production source and costs."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_reverse_production_sources",
+              "arguments": {
+                "produced_name": "Mutalisk",
+                "produced_section": "Unit",
+                "include_requirements": true,
+                "limit": 10
+              }
+            }
+          ],
+          "notes": [
+            "Resolved Mutalisk as Zerg Unit. Now query reverse production sources to find which building produces it and what prerequisites (e.g., Spire) are required. Cost fields will be retrieved in a subsequent step."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Unit",
+                "name": "Mutalisk",
+                "keys": [
+                  "minerals",
+                  "gas",
+                  "supply",
+                  "time",
+                  "race"
+                ]
+              }
+            }
+          ],
+          "notes": [
+            "We have the producer (Larva) and prerequisite building (Spire) from step 1. Now we need the resource cost of Mutalisk itself. Using get_entity to retrieve minerals, gas, supply, and time."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "Step 0 resolved Mutalisk to Unit Mutalisk (Zerg).",
+            "Step 1 reverse production sources: Larva morphs into Mutalisk via LARVATRAIN_MUTALISK, requires building Spire.",
+            "Step 2 retrieved Mutalisk costs: 100 minerals, 100 gas, 2 supply, 528 time.",
+            "All three sub-questions are answered: production source (Larva), prerequisite (Spire), and cost (100/100/2/528). No further tool calls needed."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Mutalisk",
+            "expected_section": "Unit",
+            "race": "Zerg",
+            "limit": 1
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Mutalisk",
+            "normalized_mention": "Mutalisk",
+            "resolved": {
+              "section": "Unit",
+              "name": "Mutalisk",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Mutalisk",
+                "race": "Zerg"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_reverse_production_sources",
+          "arguments": {
+            "produced_name": "Mutalisk",
+            "produced_section": "Unit",
+            "include_requirements": true,
+            "limit": 10
+          },
+          "result": {
+            "mode": "reverse_production_sources",
+            "produced": {
+              "section": "Unit",
+              "name": "Mutalisk",
+              "race": "Zerg"
+            },
+            "count": 1,
+            "results": [
+              {
+                "produced": {
+                  "section": "Unit",
+                  "name": "Mutalisk"
+                },
+                "producer": {
+                  "name": "Larva",
+                  "race": "Zerg",
+                  "supply": 0.0,
+                  "max_health": 25.0,
+                  "armor": 10.0,
+                  "sight": 5.0,
+                  "speed": 0.5625,
+                  "speed_creep_mul": 1.0,
+                  "weapons": [],
+                  "attributes": [
+                    "Light",
+                    "Biological"
+                  ],
+                  "size": 0,
+                  "radius": 0.125,
+                  "accepts_addon": false,
+                  "needs_power": false,
+                  "needs_creep": false,
+                  "needs_geyser": false,
+                  "is_structure": false,
+                  "is_addon": false,
+                  "is_worker": false,
+                  "is_townhall": false,
+                  "minerals": 0,
+                  "gas": 0,
+                  "time": 0.0,
+                  "is_flying": false,
+                  "abilities": [
+                    {
+                      "ability_name": "LARVATRAIN_DRONE"
+                    },
+                    {
+                      "ability_name": "LARVATRAIN_OVERLORD"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "SpawningPool"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_ZERGLING"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "HydraliskDen"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_HYDRALISK"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "Spire"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_MUTALISK"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "UltraliskCavern"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_ULTRALISK"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "RoachWarren"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_ROACH"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "InfestationPit"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_INFESTOR"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "Spire"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_CORRUPTOR"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "Hive"
+                        }
+                      ],
+                      "ability_name": "LARVATRAIN_VIPER"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "InfestationPit"
+                        }
+                      ],
+                      "ability_name": "TRAIN_SWARMHOST"
+                    }
+                  ],
+                  "tech_chain": [
+                    "Larva: Larva"
+                  ],
+                  "description": [
+                    "The Larva is the base unit for Zerg. It can morph into one of the following:",
+                    "Despite having only 25 hit points, Larvae are extremely durable with their 10 armor preventing large amounts of damage. Apart from being automatically generated, Larvae can also be created from the Queen 's Spawn Larva ability. This creates 3 Larvae after a duration of 29 seconds. Larvae cannot be directly controlled and will die if they are not on the Creep . There can be a maximum of 19 Larva on one Hatchery . Additional Larvae produced at that Hatchery instantly die.",
+                    "Larvae take full damage from spells such as (but not limited to): Snipe , Psionic Storm , and Fungal Growth . A single Baneling can one shot Larvae and completely shut down production.",
+                    "Larvae naturally spawn from a Hatchery , Lair , or Hive at a rate of 1 Larva every 11 seconds. Once a Zerg production building reaches 3 Larvae, the natural Larva timer is suspended. Once that Zerg building falls under 3 active Larvae, the timer is resumed. All Larvae, including those introduced via Spawn Larva , count towards this cap."
+                  ],
+                  "_section": "Unit"
+                },
+                "target_type": "Morph",
+                "ability": {
+                  "name": "LARVATRAIN_MUTALISK",
+                  "target": {
+                    "Morph": {
+                      "produces_name": "Mutalisk"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Spire"
+                  }
+                ],
+                "required_addon": null
+              }
+            ],
+            "resolution": {
+              "mode": "entity_key_resolution",
+              "mention": "Mutalisk",
+              "normalized_mention": "Mutalisk",
+              "resolved": {
+                "section": "Unit",
+                "name": "Mutalisk",
+                "race": "Zerg"
+              },
+              "confidence": 1.0,
+              "candidates": [
+                {
+                  "section": "Unit",
+                  "name": "Mutalisk",
+                  "race": "Zerg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Unit",
+            "name": "Mutalisk",
+            "keys": [
+              "minerals",
+              "gas",
+              "supply",
+              "time",
+              "race"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "minerals": 100,
+                "gas": 100,
+                "supply": 2.0,
+                "time": 528.0,
+                "race": "Zerg"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Mutalisk",
+          "expected_section": "Unit",
+          "race": "Zerg",
+          "limit": 1
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Mutalisk",
+          "normalized_mention": "Mutalisk",
+          "resolved": {
+            "section": "Unit",
+            "name": "Mutalisk",
+            "race": "Zerg"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Mutalisk",
+              "race": "Zerg"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_reverse_production_sources",
+        "arguments": {
+          "produced_name": "Mutalisk",
+          "produced_section": "Unit",
+          "include_requirements": true,
+          "limit": 10
+        },
+        "result": {
+          "mode": "reverse_production_sources",
+          "produced": {
+            "section": "Unit",
+            "name": "Mutalisk",
+            "race": "Zerg"
+          },
+          "count": 1,
+          "results": [
+            {
+              "produced": {
+                "section": "Unit",
+                "name": "Mutalisk"
+              },
+              "producer": {
+                "name": "Larva",
+                "race": "Zerg",
+                "supply": 0.0,
+                "max_health": 25.0,
+                "armor": 10.0,
+                "sight": 5.0,
+                "speed": 0.5625,
+                "speed_creep_mul": 1.0,
+                "weapons": [],
+                "attributes": [
+                  "Light",
+                  "Biological"
+                ],
+                "size": 0,
+                "radius": 0.125,
+                "accepts_addon": false,
+                "needs_power": false,
+                "needs_creep": false,
+                "needs_geyser": false,
+                "is_structure": false,
+                "is_addon": false,
+                "is_worker": false,
+                "is_townhall": false,
+                "minerals": 0,
+                "gas": 0,
+                "time": 0.0,
+                "is_flying": false,
+                "abilities": [
+                  {
+                    "ability_name": "LARVATRAIN_DRONE"
+                  },
+                  {
+                    "ability_name": "LARVATRAIN_OVERLORD"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "SpawningPool"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_ZERGLING"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "HydraliskDen"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_HYDRALISK"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "Spire"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_MUTALISK"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "UltraliskCavern"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_ULTRALISK"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "RoachWarren"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_ROACH"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "InfestationPit"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_INFESTOR"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "Spire"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_CORRUPTOR"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "Hive"
+                      }
+                    ],
+                    "ability_name": "LARVATRAIN_VIPER"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "InfestationPit"
+                      }
+                    ],
+                    "ability_name": "TRAIN_SWARMHOST"
+                  }
+                ],
+                "tech_chain": [
+                  "Larva: Larva"
+                ],
+                "description": [
+                  "The Larva is the base unit for Zerg. It can morph into one of the following:",
+                  "Despite having only 25 hit points, Larvae are extremely durable with their 10 armor preventing large amounts of damage. Apart from being automatically generated, Larvae can also be created from the Queen 's Spawn Larva ability. This creates 3 Larvae after a duration of 29 seconds. Larvae cannot be directly controlled and will die if they are not on the Creep . There can be a maximum of 19 Larva on one Hatchery . Additional Larvae produced at that Hatchery instantly die.",
+                  "Larvae take full damage from spells such as (but not limited to): Snipe , Psionic Storm , and Fungal Growth . A single Baneling can one shot Larvae and completely shut down production.",
+                  "Larvae naturally spawn from a Hatchery , Lair , or Hive at a rate of 1 Larva every 11 seconds. Once a Zerg production building reaches 3 Larvae, the natural Larva timer is suspended. Once that Zerg building falls under 3 active Larvae, the timer is resumed. All Larvae, including those introduced via Spawn Larva , count towards this cap."
+                ],
+                "_section": "Unit"
+              },
+              "target_type": "Morph",
+              "ability": {
+                "name": "LARVATRAIN_MUTALISK",
+                "target": {
+                  "Morph": {
+                    "produces_name": "Mutalisk"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Spire"
+                }
+              ],
+              "required_addon": null
+            }
+          ],
+          "resolution": {
+            "mode": "entity_key_resolution",
+            "mention": "Mutalisk",
+            "normalized_mention": "Mutalisk",
+            "resolved": {
+              "section": "Unit",
+              "name": "Mutalisk",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Mutalisk",
+                "race": "Zerg"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Unit",
+          "name": "Mutalisk",
+          "keys": [
+            "minerals",
+            "gas",
+            "supply",
+            "time",
+            "race"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "minerals": 100,
+              "gas": 100,
+              "supply": 2.0,
+              "time": 528.0,
+              "race": "Zerg"
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "A Mutalisk is produced by morphing a **Larva** (the Zerg basic production unit). Before you can morph it, you must have a **Spire** built. The resource costs are:\n\n- **Minerals:** 100  \n- **Gas:** 100  \n- **Supply:** 2  \n- **Build time:** 528 frames (roughly 8.8 seconds at standard speed)  \n\nThese results are directly drawn from the game data: the Larva ability `LARVATRAIN_MUTALISK` lists the Spire as a requirement, and the Mutalisk unit entry gives the exact cost figures."
+  }
+}

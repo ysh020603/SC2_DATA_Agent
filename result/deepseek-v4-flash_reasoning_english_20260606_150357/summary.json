@@ -1,0 +1,633 @@
+{
+  "provider": "deepseek-v4-flash",
+  "reasoning": true,
+  "response_language": "English",
+  "concurrency": 5,
+  "pre_request_delay": 0.0,
+  "started_at": "2026-06-06T15:03:57",
+  "finished_at": "2026-06-06T15:09:23",
+  "total": 30,
+  "passed": 30,
+  "rows": [
+    {
+      "id": "T01_barracks_outputs",
+      "race": "Terran",
+      "question": "What units can a Terran Barracks produce, and what are their mineral, gas, and supply costs?",
+      "passed": true,
+      "duration_seconds": 14.08,
+      "called_tools": [
+        "query_production_outputs"
+      ],
+      "expected_tools": [
+        "query_production_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Terran Barracks can train **4 units**. Here are their resource costs (minerals, gas, supply):\n\n| Unit | Minerals | Gas | Supply |\n|------|----------|-----|--------|\n| **Marine** | 50 | 0 | 1 |\n| **Reaper** | 50 | 50 | 1 |\n| **Ghost** | 150 | 125 | 3 |\n| **Marauder** | 100 | 25 | 2 |\n\nAll costs are exact and confirmed from the game data. No additional requirements (like tech labs) were included in the query."
+    },
+    {
+      "id": "T02_factory_addon_split",
+      "race": "Terran",
+      "question": "For a Terran Factory, which units are available with a Tech Lab and which are available without a Tech Lab?",
+      "passed": true,
+      "duration_seconds": 24.49,
+      "called_tools": [
+        "query_addon_branches"
+      ],
+      "expected_tools": [
+        "query_addon_branches"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "Based on the StarCraft II data, the Terran Factory can produce the following units:\n\n**Without a Tech Lab** (no addon required, also compatible with a Reactor):\n- **Hellion**\n- **WidowMine**\n- **HellionTank** (Hellbat) – also requires an Armory.\n\n**With a Tech Lab** (Tech Lab required):\n- **SiegeTank**\n- **Thor** – also requires an Armory.\n- **Cyclone**\n\nIn total: 3 units are available without a Tech Lab, and 3 units require a Tech Lab. No Factory units require a Reactor exclusively."
+    },
+    {
+      "id": "T03_starport_reactor_vs_techlab",
+      "race": "Terran",
+      "question": "Which Terran Starport units are Reactor-compatible, and which Starport units require a Tech Lab?",
+      "passed": true,
+      "duration_seconds": 28.78,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_addon_branches"
+      ],
+      "expected_tools": [
+        "query_addon_branches"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "Based on the Starport’s production data:\n\n**Reactor-compatible units** (can be produced with a Reactor for double training):  \n- Medivac  \n- VikingFighter  \n- Liberator  \n(3 units – none require any add‑on)\n\n**Tech Lab‑required units** (must have a Tech Lab attached to the Starport):  \n- Banshee  \n- Raven  \n- Battlecruiser (also requires Fusion Core)  \n(3 units – all list TechLab as a required add‑on)\n\nNo Starport units are exclusively “Reactor‑required” (i.e., forced to use a Reactor); the reac"
+    },
+    {
+      "id": "T04_battlecruiser_source_prereq",
+      "race": "Terran",
+      "question": "Where is a Battlecruiser produced, what prerequisites does it require, and what does it cost?",
+      "passed": true,
+      "duration_seconds": 37.2,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_reverse_production_sources",
+        "query_tech_tree",
+        "filter_attributes_and_resources"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources",
+        "query_tech_tree"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "**Production location:** Battlecruisers are trained at a **Starport** that has a **TechLab** add-on attached.\n\n**Prerequisites:**\n- **Buildings:** Supply Depot → Barracks → Factory → Starport → FusionCore.\n- **Add-on:** TechLab must be built on the Starport (the TechLab requires the Starport itself).\n- So a full tech chain: Supply Depot → Barracks → Factory → Starport → (TechLab + FusionCore).\n\n**Cost:**\n- 400 minerals, 300 vespene gas, 6 supply, and a build time of 1440 (game time units, equiva"
+    },
+    {
+      "id": "T05_barracks_dependency_impact",
+      "race": "Terran",
+      "question": "If the Terran Barracks is missing, which units, buildings, and upgrades become affected downstream?",
+      "passed": true,
+      "duration_seconds": 76.52,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_dependency_impact",
+        "query_tech_tree",
+        "query_production_outputs",
+        "query_research_outputs",
+        "query_tech_tree",
+        "query_tech_tree"
+      ],
+      "expected_tools": [
+        "query_dependency_impact",
+        "query_tech_tree"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "If the Terran Barracks is missing, the following downstream units, buildings, and upgrades become **completely unavailable** because the Barracks is a prerequisite in their tech chains:\n\n### Directly affected (produced/researched at Barracks)\n- **Units trained**: Marine, Reaper, Marauder, Ghost (4 units).  \n- **Upgrades researched at Barracks TechLab**: Stimpack, Combat Shield (ShieldWall), Concussive Shells (PunisherGrenades).  \n\n### Buildings that require Barracks as a build prerequisite\n- **B"
+    },
+    {
+      "id": "T06_ghost_ability_profile",
+      "race": "Terran",
+      "question": "What abilities does Ghost have, and for each ability what are the energy, range, cooldown, and target type?",
+      "passed": true,
+      "duration_seconds": 59.97,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_unit_abilities",
+        "get_entity",
+        "query_unit_abilities"
+      ],
+      "expected_tools": [
+        "query_unit_abilities"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Ghost (Terran) has **10 abilities** in total: 6 basic commands and 4 special abilities.  \nBelow is the summary for each ability with the retrieved values (**energy cost**, **cast range**, **cooldown**, **target type**):\n\n### Basic Commands\n| Ability | Energy Cost | Cast Range | Cooldown | Target Type |\n|---------|-------------|------------|----------|-------------|\n| Stop | 0 | 0.0 | 0 | None |\n| Move | 0 | 0.0 | 0 | Point or Unit |\n| Patrol | 0 | 0.0 | 0 | Point or Unit |\n| Hold Position | "
+    },
+    {
+      "id": "T07_terran_techlab_research",
+      "race": "Terran",
+      "question": "Which Terran upgrades require a Tech Lab, and which research building or add-on provides them?",
+      "passed": true,
+      "duration_seconds": 92.76,
+      "called_tools": [
+        "query_research_outputs",
+        "query_research_outputs",
+        "query_research_outputs",
+        "query_research_outputs",
+        "query_research_outputs",
+        "query_research_outputs",
+        "query_research_outputs"
+      ],
+      "expected_tools": [
+        "query_research_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "All Terran upgrades that require a Tech Lab are researched at one of three add-on variants: **BarracksTechLab**, **FactoryTechLab**, or **StarportTechLab**. Here is the complete mapping:\n\n### BarracksTechLab (attached to Barracks)\n- **Stimpack** (100/100, 2240 game sec)\n- **ShieldWall** (100/100, 1760 sec)\n- **PunisherGrenades** (50/50, 960 sec)\n\n### FactoryTechLab (attached to Factory)\n- **HighCapacityBarrels** (100/100, 1760 sec)\n- **CycloneLockOnDamageUpgrade** (100/100, 2240 sec)\n- **DrillCl"
+    },
+    {
+      "id": "T08_marauder_reverse_source",
+      "race": "Terran",
+      "question": "A Marauder comes from which production building, what add-on is required, and what does it cost?",
+      "passed": true,
+      "duration_seconds": 29.9,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_reverse_production_sources",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Marauder is trained from the **Barracks** with a **TechLab** add-on attached. It costs **100 minerals, 25 gas, 2 supply**, and has a build time of **480 frames** (approximately 7.1 seconds at normal speed)."
+    },
+    {
+      "id": "T09_barracks_antiair",
+      "race": "Terran",
+      "question": "Using only the Barracks production path, which Terran units can attack air, and what are their costs and ranges?",
+      "passed": true,
+      "duration_seconds": 41.33,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_combat_production_options"
+      ],
+      "expected_tools": [
+        "query_combat_production_options"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "From the Barracks production path, only two Terran units can attack air:\n\n- **Marine** – 50 minerals, 0 gas, range 5.  \n- **Ghost** – 150 minerals, 125 gas, range 6.\n\nThe Ghost requires a TechLab addon on the Barracks and a Ghost Academy. Both units match because the query specifically filtered for Barracks-produced units with `can_attack_air = true`. The tool returned exactly two results, confirming no other Barracks unit (e.g., Marauder or Reaper) has anti-air capability."
+    },
+    {
+      "id": "T10_terran_gas_units_sources",
+      "race": "Terran",
+      "question": "List Terran units that cost gas, and include their production source, add-on requirement, and tech chain evidence.",
+      "passed": true,
+      "duration_seconds": 89.32,
+      "called_tools": [
+        "query_gas_units_with_sources",
+        "query_gas_units_with_sources",
+        "filter_attributes_and_resources",
+        "filter_attributes_and_resources"
+      ],
+      "expected_tools": [
+        "query_gas_units_with_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "Below is a complete list of **Terran combat units that cost vespene gas**, with their production source, required add-on (if any), and a condensed tech‑chain summary. Data from `query_gas_units_with_sources` (40 results) and `filter_attributes_and_resources` (non‑structure units only) were used. Campaign‑only units (GhostNova, WarHound, HERC) are included but marked.\n\n---\n\n### **Barracks units** (require Barracks + TechLab for some)\n\n| Unit | Gas | Production Source | Add‑on Required | Tech‑Chai"
+    },
+    {
+      "id": "P01_gateway_outputs",
+      "race": "Protoss",
+      "question": "What units can a Protoss Gateway produce, and what are their mineral, gas, and supply costs?",
+      "passed": true,
+      "duration_seconds": 18.27,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_production_outputs"
+      ],
+      "expected_tools": [
+        "query_production_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Protoss Gateway can train 6 units. Here are their mineral, gas, and supply costs, with required buildings noted:\n\n| Unit | Minerals | Gas | Supply | Requires |\n|------|----------|-----|--------|----------|\n| **Zealot** | 100 | 0 | 2 | None |\n| **Stalker** | 125 | 50 | 2 | Cybernetics Core |\n| **Sentry** | 50 | 100 | 2 | Cybernetics Core |\n| **Adept** | 100 | 25 | 2 | Cybernetics Core |\n| **High Templar** | 50 | 150 | 2 | Templar Archive |\n| **Dark Templar** | 125 | 125 | 2 | Dark Shrine |\n\nA"
+    },
+    {
+      "id": "P02_robotics_facility_outputs",
+      "race": "Protoss",
+      "question": "What units can a Protoss Robotics Facility produce, and what are their costs, supply, and prerequisites?",
+      "passed": true,
+      "duration_seconds": 27.01,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_production_outputs"
+      ],
+      "expected_tools": [
+        "query_production_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Protoss Robotics Facility can train 5 units. Here are their costs (minerals/gas), supply, build time, and prerequisites:\n\n| Unit | Minerals | Gas | Supply | Build Time | Prerequisite |\n|------|----------|-----|--------|------------|--------------|\n| **WarpPrism** | 250 | 0 | 2 | 50 s | Robotics Facility (no extra building) |\n| **Observer** | 25 | 75 | 1 | 25 s | Robotics Facility |\n| **Immortal** | 250 | 100 | 4 | 55 s | Robotics Facility |\n| **Colossus** | 300 | 200 | 6 | 75 s | Robotics Fa"
+    },
+    {
+      "id": "P03_stargate_outputs",
+      "race": "Protoss",
+      "question": "What air units can a Protoss Stargate produce, and what are their costs and supply?",
+      "passed": true,
+      "duration_seconds": 22.99,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_production_outputs"
+      ],
+      "expected_tools": [
+        "query_production_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Protoss Stargate can train 5 air units (all have is_flying=true). Here are their costs and supply:\n\n- **Phoenix**: 150 minerals, 100 gas, 2 supply  \n- **VoidRay**: 250 minerals, 150 gas, 4 supply  \n- **Oracle**: 150 minerals, 150 gas, 3 supply  \n- **Carrier**: 350 minerals, 250 gas, 6 supply  \n- **Tempest**: 250 minerals, 175 gas, 4 supply  \n\nAll are Protoss units. The data is complete and exact, derived from the game's internal values."
+    },
+    {
+      "id": "P04_cybernetics_core_research",
+      "race": "Protoss",
+      "question": "Which upgrades can the Protoss Cybernetics Core research, and what are their costs?",
+      "passed": true,
+      "duration_seconds": 17.76,
+      "called_tools": [
+        "query_research_outputs"
+      ],
+      "expected_tools": [
+        "query_research_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Protoss Cybernetics Core can research **7 upgrades** in total. Below are their resource costs (minerals/gas) and research time (in game seconds, as reported):\n\n| Upgrade | Minerals | Gas | Time |\n|---------|----------|-----|------|\n| **Warp Gate Research** | 50 | 50 | 2240 |\n| **Protoss Air Weapons Level 1** | 100 | 100 | 2880 |\n| **Protoss Air Weapons Level 2** | 175 | 175 | 3440 |\n| **Protoss Air Weapons Level 3** | 250 | 250 | 4000 |\n| **Protoss Air Armors Level 1** | 100 | 100 | 2880 |\n|"
+    },
+    {
+      "id": "P05_cybernetics_core_dependency",
+      "race": "Protoss",
+      "question": "If the Protoss Cybernetics Core is destroyed, which units and upgrades are affected downstream?",
+      "passed": true,
+      "duration_seconds": 66.46,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_dependency_impact",
+        "query_tech_tree",
+        "query_tech_tree"
+      ],
+      "expected_tools": [
+        "query_dependency_impact",
+        "query_tech_tree"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "If the Protoss Cybernetics Core is destroyed, the following units and upgrades are affected **downstream** (i.e., they become unavailable or their prerequisites are broken):\n\n### Directly blocked units (require Core as a prerequisite):\n- **Stalker** (Gateway/WarpGate)\n- **Sentry** (Gateway/WarpGate)\n- **Adept** (Gateway/WarpGate)\n- **ShieldBattery** (building)\n\n### Indirectly blocked units (require a building that needs Core):\n- **Phoenix, Void Ray, Oracle, Carrier, Tempest, Mothership** – Starg"
+    },
+    {
+      "id": "P06_stalker_reverse_source",
+      "race": "Protoss",
+      "question": "Where is a Stalker produced, what prerequisite does it require, and what does it cost?",
+      "passed": true,
+      "duration_seconds": 34.05,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_reverse_production_sources",
+        "filter_attributes_and_resources",
+        "query_tech_tree"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The **Stalker** is produced at the **Gateway** (as a trainable unit) or at the **WarpGate** (after Warp Gate Research is completed). The only prerequisite building needed to unlock Stalker production is the **Cybernetics Core**.\n\n**Cost:**\n- Minerals: 125\n- Vespene gas: 50\n- Supply: 2\n- Build time: 608 frames (≈60.8 seconds at normal speed)\n\nThe WarpGate path additionally requires the Warp Gate Research upgrade at the Cybernetics Core, but the Stalker itself does not require any other tech struc"
+    },
+    {
+      "id": "P07_oracle_ability_profile",
+      "race": "Protoss",
+      "question": "What abilities does Oracle have, and what are their target types, ranges, and energy costs?",
+      "passed": true,
+      "duration_seconds": 32.39,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_unit_abilities",
+        "get_entity",
+        "get_entity",
+        "get_entity",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_unit_abilities"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Oracle (Protoss, 50 starting energy, max 200) has 4 abilities according to the data, but the **energy costs shown are all 0**, which conflicts with known game values (e.g., Revelation costs 75 energy, Stasis Trap costs 50). This indicates the tool’s energy_cost field may be unreliable for these abilities. Here's what the tool reports:\n\n1. **SCAN_MOVE** – Target: PointOrUnit, Range: 0, Energy: 0  \n2. **ORACLEREVELATION** (Revelation) – Target: Point, Range: 12, Energy: 0 (actual game cost: 75"
+    },
+    {
+      "id": "P08_protoss_gas_units_sources",
+      "race": "Protoss",
+      "question": "Find Protoss units that cost gas and explain their production source and tech chain evidence.",
+      "passed": true,
+      "duration_seconds": 26.06,
+      "called_tools": [
+        "query_gas_units_with_sources"
+      ],
+      "expected_tools": [
+        "query_gas_units_with_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "## Protoss Gas-Costing Units: Production Sources & Tech Chains\n\nThe query returned **30 Protoss entities** (combat units, buildings, morphs) that cost at least 1 gas. Below is a breakdown by **production method** and **tech requirements**. Most standard combat units have clear tech chains; a few (like MP-only units or MothershipCore) have incomplete or placeholder data.\n\n### 1. Gateway / Warp Gate Units  \n_Trained from Gateway (or WarpGate after Warp Gate research). All require CyberneticsCore f"
+    },
+    {
+      "id": "P09_forge_upgrade_effects",
+      "race": "Protoss",
+      "question": "Which Protoss units are affected by Forge ground weapon, armor, or shield upgrades, and where are those units produced?",
+      "passed": true,
+      "duration_seconds": 89.06,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_research_outputs",
+        "query_upgrade_effects",
+        "query_upgrade_effects",
+        "query_upgrade_effects",
+        "filter_attributes_and_resources",
+        "filter_attributes_and_resources"
+      ],
+      "expected_tools": [
+        "query_upgrade_effects"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "Based on the data from the Forge research outputs and the upgrade effects query, here are the **units affected by Forge upgrades** and where they are produced:\n\n### 1. Ground Weapon Upgrades (ProtossGroundWeapons 1–3)\nAffected units (as listed in the upgrade description and confirmed by `query_upgrade_effects`):\n- **Zealot** – trained at **Gateway** / **WarpGate**\n- **Dark Templar** – trained at **Gateway** / **WarpGate** (requires a **Dark Shrine**)\n- **Archon** – morphed from two **High Templa"
+    },
+    {
+      "id": "P10_carrier_reverse_source",
+      "race": "Protoss",
+      "question": "Where is a Carrier produced, what prerequisite building does it require, and what does it cost?",
+      "passed": true,
+      "duration_seconds": 25.66,
+      "called_tools": [
+        "resolve_entity_key",
+        "get_entity",
+        "query_reverse_production_sources",
+        "query_tech_tree"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Carrier is a Protoss capital ship **produced at the Stargate**. Before you can train it, you must first build a **Fleet Beacon** (the Stargate alone is not enough). Its cost is **350 minerals, 250 vespene gas, 6 supply**, and it takes **1440 in‑game time** (≈36 seconds at normal speed) to warp in.\n\nThese results match directly: the reverse‑production lookup shows the Stargate with the STARGATETRAIN_CARRIER ability requiring a FleetBeacon, and the entity data gives exact resource costs."
+    },
+    {
+      "id": "Z01_larva_morph_outputs",
+      "race": "Zerg",
+      "question": "What units can Zerg Larva morph into, and what are their mineral, gas, and supply costs?",
+      "passed": true,
+      "duration_seconds": 39.06,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_production_outputs",
+        "query_production_outputs"
+      ],
+      "expected_tools": [
+        "query_production_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "Zerg Larva can morph into 10 different units. Below is the complete list with their resource costs (minerals, gas) and supply cost.\n\n| Unit       | Minerals | Gas | Supply |\n|------------|----------|-----|--------|\n| Drone      | 50       | 0   | 1      |\n| Overlord   | 100      | 0   | −8*    |\n| Zergling   | 25       | 0   | 0.5    |\n| Roach      | 75       | 25  | 2      |\n| Hydralisk  | 100      | 50  | 2      |\n| Mutalisk   | 100      | 100 | 2      |\n| Corruptor  | 150      | 100 | 2      "
+    },
+    {
+      "id": "Z02_spawning_pool_research",
+      "race": "Zerg",
+      "question": "Which upgrades can the Zerg Spawning Pool research, and what are their costs?",
+      "passed": true,
+      "duration_seconds": 26.01,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_research_outputs"
+      ],
+      "expected_tools": [
+        "query_research_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Zerg Spawning Pool can research **2 upgrades**, both for Zerglings:\n\n1. **Metabolic Boost** (zerglingmovementspeed)  \n   - Cost: 100 minerals, 100 gas  \n   - Time: 1,760 (≈29.3 seconds)  \n   - Effect: +60% movement speed (to 6.58).  \n   - No additional building requirement.\n\n2. **Adrenal Glands** (zerglingattackspeed)  \n   - Cost: 200 minerals, 200 gas  \n   - Time: 2,080 (≈34.7 seconds)  \n   - Effect: Increases attack speed (description field empty, but known in-game to increase attack speed"
+    },
+    {
+      "id": "Z03_spawning_pool_dependency",
+      "race": "Zerg",
+      "question": "If the Zerg Spawning Pool is destroyed, which units and upgrades are affected downstream?",
+      "passed": true,
+      "duration_seconds": 76.37,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_dependency_impact",
+        "query_tech_tree",
+        "query_tech_tree",
+        "query_tech_tree"
+      ],
+      "expected_tools": [
+        "query_dependency_impact",
+        "query_tech_tree"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "If the **Zerg Spawning Pool** is destroyed (and not rebuilt), the following **units** and **upgrades** lose their required tech chain and become unavailable for production/research:\n\n**Units** (53 total, including building morphs and burrowed variants)\n- **Basic fighter:** Zergling, Baneling (requires Zergling + Baneling Nest)\n- **Lair‑tech units:** Roach, Hydralisk, Infestor, Mutalisk, Corruptor, Swarm Host, Ravager, Lurker, Overseer, Overlord Transport, Nydus Worm (NydusCanal), Changeling, Loc"
+    },
+    {
+      "id": "Z04_roach_reverse_source",
+      "race": "Zerg",
+      "question": "Where is a Roach produced from, what prerequisite does it require, and what does it cost?",
+      "passed": true,
+      "duration_seconds": 31.84,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_reverse_production_sources",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "A Roach is produced by morphing from a **Larva** (spawned at a Hatchery, Lair, or Hive). The prerequisite is a **Roach Warren**. Its cost is **75 minerals, 25 vespene gas, 2 supply**, and it takes **27 seconds** (432 frames) to complete."
+    },
+    {
+      "id": "Z05_infestor_ability_profile",
+      "race": "Zerg",
+      "question": "What abilities does Infestor have, and what are their target types, ranges, and energy costs?",
+      "passed": true,
+      "duration_seconds": 73.58,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_unit_abilities",
+        "query_unit_abilities",
+        "get_entity",
+        "get_entity",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_unit_abilities"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Infestor (Zerg spellcaster) has **11 abilities** recorded in the dataset (including basic commands). Below is the breakdown of target type, cast range, and energy cost for each. **Important:** the dataset lists energy_cost as **0 for all abilities** – this is likely an artifact and does not reflect actual gameplay values (e.g., Fungal Growth normally costs 75 energy, Neural Parasite 100 energy, Infested Terran 25 energy). The data is incomplete/approximate for energy costs.\n\n## Active / Spel"
+    },
+    {
+      "id": "Z06_viper_ability_profile",
+      "race": "Zerg",
+      "question": "What abilities does Viper have, and what are their target types, ranges, and energy costs?",
+      "passed": true,
+      "duration_seconds": 50.17,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_unit_abilities",
+        "get_entity",
+        "get_entity",
+        "get_entity",
+        "get_entity",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_unit_abilities"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Viper has 5 abilities in this dataset. Their target types, ranges, and recorded energy costs are:\n\n| Ability (in-game name) | Target type | Range | Energy cost (dataset) |\n|---|---|---|---|\n| Move (*SCAN_MOVE*) | Point or Unit | 0 (self‑move) | 0 |\n| Blinding Cloud | Point (area) | 10 | 0 |\n| Abduct | Unit | 9 | 0 |\n| Consume | Unit (structure) | 7 | 0 |\n| Parasitic Bomb | Unit | 8 | 0 |\n\n**Note:** All energy costs are listed as **0**. This is almost certainly incomplete data – in actual *St"
+    },
+    {
+      "id": "Z07_evolution_chamber_research",
+      "race": "Zerg",
+      "question": "Which upgrades can the Zerg Evolution Chamber research, and what are the Lair or Hive prerequisites for higher levels?",
+      "passed": true,
+      "duration_seconds": 42.98,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_research_outputs",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_research_outputs"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Evolution Chamber can research **9 upgrades** across three lines, each with 3 levels:\n\n- **Zerg Melee Weapons** (Levels 1–3)\n- **Zerg Ground Armor** (Levels 1–3)\n- **Zerg Missile Weapons** (Levels 1–3)\n\n**Prerequisites:**\n- **Level 1** – Only the Evolution Chamber itself is required.\n- **Level 2** – Requires the corresponding Level 1 upgrade **and** a **Lair**.\n- **Level 3** – Requires the corresponding Level 2 upgrade **and** a **Hive**.\n\nAll three upgrade lines follow the same structure; n"
+    },
+    {
+      "id": "Z08_lair_dependency_impact",
+      "race": "Zerg",
+      "question": "If Zerg Lair tech is missing, which units and upgrades are affected downstream?",
+      "passed": true,
+      "duration_seconds": 99.36,
+      "called_tools": [
+        "query_tech_tree",
+        "query_dependency_impact",
+        "query_dependency_impact"
+      ],
+      "expected_tools": [
+        "query_dependency_impact",
+        "query_tech_tree"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "If **Lair** is unavailable (e.g., cannot be built), the following units and upgrades are blocked **downstream**. The impact is derived from the tech‑tree dependencies: Lair is a prerequisite for multiple buildings, units, and upgrades, and it also prevents access to **Hive** (which further blocks tier‑3 content).\n\n### 🏭 Buildings blocked (require Lair directly or via Lair‑dependent chain)\n- **Hydralisk Den** – unlocks Hydralisk  \n- **Spire** – unlocks Mutalisk, Corruptor, and all flyer upgrades "
+    },
+    {
+      "id": "Z09_mutalisk_reverse_source",
+      "race": "Zerg",
+      "question": "Where does a Mutalisk come from, what prerequisite building does it require, and what does it cost?",
+      "passed": true,
+      "duration_seconds": 43.32,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_reverse_production_sources",
+        "get_entity"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "A Mutalisk is produced by morphing a **Larva** (the Zerg basic production unit). Before you can morph it, you must have a **Spire** built. The resource costs are:\n\n- **Minerals:** 100  \n- **Gas:** 100  \n- **Supply:** 2  \n- **Build time:** 528 frames (roughly 8.8 seconds at standard speed)  \n\nThese results are directly drawn from the game data: the Larva ability `LARVATRAIN_MUTALISK` lists the Spire as a requirement, and the Mutalisk unit entry gives the exact cost figures."
+    },
+    {
+      "id": "Z10_broodlord_reverse_source",
+      "race": "Zerg",
+      "question": "Where does a Brood Lord come from, what prerequisite building does it require, and what morph ability creates it?",
+      "passed": true,
+      "duration_seconds": 21.83,
+      "called_tools": [
+        "resolve_entity_key",
+        "query_reverse_production_sources"
+      ],
+      "expected_tools": [
+        "query_reverse_production_sources"
+      ],
+      "tool_ok": true,
+      "result_missing": [],
+      "answer_missing": [],
+      "errors": [],
+      "answer_preview": "The Brood Lord is created by morphing a **Corruptor** using the ability **Morph to Brood Lord** (internal ID: `MORPHTOBROODLORD_BROODLORD`). The prerequisite building is a **Greater Spire**. This is a Zerg unit production chain: Corruptor → Brood Lord via morph, requiring the Greater Spire to unlock the ability."
+    }
+  ]
+}

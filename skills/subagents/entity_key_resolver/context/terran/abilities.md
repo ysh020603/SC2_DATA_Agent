@@ -1,0 +1,144 @@
+# Terran Ability Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL3` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `ARMORYRESEARCH_TERRANVEHICLEANDSHIPPLATINGLEVEL1` (Terran, Research) - Increases the armor of Terran Factory and Starport units.
+- `ARMORYRESEARCH_TERRANVEHICLEANDSHIPPLATINGLEVEL2` (Terran, Research) - Increases the armor of Terran Factory and Starport units.
+- `ARMORYRESEARCH_TERRANVEHICLEANDSHIPPLATINGLEVEL3` (Terran, Research) - Increases the armor of Terran Factory and Starport units.
+- `ARMORYRESEARCH_TERRANVEHICLEWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ARMORYRESEARCH_TERRANVEHICLEWEAPONSLEVEL3` (Terran, Research) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `ATTACK_ATTACK` (Protoss/Terran/Zerg, PointOrUnit) - Attack some unit or structure.
+- `ATTACK_BATTLECRUISER` (Terran, PointOrUnit) - Command Battlecruiser to attack.
+- `BARRACKSTECHLABRESEARCH_STIMPACK` (Terran, Research) - Every Marine and Marauder gain the Stimpack ability.
+- `BARRACKSTRAIN_GHOST` (Terran, Train) - Train a Ghost, a stealthy special forces unit that can snipe high-value targets, deploy tactical nukes, and use cloaking for strategic advantage.
+- `BARRACKSTRAIN_MARAUDER` (Terran, Train) - Train a Marauder, a heavily armored infantry unit that excels against armored targets with its concussive grenades, complementing Marine forces.
+- `BARRACKSTRAIN_MARINE` (Terran, Train) - Train a Marine, a versatile, low-cost infantry unit that provides reliable ranged damage and forms the backbone of most Terran armies.
+- `BARRACKSTRAIN_REAPER` (Terran, Train) - Train a Reaper, a fast, mobile infantry unit designed for early-game harassment and scouting, capable of jumping cliffs with its jetpack.
+- `BEHAVIOR_CLOAKON_BANSHEE` (Terran, None) - The Benshee becomes invisible until it runs out of energy or the player cancels Cloak.
+- `BEHAVIOR_CLOAKON_GHOST` (Terran, None) - The Ghost becomes invisible until it runs out of energy or the player cancels Cloak.
+- `BEHAVIOR_HOLDFIREON_GHOST` (Terran, None) - Do not actively attack the enemy.
+- `BUILDAUTOTURRET_AUTOTURRET` (Terran, Build) - Build an Auto-Turret, a temporary and immobile defense structure.
+- `BUILD_NUKE` (Terran, None) - Build a nuke.
+- `BUILD_REACTOR_BARRACKS` (Terran, BuildInstant) - Allows structure create 2 units simultaneously.
+- `BUILD_REACTOR_FACTORY` (Terran, BuildInstant) - Allows structure create 2 units simultaneously.
+- `BUILD_REACTOR_STARPORT` (Terran, BuildInstant) - Allows structure create 2 units simultaneously.
+- `BUILD_TECHLAB_BARRACKS` (Terran, BuildInstant) - Unlocks Marauder and is a requirement for Ghost.
+- `BUILD_TECHLAB_FACTORY` (Terran, BuildInstant) - Unlocks Siege Tank and is a requirement for Thor.
+- `BUILD_TECHLAB_STARPORT` (Terran, BuildInstant) - Unlocks Raven and Banshee and is a requirement for Battlecruiser.
+- `BURROWDOWN_WIDOWMINE` (Terran, Morph)
+- `BURROWUP_WIDOWMINE` (Terran, Morph) - Enables the Widow Mine to emerge from the ground and regain mobility.
+- `CALLDOWNMULE_CALLDOWNMULE` (Terran, PointOrUnit) - Calls down a MULE, a temporary unit with a timed life of 64 seconds that can mine minerals and repair for the Terran forces.
+- `COMMANDCENTERTRAIN_SCV` (Terran, Train) - Train a SCV, a Terran worker.
+- `EFFECT_ANTIARMORMISSILE` (Terran, Unit) - Deploys a Missile which pursues the target unit, and, upon contact, reduces the armor and shield armor of affected units by 2 for 21 seconds.
+- `EFFECT_GHOSTSNIPE` (Terran, Unit) - Deal 25 damage to enemy biological units (50 for Psionic).
+- `EFFECT_INTERFERENCEMATRIX` (Terran, Unit) - Disables a target unit rendering it unable to attack or use abilities for 11 seconds. Reveals Cloaked units. Can only target mechanical and psionic units.
+- `EFFECT_MEDIVACIGNITEAFTERBURNERS` (Terran, None) - Speed boost that increases Medivac's movement speed to 5.95 and acceleration to 1400 for 4.3 seconds.
+- `EFFECT_REPAIR_MULE` (Terran, Unit) - Repair some unit or strcture.
+- `EFFECT_REPAIR_REPAIRDRONE` (Terran, Unit)
+- `EFFECT_REPAIR_SCV` (Terran, Unit) - Repair some unit or strcture.
+- `EFFECT_SPRAY_TERRAN` (Terran, Point) - Spray a marker.
+- `EFFECT_STIM_MARAUDER` (Terran, None) - Increases the movement speed and firing rate by 50% at the cost of 20 HP.
+- `EFFECT_STIM_MARINE` (Terran, None) - Increases the movement speed and firing rate by 50% at the cost of 10 HP.
+- `EFFECT_TACTICALJUMP` (Terran, Point) - After 4 seconds, warps to the target location. Battlecruiser is invincible while warping. Stuns and puts the Battlecruiser into a 1 second vulnerability phase before it teleports. 
+- `EMP_EMP` (Terran, Point) - The Ghost fires an EMP Round that removes up to 100 shields and energy from every unit and building within the AoE. Also reveals cloaked units.
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYARMORLEVEL1` (Terran, Research) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYARMORLEVEL2` (Terran, Research) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYARMORLEVEL3` (Terran, Research) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `ENGINEERINGBAYRESEARCH_TERRANINFANTRYWEAPONSLEVEL3` (Terran, Research) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `FACTORYTRAIN_HELLION` (Terran, Train) - Train a Hellion, a fast harassment vehicle that incinerates light ground units in a line.
+- `FACTORYTRAIN_SIEGETANK` (Terran, Train) - Train a Siege Tank, a transforming artillery unit that bombards ground targets from long range with devastating area-of-effect damage.
+- `FACTORYTRAIN_THOR` (Terran, Train) - Train a Thor, a heavily-armored combat walker that excels against massive ground units and light air fleets.
+- `FACTORYTRAIN_WIDOWMINE` (Terran, Train) - Train a Widow Mine, a burrowing trap that launches a devastating missile at the first enemy ground or air unit to cross its path.
+- `FUSIONCORERESEARCH_RESEARCHBALLISTICRANGE` (Terran, Research)
+- `FUSIONCORERESEARCH_RESEARCHMEDIVACENERGYUPGRADE` (Terran, Research) - Double the energy regeneration rate of Medivac.
+- `HARVEST_GATHER_MULE` (Terran, Unit)
+- `HARVEST_GATHER_SCV` (Terran, Unit)
+- `HOLDPOSITION_BATTLECRUISER` (Terran, None)
+- `HOLDPOSITION_HOLD` (Protoss/Terran/Zerg, None)
+- `KD8CHARGE_KD8CHARGE` (Terran, PointOrUnit) - Explodes after a short delay, dealing 5 damage and knocking back nearby units.
+- `LAND_BARRACKS` (Terran, MorphPlace)
+- `LAND_COMMANDCENTER` (Terran, MorphPlace)
+- `LAND_FACTORY` (Terran, MorphPlace)
+- `LAND_ORBITALCOMMAND` (Terran, MorphPlace)
+- `LAND_STARPORT` (Terran, MorphPlace)
+- `LIFT_BARRACKS` (Terran, Morph)
+- `LIFT_COMMANDCENTER` (Terran, Morph)
+- `LIFT_FACTORY` (Terran, Morph)
+- `LIFT_ORBITALCOMMAND` (Terran, Morph)
+- `LIFT_STARPORT` (Terran, Morph)
+- `LOADALL_COMMANDCENTER` (Terran, None)
+- `LOAD_BUNKER` (Terran, Unit) - Load a unit into a Bunker.
+- `LOAD_MEDIVAC` (Terran, Unit) - Load a unit into a Medivac.
+- `LOCKON_LOCKON` (Terran, Unit) - Locks the Cyclone's weapons on the target unit, increasing the Cyclone's range to 9 and allowing it to move while firing. Canceled if the target moves out of range (9) or vision.
+- `MEDIVACHEAL_HEAL` (Terran, Unit) - Enables a Medivac to heal nearby injured units.
+- `MORPH_HELLBAT` (Terran, Morph) - Transforms the Hellion into its Hellbat form, short-range defense mode.
+- `MORPH_HELLION` (Terran, Morph) - Transforms the Hellbat into its Hellion form, remote support mode.
+- `MORPH_LIBERATORAAMODE` (Terran, Morph) - Reverts to Fighter Mode. In this mode, Liberators can move, but they can only target air units.
+- `MORPH_LIBERATORAGMODE` (Terran, MorphPlace) - Deploys into Defender Mode. In this mode, Liberators inflict single target damage to ground units. Liberators in this mode cannot move.
+- `MORPH_SUPPLYDEPOT_LOWER` (Terran, Morph)
+- `MORPH_SUPPLYDEPOT_RAISE` (Terran, Morph)
+- `MORPH_THOREXPLOSIVEMODE` (Terran, Morph) - Arms the Thor's Javelin missile launchers, which deal splash damage to nearby air units and additional damage to Light units.
+- `MORPH_THORHIGHIMPACTMODE` (Terran, Morph) - Activates the Thor's 250mm Punisher Cannons, which strike a single air target for heavy damage.
+- `MORPH_VIKINGASSAULTMODE` (Terran, Morph) - Transforms the Viking into Assault Mode where it becomes a Ground unit with a ground attack.
+- `MORPH_VIKINGFIGHTERMODE` (Terran, Morph) - Transforms the Viking into Fighter Mode where it becomes an Air unit with an anti-air attack.
+- `MOVE_BATTLECRUISER` (Terran, PointOrUnit) - Command Battlecruiser to move.
+- `MOVE_MOVE` (Protoss/Terran/Zerg, PointOrUnit) - Move to target position.
+- `PATROL_BATTLECRUISER` (Terran, PointOrUnit)
+- `PATROL_PATROL` (Protoss/Terran/Zerg, PointOrUnit) - Command unit to patrol from current position to target position.
+- `RALLY_BUILDING` (Protoss/Terran/Zerg, PointOrUnit)
+- `RALLY_COMMANDCENTER` (Terran, PointOrUnit)
+- `RESEARCH_BANSHEECLOAKINGFIELD` (Terran, Research) - Allows Banshees to use the Cloak ability.
+- `RESEARCH_BANSHEEHYPERFLIGHTROTORS` (Terran, Research) - Increases the movement speed of Banshees from 3.85 to 5.25.
+- `RESEARCH_BATTLECRUISERWEAPONREFIT` (Terran, Research) - Allows Battlecruisers to use the Yamato Cannon ability.
+- `RESEARCH_COMBATSHIELD` (Terran, Research) - Every Marine gains a Combat Shield that gives 10 hitpoints.
+- `RESEARCH_CONCUSSIVESHELLS` (Terran, Research) - Marauders gain the Concussive Shells ability.
+- `RESEARCH_CYCLONELOCKONDAMAGE` (Terran, Research) - Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets.
+- `RESEARCH_DRILLINGCLAWS` (Terran, Research) - Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading.
+- `RESEARCH_HISECAUTOTRACKING` (Terran, Research) - Adds +1 attack range to Auto-Turrets, Missile Turrets, and Planetary Fortresses.
+- `RESEARCH_INFERNALPREIGNITER` (Terran, Research) - Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage.
+- `RESEARCH_PERSONALCLOAKING` (Terran, Research) - Enables Ghosts to use the Cloak ability. Cloak renders a unit invisible to enemies unless it's revealed by detectors or effects.
+- `RESEARCH_RAVENCORVIDREACTOR` (Terran, Research) - Increases the Raven's starting energy by 25.
+- `RESEARCH_SMARTSERVOS` (Terran, Research) - Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes.
+- `RESEARCH_TERRANSTRUCTUREARMORUPGRADE` (Terran, Research) - Increases the armor of the Point Defense Drone, Auto-Turret, Missile Turret, Planetary Fortress, and all other Terran structures by 2.
+- `SALVAGEEFFECT_SALVAGE` (Terran, None)
+- `SCANNERSWEEP_SCAN` (Terran, Point)
+- `SCAN_MOVE` (Protoss/Terran/Zerg, PointOrUnit)
+- `SIEGEMODE_SIEGEMODE` (Terran, Morph) - Transforms a Siege Tank into Siege Mode, increasing its attack range and damage but preventing movement.
+- `SMART` (Protoss/Terran/Zerg, PointOrUnit)
+- `STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX` (Terran, Research) - Allows Ravens to use the Interference Matrix ability.
+- `STARPORTTRAIN_BANSHEE` (Terran, Train) - Train a Banshee, a cloaked air unit that excels at surprise attacks against ground targets.
+- `STARPORTTRAIN_BATTLECRUISER` (Terran, Train) - Train a Battle Cruiser, a powerful capital ship that can teleport across the map and unleash a devastating single-target blast.
+- `STARPORTTRAIN_LIBERATOR` (Terran, Train) - Train a Liberator, an air unit that transforms into a stationary platform to lockdown and destroy ground targets in a designated area.
+- `STARPORTTRAIN_MEDIVAC` (Terran, Train) - Train a Medivac, a flying support unit that heals biological forces and transports them across the battlefield.
+- `STARPORTTRAIN_RAVEN` (Terran, Train) - Train a Raven, a flying spellcaster that disrupts enemy armies with debilitating abilities and provides detection.
+- `STARPORTTRAIN_VIKINGFIGHTER` (Terran, Train) - Train a Viking Fighter, a transforming fighter that dominates the skies in air mode and provides ground support in assault mode.
+- `STOP_BATTLECRUISER` (Terran, None) - Immediately halts all movement and actions of the Battlecruiser.
+- `STOP_STOP` (Protoss/Terran/Zerg, None)
+- `SUPPLYDROP_SUPPLYDROP` (Terran, Unit)
+- `TERRANBUILD_ARMORY` (Terran, Build) - Build a Armory to unlock the Hellbat, Thor and higher-level infantry upgrades.
+- `TERRANBUILD_BARRACKS` (Terran, Build) - Build a Barracks to produce infantry units (Marine, Reaper, Marauder, Ghost).
+- `TERRANBUILD_BUNKER` (Terran, Build) - Build a Bunker, a static defense building.
+- `TERRANBUILD_COMMANDCENTER` (Terran, Build) - Build a Command Center, the Terran base.
+- `TERRANBUILD_ENGINEERINGBAY` (Terran, Build) - Build an Engineer Bay to unlock Missile Turret, Sensor Tower and Planetary Fortress.
+- `TERRANBUILD_FACTORY` (Terran, Build) - Build a Factory to produce mechanical ground units (Hellion, Widow Mine, Siege Tank, Hellbat, Thor) and unlock the Starport and Armory.
+- `TERRANBUILD_FUSIONCORE` (Terran, Build) - Build a Fusion Core to unlock Battlecruiser.
+- `TERRANBUILD_GHOSTACADEMY` (Terran, Build) - Build a Ghost Academy to unlock the Ghost unit.
+- `TERRANBUILD_MISSILETURRET` (Terran, Build) - Build a Missile Turret to attack flying units.
+- `TERRANBUILD_REFINERY` (Terran, BuildOnUnit) - Build a Refinery on a Vespene Geyser.
+- `TERRANBUILD_SENSORTOWER` (Terran, Build) - Build a Sensor Tower, which senses any approaching uncloaked, unburrowed enemy units.
+- `TERRANBUILD_STARPORT` (Terran, Build) - Build a Starport to produce air units (Viking, Medivac, Banshee, Raven, Battlecruiser).
+- `TERRANBUILD_SUPPLYDEPOT` (Terran, Build) - Build a Supply Depot to increase 8 supplies and unlock Barracks.
+- `TORNADOMISSILE_TORNADOMISSILE` (Terran, Unit)
+- `TRAIN_CYCLONE` (Terran, Train) - Train a Cyclone, locking onto a single air or ground target to deal immense damage while moving to stay at range.
+- `TRAIN_HELLBAT` (Terran, Train) - Train a Hellbat, a tough, short-ranged walker that incinerates masses of light units with its wide flame attack.
+- `UNSIEGE_UNSIEGE` (Terran, Morph) - Converts a Siege Tank back from Siege Mode to its regular mode.
+- `UPGRADETOORBITAL_ORBITALCOMMAND` (Terran, Morph) - Unlocks MULE (Faster Mineral Income), Extra Supplies (Doubles Supply Depot food), and use Scanner Sweep (Reveal any part of the map).
+- `UPGRADETOPLANETARYFORTRESS_PLANETARYFORTRESS` (Terran, Morph) - Enhance the defense capability of Command Center.
+- `WIDOWMINEATTACK_WIDOWMINEATTACK` (Terran, Unit) - Command Widow Mine to attack.
+- `YAMATO_YAMATOGUN` (Terran, Unit) - Blasts a target with a devastating plasma cannon, causing 240 damage.

@@ -1,0 +1,514 @@
+{
+  "case": {
+    "id": "T04_battlecruiser_source_prereq",
+    "race": "Terran",
+    "question": "Where is a Battlecruiser produced, what prerequisites does it require, and what does it cost?",
+    "expected_tools": [
+      "query_reverse_production_sources",
+      "query_tech_tree"
+    ],
+    "result_keywords": [
+      "Battlecruiser",
+      "Starport",
+      "FusionCore"
+    ],
+    "answer_keywords": [
+      "Battlecruiser",
+      "Starport",
+      "Fusion Core"
+    ]
+  },
+  "evaluation": {
+    "id": "T04_battlecruiser_source_prereq",
+    "race": "Terran",
+    "question": "Where is a Battlecruiser produced, what prerequisites does it require, and what does it cost?",
+    "passed": true,
+    "duration_seconds": 37.2,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_reverse_production_sources",
+      "query_tech_tree",
+      "filter_attributes_and_resources"
+    ],
+    "expected_tools": [
+      "query_reverse_production_sources",
+      "query_tech_tree"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "**Production location:** Battlecruisers are trained at a **Starport** that has a **TechLab** add-on attached.\n\n**Prerequisites:**\n- **Buildings:** Supply Depot → Barracks → Factory → Starport → FusionCore.\n- **Add-on:** TechLab must be built on the Starport (the TechLab requires the Starport itself).\n- So a full tech chain: Supply Depot → Barracks → Factory → Starport → (TechLab + FusionCore).\n\n**Cost:**\n- 400 minerals, 300 vespene gas, 6 supply, and a build time of 1440 (game time units, equiva"
+  },
+  "result": {
+    "query": "Where is a Battlecruiser produced, what prerequisites does it require, and what does it cost?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Battlecruiser",
+                "expected_section": "Unit",
+                "limit": 5
+              }
+            }
+          ],
+          "notes": [
+            "Resolve canonical name for Battlecruiser before querying production source, cost, and prerequisites."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_reverse_production_sources",
+              "arguments": {
+                "produced_name": "Battlecruiser",
+                "produced_section": "Unit",
+                "include_requirements": true,
+                "return_keys": [
+                  "name",
+                  "race",
+                  "addon",
+                  "required_building",
+                  "required_upgrade",
+                  "tech_chain"
+                ],
+                "limit": 10
+              }
+            },
+            {
+              "tool": "query_tech_tree",
+              "arguments": {
+                "target": "Battlecruiser",
+                "sections": [
+                  "Unit"
+                ],
+                "limit": 5
+              }
+            },
+            {
+              "tool": "filter_attributes_and_resources",
+              "arguments": {
+                "sections": [
+                  "Unit"
+                ],
+                "name_query": "Battlecruiser",
+                "name_mode": "exact",
+                "return_keys": [
+                  "minerals",
+                  "gas",
+                  "supply",
+                  "time"
+                ],
+                "limit": 1
+              }
+            }
+          ],
+          "notes": [
+            "Resolved Battlecruiser as Terran Unit. Now retrieving production source (where it is built), prerequisites via tech tree, and resource costs in parallel."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All required evidence collected: production source (Starport + TechLab), prerequisites (SupplyDepot, Barracks, Factory, Starport, TechLab, FusionCore), and costs (400 minerals, 300 gas, 6 supply, 1440 time)."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Battlecruiser",
+            "expected_section": "Unit",
+            "limit": 5
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Battlecruiser",
+            "normalized_mention": "Battlecruiser",
+            "resolved": {
+              "section": "Unit",
+              "name": "Battlecruiser",
+              "race": "Terran"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Battlecruiser",
+                "race": "Terran"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_reverse_production_sources",
+          "arguments": {
+            "produced_name": "Battlecruiser",
+            "produced_section": "Unit",
+            "include_requirements": true,
+            "return_keys": [
+              "name",
+              "race",
+              "addon",
+              "required_building",
+              "required_upgrade",
+              "tech_chain"
+            ],
+            "limit": 10
+          },
+          "result": {
+            "mode": "reverse_production_sources",
+            "produced": {
+              "section": "Unit",
+              "name": "Battlecruiser",
+              "race": "Terran"
+            },
+            "count": 1,
+            "results": [
+              {
+                "produced": {
+                  "section": "Unit",
+                  "name": "Battlecruiser"
+                },
+                "producer": {
+                  "name": "Starport",
+                  "race": "Terran",
+                  "tech_chain": [
+                    "Starport: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SCV (COMMANDCENTERTRAIN_SCV)] -> Starport (TERRANBUILD_STARPORT)",
+                    "Starport: [Starport] -> Starport (LIFT_STARPORT)",
+                    "Starport: [Starport -> StarportFlying (LIFT_STARPORT)] -> Starport (LAND_STARPORT)"
+                  ]
+                },
+                "target_type": "Train",
+                "ability": {
+                  "name": "STARPORTTRAIN_BATTLECRUISER",
+                  "target": {
+                    "Train": {
+                      "produces_name": "Battlecruiser"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_name": "TechLab"
+                  },
+                  {
+                    "building_name": "FusionCore"
+                  }
+                ],
+                "required_addon": "TechLab"
+              }
+            ],
+            "resolution": {
+              "mode": "entity_key_resolution",
+              "mention": "Battlecruiser",
+              "normalized_mention": "Battlecruiser",
+              "resolved": {
+                "section": "Unit",
+                "name": "Battlecruiser",
+                "race": "Terran"
+              },
+              "confidence": 1.0,
+              "candidates": [
+                {
+                  "section": "Unit",
+                  "name": "Battlecruiser",
+                  "race": "Terran"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_tech_tree",
+          "arguments": {
+            "target": "Battlecruiser",
+            "sections": [
+              "Unit"
+            ],
+            "limit": 5
+          },
+          "result": {
+            "mode": "tech_tree",
+            "count": 1,
+            "results": [
+              {
+                "_section": "Unit",
+                "name": "Battlecruiser",
+                "race": "Terran",
+                "tech_chain": [
+                  "Battlecruiser: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> FusionCore (TERRANBUILD_FUSIONCORE)] -> Battlecruiser (STARPORTTRAIN_BATTLECRUISER)"
+                ],
+                "parsed_tech_chain": [
+                  {
+                    "raw": "Battlecruiser: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> FusionCore (TERRANBUILD_FUSIONCORE)] -> Battlecruiser (STARPORTTRAIN_BATTLECRUISER)",
+                    "paths": [
+                      [
+                        "SupplyDepot",
+                        "Barracks",
+                        "Factory",
+                        "Starport",
+                        "TechLab"
+                      ],
+                      [
+                        "SupplyDepot",
+                        "Barracks",
+                        "Factory",
+                        "Starport",
+                        "FusionCore"
+                      ]
+                    ],
+                    "target": "Battlecruiser",
+                    "has_parallel_and": true
+                  }
+                ],
+                "description": [
+                  "The Battlecruiser is the Terran's capital ship. In LotV , the Battlecruiser has been granted the Tactical Jump ability, allowing it to teleport anywhere on the map (regardless of fog of war).",
+                  "It can be constructed at a Starport with a Tech Lab add-on once a Fusion Core has been built. Similar to its Brood War counterpart , the Battlecruiser is a slow but powerful unit. It can deal large amounts of damage and has high health. This flying fortress boasts the highest default armour value of any combat unit in the game, which can make it particularly hard to kill. However, like in Brood War, the Battlecruiser is rarely used due to its slow speed, high cost and lengthy tech tree. Despite this, if built when the Terran has a large advantage, it can seal the victory and make a comeback very difficult. Players also sometimes pull SCVs to repair Battlecruisers during combat. The Battlecruiser retains the Yamato Cannon from Brood War.",
+                  "While held back by its excessive cost and time to build up to, the Battlecruiser is one of the few units that can harass bases even under heavy fire due to its high default health and armor, and its ability to fire while moving. With proper micro, the Battlecruiser is very likely to survive long enough to use Tactical Jump to retreat back to the player's side of the map to be repaired and repeat the process. Battlecruisers that survive past the early to mid game can also obtain the Yamato Cannon upgrade later on to snipe bases and T3 units. This makes the Battlecruiser very cost effective if it survives and is a global pressure tool (not unlike the Ghost 's Tactical Nuke ). However, a player who has opted to rush Battlecruisers will most likely have minimal defense back at home and is vulnerable to counter attacks as well as be behind in upgrades due to the aforementioned cost of going such a build."
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "filter_attributes_and_resources",
+          "arguments": {
+            "sections": [
+              "Unit"
+            ],
+            "name_query": "Battlecruiser",
+            "name_mode": "exact",
+            "return_keys": [
+              "minerals",
+              "gas",
+              "supply",
+              "time"
+            ],
+            "limit": 1
+          },
+          "result": {
+            "mode": "query_ir",
+            "count": 1,
+            "results": [
+              {
+                "minerals": 400,
+                "gas": 300,
+                "supply": 6.0,
+                "time": 1440.0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Battlecruiser",
+          "expected_section": "Unit",
+          "limit": 5
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Battlecruiser",
+          "normalized_mention": "Battlecruiser",
+          "resolved": {
+            "section": "Unit",
+            "name": "Battlecruiser",
+            "race": "Terran"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Battlecruiser",
+              "race": "Terran"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_reverse_production_sources",
+        "arguments": {
+          "produced_name": "Battlecruiser",
+          "produced_section": "Unit",
+          "include_requirements": true,
+          "return_keys": [
+            "name",
+            "race",
+            "addon",
+            "required_building",
+            "required_upgrade",
+            "tech_chain"
+          ],
+          "limit": 10
+        },
+        "result": {
+          "mode": "reverse_production_sources",
+          "produced": {
+            "section": "Unit",
+            "name": "Battlecruiser",
+            "race": "Terran"
+          },
+          "count": 1,
+          "results": [
+            {
+              "produced": {
+                "section": "Unit",
+                "name": "Battlecruiser"
+              },
+              "producer": {
+                "name": "Starport",
+                "race": "Terran",
+                "tech_chain": [
+                  "Starport: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SCV (COMMANDCENTERTRAIN_SCV)] -> Starport (TERRANBUILD_STARPORT)",
+                  "Starport: [Starport] -> Starport (LIFT_STARPORT)",
+                  "Starport: [Starport -> StarportFlying (LIFT_STARPORT)] -> Starport (LAND_STARPORT)"
+                ]
+              },
+              "target_type": "Train",
+              "ability": {
+                "name": "STARPORTTRAIN_BATTLECRUISER",
+                "target": {
+                  "Train": {
+                    "produces_name": "Battlecruiser"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_name": "TechLab"
+                },
+                {
+                  "building_name": "FusionCore"
+                }
+              ],
+              "required_addon": "TechLab"
+            }
+          ],
+          "resolution": {
+            "mode": "entity_key_resolution",
+            "mention": "Battlecruiser",
+            "normalized_mention": "Battlecruiser",
+            "resolved": {
+              "section": "Unit",
+              "name": "Battlecruiser",
+              "race": "Terran"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Battlecruiser",
+                "race": "Terran"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_tech_tree",
+        "arguments": {
+          "target": "Battlecruiser",
+          "sections": [
+            "Unit"
+          ],
+          "limit": 5
+        },
+        "result": {
+          "mode": "tech_tree",
+          "count": 1,
+          "results": [
+            {
+              "_section": "Unit",
+              "name": "Battlecruiser",
+              "race": "Terran",
+              "tech_chain": [
+                "Battlecruiser: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> FusionCore (TERRANBUILD_FUSIONCORE)] -> Battlecruiser (STARPORTTRAIN_BATTLECRUISER)"
+              ],
+              "parsed_tech_chain": [
+                {
+                  "raw": "Battlecruiser: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> FusionCore (TERRANBUILD_FUSIONCORE)] -> Battlecruiser (STARPORTTRAIN_BATTLECRUISER)",
+                  "paths": [
+                    [
+                      "SupplyDepot",
+                      "Barracks",
+                      "Factory",
+                      "Starport",
+                      "TechLab"
+                    ],
+                    [
+                      "SupplyDepot",
+                      "Barracks",
+                      "Factory",
+                      "Starport",
+                      "FusionCore"
+                    ]
+                  ],
+                  "target": "Battlecruiser",
+                  "has_parallel_and": true
+                }
+              ],
+              "description": [
+                "The Battlecruiser is the Terran's capital ship. In LotV , the Battlecruiser has been granted the Tactical Jump ability, allowing it to teleport anywhere on the map (regardless of fog of war).",
+                "It can be constructed at a Starport with a Tech Lab add-on once a Fusion Core has been built. Similar to its Brood War counterpart , the Battlecruiser is a slow but powerful unit. It can deal large amounts of damage and has high health. This flying fortress boasts the highest default armour value of any combat unit in the game, which can make it particularly hard to kill. However, like in Brood War, the Battlecruiser is rarely used due to its slow speed, high cost and lengthy tech tree. Despite this, if built when the Terran has a large advantage, it can seal the victory and make a comeback very difficult. Players also sometimes pull SCVs to repair Battlecruisers during combat. The Battlecruiser retains the Yamato Cannon from Brood War.",
+                "While held back by its excessive cost and time to build up to, the Battlecruiser is one of the few units that can harass bases even under heavy fire due to its high default health and armor, and its ability to fire while moving. With proper micro, the Battlecruiser is very likely to survive long enough to use Tactical Jump to retreat back to the player's side of the map to be repaired and repeat the process. Battlecruisers that survive past the early to mid game can also obtain the Yamato Cannon upgrade later on to snipe bases and T3 units. This makes the Battlecruiser very cost effective if it survives and is a global pressure tool (not unlike the Ghost 's Tactical Nuke ). However, a player who has opted to rush Battlecruisers will most likely have minimal defense back at home and is vulnerable to counter attacks as well as be behind in upgrades due to the aforementioned cost of going such a build."
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "filter_attributes_and_resources",
+        "arguments": {
+          "sections": [
+            "Unit"
+          ],
+          "name_query": "Battlecruiser",
+          "name_mode": "exact",
+          "return_keys": [
+            "minerals",
+            "gas",
+            "supply",
+            "time"
+          ],
+          "limit": 1
+        },
+        "result": {
+          "mode": "query_ir",
+          "count": 1,
+          "results": [
+            {
+              "minerals": 400,
+              "gas": 300,
+              "supply": 6.0,
+              "time": 1440.0
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "**Production location:** Battlecruisers are trained at a **Starport** that has a **TechLab** add-on attached.\n\n**Prerequisites:**\n- **Buildings:** Supply Depot → Barracks → Factory → Starport → FusionCore.\n- **Add-on:** TechLab must be built on the Starport (the TechLab requires the Starport itself).\n- So a full tech chain: Supply Depot → Barracks → Factory → Starport → (TechLab + FusionCore).\n\n**Cost:**\n- 400 minerals, 300 vespene gas, 6 supply, and a build time of 1440 (game time units, equivalent to 90 seconds at normal speed).\n\nThese results come from the official SC2 data, matching the known Terran Battlecruiser train ability (STARPORTTRAIN_BATTLECRUISER)."
+  }
+}

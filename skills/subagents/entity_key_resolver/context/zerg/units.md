@@ -1,0 +1,89 @@
+# Zerg Unit Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `Baneling` (Zerg) - The Baneling is a suicide bomber unit morphed from Zerglings after a Baneling Nest has been constructed. Similar to the Infested Terran from Brood War, the Baneling is a suicidal u
+- `BanelingBurrowed` (Zerg)
+- `BanelingCocoon` (Zerg) - The Cocoon is the unit created from any morphable Zerg unit after it has begun mutating into another unit. The Cocoon from a morphing Larva is extremely durable, with 200 hit point
+- `BanelingNest` (Zerg) - The Baneling Nest is a Zerg building that enables a Zerg player to build and upgrade Banelings . The only upgrade available at the Baneling Nest is the Centrifugal Hooks ; which in
+- `BroodLord` (Zerg) - The Brood Lord is a flying heavy-assault Zerg air-to-ground unit that spawns Broodlings when it attacks. The Brood Lord can be morphed from a Corruptor once the Zerg player has mad
+- `BroodLordCocoon` (Zerg)
+- `Broodling` (Zerg) - The Broodling is a small Zerg unit that is spawned on death of most Zerg buildings and whenever Brood Lords attack. It is similar to a slightly weaker Zergling , but has a limited 
+- `Changeling` (Zerg) - The Changeling is a temporary Zerg unit spawned by an Overseer that lasts for 107 seconds. The Changeling spawns as a Zerg-looking unit, but upon seeing an enemy unit or building i
+- `ChangelingMarine` (Zerg)
+- `ChangelingMarineShield` (Zerg)
+- `ChangelingZealot` (Zerg)
+- `ChangelingZergling` (Zerg)
+- `ChangelingZerglingWings` (Zerg)
+- `Corruptor` (Zerg) - The Corruptor is a flying Zerg unit that has strong anti-air capabilities with decent speed. They are also distinguished from Mutalisk by their greater range and huge health pool, 
+- `CreepTumor` (Zerg) - The Creep Tumor is a dedicated creep - generating building initially spawned by Queens . After a brief initialisation phase after placement, the structure automatically burrows and
+- `CreepTumorBurrowed` (Zerg)
+- `CreepTumorQueen` (Zerg)
+- `DefilerMP` (Zerg)
+- `DefilerMPBurrowed` (Zerg)
+- `DevourerCocoonMP` (Zerg)
+- `DevourerMP` (Zerg)
+- `Drone` (Zerg) - The Drone is the basic worker unit for Zerg . It can harvest Minerals and Vespene Gas as well as build any Zerg structure at the cost of its life. Drones differ from Probes and SCV
+- `DroneBurrowed` (Zerg)
+- `Egg` (Zerg)
+- `EvolutionChamber` (Zerg) - The Evolution Chamber is a structure in the Zerg Tech Tree which requires a Hatchery before it can be morphed. The Evolution Chamber is the research center for Melee Attacks , Miss
+- `Extractor` (Zerg) - The Extractor is the Zerg building from which Drones collect Vespene Gas . The Extractor is the Zerg equivalent to the Terran Refinery and the Protoss Assimilator . Besides being t
+- `ExtractorRich` (Zerg)
+- `GreaterSpire` (Zerg) - The Greater Spire is one of two Zerg Tech Tree buildings that are available after the completion of Hive . After Hive is completed, a Zerg player may choose to upgrade their Spire 
+- `GuardianCocoonMP` (Zerg)
+- `GuardianMP` (Zerg)
+- `Hatchery` (Zerg) - The Hatchery is the center of every Zerg base and expansion. It provides the Zerg player with Larvae as well as Creep covering an area of 8x6. Through Larvae and creep, Hatcheries 
+- `Hive` (Zerg) - The Hive is the final upgrade to the Hatchery that unlocks the Zerg players tier-three buildings. To upgrade to Hive, you must have already upgraded to a Lair as well as built an I
+- `Hydralisk` (Zerg) - The Hydralisk is a ranged Lair -tech unit that can be morphed after building a Hydralisk Den . The Hydralisk's fast attack and high damage, along with not relying on bonuses to spe
+- `HydraliskBurrowed` (Zerg)
+- `HydraliskDen` (Zerg) - The Hydralisk Den is a Zerg building that allows the Zerg player to create Hydralisks . The Hydralisk Den requires a Lair to build, making it a tier-two tech building. It enables t
+- `InfestationPit` (Zerg) - The Infestation Pit is a second-tier Zerg building that unlocks the Hive , Infestor , and Swarm Host , as well as the Infestor upgrades. The player may upgrade Neural Parasite at t
+- `InfestedTerransEgg` (Zerg)
+- `InfestedTerransEggPlacement` (Zerg)
+- `Infestor` (Zerg) - The Infestor is an offensive spellcaster, meaning that its abilities are used to harm enemy units rather than support the player's units. It can be built after the Zerg player has 
+- `InfestorBurrowed` (Zerg)
+- `InfestorTerran` (Zerg) - The Infested Terran was a light , ground Zerg unit that was spawned by an Infestor using its Infested Terran spell . The spell, and with it the unit, were removed in Patch 4.11.0 i
+- `InfestorTerranBurrowed` (Zerg)
+- `Lair` (Zerg) - The Lair is a Zerg building that is the direct upgrade from a Hatchery . The Lair has 2,000 health compared to a Hatchery's 1,500. The Lair unlocks many useful tech buildings and u
+- `Larva` (Zerg) - The Larva is the base unit for Zerg. It can morph into one of the following: Despite having only 25 hit points, Larvae are extremely durable with their 10 armor preventing large am
+- `LocustMP` (Zerg) - The Locust is a temporary unit with timed life that is spawned in pairs by a Swarm Host . After spawning, Locusts begin as flying units and are unable to attack. They will fly over
+- `LocustMPFlying` (Zerg)
+- `LurkerDenMP` (Zerg) - The Lurker Den was developed in 2010, but cut in the alpha stages of StarCraft II , and has since been brought back with Legacy of the Void . The Lurker Den can be morphed from a D
+- `LurkerMP` (Zerg) - The Lurker is a Zerg unit that may attack only when burrowed and is also able to burrow without the mutation being evolved. A Hydralisk can be morphed to a Lurker when a Lurker Den
+- `LurkerMPBurrowed` (Zerg)
+- `LurkerMPEgg` (Zerg) - The Cocoon is the unit created from any morphable Zerg unit after it has begun mutating into another unit. The Cocoon from a morphing Larva is extremely durable, with 200 hit point
+- `Mutalisk` (Zerg) - The Mutalisk is an extremely fast air attack unit capable of attacking both air and ground units. The Mutalisk's projectile, called "Glaive Wurm", hits the target and then two subs
+- `NydusCanal` (Zerg) - The Nydus Worm is a Zerg structure used to move units quickly around the map. After the Nydus Network is created, you can build a Nydus Worm anywhere where you have vision without 
+- `NydusCanalAttacker` (Zerg)
+- `NydusCanalCreeper` (Zerg)
+- `NydusNetwork` (Zerg) - The Nydus Network is a tier-two Zerg building that is used to move units quickly around the map. It requires a Lair to build and can create Nydus Worms . A Nydus Worm can be built 
+- `Overlord` (Zerg) - The Overlord is the Zerg's supply generator, equivalent to the Terran's Supply Depot and the Protoss Pylon . The Overlord provides the Zerg player with 8 supply. More must be built
+- `OverlordCocoon` (Zerg)
+- `OverlordTransport` (Zerg)
+- `Overseer` (Zerg) - The Overseer is a Zerg unit that is morphed from an Overlord . It has some abilities which the Overlord does not have: the ability to Detect invisible units, spawn Changelings and 
+- `OverseerSiegeMode` (Zerg)
+- `Queen` (Zerg) - The Queen is an essential unit for the Zerg base, capable of being spawned from any Hatchery after a Spawning Pool has been built. The unit provides light defense against both grou
+- `QueenBurrowed` (Zerg)
+- `QueenMP` (Zerg)
+- `Ravager` (Zerg) - The Ravager is a ranged Zerg ground unit introduced in Legacy of the Void . It morphs from the Roach any time after completing a Roach Warren ; but is not an Armored unit like its 
+- `RavagerBurrowed` (Zerg)
+- `RavagerCocoon` (Zerg) - The Cocoon is the unit created from any morphable Zerg unit after it has begun mutating into another unit. The Cocoon from a morphing Larva is extremely durable, with 200 hit point
+- `Roach` (Zerg) - The Roach is an Armored -ground unit that can be produced after a Roach Warren has been built. The Roach is useful in all three match-ups because it can absorb large amounts of dam
+- `RoachBurrowed` (Zerg)
+- `RoachWarren` (Zerg) - The Roach Warren is a building that gives the Zerg player the ability to create and upgrade Roaches . The two upgrades that are available at the Roach Warren are Tunneling Claws , 
+- `ScourgeMP` (Zerg)
+- `SpawningPool` (Zerg) - The Spawning Pool is the first Zerg tech building; it unlocks Zerg's basic fighting units - Zerglings . Building the Spawning pool also unlocks the Lair , Roach Warren , Baneling N
+- `SpineCrawler` (Zerg) - The Spine Crawler is a Zerg static defense structure that deals 25 damage to ground units with a 5 point damage bonus to armored units. Although similar to the Sunken Colony , the 
+- `SpineCrawlerUprooted` (Zerg)
+- `Spire` (Zerg) - Requiring a Lair to build, this building contains access to all Flyer units and Upgrades listed below. The Spire is needed for the construction of the Zerg aerial units Mutalisk , 
+- `SporeCrawler` (Zerg) - The Spore Crawler is a Zerg base anti-air static defense structure, which deals 15 points of damage to air units and has the ability to detect cloaked units. Although similar to th
+- `SporeCrawlerUprooted` (Zerg)
+- `SwarmHostBurrowedMP` (Zerg)
+- `SwarmHostMP` (Zerg) - The Swarm Host is a Zerg siege unit that requires an Infestation Pit . It attacks in the form of spawning a pair of Locusts with an activated ability. The Locusts are slow-moving g
+- `TransportOverlordCocoon` (Zerg)
+- `Ultralisk` (Zerg) - The Ultralisk is the Zerg 's toughest late-game unit in StarCraft II. It can only be made once a Hive is researched and an Ultralisk Cavern is made. The Ultralisk has been upgraded
+- `UltraliskBurrowed` (Zerg)
+- `UltraliskCavern` (Zerg) - The Ultralisk Cavern is one of two Zerg tech buildings that are available after the completion of Hive . After the Ultralisk Cavern is completed, Ultralisks can be built and their 
+- `Viper` (Zerg) - The Viper is a Zerg flying support caster that requires a Hive . The Viper does not attack. Instead, it uses its spells to disrupt the positioning of enemy units. The Viper is part
+- `Zergling` (Zerg) - The Zergling is a small and fast melee attacker and the backbone of the Zerg army. Individual Zerglings are weak, but large groups can surround and terrorize enemy ground forces. I
+- `ZerglingBurrowed` (Zerg)

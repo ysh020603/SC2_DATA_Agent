@@ -20,7 +20,6 @@ from sc2_search_tools import (
 
 
 COMMON_NUMERIC_FIELDS = [
-    "id",
     "cast_range",
     "energy_cost",
     "cooldown",
@@ -56,7 +55,7 @@ BOOLEAN_FIELDS = [
     "is_flying",
 ]
 
-DEFAULT_OUTPUT_KEYS = ["_section", "id", "name", "race", "attributes", "tech_chain", "description"]
+DEFAULT_OUTPUT_KEYS = ["_section", "name", "race", "attributes", "tech_chain", "description"]
 
 
 st.set_page_config(page_title="SC2 DATA_BASE Search", layout="wide")
@@ -95,7 +94,7 @@ def unique_values(items: list[dict[str, Any]], key: str) -> list[str]:
 
 
 def all_output_keys(items: list[dict[str, Any]]) -> list[str]:
-    keys = {"_section", "id", "name", "race", "attributes", "tech_chain", "description"}
+    keys = {"_section", "name", "race", "attributes", "tech_chain", "description"}
     for item in items:
         keys.update(item.keys())
     keys.update(["cost.minerals", "cost.gas", "cost.time", "weapons.range", "weapons.dps"])
@@ -136,7 +135,6 @@ def compact_table(items: list[dict[str, Any]]) -> pd.DataFrame:
         rows.append(
             {
                 "section": item.get("_section"),
-                "id": item.get("id"),
                 "name": item.get("name"),
                 "race": item.get("race", ""),
                 "attributes": ", ".join(item.get("attributes") or []),

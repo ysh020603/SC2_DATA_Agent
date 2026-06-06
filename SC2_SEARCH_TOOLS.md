@@ -25,6 +25,7 @@ Upgrade
 ```
 
 Every returned item includes `_section` when searched through the tool module.
+Internal numeric ids are removed from the searchable database; relationships use fields such as `ability_name`, `produces_name`, `upgrade_name`, and `normal_mode_name`.
 
 ## Tool Functions
 
@@ -45,7 +46,7 @@ rows = search_by_name(
     "Battlecruiser",
     sections=["Unit"],
     mode="exact",
-    keys=["_section", "id", "name", "race", "tech_chain"],
+    keys=["_section", "name", "race", "tech_chain"],
 )
 ```
 
@@ -56,7 +57,6 @@ Filter by numeric fields or nested numeric fields.
 Supported examples:
 
 ```text
-id
 max_health
 armor
 sight
@@ -82,7 +82,7 @@ rows = filter_by_numeric_ranges(
         "weapons.range": {"min": 6},
     },
     sections=["Unit"],
-    keys=["_section", "id", "name", "race", "max_health"],
+    keys=["_section", "name", "race", "max_health"],
 )
 ```
 
@@ -98,7 +98,7 @@ rows = filter_by_tags(
     attributes_any=["Armored"],
     booleans={"is_flying": False},
     sections=["Unit"],
-    keys=["_section", "id", "name", "race", "attributes", "is_flying"],
+    keys=["_section", "name", "race", "attributes", "is_flying"],
 )
 ```
 
@@ -113,7 +113,7 @@ rows = filter_combat_profile(
     can_attack_air=True,
     min_range=5,
     bonus_against="Armored",
-    keys=["_section", "id", "name", "race", "weapons"],
+    keys=["_section", "name", "race", "weapons"],
 )
 ```
 
@@ -130,7 +130,7 @@ rows = combined_search(
     sections=["Unit"],
     tag_filters={"race": "Terran"},
     combat_filters={"can_attack_air": True},
-    keys=["_section", "id", "name", "race", "weapons"],
+    keys=["_section", "name", "race", "weapons"],
     limit=10,
 )
 ```
@@ -142,7 +142,7 @@ All functions return full records by default.
 Pass `keys=[...]` to return only selected fields:
 
 ```python
-keys=["_section", "id", "name", "race", "tech_chain"]
+keys=["_section", "name", "race", "tech_chain"]
 ```
 
 Nested key paths are supported:

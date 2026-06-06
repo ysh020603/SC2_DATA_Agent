@@ -1,0 +1,128 @@
+# All Upgrade Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `AdeptPiercingAttack` (Protoss) - Increases the attack speed of the Adept by 45%.
+- `AmplifiedShielding`
+- `AnabolicSynthesis` (Zerg) - Increases the movement speed of Ultralisks off creep.
+- `ArmorPiercingRockets`
+- `BansheeCloak` (Terran) - Allows Banshees to use the Cloak ability.
+- `BansheeSpeed` (Terran) - Increases the movement speed of Banshees from 3.85 to 5.25.
+- `BattlecruiserEnableSpecializations` (Terran) - Allows Battlecruisers to use the Yamato Cannon ability.
+- `BlinkTech` (Protoss) - Gives Stalkers the ability to teleport to a nearby target location.
+- `Burrow` (Zerg) - Enables all Zerg ground units to use the Burrow ability. Burrow allows a unit to take cover underground, rendering it unable to attack.
+- `CarrierLaunchSpeedUpgrade`
+- `CentrificalHooks` (Zerg) - Increases Baneling movement speed to 4.13 (+0.63). Banelings will roll instead of running. Requires a Lair.
+- `Charge` (Protoss) - Grants the Charge ability. Also increases the movement speed of Zealots to 4.725.
+- `ChitinousPlating` (Zerg) - Increases the armor of all Ultralisks by 2.
+- `CycloneLockOnDamageUpgrade` (Terran) - Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets.
+- `CycloneLockOnRangeUpgrade`
+- `CycloneRapidFireLaunchers`
+- `DarkTemplarBlinkUpgrade` (Protoss)
+- `DiggingClaws` (Zerg) - Reduces the time Lurkers take to burrow from 2 seconds to 1.07 seconds.
+- `DrillClaws` (Terran) - Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading.
+- `DurableMaterials` - Increases the duration of Auto-Turrets and Point Defense Drones from 180 to 240 seconds, and increases the duration of the Seeker Missile from 15 to 20 Seconds.
+- `EvolveGroovedSpines` (Zerg) - Increases the attack range of Hydralisks by +1.
+- `EvolveMuscularAugments` (Zerg) - Increases the movement speed of Hydralisks.
+- `ExtendedThermalLance` (Protoss)
+- `Frenzy` (Zerg)
+- `GlialReconstitution` (Zerg) - Increases Roach movement speed to 4.2 (+1.05) while unburrowed, and to 4.4 while burrowed under creep.
+- `GraviticDrive` (Protoss)
+- `HiSecAutoTracking` (Terran) - Adds +1 attack range to Auto-Turrets, Missile Turrets, and Planetary Fortresses.
+- `HighCapacityBarrels` (Terran) - Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage.
+- `HunterSeeker`
+- `HurricaneThrusters`
+- `ImmortalRevive`
+- `InterferenceMatrix` (Terran) - Allows Ravens to use the Interference Matrix ability.
+- `LiberatorAGRangeUpgrade` (Terran)
+- `LiberatorMorph`
+- `LocustLifetimeIncrease`
+- `LurkerRange` (Zerg)
+- `MedivacCaduceusReactor` (Terran) - Double the energy regeneration rate of Medivac.
+- `MedivacIncreaseSpeedBoost`
+- `MedivacRapidDeployment`
+- `MicrobialShroud`
+- `NeosteelFrame`
+- `NeuralParasite` (Zerg) - Allows Infestors to use the Neural Parasite ability.
+- `ObserverGraviticBooster` (Protoss)
+- `PersonalCloaking` (Terran) - Enables Ghosts to use the Cloak ability. Cloak renders a unit invisible to enemies unless it's revealed by detectors or effects.
+- `PhoenixRangeUpgrade` (Protoss)
+- `ProtossAirArmorsLevel1` (Protoss) - Upgrades the armor of Protoss air units.
+- `ProtossAirArmorsLevel2` (Protoss) - Upgrades the armor of Protoss air units.
+- `ProtossAirArmorsLevel3` (Protoss) - Upgrades the armor of Protoss air units.
+- `ProtossAirWeaponsLevel1` (Protoss) - Upgrades the damage of Protoss air units.
+- `ProtossAirWeaponsLevel2` (Protoss) - Upgrades the damage of Protoss air units.
+- `ProtossAirWeaponsLevel3` (Protoss) - Upgrades the damage of Protoss air units.
+- `ProtossGroundArmorsLevel1` (Protoss) - Increases the armor of all Protoss ground forces.
+- `ProtossGroundArmorsLevel2` (Protoss) - Increases the armor of all Protoss ground forces.
+- `ProtossGroundArmorsLevel3` (Protoss) - Increases the armor of all Protoss ground forces.
+- `ProtossGroundWeaponsLevel1` (Protoss) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `ProtossGroundWeaponsLevel2` (Protoss) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `ProtossGroundWeaponsLevel3` (Protoss) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `ProtossShieldsLevel1` (Protoss) - Upgrades the armor of shields for all Protoss units and structures.
+- `ProtossShieldsLevel2` (Protoss) - Upgrades the armor of shields for all Protoss units and structures.
+- `ProtossShieldsLevel3` (Protoss) - Upgrades the armor of shields for all Protoss units and structures.
+- `PsiStormTech` (Protoss)
+- `PsionicAmplifiers`
+- `PunisherGrenades` (Terran) - Marauders gain the Concussive Shells ability.
+- `RavenCorvidReactor` (Terran) - Increases the Raven's starting energy by 25.
+- `RavenEnhancedMunitions`
+- `RavenRecalibratedExplosives`
+- `ReaperSpeed`
+- `RoachSupply`
+- `SecretedCoating`
+- `ShieldWall` (Terran) - Every Marine gains a Combat Shield that gives 10 hitpoints.
+- `SmartServos` (Terran) - Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes.
+- `Stimpack` (Terran) - Every Marine and Marauder gain the Stimpack ability.
+- `SunderingImpact`
+- `TempestGroundAttackUpgrade` (Protoss)
+- `TempestRangeUpgrade`
+- `TerranBuildingArmor` (Terran) - Increases the armor of the Point Defense Drone, Auto-Turret, Missile Turret, Planetary Fortress, and all other Terran structures by 2.
+- `TerranInfantryArmorsLevel1` (Terran) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `TerranInfantryArmorsLevel2` (Terran) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `TerranInfantryArmorsLevel3` (Terran) - Increase the armor of Terran infantry units (Ghost, Marauder, Reaper, Marine, SCV).
+- `TerranInfantryWeaponsLevel1` (Terran) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `TerranInfantryWeaponsLevel2` (Terran) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `TerranInfantryWeaponsLevel3` (Terran) - Increase the damage of Terran infantry units (Ghost, Marauder, Reaper, Marine).
+- `TerranShipArmorsLevel1` - Increase the armor of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `TerranShipArmorsLevel2` - Increase the armor of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `TerranShipArmorsLevel3` - Increase the armor of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `TerranShipWeaponsLevel1` (Terran) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `TerranShipWeaponsLevel2` (Terran) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `TerranShipWeaponsLevel3` (Terran) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
+- `TerranVehicleAndShipArmorsLevel1` (Terran) - Increases the armor of Terran Factory and Starport units.
+- `TerranVehicleAndShipArmorsLevel2` (Terran) - Increases the armor of Terran Factory and Starport units.
+- `TerranVehicleAndShipArmorsLevel3` (Terran) - Increases the armor of Terran Factory and Starport units.
+- `TerranVehicleAndShipWeaponsLevel1`
+- `TerranVehicleAndShipWeaponsLevel2`
+- `TerranVehicleAndShipWeaponsLevel3`
+- `TerranVehicleArmorsLevel1` - Increase the armor of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `TerranVehicleArmorsLevel2` - Increase the armor of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `TerranVehicleArmorsLevel3` - Increase the armor of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `TerranVehicleWeaponsLevel1` (Terran) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `TerranVehicleWeaponsLevel2` (Terran) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `TerranVehicleWeaponsLevel3` (Terran) - Increase the damage of Terran Factory units (Hellion, Siege Tank, Cyclone, Hellbat, and Thor).
+- `TransformationServos`
+- `TunnelingClaws` (Zerg) - Gives Roaches the ability to move while burrowed at a speed of 2.8.
+- `VoidRaySpeedUpgrade` (Protoss)
+- `WarpGateResearch` (Protoss) - Allows Gateways to be changed into Warp Gates.
+- `ZergFlyerArmorsLevel1` (Zerg) - Increases the armor of all Zerg air units.
+- `ZergFlyerArmorsLevel2` (Zerg) - Increases the armor of all Zerg air units.
+- `ZergFlyerArmorsLevel3` (Zerg) - Increases the armor of all Zerg air units.
+- `ZergFlyerWeaponsLevel1` (Zerg) - Increases the attack damage of all Zerg air units.
+- `ZergFlyerWeaponsLevel2` (Zerg) - Increases the attack damage of all Zerg air units.
+- `ZergFlyerWeaponsLevel3` (Zerg) - Increases the attack damage of all Zerg air units.
+- `ZergGroundArmorsLevel1` (Zerg) - Increases the armor of all Zerg ground units.
+- `ZergGroundArmorsLevel2` (Zerg) - Increases the armor of all Zerg ground units.
+- `ZergGroundArmorsLevel3` (Zerg) - Increases the armor of all Zerg ground units.
+- `ZergMeleeWeaponsLevel1` (Zerg) - Increases the attack damage of all Zerg ground/melee units.
+- `ZergMeleeWeaponsLevel2` (Zerg) - Increases the attack damage of all Zerg ground/melee units.
+- `ZergMeleeWeaponsLevel3` (Zerg) - Increases the attack damage of all Zerg ground/melee units.
+- `ZergMissileWeaponsLevel1` (Zerg) - Increases the attack damage of all Zerg ground/ranged units.
+- `ZergMissileWeaponsLevel2` (Zerg) - Increases the attack damage of all Zerg ground/ranged units.
+- `ZergMissileWeaponsLevel3` (Zerg) - Increases the attack damage of all Zerg ground/ranged units.
+- `haltech`
+- `overlordspeed` (Zerg) - Increases the movement speed of Overlords to 3.00 and Overseers to 4.72.
+- `overlordtransport`
+- `zerglingattackspeed` (Zerg)
+- `zerglingmovementspeed` (Zerg) - Increases Zergling movement speed by 60% to 6.58 (+2.45).

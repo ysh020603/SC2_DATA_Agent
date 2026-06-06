@@ -1,0 +1,244 @@
+{
+  "case": {
+    "id": "T09_barracks_antiair",
+    "race": "Terran",
+    "question": "Using only the Barracks production path, which Terran units can attack air, and what are their costs and ranges?",
+    "expected_tools": [
+      "query_combat_production_options"
+    ],
+    "result_keywords": [
+      "Barracks",
+      "Marine"
+    ],
+    "answer_keywords": [
+      "Marine",
+      "air"
+    ]
+  },
+  "evaluation": {
+    "id": "T09_barracks_antiair",
+    "race": "Terran",
+    "question": "Using only the Barracks production path, which Terran units can attack air, and what are their costs and ranges?",
+    "passed": true,
+    "duration_seconds": 41.33,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_combat_production_options"
+    ],
+    "expected_tools": [
+      "query_combat_production_options"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "From the Barracks production path, only two Terran units can attack air:\n\n- **Marine** – 50 minerals, 0 gas, range 5.  \n- **Ghost** – 150 minerals, 125 gas, range 6.\n\nThe Ghost requires a TechLab addon on the Barracks and a Ghost Academy. Both units match because the query specifically filtered for Barracks-produced units with `can_attack_air = true`. The tool returned exactly two results, confirming no other Barracks unit (e.g., Marauder or Reaper) has anti-air capability."
+  },
+  "result": {
+    "query": "Using only the Barracks production path, which Terran units can attack air, and what are their costs and ranges?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Barracks",
+                "expected_section": "Unit",
+                "race": "Terran",
+                "limit": 1
+              }
+            }
+          ],
+          "notes": [
+            "Resolve canonical name for Barracks before querying production outputs."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_combat_production_options",
+              "arguments": {
+                "producer_name": "Barracks",
+                "race": "Terran",
+                "can_attack_air": true,
+                "limit": 10
+              }
+            }
+          ],
+          "notes": [
+            "Step 1 resolved Barracks to canonical Unit. Now step 2: query combat production options for Barracks to get anti-air units along with their costs and ranges."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All required evidence collected: Barracks units that can attack air are Marine (50 minerals, 0 gas, range 5) and Ghost (150 minerals, 125 gas, range 6). No further queries needed."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Barracks",
+            "expected_section": "Unit",
+            "race": "Terran",
+            "limit": 1
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Barracks",
+            "normalized_mention": "Barracks",
+            "resolved": {
+              "section": "Unit",
+              "name": "Barracks",
+              "race": "Terran"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Barracks",
+                "race": "Terran"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_combat_production_options",
+          "arguments": {
+            "producer_name": "Barracks",
+            "race": "Terran",
+            "can_attack_air": true,
+            "limit": 10
+          },
+          "result": {
+            "mode": "combat_production_options",
+            "count": 2,
+            "results": [
+              {
+                "producer_name": "Barracks",
+                "name": "Marine",
+                "race": "Terran",
+                "minerals": 50,
+                "gas": 0,
+                "supply": 1.0,
+                "time": 400.0,
+                "range": 5.0,
+                "can_attack_air": true,
+                "required_addon": null,
+                "requirements": []
+              },
+              {
+                "producer_name": "Barracks",
+                "name": "Ghost",
+                "race": "Terran",
+                "minerals": 150,
+                "gas": 125,
+                "supply": 3.0,
+                "time": 640.0,
+                "range": 6.0,
+                "can_attack_air": true,
+                "required_addon": "TechLab",
+                "requirements": [
+                  {
+                    "building_name": "GhostAcademy",
+                    "addon_name": "TechLab"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Barracks",
+          "expected_section": "Unit",
+          "race": "Terran",
+          "limit": 1
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Barracks",
+          "normalized_mention": "Barracks",
+          "resolved": {
+            "section": "Unit",
+            "name": "Barracks",
+            "race": "Terran"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Barracks",
+              "race": "Terran"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_combat_production_options",
+        "arguments": {
+          "producer_name": "Barracks",
+          "race": "Terran",
+          "can_attack_air": true,
+          "limit": 10
+        },
+        "result": {
+          "mode": "combat_production_options",
+          "count": 2,
+          "results": [
+            {
+              "producer_name": "Barracks",
+              "name": "Marine",
+              "race": "Terran",
+              "minerals": 50,
+              "gas": 0,
+              "supply": 1.0,
+              "time": 400.0,
+              "range": 5.0,
+              "can_attack_air": true,
+              "required_addon": null,
+              "requirements": []
+            },
+            {
+              "producer_name": "Barracks",
+              "name": "Ghost",
+              "race": "Terran",
+              "minerals": 150,
+              "gas": 125,
+              "supply": 3.0,
+              "time": 640.0,
+              "range": 6.0,
+              "can_attack_air": true,
+              "required_addon": "TechLab",
+              "requirements": [
+                {
+                  "building_name": "GhostAcademy",
+                  "addon_name": "TechLab"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "From the Barracks production path, only two Terran units can attack air:\n\n- **Marine** – 50 minerals, 0 gas, range 5.  \n- **Ghost** – 150 minerals, 125 gas, range 6.\n\nThe Ghost requires a TechLab addon on the Barracks and a Ghost Academy. Both units match because the query specifically filtered for Barracks-produced units with `can_attack_air = true`. The tool returned exactly two results, confirming no other Barracks unit (e.g., Marauder or Reaper) has anti-air capability."
+  }
+}

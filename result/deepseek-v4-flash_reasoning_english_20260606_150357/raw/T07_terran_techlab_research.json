@@ -1,0 +1,2093 @@
+{
+  "case": {
+    "id": "T07_terran_techlab_research",
+    "race": "Terran",
+    "question": "Which Terran upgrades require a Tech Lab, and which research building or add-on provides them?",
+    "expected_tools": [
+      "query_research_outputs"
+    ],
+    "result_keywords": [
+      "Stimpack",
+      "BansheeCloak",
+      "TechLab"
+    ],
+    "answer_keywords": [
+      "Stimpack",
+      "Banshee",
+      "Tech Lab"
+    ]
+  },
+  "evaluation": {
+    "id": "T07_terran_techlab_research",
+    "race": "Terran",
+    "question": "Which Terran upgrades require a Tech Lab, and which research building or add-on provides them?",
+    "passed": true,
+    "duration_seconds": 92.76,
+    "called_tools": [
+      "query_research_outputs",
+      "query_research_outputs",
+      "query_research_outputs",
+      "query_research_outputs",
+      "query_research_outputs",
+      "query_research_outputs",
+      "query_research_outputs"
+    ],
+    "expected_tools": [
+      "query_research_outputs"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "All Terran upgrades that require a Tech Lab are researched at one of three add-on variants: **BarracksTechLab**, **FactoryTechLab**, or **StarportTechLab**. Here is the complete mapping:\n\n### BarracksTechLab (attached to Barracks)\n- **Stimpack** (100/100, 2240 game sec)\n- **ShieldWall** (100/100, 1760 sec)\n- **PunisherGrenades** (50/50, 960 sec)\n\n### FactoryTechLab (attached to Factory)\n- **HighCapacityBarrels** (100/100, 1760 sec)\n- **CycloneLockOnDamageUpgrade** (100/100, 2240 sec)\n- **DrillCl"
+  },
+  "result": {
+    "query": "Which Terran upgrades require a Tech Lab, and which research building or add-on provides them?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "race": "Terran",
+                "required_addon": "TechLab",
+                "include_requirements": true,
+                "limit": 50
+              }
+            }
+          ],
+          "notes": [
+            "Use query_research_outputs to find all Terran upgrades that require a TechLab add-on, including their research producer building."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "Barracks",
+                "required_addon": "TechLab",
+                "include_requirements": true,
+                "limit": 20
+              }
+            },
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "Factory",
+                "required_addon": "TechLab",
+                "include_requirements": true,
+                "limit": 20
+              }
+            },
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "Starport",
+                "required_addon": "TechLab",
+                "include_requirements": true,
+                "limit": 20
+              }
+            }
+          ],
+          "notes": [
+            "First call already found 7 unique upgrades from TechLab (Stimpack, ShieldWall, PunisherGrenades, HighCapacityBarrels, DrillClaws, RavenCorvidReactor, BansheeCloak) but may miss some Starport TechLab upgrades like BansheeSpeed and MedivacCaduceusReactor.",
+            "Explicitly query each production building (Barracks, Factory, Starport) with required_addon=TechLab to get the complete mapping of upgrade to research building.",
+            "After these calls, we can produce the final answer grouping upgrades by their research building."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "BarracksTechLab",
+                "include_requirements": true,
+                "limit": 20
+              }
+            },
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "FactoryTechLab",
+                "include_requirements": true,
+                "limit": 20
+              }
+            },
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "StarportTechLab",
+                "include_requirements": true,
+                "limit": 20
+              }
+            }
+          ],
+          "notes": [
+            "First query with race+required_addon returned upgrades but only partial list was shown; there are 17 results. To get the complete set of research outputs for each TechLab variant, query each add-on unit directly.",
+            "After retrieving all three sets, we can compile the full list of upgrades requiring a TechLab and which building (BarracksTechLab, FactoryTechLab, or StarportTechLab) provides them."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All Terran upgrades researched at Tech Lab add-ons have been retrieved: BarracksTechLab (Stimpack, ShieldWall, PunisherGrenades), FactoryTechLab (HighCapacityBarrels, CycloneLockOnDamageUpgrade, DrillClaws, SmartServos), StarportTechLab (BansheeCloak, BansheeSpeed, InterferenceMatrix). The providers are the respective Tech Lab add-ons attached to each production building."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "race": "Terran",
+            "required_addon": "TechLab",
+            "include_requirements": true,
+            "limit": 50
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 17,
+            "results": [
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "Stimpack",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "Stimpack: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> Stimpack (BARRACKSTECHLABRESEARCH_STIMPACK)"
+                  ],
+                  "description": [
+                    "Every Marine and Marauder gain the Stimpack ability."
+                  ]
+                },
+                "ability": {
+                  "name": "BARRACKSTECHLABRESEARCH_STIMPACK",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "Stimpack"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Barracks"
+                  }
+                ],
+                "required_addon": "Barracks"
+              },
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "ShieldWall",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "ShieldWall: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> ShieldWall (RESEARCH_COMBATSHIELD)"
+                  ],
+                  "description": [
+                    "Every Marine gains a Combat Shield that gives 10 hitpoints."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_COMBATSHIELD",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "ShieldWall"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Barracks"
+                  }
+                ],
+                "required_addon": "Barracks"
+              },
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "PunisherGrenades",
+                  "cost": {
+                    "minerals": 50,
+                    "gas": 50,
+                    "time": 960.0
+                  },
+                  "tech_chain": [
+                    "PunisherGrenades: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> PunisherGrenades (RESEARCH_CONCUSSIVESHELLS)"
+                  ],
+                  "description": [
+                    "Marauders gain the Concussive Shells ability."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_CONCUSSIVESHELLS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "PunisherGrenades"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Barracks"
+                  }
+                ],
+                "required_addon": "Barracks"
+              },
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "HighCapacityBarrels",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)",
+                    "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)"
+                  ],
+                  "description": [
+                    "Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_INFERNALPREIGNITER",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "HighCapacityBarrels"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Factory"
+                  }
+                ],
+                "required_addon": "Factory"
+              },
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "DrillClaws",
+                  "cost": {
+                    "minerals": 75,
+                    "gas": 75,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)",
+                    "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)"
+                  ],
+                  "description": [
+                    "Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_DRILLINGCLAWS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "DrillClaws"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Factory"
+                  }
+                ],
+                "required_addon": "Factory"
+              },
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "RavenCorvidReactor",
+                  "cost": {
+                    "minerals": 150,
+                    "gas": 150,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "RavenCorvidReactor: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> RavenCorvidReactor (RESEARCH_RAVENCORVIDREACTOR)"
+                  ],
+                  "description": [
+                    "Increases the Raven's starting energy by 25."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_RAVENCORVIDREACTOR",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "RavenCorvidReactor"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Starport"
+                  }
+                ],
+                "required_addon": "Starport"
+              },
+              {
+                "producer": {
+                  "name": "TechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "BansheeCloak",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)",
+                    "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)"
+                  ],
+                  "description": [
+                    "Allows Banshees to use the Cloak ability."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_BANSHEECLOAKINGFIELD",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "BansheeCloak"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_to_name": "Starport"
+                  }
+                ],
+                "required_addon": "Starport"
+              },
+              {
+                "producer": {
+                  "name": "BarracksTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "Stimpack",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "Stimpack: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> Stimpack (BARRACKSTECHLABRESEARCH_STIMPACK)"
+                  ],
+                  "description": [
+                    "Every Marine and Marauder gain the Stimpack ability."
+                  ]
+                },
+                "ability": {
+                  "name": "BARRACKSTECHLABRESEARCH_STIMPACK",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "Stimpack"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "BarracksTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "ShieldWall",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "ShieldWall: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> ShieldWall (RESEARCH_COMBATSHIELD)"
+                  ],
+                  "description": [
+                    "Every Marine gains a Combat Shield that gives 10 hitpoints."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_COMBATSHIELD",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "ShieldWall"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "BarracksTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "PunisherGrenades",
+                  "cost": {
+                    "minerals": 50,
+                    "gas": 50,
+                    "time": 960.0
+                  },
+                  "tech_chain": [
+                    "PunisherGrenades: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> PunisherGrenades (RESEARCH_CONCUSSIVESHELLS)"
+                  ],
+                  "description": [
+                    "Marauders gain the Concussive Shells ability."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_CONCUSSIVESHELLS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "PunisherGrenades"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "HighCapacityBarrels",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)",
+                    "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)"
+                  ],
+                  "description": [
+                    "Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_INFERNALPREIGNITER",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "HighCapacityBarrels"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "CycloneLockOnDamageUpgrade",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "CycloneLockOnDamageUpgrade: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> CycloneLockOnDamageUpgrade (RESEARCH_CYCLONELOCKONDAMAGE)"
+                  ],
+                  "description": [
+                    "Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_CYCLONELOCKONDAMAGE",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "CycloneLockOnDamageUpgrade"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "DrillClaws",
+                  "cost": {
+                    "minerals": 75,
+                    "gas": 75,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)",
+                    "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)"
+                  ],
+                  "description": [
+                    "Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_DRILLINGCLAWS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "DrillClaws"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "SmartServos",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "SmartServos: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> SmartServos (RESEARCH_SMARTSERVOS)"
+                  ],
+                  "description": [
+                    "Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_SMARTSERVOS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "SmartServos"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "StarportTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "BansheeCloak",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)",
+                    "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)"
+                  ],
+                  "description": [
+                    "Allows Banshees to use the Cloak ability."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_BANSHEECLOAKINGFIELD",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "BansheeCloak"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "StarportTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "BansheeSpeed",
+                  "cost": {
+                    "minerals": 125,
+                    "gas": 125,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "BansheeSpeed: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeSpeed (RESEARCH_BANSHEEHYPERFLIGHTROTORS)"
+                  ],
+                  "description": [
+                    "Increases the movement speed of Banshees from 3.85 to 5.25."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_BANSHEEHYPERFLIGHTROTORS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "BansheeSpeed"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "StarportTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "InterferenceMatrix",
+                  "cost": {
+                    "minerals": 50,
+                    "gas": 50,
+                    "time": 1280.0
+                  },
+                  "tech_chain": [
+                    "InterferenceMatrix: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> InterferenceMatrix (STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX)"
+                  ],
+                  "description": [
+                    "Allows Ravens to use the Interference Matrix ability."
+                  ]
+                },
+                "ability": {
+                  "name": "STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "InterferenceMatrix"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "Barracks",
+            "required_addon": "TechLab",
+            "include_requirements": true,
+            "limit": 20
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 0,
+            "results": []
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "Factory",
+            "required_addon": "TechLab",
+            "include_requirements": true,
+            "limit": 20
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 0,
+            "results": []
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "Starport",
+            "required_addon": "TechLab",
+            "include_requirements": true,
+            "limit": 20
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 0,
+            "results": []
+          }
+        },
+        {
+          "step": 2,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "BarracksTechLab",
+            "include_requirements": true,
+            "limit": 20
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 3,
+            "results": [
+              {
+                "producer": {
+                  "name": "BarracksTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "Stimpack",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "Stimpack: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> Stimpack (BARRACKSTECHLABRESEARCH_STIMPACK)"
+                  ],
+                  "description": [
+                    "Every Marine and Marauder gain the Stimpack ability."
+                  ]
+                },
+                "ability": {
+                  "name": "BARRACKSTECHLABRESEARCH_STIMPACK",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "Stimpack"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "BarracksTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "ShieldWall",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "ShieldWall: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> ShieldWall (RESEARCH_COMBATSHIELD)"
+                  ],
+                  "description": [
+                    "Every Marine gains a Combat Shield that gives 10 hitpoints."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_COMBATSHIELD",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "ShieldWall"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "BarracksTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "PunisherGrenades",
+                  "cost": {
+                    "minerals": 50,
+                    "gas": 50,
+                    "time": 960.0
+                  },
+                  "tech_chain": [
+                    "PunisherGrenades: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> PunisherGrenades (RESEARCH_CONCUSSIVESHELLS)"
+                  ],
+                  "description": [
+                    "Marauders gain the Concussive Shells ability."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_CONCUSSIVESHELLS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "PunisherGrenades"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "FactoryTechLab",
+            "include_requirements": true,
+            "limit": 20
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 4,
+            "results": [
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "HighCapacityBarrels",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)",
+                    "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)"
+                  ],
+                  "description": [
+                    "Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_INFERNALPREIGNITER",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "HighCapacityBarrels"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "CycloneLockOnDamageUpgrade",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "CycloneLockOnDamageUpgrade: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> CycloneLockOnDamageUpgrade (RESEARCH_CYCLONELOCKONDAMAGE)"
+                  ],
+                  "description": [
+                    "Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_CYCLONELOCKONDAMAGE",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "CycloneLockOnDamageUpgrade"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "DrillClaws",
+                  "cost": {
+                    "minerals": 75,
+                    "gas": 75,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)",
+                    "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)"
+                  ],
+                  "description": [
+                    "Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_DRILLINGCLAWS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "DrillClaws"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "FactoryTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "SmartServos",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "SmartServos: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> SmartServos (RESEARCH_SMARTSERVOS)"
+                  ],
+                  "description": [
+                    "Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_SMARTSERVOS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "SmartServos"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "StarportTechLab",
+            "include_requirements": true,
+            "limit": 20
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 3,
+            "results": [
+              {
+                "producer": {
+                  "name": "StarportTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "BansheeCloak",
+                  "cost": {
+                    "minerals": 100,
+                    "gas": 100,
+                    "time": 1760.0
+                  },
+                  "tech_chain": [
+                    "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)",
+                    "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)"
+                  ],
+                  "description": [
+                    "Allows Banshees to use the Cloak ability."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_BANSHEECLOAKINGFIELD",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "BansheeCloak"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "StarportTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "BansheeSpeed",
+                  "cost": {
+                    "minerals": 125,
+                    "gas": 125,
+                    "time": 2240.0
+                  },
+                  "tech_chain": [
+                    "BansheeSpeed: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeSpeed (RESEARCH_BANSHEEHYPERFLIGHTROTORS)"
+                  ],
+                  "description": [
+                    "Increases the movement speed of Banshees from 3.85 to 5.25."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_BANSHEEHYPERFLIGHTROTORS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "BansheeSpeed"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "StarportTechLab",
+                  "race": "Terran"
+                },
+                "upgrade": {
+                  "name": "InterferenceMatrix",
+                  "cost": {
+                    "minerals": 50,
+                    "gas": 50,
+                    "time": 1280.0
+                  },
+                  "tech_chain": [
+                    "InterferenceMatrix: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> InterferenceMatrix (STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX)"
+                  ],
+                  "description": [
+                    "Allows Ravens to use the Interference Matrix ability."
+                  ]
+                },
+                "ability": {
+                  "name": "STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "InterferenceMatrix"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "race": "Terran",
+          "required_addon": "TechLab",
+          "include_requirements": true,
+          "limit": 50
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 17,
+          "results": [
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "Stimpack",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "Stimpack: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> Stimpack (BARRACKSTECHLABRESEARCH_STIMPACK)"
+                ],
+                "description": [
+                  "Every Marine and Marauder gain the Stimpack ability."
+                ]
+              },
+              "ability": {
+                "name": "BARRACKSTECHLABRESEARCH_STIMPACK",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "Stimpack"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Barracks"
+                }
+              ],
+              "required_addon": "Barracks"
+            },
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "ShieldWall",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "ShieldWall: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> ShieldWall (RESEARCH_COMBATSHIELD)"
+                ],
+                "description": [
+                  "Every Marine gains a Combat Shield that gives 10 hitpoints."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_COMBATSHIELD",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "ShieldWall"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Barracks"
+                }
+              ],
+              "required_addon": "Barracks"
+            },
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "PunisherGrenades",
+                "cost": {
+                  "minerals": 50,
+                  "gas": 50,
+                  "time": 960.0
+                },
+                "tech_chain": [
+                  "PunisherGrenades: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> PunisherGrenades (RESEARCH_CONCUSSIVESHELLS)"
+                ],
+                "description": [
+                  "Marauders gain the Concussive Shells ability."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_CONCUSSIVESHELLS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "PunisherGrenades"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Barracks"
+                }
+              ],
+              "required_addon": "Barracks"
+            },
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "HighCapacityBarrels",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)",
+                  "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)"
+                ],
+                "description": [
+                  "Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_INFERNALPREIGNITER",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "HighCapacityBarrels"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Factory"
+                }
+              ],
+              "required_addon": "Factory"
+            },
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "DrillClaws",
+                "cost": {
+                  "minerals": 75,
+                  "gas": 75,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)",
+                  "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)"
+                ],
+                "description": [
+                  "Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_DRILLINGCLAWS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "DrillClaws"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Factory"
+                }
+              ],
+              "required_addon": "Factory"
+            },
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "RavenCorvidReactor",
+                "cost": {
+                  "minerals": 150,
+                  "gas": 150,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "RavenCorvidReactor: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> RavenCorvidReactor (RESEARCH_RAVENCORVIDREACTOR)"
+                ],
+                "description": [
+                  "Increases the Raven's starting energy by 25."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_RAVENCORVIDREACTOR",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "RavenCorvidReactor"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Starport"
+                }
+              ],
+              "required_addon": "Starport"
+            },
+            {
+              "producer": {
+                "name": "TechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "BansheeCloak",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)",
+                  "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)"
+                ],
+                "description": [
+                  "Allows Banshees to use the Cloak ability."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_BANSHEECLOAKINGFIELD",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "BansheeCloak"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "addon_to_name": "Starport"
+                }
+              ],
+              "required_addon": "Starport"
+            },
+            {
+              "producer": {
+                "name": "BarracksTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "Stimpack",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "Stimpack: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> Stimpack (BARRACKSTECHLABRESEARCH_STIMPACK)"
+                ],
+                "description": [
+                  "Every Marine and Marauder gain the Stimpack ability."
+                ]
+              },
+              "ability": {
+                "name": "BARRACKSTECHLABRESEARCH_STIMPACK",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "Stimpack"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "BarracksTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "ShieldWall",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "ShieldWall: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> ShieldWall (RESEARCH_COMBATSHIELD)"
+                ],
+                "description": [
+                  "Every Marine gains a Combat Shield that gives 10 hitpoints."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_COMBATSHIELD",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "ShieldWall"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "BarracksTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "PunisherGrenades",
+                "cost": {
+                  "minerals": 50,
+                  "gas": 50,
+                  "time": 960.0
+                },
+                "tech_chain": [
+                  "PunisherGrenades: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> PunisherGrenades (RESEARCH_CONCUSSIVESHELLS)"
+                ],
+                "description": [
+                  "Marauders gain the Concussive Shells ability."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_CONCUSSIVESHELLS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "PunisherGrenades"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "HighCapacityBarrels",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)",
+                  "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)"
+                ],
+                "description": [
+                  "Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_INFERNALPREIGNITER",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "HighCapacityBarrels"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "CycloneLockOnDamageUpgrade",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "CycloneLockOnDamageUpgrade: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> CycloneLockOnDamageUpgrade (RESEARCH_CYCLONELOCKONDAMAGE)"
+                ],
+                "description": [
+                  "Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_CYCLONELOCKONDAMAGE",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "CycloneLockOnDamageUpgrade"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "DrillClaws",
+                "cost": {
+                  "minerals": 75,
+                  "gas": 75,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)",
+                  "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)"
+                ],
+                "description": [
+                  "Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_DRILLINGCLAWS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "DrillClaws"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Armory"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "SmartServos",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "SmartServos: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> SmartServos (RESEARCH_SMARTSERVOS)"
+                ],
+                "description": [
+                  "Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_SMARTSERVOS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "SmartServos"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Armory"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "StarportTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "BansheeCloak",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)",
+                  "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)"
+                ],
+                "description": [
+                  "Allows Banshees to use the Cloak ability."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_BANSHEECLOAKINGFIELD",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "BansheeCloak"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "StarportTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "BansheeSpeed",
+                "cost": {
+                  "minerals": 125,
+                  "gas": 125,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "BansheeSpeed: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeSpeed (RESEARCH_BANSHEEHYPERFLIGHTROTORS)"
+                ],
+                "description": [
+                  "Increases the movement speed of Banshees from 3.85 to 5.25."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_BANSHEEHYPERFLIGHTROTORS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "BansheeSpeed"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "StarportTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "InterferenceMatrix",
+                "cost": {
+                  "minerals": 50,
+                  "gas": 50,
+                  "time": 1280.0
+                },
+                "tech_chain": [
+                  "InterferenceMatrix: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> InterferenceMatrix (STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX)"
+                ],
+                "description": [
+                  "Allows Ravens to use the Interference Matrix ability."
+                ]
+              },
+              "ability": {
+                "name": "STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "InterferenceMatrix"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "Barracks",
+          "required_addon": "TechLab",
+          "include_requirements": true,
+          "limit": 20
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 0,
+          "results": []
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "Factory",
+          "required_addon": "TechLab",
+          "include_requirements": true,
+          "limit": 20
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 0,
+          "results": []
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "Starport",
+          "required_addon": "TechLab",
+          "include_requirements": true,
+          "limit": 20
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 0,
+          "results": []
+        }
+      },
+      {
+        "step": 2,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "BarracksTechLab",
+          "include_requirements": true,
+          "limit": 20
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 3,
+          "results": [
+            {
+              "producer": {
+                "name": "BarracksTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "Stimpack",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "Stimpack: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> Stimpack (BARRACKSTECHLABRESEARCH_STIMPACK)"
+                ],
+                "description": [
+                  "Every Marine and Marauder gain the Stimpack ability."
+                ]
+              },
+              "ability": {
+                "name": "BARRACKSTECHLABRESEARCH_STIMPACK",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "Stimpack"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "BarracksTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "ShieldWall",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "ShieldWall: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> ShieldWall (RESEARCH_COMBATSHIELD)"
+                ],
+                "description": [
+                  "Every Marine gains a Combat Shield that gives 10 hitpoints."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_COMBATSHIELD",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "ShieldWall"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "BarracksTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "PunisherGrenades",
+                "cost": {
+                  "minerals": 50,
+                  "gas": 50,
+                  "time": 960.0
+                },
+                "tech_chain": [
+                  "PunisherGrenades: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> PunisherGrenades (RESEARCH_CONCUSSIVESHELLS)"
+                ],
+                "description": [
+                  "Marauders gain the Concussive Shells ability."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_CONCUSSIVESHELLS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "PunisherGrenades"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "FactoryTechLab",
+          "include_requirements": true,
+          "limit": 20
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 4,
+          "results": [
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "HighCapacityBarrels",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)",
+                  "HighCapacityBarrels: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> HighCapacityBarrels (RESEARCH_INFERNALPREIGNITER)"
+                ],
+                "description": [
+                  "Improves the Hellion's bonus against Light units by +5 damage and the Hellbat's bonus against Light units by +12 damage."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_INFERNALPREIGNITER",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "HighCapacityBarrels"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "CycloneLockOnDamageUpgrade",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "CycloneLockOnDamageUpgrade: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> CycloneLockOnDamageUpgrade (RESEARCH_CYCLONELOCKONDAMAGE)"
+                ],
+                "description": [
+                  "Increases Cyclone Lock On damage. Deals 600 damage over 14 seconds to ground and flying targets."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_CYCLONELOCKONDAMAGE",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "CycloneLockOnDamageUpgrade"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "DrillClaws",
+                "cost": {
+                  "minerals": 75,
+                  "gas": 75,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)",
+                  "DrillClaws: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> DrillClaws (RESEARCH_DRILLINGCLAWS)"
+                ],
+                "description": [
+                  "Allows Widow Mines to burrow, unborrow and activate two times as fast. Additionally this grants invisibility while reloading."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_DRILLINGCLAWS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "DrillClaws"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Armory"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "FactoryTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "SmartServos",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "SmartServos: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Armory (TERRANBUILD_ARMORY)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> TechLab (BUILD_TECHLAB_FACTORY)] -> SmartServos (RESEARCH_SMARTSERVOS)"
+                ],
+                "description": [
+                  "Allows Hellions, Hellbats, Vikings, and Thors to transform quickly between combat modes."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_SMARTSERVOS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "SmartServos"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Armory"
+                }
+              ],
+              "required_addon": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "StarportTechLab",
+          "include_requirements": true,
+          "limit": 20
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 3,
+          "results": [
+            {
+              "producer": {
+                "name": "StarportTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "BansheeCloak",
+                "cost": {
+                  "minerals": 100,
+                  "gas": 100,
+                  "time": 1760.0
+                },
+                "tech_chain": [
+                  "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT)] + [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> TechLab (BUILD_TECHLAB_BARRACKS)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)",
+                  "BansheeCloak: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeCloak (RESEARCH_BANSHEECLOAKINGFIELD)"
+                ],
+                "description": [
+                  "Allows Banshees to use the Cloak ability."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_BANSHEECLOAKINGFIELD",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "BansheeCloak"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "StarportTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "BansheeSpeed",
+                "cost": {
+                  "minerals": 125,
+                  "gas": 125,
+                  "time": 2240.0
+                },
+                "tech_chain": [
+                  "BansheeSpeed: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> BansheeSpeed (RESEARCH_BANSHEEHYPERFLIGHTROTORS)"
+                ],
+                "description": [
+                  "Increases the movement speed of Banshees from 3.85 to 5.25."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_BANSHEEHYPERFLIGHTROTORS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "BansheeSpeed"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "StarportTechLab",
+                "race": "Terran"
+              },
+              "upgrade": {
+                "name": "InterferenceMatrix",
+                "cost": {
+                  "minerals": 50,
+                  "gas": 50,
+                  "time": 1280.0
+                },
+                "tech_chain": [
+                  "InterferenceMatrix: [SupplyDepot (TERRANBUILD_SUPPLYDEPOT) -> Barracks (TERRANBUILD_BARRACKS) -> Factory (TERRANBUILD_FACTORY) -> Starport (TERRANBUILD_STARPORT) -> TechLab (BUILD_TECHLAB_STARPORT)] -> InterferenceMatrix (STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX)"
+                ],
+                "description": [
+                  "Allows Ravens to use the Interference Matrix ability."
+                ]
+              },
+              "ability": {
+                "name": "STARPORTTECHLABRESEARCH_RESEARCHRAVENINTERFERENCEMATRIX",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "InterferenceMatrix"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "All Terran upgrades that require a Tech Lab are researched at one of three add-on variants: **BarracksTechLab**, **FactoryTechLab**, or **StarportTechLab**. Here is the complete mapping:\n\n### BarracksTechLab (attached to Barracks)\n- **Stimpack** (100/100, 2240 game sec)\n- **ShieldWall** (100/100, 1760 sec)\n- **PunisherGrenades** (50/50, 960 sec)\n\n### FactoryTechLab (attached to Factory)\n- **HighCapacityBarrels** (100/100, 1760 sec)\n- **CycloneLockOnDamageUpgrade** (100/100, 2240 sec)\n- **DrillClaws** (75/75, 1760 sec)\n- **SmartServos** (100/100, 1760 sec)\n\n### StarportTechLab (attached to Starport)\n- **BansheeCloak** (100/100, 1760 sec)\n- **BansheeSpeed** (125/125, 2240 sec)\n- **InterferenceMatrix** (50/50, 1280 sec)\n\n**Note:** The data also shows **RavenCorvidReactor** (150/150, 1760 sec) with a requirement for a Starport Tech Lab, but it was not returned in the direct StarportTechLab query. It is likely also provided by the Starport Tech Lab; the discrepancy may be due to data naming differences. All other upgrades that require a Tech Lab are listed above."
+  }
+}

@@ -1,0 +1,547 @@
+{
+  "case": {
+    "id": "T02_factory_addon_split",
+    "race": "Terran",
+    "question": "For a Terran Factory, which units are available with a Tech Lab and which are available without a Tech Lab?",
+    "expected_tools": [
+      "query_addon_branches"
+    ],
+    "result_keywords": [
+      "Factory",
+      "Hellion",
+      "SiegeTank",
+      "Thor",
+      "TechLab"
+    ],
+    "answer_keywords": [
+      "Hellion",
+      "Siege Tank",
+      "Thor",
+      "Tech Lab"
+    ]
+  },
+  "evaluation": {
+    "id": "T02_factory_addon_split",
+    "race": "Terran",
+    "question": "For a Terran Factory, which units are available with a Tech Lab and which are available without a Tech Lab?",
+    "passed": true,
+    "duration_seconds": 24.49,
+    "called_tools": [
+      "query_addon_branches"
+    ],
+    "expected_tools": [
+      "query_addon_branches"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "Based on the StarCraft II data, the Terran Factory can produce the following units:\n\n**Without a Tech Lab** (no addon required, also compatible with a Reactor):\n- **Hellion**\n- **WidowMine**\n- **HellionTank** (Hellbat) – also requires an Armory.\n\n**With a Tech Lab** (Tech Lab required):\n- **SiegeTank**\n- **Thor** – also requires an Armory.\n- **Cyclone**\n\nIn total: 3 units are available without a Tech Lab, and 3 units require a Tech Lab. No Factory units require a Reactor exclusively."
+  },
+  "result": {
+    "query": "For a Terran Factory, which units are available with a Tech Lab and which are available without a Tech Lab?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_addon_branches",
+              "arguments": {
+                "producer_name": "Factory",
+                "return_keys": [
+                  "name",
+                  "race"
+                ],
+                "limit": 20
+              }
+            }
+          ],
+          "notes": [
+            "Using query_addon_branches to split Factory outputs by add-on condition (TechLab vs. no add-on vs. Reactor).",
+            "Return_keys include name and race; may refine if more fields are needed after observation."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "query_addon_branches for Factory already provides the complete categorization: no Tech Lab required (Hellion, WidowMine, HellionTank) and Tech Lab required (SiegeTank, Thor, Cyclone). No further tool calls needed."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "query_addon_branches",
+          "arguments": {
+            "producer_name": "Factory",
+            "return_keys": [
+              "name",
+              "race"
+            ],
+            "limit": 20
+          },
+          "result": {
+            "mode": "addon_branches",
+            "producer_name": "Factory",
+            "count": 9,
+            "results": {
+              "no_addon_required": [
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "Hellion",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "FACTORYTRAIN_HELLION",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Hellion"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                },
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "WidowMine",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "FACTORYTRAIN_WIDOWMINE",
+                    "target": {
+                      "Train": {
+                        "produces_name": "WidowMine"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                },
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "HellionTank",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "TRAIN_HELLBAT",
+                    "target": {
+                      "Train": {
+                        "produces_name": "HellionTank"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "Armory"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "techlab_required": [
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "SiegeTank",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "FACTORYTRAIN_SIEGETANK",
+                    "target": {
+                      "Train": {
+                        "produces_name": "SiegeTank"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "addon_name": "TechLab"
+                    }
+                  ],
+                  "required_addon": "TechLab"
+                },
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "Thor",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "FACTORYTRAIN_THOR",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Thor"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "addon_name": "TechLab"
+                    },
+                    {
+                      "building_name": "Armory"
+                    }
+                  ],
+                  "required_addon": "TechLab"
+                },
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "Cyclone",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "TRAIN_CYCLONE",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Cyclone"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "addon_name": "TechLab"
+                    }
+                  ],
+                  "required_addon": "TechLab"
+                }
+              ],
+              "reactor_required": [],
+              "reactor_compatible": [
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "Hellion",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "FACTORYTRAIN_HELLION",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Hellion"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null,
+                  "reactor_compatible": true
+                },
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "WidowMine",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "FACTORYTRAIN_WIDOWMINE",
+                    "target": {
+                      "Train": {
+                        "produces_name": "WidowMine"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null,
+                  "reactor_compatible": true
+                },
+                {
+                  "producer_name": "Factory",
+                  "producer_section": "Unit",
+                  "target_type": "Train",
+                  "produced_section": "Unit",
+                  "produced": {
+                    "name": "HellionTank",
+                    "race": "Terran"
+                  },
+                  "ability": {
+                    "name": "TRAIN_HELLBAT",
+                    "target": {
+                      "Train": {
+                        "produces_name": "HellionTank"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "Armory"
+                    }
+                  ],
+                  "required_addon": null,
+                  "reactor_compatible": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "query_addon_branches",
+        "arguments": {
+          "producer_name": "Factory",
+          "return_keys": [
+            "name",
+            "race"
+          ],
+          "limit": 20
+        },
+        "result": {
+          "mode": "addon_branches",
+          "producer_name": "Factory",
+          "count": 9,
+          "results": {
+            "no_addon_required": [
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Hellion",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "FACTORYTRAIN_HELLION",
+                  "target": {
+                    "Train": {
+                      "produces_name": "Hellion"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "WidowMine",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "FACTORYTRAIN_WIDOWMINE",
+                  "target": {
+                    "Train": {
+                      "produces_name": "WidowMine"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "HellionTank",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "TRAIN_HELLBAT",
+                  "target": {
+                    "Train": {
+                      "produces_name": "HellionTank"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": null
+              }
+            ],
+            "techlab_required": [
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "SiegeTank",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "FACTORYTRAIN_SIEGETANK",
+                  "target": {
+                    "Train": {
+                      "produces_name": "SiegeTank"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_name": "TechLab"
+                  }
+                ],
+                "required_addon": "TechLab"
+              },
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Thor",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "FACTORYTRAIN_THOR",
+                  "target": {
+                    "Train": {
+                      "produces_name": "Thor"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_name": "TechLab"
+                  },
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": "TechLab"
+              },
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Cyclone",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "TRAIN_CYCLONE",
+                  "target": {
+                    "Train": {
+                      "produces_name": "Cyclone"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "addon_name": "TechLab"
+                  }
+                ],
+                "required_addon": "TechLab"
+              }
+            ],
+            "reactor_required": [],
+            "reactor_compatible": [
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Hellion",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "FACTORYTRAIN_HELLION",
+                  "target": {
+                    "Train": {
+                      "produces_name": "Hellion"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null,
+                "reactor_compatible": true
+              },
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "WidowMine",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "FACTORYTRAIN_WIDOWMINE",
+                  "target": {
+                    "Train": {
+                      "produces_name": "WidowMine"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null,
+                "reactor_compatible": true
+              },
+              {
+                "producer_name": "Factory",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "HellionTank",
+                  "race": "Terran"
+                },
+                "ability": {
+                  "name": "TRAIN_HELLBAT",
+                  "target": {
+                    "Train": {
+                      "produces_name": "HellionTank"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Armory"
+                  }
+                ],
+                "required_addon": null,
+                "reactor_compatible": true
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "answer": "Based on the StarCraft II data, the Terran Factory can produce the following units:\n\n**Without a Tech Lab** (no addon required, also compatible with a Reactor):\n- **Hellion**\n- **WidowMine**\n- **HellionTank** (Hellbat) – also requires an Armory.\n\n**With a Tech Lab** (Tech Lab required):\n- **SiegeTank**\n- **Thor** – also requires an Armory.\n- **Cyclone**\n\nIn total: 3 units are available without a Tech Lab, and 3 units require a Tech Lab. No Factory units require a Reactor exclusively."
+  }
+}

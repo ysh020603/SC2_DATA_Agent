@@ -1,0 +1,146 @@
+# Zerg Ability Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD` (Zerg, Point)
+- `ATTACK_ATTACK` (Protoss/Terran/Zerg, PointOrUnit) - Attack some unit or structure.
+- `BEHAVIOR_BUILDINGATTACKON` (Zerg, None)
+- `BEHAVIOR_GENERATECREEPON` (Zerg, None) - Start to generate Creep.
+- `BEHAVIOR_HOLDFIREON_LURKER` (Zerg, None)
+- `BLINDINGCLOUD_BLINDINGCLOUD` (Zerg, Point)
+- `BUILD_CREEPTUMOR` (Zerg, Build)
+- `BUILD_CREEPTUMOR_QUEEN` (Zerg, Build)
+- `BUILD_CREEPTUMOR_TUMOR` (Zerg, Build)
+- `BUILD_LURKERDEN` (Zerg, Build) - Morph to be a Lurker Den to enhance defense ability.
+- `BUILD_NYDUSWORM` (Zerg, Build)
+- `BURROWDOWN_BANELING` (Zerg, Morph)
+- `BURROWDOWN_DRONE` (Zerg, Morph)
+- `BURROWDOWN_HYDRALISK` (Zerg, Morph)
+- `BURROWDOWN_INFESTOR` (Zerg, Morph)
+- `BURROWDOWN_INFESTORTERRAN` (Zerg, Morph)
+- `BURROWDOWN_LURKER` (Zerg, Morph)
+- `BURROWDOWN_QUEEN` (Zerg, Morph)
+- `BURROWDOWN_RAVAGER` (Zerg, Morph)
+- `BURROWDOWN_ROACH` (Zerg, Morph)
+- `BURROWDOWN_SWARMHOST` (Zerg, Morph)
+- `BURROWDOWN_ULTRALISK` (Zerg, Morph)
+- `BURROWDOWN_ZERGLING` (Zerg, Morph)
+- `BURROWUP_BANELING` (Zerg, Morph)
+- `BURROWUP_DRONE` (Zerg, Morph)
+- `BURROWUP_HYDRALISK` (Zerg, Morph)
+- `BURROWUP_INFESTOR` (Zerg, Morph)
+- `BURROWUP_INFESTORTERRAN` (Zerg, Morph)
+- `BURROWUP_LURKER` (Zerg, Morph)
+- `BURROWUP_QUEEN` (Zerg, Morph)
+- `BURROWUP_RAVAGER` (Zerg, Morph)
+- `BURROWUP_ROACH` (Zerg, Morph)
+- `BURROWUP_ULTRALISK` (Zerg, Morph)
+- `BURROWUP_ZERGLING` (Zerg, Morph)
+- `CAUSTICSPRAY_CAUSTICSPRAY` (Zerg, Unit)
+- `CONTAMINATE_CONTAMINATE` (Zerg, Unit) - The Overseer covers an enemy structure in slime. The structure will be unable to train units or research upgrades for 21 seconds.
+- `DEFILERMPBURROW_BURROWDOWN` (Zerg, Morph)
+- `DEFILERMPCONSUME_DEFILERMPCONSUME` (Zerg, Unit)
+- `DEFILERMPDARKSWARM_DEFILERMPDARKSWARM` (Zerg, Point)
+- `DEFILERMPPLAGUE_DEFILERMPPLAGUE` (Zerg, Point)
+- `DEFILERMPUNBURROW_BURROWUP` (Zerg, Morph)
+- `DIGESTERCREEPSPRAY_DIGESTERCREEPSPRAY` (Zerg, Point)
+- `EFFECT_ABDUCT` (Zerg, Unit)
+- `EFFECT_CORROSIVEBILE` (Zerg, Point) - Launch a missile at the target location, dealing 60 damage to all units and destroying all Force Fields in the area upon impact.
+- `EFFECT_INJECTLARVA` (Zerg, Unit)
+- `EFFECT_LOCUSTSWOOP` (Zerg, Point)
+- `EFFECT_SPAWNLOCUSTS` (Zerg, Build)
+- `EFFECT_SPRAY_ZERG` (Zerg, Point) - Spray a marker.
+- `EXPLODE_EXPLODE` (Zerg, None)
+- `FUNGALGROWTH_FUNGALGROWTH` (Zerg, Point)
+- `HARVEST_GATHER_DRONE` (Zerg, Unit)
+- `HOLDPOSITION_HOLD` (Protoss/Terran/Zerg, None)
+- `HYDRALISKDENRESEARCH_RESEARCHFRENZY` (Zerg, Research)
+- `HYDRALISKFRENZY_HYDRALISKFRENZY` (Zerg, None)
+- `LARVATRAIN_CORRUPTOR` (Zerg, Morph) - Train a Corruptor, a dedicated anti-air flying unit that deals bonus damage to massive targets and can morph into the powerful Brood Lord.
+- `LARVATRAIN_DRONE` (Zerg, Morph) - Train a Drone, a basic worker unit that gathers resources and sacrifices itself to create Zerg structures.
+- `LARVATRAIN_HYDRALISK` (Zerg, Morph) - Train a Hydralisk, a versatile ranged attacker effective against both ground and air units.
+- `LARVATRAIN_INFESTOR` (Zerg, Morph) - Train an Infestor, a powerful spellcaster capable of disabling and damaging groups of enemies or temporarily seizing control of a single unit.
+- `LARVATRAIN_MUTALISK` (Zerg, Morph) - Train a Mutalisk, a very fast flying harasser whose glaive attack bounces between multiple enemy targets.
+- `LARVATRAIN_OVERLORD` (Zerg, Morph) - Train an Overlord to provide supply and act as a scout.
+- `LARVATRAIN_ROACH` (Zerg, Morph) - Train a Roach, a durable, armored ground attacker that can rapidly regenerate health while burrowed.
+- `LARVATRAIN_ULTRALISK` (Zerg, Morph) - Train an Ultralisk, a massive, heavily-armored late-game beast that cleaves through ground units with its powerful melee attacks.
+- `LARVATRAIN_VIPER` (Zerg, Morph) - Train a Viper, a flying spellcaster that manipulates the battlefield by pulling key enemy units out of position or disabling them with clouds.
+- `LARVATRAIN_ZERGLING` (Zerg, Morph) - Train a Zergling, a cheap and extremely fast melee attacker, ideal for swarming and overwhelming enemies.
+- `LOAD_NYDUSNETWORK` (Zerg, Unit)
+- `LOAD_NYDUSWORM` (Zerg, Unit)
+- `LOAD_OVERLORD` (Zerg, Unit) - The Overlord has a cargo space of 8.
+- `LURKERDENRESEARCH_RESEARCHLURKERRANGE` (Zerg, Research)
+- `MORPHTOBANELING_BANELING` (Zerg, Morph)
+- `MORPHTOBROODLORD_BROODLORD` (Zerg, Morph)
+- `MORPHTORAVAGER_RAVAGER` (Zerg, Morph) - Morphs the Roach into a Ravager to be better at remote AOE attacks.
+- `MORPH_LURKER` (Zerg, Morph)
+- `MORPH_OVERLORDTRANSPORT` (Zerg, Morph) - Upgrade to gain transport ability.
+- `MORPH_OVERSEER` (Zerg, Morph) - Morph to Overseer to detect invisible units but lose 8 supply.
+- `MORPH_OVERSEERMODE` (Zerg, Morph) - Morph to Overseer to detect invisible units but lose 8 supply.
+- `MORPH_OVERSIGHTMODE` (Zerg, Morph) - Grants the Overseer 25% wider vision, but removes its ability to move.
+- `MOVE_MOVE` (Protoss/Terran/Zerg, PointOrUnit) - Move to target position.
+- `NEURALPARASITE_NEURALPARASITE` (Zerg, Unit)
+- `PARASITICBOMB_PARASITICBOMB` (Zerg, Unit)
+- `PATROL_PATROL` (Protoss/Terran/Zerg, PointOrUnit) - Command unit to patrol from current position to target position.
+- `QUEENMPENSNARE_QUEENMPENSNARE` (Zerg, Point)
+- `QUEENMPINFESTCOMMANDCENTER_QUEENMPINFESTCOMMANDCENTER` (Zerg, None)
+- `QUEENMPSPAWNBROODLINGS_QUEENMPSPAWNBROODLINGS` (Zerg, Unit)
+- `RALLY_BUILDING` (Protoss/Terran/Zerg, PointOrUnit)
+- `RALLY_HATCHERY_UNITS` (Zerg, PointOrUnit)
+- `RALLY_HATCHERY_WORKERS` (Zerg, PointOrUnit)
+- `RESEARCH_ADAPTIVETALONS` (Zerg, Research) - Reduces the time Lurkers take to burrow from 2 seconds to 1.07 seconds.
+- `RESEARCH_ANABOLICSYNTHESIS` (Zerg, Research) - Increases the movement speed of Ultralisks off creep.
+- `RESEARCH_BURROW` (Zerg, Research) - Enables all Zerg ground units to use the Burrow ability. Burrow allows a unit to take cover underground, rendering it unable to attack.
+- `RESEARCH_CENTRIFUGALHOOKS` (Zerg, Research) - Increases Baneling movement speed to 4.13 (+0.63). Banelings will roll instead of running. Requires a Lair.
+- `RESEARCH_CHITINOUSPLATING` (Zerg, Research) - Increases the armor of all Ultralisks by 2.
+- `RESEARCH_GLIALREGENERATION` (Zerg, Research) - Increases Roach movement speed to 4.2 (+1.05) while unburrowed, and to 4.4 while burrowed under creep.
+- `RESEARCH_GROOVEDSPINES` (Zerg, Research) - Increases the attack range of Hydralisks by +1.
+- `RESEARCH_MUSCULARAUGMENTS` (Zerg, Research) - Increases the movement speed of Hydralisks.
+- `RESEARCH_NEURALPARASITE` (Zerg, Research) - Allows Infestors to use the Neural Parasite ability.
+- `RESEARCH_PNEUMATIZEDCARAPACE` (Zerg, Research) - Increases the movement speed of Overlords to 3.00 and Overseers to 4.72.
+- `RESEARCH_TUNNELINGCLAWS` (Zerg, Research) - Gives Roaches the ability to move while burrowed at a speed of 2.8.
+- `RESEARCH_ZERGFLYERARMORLEVEL1` (Zerg, Research) - Increases the armor of all Zerg air units.
+- `RESEARCH_ZERGFLYERARMORLEVEL2` (Zerg, Research) - Increases the armor of all Zerg air units.
+- `RESEARCH_ZERGFLYERARMORLEVEL3` (Zerg, Research) - Increases the armor of all Zerg air units.
+- `RESEARCH_ZERGFLYERATTACKLEVEL1` (Zerg, Research) - Increases the attack damage of all Zerg air units.
+- `RESEARCH_ZERGFLYERATTACKLEVEL2` (Zerg, Research) - Increases the attack damage of all Zerg air units.
+- `RESEARCH_ZERGFLYERATTACKLEVEL3` (Zerg, Research) - Increases the attack damage of all Zerg air units.
+- `RESEARCH_ZERGGROUNDARMORLEVEL1` (Zerg, Research) - Increases the armor of all Zerg ground units.
+- `RESEARCH_ZERGGROUNDARMORLEVEL2` (Zerg, Research) - Increases the armor of all Zerg ground units.
+- `RESEARCH_ZERGGROUNDARMORLEVEL3` (Zerg, Research) - Increases the armor of all Zerg ground units.
+- `RESEARCH_ZERGLINGADRENALGLANDS` (Zerg, Research)
+- `RESEARCH_ZERGLINGMETABOLICBOOST` (Zerg, Research) - Increases Zergling movement speed by 60% to 6.58 (+2.45).
+- `RESEARCH_ZERGMELEEWEAPONSLEVEL1` (Zerg, Research) - Increases the attack damage of all Zerg ground/melee units.
+- `RESEARCH_ZERGMELEEWEAPONSLEVEL2` (Zerg, Research) - Increases the attack damage of all Zerg ground/melee units.
+- `RESEARCH_ZERGMELEEWEAPONSLEVEL3` (Zerg, Research) - Increases the attack damage of all Zerg ground/melee units.
+- `RESEARCH_ZERGMISSILEWEAPONSLEVEL1` (Zerg, Research) - Increases the attack damage of all Zerg ground/ranged units.
+- `RESEARCH_ZERGMISSILEWEAPONSLEVEL2` (Zerg, Research) - Increases the attack damage of all Zerg ground/ranged units.
+- `RESEARCH_ZERGMISSILEWEAPONSLEVEL3` (Zerg, Research) - Increases the attack damage of all Zerg ground/ranged units.
+- `SCAN_MOVE` (Protoss/Terran/Zerg, PointOrUnit)
+- `SMART` (Protoss/Terran/Zerg, PointOrUnit)
+- `SPAWNCHANGELING_SPAWNCHANGELING` (Zerg, Train) - Spawn a Changeling, a small unit with timed life and no attack. When a Changeling first encounters an enemy unit, it will match that unit's color and change into a Zealot, Marine, 
+- `SPINECRAWLERROOT_SPINECRAWLERROOT` (Zerg, MorphPlace) - Gain attack and lose mobility capability.
+- `SPINECRAWLERUPROOT_SPINECRAWLERUPROOT` (Zerg, Morph) - Gain mobility and lose attack capability.
+- `SPORECRAWLERROOT_SPORECRAWLERROOT` (Zerg, MorphPlace) - Gain attack and lose mobility capability.
+- `SPORECRAWLERUPROOT_SPORECRAWLERUPROOT` (Zerg, Morph) - Gain mobility and lose attack capability.
+- `STOP_STOP` (Protoss/Terran/Zerg, None)
+- `TRAINQUEEN_QUEEN` (Zerg, Build) - Train a Queen, a vital defensive unit that injects larva into Hatchery to mass-produce army.
+- `TRAIN_SWARMHOST` (Zerg, Train)
+- `TRANSFUSION_TRANSFUSION` (Zerg, Unit)
+- `UPGRADETOGREATERSPIRE_GREATERSPIRE` (Zerg, Morph)
+- `UPGRADETOHIVE_HIVE` (Zerg, Morph)
+- `UPGRADETOLAIR_LAIR` (Zerg, Morph) - Upgrade to be a Lair to unlock more units and upgrades.
+- `VIPERCONSUMESTRUCTURE_VIPERCONSUME` (Zerg, Unit)
+- `ZERGBUILD_BANELINGNEST` (Zerg, Build) - Build a Baneling Nest to unlock Baneling.
+- `ZERGBUILD_EVOLUTIONCHAMBER` (Zerg, Build) - Build a Evolution Chamber to upgrade ground weapon and armor.
+- `ZERGBUILD_EXTRACTOR` (Zerg, BuildOnUnit) - Build a Extractor to harvest vespene gas.
+- `ZERGBUILD_HATCHERY` (Zerg, Build) - Build a Hatchery, the central Zerg structure.
+- `ZERGBUILD_HYDRALISKDEN` (Zerg, Build) - Build a Hydralisk Den to unlock Hydralisk.
+- `ZERGBUILD_INFESTATIONPIT` (Zerg, Build) - Build a Infestation Pit to unlock Infestor and Swarm Host.
+- `ZERGBUILD_NYDUSNETWORK` (Zerg, Build) - Build a Nydus Network to create a Nydus Worm at any visible location to enable rapid troop transport.
+- `ZERGBUILD_ROACHWARREN` (Zerg, Build) - Build a Roach Warren to produce Roach.
+- `ZERGBUILD_SPAWNINGPOOL` (Zerg, Build) - Build a Spawning Pool to unlock Zergling and Queen.
+- `ZERGBUILD_SPINECRAWLER` (Zerg, Build) - Build a Spine Crawler, a static defense that impales and damages ground units.
+- `ZERGBUILD_SPIRE` (Zerg, Build) - Build a Spire to unlock air units (Mutalisk and Corruptor).
+- `ZERGBUILD_SPORECRAWLER` (Zerg, Build) - Build a Spore Crawler, a static anti-air turret with detection.
+- `ZERGBUILD_ULTRALISKCAVERN` (Zerg, Build) - Build a Ultralisk Cavern to unlock Ultralisk.

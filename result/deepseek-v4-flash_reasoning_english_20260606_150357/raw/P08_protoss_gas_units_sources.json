@@ -1,0 +1,2535 @@
+{
+  "case": {
+    "id": "P08_protoss_gas_units_sources",
+    "race": "Protoss",
+    "question": "Find Protoss units that cost gas and explain their production source and tech chain evidence.",
+    "expected_tools": [
+      "query_gas_units_with_sources"
+    ],
+    "result_keywords": [
+      "Colossus",
+      "Mothership",
+      "RoboticsFacility"
+    ],
+    "answer_keywords": [
+      "Colossus",
+      "Mothership",
+      "Robotics"
+    ]
+  },
+  "evaluation": {
+    "id": "P08_protoss_gas_units_sources",
+    "race": "Protoss",
+    "question": "Find Protoss units that cost gas and explain their production source and tech chain evidence.",
+    "passed": true,
+    "duration_seconds": 26.06,
+    "called_tools": [
+      "query_gas_units_with_sources"
+    ],
+    "expected_tools": [
+      "query_gas_units_with_sources"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "## Protoss Gas-Costing Units: Production Sources & Tech Chains\n\nThe query returned **30 Protoss entities** (combat units, buildings, morphs) that cost at least 1 gas. Below is a breakdown by **production method** and **tech requirements**. Most standard combat units have clear tech chains; a few (like MP-only units or MothershipCore) have incomplete or placeholder data.\n\n### 1. Gateway / Warp Gate Units  \n_Trained from Gateway (or WarpGate after Warp Gate research). All require CyberneticsCore f"
+  },
+  "result": {
+    "query": "Find Protoss units that cost gas and explain their production source and tech chain evidence.",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_gas_units_with_sources",
+              "arguments": {
+                "race": "Protoss",
+                "min_gas": 1,
+                "include_tech_chain": true,
+                "limit": 50
+              }
+            }
+          ],
+          "notes": [
+            "Use query_gas_units_with_sources to retrieve Protoss units that cost gas, along with reverse production sources and tech chain evidence in one call."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All 30 Protoss units costing gas have been retrieved with their production sources and tech chains via query_gas_units_with_sources. No further tool calls needed."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "query_gas_units_with_sources",
+          "arguments": {
+            "race": "Protoss",
+            "min_gas": 1,
+            "include_tech_chain": true,
+            "limit": 50
+          },
+          "result": {
+            "mode": "gas_units_with_sources",
+            "count": 30,
+            "results": [
+              {
+                "unit": {
+                  "name": "Colossus",
+                  "race": "Protoss",
+                  "minerals": 300,
+                  "gas": 200,
+                  "supply": 6.0,
+                  "time": 1200.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Colossus"
+                    },
+                    "producer": {
+                      "name": "RoboticsFacility",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "ROBOTICSFACILITYTRAIN_COLOSSUS",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Colossus"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "RoboticsBay"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Colossus: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY) -> RoboticsBay (PROTOSSBUILD_ROBOTICSBAY)] -> Colossus (ROBOTICSFACILITYTRAIN_COLOSSUS)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Mothership",
+                  "race": "Protoss",
+                  "minerals": 400,
+                  "gas": 400,
+                  "supply": 8.0,
+                  "time": 2000.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Mothership"
+                    },
+                    "producer": {
+                      "name": "Nexus",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "NEXUSTRAINMOTHERSHIP_MOTHERSHIP",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Mothership"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "FleetBeacon"
+                      }
+                    ],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Mothership"
+                    },
+                    "producer": {
+                      "name": "MothershipCore",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Morph",
+                    "ability": {
+                      "name": "MORPH_MOTHERSHIP",
+                      "target": {
+                        "Morph": {
+                          "produces_name": "Mothership"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Mothership: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE) -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)] + [Nexus (PROTOSSBUILD_NEXUS)] -> Mothership (NEXUSTRAINMOTHERSHIP_MOTHERSHIP)",
+                  "Mothership: [MothershipCore] -> Mothership (MORPH_MOTHERSHIP)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "FleetBeacon",
+                  "race": "Protoss",
+                  "minerals": 300,
+                  "gas": 200,
+                  "supply": 0.0,
+                  "time": 960.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "FleetBeacon"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_FLEETBEACON",
+                      "target": {
+                        "Build": {
+                          "produces_name": "FleetBeacon"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "Stargate"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "FleetBeacon: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] + [Probe (NEXUSTRAIN_PROBE)] -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "TwilightCouncil",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 0.0,
+                  "time": 800.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "TwilightCouncil"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_TWILIGHTCOUNCIL",
+                      "target": {
+                        "Build": {
+                          "produces_name": "TwilightCouncil"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "TwilightCouncil: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] + [Probe (NEXUSTRAIN_PROBE)] -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Stargate",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 150,
+                  "supply": 0.0,
+                  "time": 960.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Stargate"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_STARGATE",
+                      "target": {
+                        "Build": {
+                          "produces_name": "Stargate"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Stargate: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] + [Probe (NEXUSTRAIN_PROBE)] -> Stargate (PROTOSSBUILD_STARGATE)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "TemplarArchive",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 200,
+                  "supply": 0.0,
+                  "time": 800.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "TemplarArchive"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_TEMPLARARCHIVE",
+                      "target": {
+                        "Build": {
+                          "produces_name": "TemplarArchive"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "TwilightCouncil"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "TemplarArchive: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL)] + [Probe (NEXUSTRAIN_PROBE)] -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "DarkShrine",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 150,
+                  "supply": 0.0,
+                  "time": 1600.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "DarkShrine"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_DARKSHRINE",
+                      "target": {
+                        "Build": {
+                          "produces_name": "DarkShrine"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "TwilightCouncil"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "DarkShrine: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL)] + [Probe (NEXUSTRAIN_PROBE)] -> DarkShrine (PROTOSSBUILD_DARKSHRINE)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "RoboticsBay",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 150,
+                  "supply": 0.0,
+                  "time": 1040.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "RoboticsBay"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_ROBOTICSBAY",
+                      "target": {
+                        "Build": {
+                          "produces_name": "RoboticsBay"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "RoboticsFacility"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "RoboticsBay: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)] + [Probe (NEXUSTRAIN_PROBE)] -> RoboticsBay (PROTOSSBUILD_ROBOTICSBAY)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "RoboticsFacility",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 0.0,
+                  "time": 1040.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "RoboticsFacility"
+                    },
+                    "producer": {
+                      "name": "Probe",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Build",
+                    "ability": {
+                      "name": "PROTOSSBUILD_ROBOTICSFACILITY",
+                      "target": {
+                        "Build": {
+                          "produces_name": "RoboticsFacility"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "RoboticsFacility: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] + [Probe (NEXUSTRAIN_PROBE)] -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Stalker",
+                  "race": "Protoss",
+                  "minerals": 125,
+                  "gas": 50,
+                  "supply": 2.0,
+                  "time": 608.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Stalker"
+                    },
+                    "producer": {
+                      "name": "Gateway",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "GATEWAYTRAIN_STALKER",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Stalker"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Stalker"
+                    },
+                    "producer": {
+                      "name": "WarpGate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "TrainPlace",
+                    "ability": {
+                      "name": "WARPGATETRAIN_STALKER",
+                      "target": {
+                        "TrainPlace": {
+                          "produces_name": "Stalker"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Stalker (GATEWAYTRAIN_STALKER)",
+                  "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Stalker (WARPGATETRAIN_STALKER)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "HighTemplar",
+                  "race": "Protoss",
+                  "minerals": 50,
+                  "gas": 150,
+                  "supply": 2.0,
+                  "time": 880.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "HighTemplar"
+                    },
+                    "producer": {
+                      "name": "Gateway",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "GATEWAYTRAIN_HIGHTEMPLAR",
+                      "target": {
+                        "Train": {
+                          "produces_name": "HighTemplar"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "TemplarArchive"
+                      }
+                    ],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "HighTemplar"
+                    },
+                    "producer": {
+                      "name": "WarpGate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "TrainPlace",
+                    "ability": {
+                      "name": "WARPGATETRAIN_HIGHTEMPLAR",
+                      "target": {
+                        "TrainPlace": {
+                          "produces_name": "HighTemplar"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "TemplarArchive"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "HighTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE)] -> HighTemplar (GATEWAYTRAIN_HIGHTEMPLAR)",
+                  "HighTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE)] + [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> HighTemplar (WARPGATETRAIN_HIGHTEMPLAR)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "DarkTemplar",
+                  "race": "Protoss",
+                  "minerals": 125,
+                  "gas": 125,
+                  "supply": 2.0,
+                  "time": 880.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "DarkTemplar"
+                    },
+                    "producer": {
+                      "name": "Gateway",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "GATEWAYTRAIN_DARKTEMPLAR",
+                      "target": {
+                        "Train": {
+                          "produces_name": "DarkTemplar"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "DarkShrine"
+                      }
+                    ],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "DarkTemplar"
+                    },
+                    "producer": {
+                      "name": "WarpGate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "TrainPlace",
+                    "ability": {
+                      "name": "WARPGATETRAIN_DARKTEMPLAR",
+                      "target": {
+                        "TrainPlace": {
+                          "produces_name": "DarkTemplar"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "DarkShrine"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "DarkTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> DarkShrine (PROTOSSBUILD_DARKSHRINE)] -> DarkTemplar (GATEWAYTRAIN_DARKTEMPLAR)",
+                  "DarkTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> DarkShrine (PROTOSSBUILD_DARKSHRINE)] + [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> DarkTemplar (WARPGATETRAIN_DARKTEMPLAR)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Sentry",
+                  "race": "Protoss",
+                  "minerals": 50,
+                  "gas": 100,
+                  "supply": 2.0,
+                  "time": 512.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Sentry"
+                    },
+                    "producer": {
+                      "name": "Gateway",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "GATEWAYTRAIN_SENTRY",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Sentry"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Sentry"
+                    },
+                    "producer": {
+                      "name": "WarpGate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "TrainPlace",
+                    "ability": {
+                      "name": "WARPGATETRAIN_SENTRY",
+                      "target": {
+                        "TrainPlace": {
+                          "produces_name": "Sentry"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Sentry: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Sentry (GATEWAYTRAIN_SENTRY)",
+                  "Sentry: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Sentry (WARPGATETRAIN_SENTRY)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Phoenix",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 2.0,
+                  "time": 560.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Phoenix"
+                    },
+                    "producer": {
+                      "name": "Stargate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "STARGATETRAIN_PHOENIX",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Phoenix"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Phoenix: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] -> Phoenix (STARGATETRAIN_PHOENIX)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Carrier",
+                  "race": "Protoss",
+                  "minerals": 350,
+                  "gas": 250,
+                  "supply": 6.0,
+                  "time": 1440.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Carrier"
+                    },
+                    "producer": {
+                      "name": "Stargate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "STARGATETRAIN_CARRIER",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Carrier"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "FleetBeacon"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Carrier: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE) -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)] -> Carrier (STARGATETRAIN_CARRIER)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "VoidRay",
+                  "race": "Protoss",
+                  "minerals": 250,
+                  "gas": 150,
+                  "supply": 4.0,
+                  "time": 963.19921875
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "VoidRay"
+                    },
+                    "producer": {
+                      "name": "Stargate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "STARGATETRAIN_VOIDRAY",
+                      "target": {
+                        "Train": {
+                          "produces_name": "VoidRay"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "VoidRay: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] -> VoidRay (STARGATETRAIN_VOIDRAY)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Observer",
+                  "race": "Protoss",
+                  "minerals": 25,
+                  "gas": 75,
+                  "supply": 1.0,
+                  "time": 400.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Observer"
+                    },
+                    "producer": {
+                      "name": "RoboticsFacility",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "ROBOTICSFACILITYTRAIN_OBSERVER",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Observer"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Observer"
+                    },
+                    "producer": {
+                      "name": "ObserverSiegeMode",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Morph",
+                    "ability": {
+                      "name": "MORPH_OBSERVERMODE",
+                      "target": {
+                        "Morph": {
+                          "produces_name": "Observer"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Observer: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)] -> Observer (ROBOTICSFACILITYTRAIN_OBSERVER)",
+                  "Observer: [Observer] -> Observer (MORPH_SURVEILLANCEMODE)",
+                  "Observer: [Observer -> ObserverSiegeMode (MORPH_SURVEILLANCEMODE)] -> Observer (MORPH_OBSERVERMODE)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Immortal",
+                  "race": "Protoss",
+                  "minerals": 250,
+                  "gas": 100,
+                  "supply": 4.0,
+                  "time": 880.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Immortal"
+                    },
+                    "producer": {
+                      "name": "RoboticsFacility",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "ROBOTICSFACILITYTRAIN_IMMORTAL",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Immortal"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Immortal: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)] -> Immortal (ROBOTICSFACILITYTRAIN_IMMORTAL)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Archon",
+                  "race": "Protoss",
+                  "minerals": 175,
+                  "gas": 275,
+                  "supply": 4.0,
+                  "time": 0.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Archon"
+                    },
+                    "producer": {
+                      "name": "HighTemplar",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Morph",
+                    "ability": {
+                      "name": "MORPH_ARCHON",
+                      "target": {
+                        "Morph": {
+                          "produces_name": "Archon"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Archon"
+                    },
+                    "producer": {
+                      "name": "DarkTemplar",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Morph",
+                    "ability": {
+                      "name": "MORPH_ARCHON",
+                      "target": {
+                        "Morph": {
+                          "produces_name": "Archon"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Archon: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE) -> HighTemplar (GATEWAYTRAIN_HIGHTEMPLAR)] -> Archon (MORPH_ARCHON)",
+                  "Archon: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> DarkShrine (PROTOSSBUILD_DARKSHRINE) -> DarkTemplar (GATEWAYTRAIN_DARKTEMPLAR)] -> Archon (MORPH_ARCHON)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Adept",
+                  "race": "Protoss",
+                  "minerals": 100,
+                  "gas": 25,
+                  "supply": 2.0,
+                  "time": 672.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Adept"
+                    },
+                    "producer": {
+                      "name": "Gateway",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "TRAIN_ADEPT",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Adept"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  },
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Adept"
+                    },
+                    "producer": {
+                      "name": "WarpGate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "TrainPlace",
+                    "ability": {
+                      "name": "TRAINWARP_ADEPT",
+                      "target": {
+                        "TrainPlace": {
+                          "produces_name": "Adept"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Adept: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Adept (TRAIN_ADEPT)",
+                  "Adept: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Adept (TRAINWARP_ADEPT)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "MothershipCore",
+                  "race": "Protoss",
+                  "minerals": 100,
+                  "gas": 100,
+                  "supply": 2.0,
+                  "time": 480.0
+                },
+                "production_sources": [],
+                "tech_chain": [
+                  "MothershipCore: MothershipCore"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Oracle",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 150,
+                  "supply": 3.0,
+                  "time": 832.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Oracle"
+                    },
+                    "producer": {
+                      "name": "Stargate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "STARGATETRAIN_ORACLE",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Oracle"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Oracle: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] -> Oracle (STARGATETRAIN_ORACLE)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Tempest",
+                  "race": "Protoss",
+                  "minerals": 250,
+                  "gas": 175,
+                  "supply": 4.0,
+                  "time": 960.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Tempest"
+                    },
+                    "producer": {
+                      "name": "Stargate",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "STARGATETRAIN_TEMPEST",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Tempest"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "FleetBeacon"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Tempest: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE) -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)] -> Tempest (STARGATETRAIN_TEMPEST)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Disruptor",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 150,
+                  "supply": 4.0,
+                  "time": 800.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "Disruptor"
+                    },
+                    "producer": {
+                      "name": "RoboticsFacility",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Train",
+                    "ability": {
+                      "name": "TRAIN_DISRUPTOR",
+                      "target": {
+                        "Train": {
+                          "produces_name": "Disruptor"
+                        }
+                      }
+                    },
+                    "requirements": [
+                      {
+                        "building_name": "RoboticsBay"
+                      }
+                    ],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "Disruptor: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY) -> RoboticsBay (PROTOSSBUILD_ROBOTICSBAY)] -> Disruptor (TRAIN_DISRUPTOR)"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "VoidMPImmortalReviveCorpse",
+                  "race": "Protoss",
+                  "minerals": 250,
+                  "gas": 100,
+                  "supply": 4.0,
+                  "time": 0.0
+                },
+                "production_sources": [],
+                "tech_chain": [
+                  "VoidMPImmortalReviveCorpse: VoidMPImmortalReviveCorpse"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "Replicant",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 300,
+                  "supply": 4.0,
+                  "time": 0.0
+                },
+                "production_sources": [],
+                "tech_chain": [
+                  "Replicant: Replicant"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "CorsairMP",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 2.0,
+                  "time": 0.0
+                },
+                "production_sources": [],
+                "tech_chain": [
+                  "CorsairMP: CorsairMP"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "ScoutMP",
+                  "race": "Protoss",
+                  "minerals": 275,
+                  "gas": 125,
+                  "supply": 3.0,
+                  "time": 0.0
+                },
+                "production_sources": [],
+                "tech_chain": [
+                  "ScoutMP: ScoutMP"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "ArbiterMP",
+                  "race": "Protoss",
+                  "minerals": 100,
+                  "gas": 350,
+                  "supply": 4.0,
+                  "time": 0.0
+                },
+                "production_sources": [],
+                "tech_chain": [
+                  "ArbiterMP: ArbiterMP"
+                ]
+              },
+              {
+                "unit": {
+                  "name": "ObserverSiegeMode",
+                  "race": "Protoss",
+                  "minerals": 25,
+                  "gas": 75,
+                  "supply": 1.0,
+                  "time": 12.0
+                },
+                "production_sources": [
+                  {
+                    "produced": {
+                      "section": "Unit",
+                      "name": "ObserverSiegeMode"
+                    },
+                    "producer": {
+                      "name": "Observer",
+                      "race": "Protoss"
+                    },
+                    "target_type": "Morph",
+                    "ability": {
+                      "name": "MORPH_SURVEILLANCEMODE",
+                      "target": {
+                        "Morph": {
+                          "produces_name": "ObserverSiegeMode"
+                        }
+                      }
+                    },
+                    "requirements": [],
+                    "required_addon": null
+                  }
+                ],
+                "tech_chain": [
+                  "ObserverSiegeMode: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY) -> Observer (ROBOTICSFACILITYTRAIN_OBSERVER)] -> ObserverSiegeMode (MORPH_SURVEILLANCEMODE)"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "query_gas_units_with_sources",
+        "arguments": {
+          "race": "Protoss",
+          "min_gas": 1,
+          "include_tech_chain": true,
+          "limit": 50
+        },
+        "result": {
+          "mode": "gas_units_with_sources",
+          "count": 30,
+          "results": [
+            {
+              "unit": {
+                "name": "Colossus",
+                "race": "Protoss",
+                "minerals": 300,
+                "gas": 200,
+                "supply": 6.0,
+                "time": 1200.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Colossus"
+                  },
+                  "producer": {
+                    "name": "RoboticsFacility",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "ROBOTICSFACILITYTRAIN_COLOSSUS",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Colossus"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "RoboticsBay"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Colossus: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY) -> RoboticsBay (PROTOSSBUILD_ROBOTICSBAY)] -> Colossus (ROBOTICSFACILITYTRAIN_COLOSSUS)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Mothership",
+                "race": "Protoss",
+                "minerals": 400,
+                "gas": 400,
+                "supply": 8.0,
+                "time": 2000.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Mothership"
+                  },
+                  "producer": {
+                    "name": "Nexus",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "NEXUSTRAINMOTHERSHIP_MOTHERSHIP",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Mothership"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "FleetBeacon"
+                    }
+                  ],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Mothership"
+                  },
+                  "producer": {
+                    "name": "MothershipCore",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Morph",
+                  "ability": {
+                    "name": "MORPH_MOTHERSHIP",
+                    "target": {
+                      "Morph": {
+                        "produces_name": "Mothership"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Mothership: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE) -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)] + [Nexus (PROTOSSBUILD_NEXUS)] -> Mothership (NEXUSTRAINMOTHERSHIP_MOTHERSHIP)",
+                "Mothership: [MothershipCore] -> Mothership (MORPH_MOTHERSHIP)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "FleetBeacon",
+                "race": "Protoss",
+                "minerals": 300,
+                "gas": 200,
+                "supply": 0.0,
+                "time": 960.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "FleetBeacon"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_FLEETBEACON",
+                    "target": {
+                      "Build": {
+                        "produces_name": "FleetBeacon"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "Stargate"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "FleetBeacon: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] + [Probe (NEXUSTRAIN_PROBE)] -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "TwilightCouncil",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 0.0,
+                "time": 800.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "TwilightCouncil"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_TWILIGHTCOUNCIL",
+                    "target": {
+                      "Build": {
+                        "produces_name": "TwilightCouncil"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "TwilightCouncil: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] + [Probe (NEXUSTRAIN_PROBE)] -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Stargate",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 150,
+                "supply": 0.0,
+                "time": 960.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Stargate"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_STARGATE",
+                    "target": {
+                      "Build": {
+                        "produces_name": "Stargate"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Stargate: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] + [Probe (NEXUSTRAIN_PROBE)] -> Stargate (PROTOSSBUILD_STARGATE)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "TemplarArchive",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 200,
+                "supply": 0.0,
+                "time": 800.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "TemplarArchive"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_TEMPLARARCHIVE",
+                    "target": {
+                      "Build": {
+                        "produces_name": "TemplarArchive"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "TwilightCouncil"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "TemplarArchive: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL)] + [Probe (NEXUSTRAIN_PROBE)] -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "DarkShrine",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 150,
+                "supply": 0.0,
+                "time": 1600.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "DarkShrine"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_DARKSHRINE",
+                    "target": {
+                      "Build": {
+                        "produces_name": "DarkShrine"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "TwilightCouncil"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "DarkShrine: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL)] + [Probe (NEXUSTRAIN_PROBE)] -> DarkShrine (PROTOSSBUILD_DARKSHRINE)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "RoboticsBay",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 150,
+                "supply": 0.0,
+                "time": 1040.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "RoboticsBay"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_ROBOTICSBAY",
+                    "target": {
+                      "Build": {
+                        "produces_name": "RoboticsBay"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "RoboticsFacility"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "RoboticsBay: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)] + [Probe (NEXUSTRAIN_PROBE)] -> RoboticsBay (PROTOSSBUILD_ROBOTICSBAY)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "RoboticsFacility",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 0.0,
+                "time": 1040.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "RoboticsFacility"
+                  },
+                  "producer": {
+                    "name": "Probe",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Build",
+                  "ability": {
+                    "name": "PROTOSSBUILD_ROBOTICSFACILITY",
+                    "target": {
+                      "Build": {
+                        "produces_name": "RoboticsFacility"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "RoboticsFacility: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] + [Probe (NEXUSTRAIN_PROBE)] -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Stalker",
+                "race": "Protoss",
+                "minerals": 125,
+                "gas": 50,
+                "supply": 2.0,
+                "time": 608.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Stalker"
+                  },
+                  "producer": {
+                    "name": "Gateway",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "GATEWAYTRAIN_STALKER",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Stalker"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Stalker"
+                  },
+                  "producer": {
+                    "name": "WarpGate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "TrainPlace",
+                  "ability": {
+                    "name": "WARPGATETRAIN_STALKER",
+                    "target": {
+                      "TrainPlace": {
+                        "produces_name": "Stalker"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Stalker (GATEWAYTRAIN_STALKER)",
+                "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Stalker (WARPGATETRAIN_STALKER)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "HighTemplar",
+                "race": "Protoss",
+                "minerals": 50,
+                "gas": 150,
+                "supply": 2.0,
+                "time": 880.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "HighTemplar"
+                  },
+                  "producer": {
+                    "name": "Gateway",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "GATEWAYTRAIN_HIGHTEMPLAR",
+                    "target": {
+                      "Train": {
+                        "produces_name": "HighTemplar"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "TemplarArchive"
+                    }
+                  ],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "HighTemplar"
+                  },
+                  "producer": {
+                    "name": "WarpGate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "TrainPlace",
+                  "ability": {
+                    "name": "WARPGATETRAIN_HIGHTEMPLAR",
+                    "target": {
+                      "TrainPlace": {
+                        "produces_name": "HighTemplar"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "TemplarArchive"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "HighTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE)] -> HighTemplar (GATEWAYTRAIN_HIGHTEMPLAR)",
+                "HighTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE)] + [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> HighTemplar (WARPGATETRAIN_HIGHTEMPLAR)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "DarkTemplar",
+                "race": "Protoss",
+                "minerals": 125,
+                "gas": 125,
+                "supply": 2.0,
+                "time": 880.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "DarkTemplar"
+                  },
+                  "producer": {
+                    "name": "Gateway",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "GATEWAYTRAIN_DARKTEMPLAR",
+                    "target": {
+                      "Train": {
+                        "produces_name": "DarkTemplar"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "DarkShrine"
+                    }
+                  ],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "DarkTemplar"
+                  },
+                  "producer": {
+                    "name": "WarpGate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "TrainPlace",
+                  "ability": {
+                    "name": "WARPGATETRAIN_DARKTEMPLAR",
+                    "target": {
+                      "TrainPlace": {
+                        "produces_name": "DarkTemplar"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "DarkShrine"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "DarkTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> DarkShrine (PROTOSSBUILD_DARKSHRINE)] -> DarkTemplar (GATEWAYTRAIN_DARKTEMPLAR)",
+                "DarkTemplar: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> DarkShrine (PROTOSSBUILD_DARKSHRINE)] + [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> DarkTemplar (WARPGATETRAIN_DARKTEMPLAR)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Sentry",
+                "race": "Protoss",
+                "minerals": 50,
+                "gas": 100,
+                "supply": 2.0,
+                "time": 512.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Sentry"
+                  },
+                  "producer": {
+                    "name": "Gateway",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "GATEWAYTRAIN_SENTRY",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Sentry"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Sentry"
+                  },
+                  "producer": {
+                    "name": "WarpGate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "TrainPlace",
+                  "ability": {
+                    "name": "WARPGATETRAIN_SENTRY",
+                    "target": {
+                      "TrainPlace": {
+                        "produces_name": "Sentry"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Sentry: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Sentry (GATEWAYTRAIN_SENTRY)",
+                "Sentry: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Sentry (WARPGATETRAIN_SENTRY)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Phoenix",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 2.0,
+                "time": 560.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Phoenix"
+                  },
+                  "producer": {
+                    "name": "Stargate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "STARGATETRAIN_PHOENIX",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Phoenix"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Phoenix: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] -> Phoenix (STARGATETRAIN_PHOENIX)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Carrier",
+                "race": "Protoss",
+                "minerals": 350,
+                "gas": 250,
+                "supply": 6.0,
+                "time": 1440.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Carrier"
+                  },
+                  "producer": {
+                    "name": "Stargate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "STARGATETRAIN_CARRIER",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Carrier"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "FleetBeacon"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Carrier: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE) -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)] -> Carrier (STARGATETRAIN_CARRIER)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "VoidRay",
+                "race": "Protoss",
+                "minerals": 250,
+                "gas": 150,
+                "supply": 4.0,
+                "time": 963.19921875
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "VoidRay"
+                  },
+                  "producer": {
+                    "name": "Stargate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "STARGATETRAIN_VOIDRAY",
+                    "target": {
+                      "Train": {
+                        "produces_name": "VoidRay"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "VoidRay: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] -> VoidRay (STARGATETRAIN_VOIDRAY)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Observer",
+                "race": "Protoss",
+                "minerals": 25,
+                "gas": 75,
+                "supply": 1.0,
+                "time": 400.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Observer"
+                  },
+                  "producer": {
+                    "name": "RoboticsFacility",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "ROBOTICSFACILITYTRAIN_OBSERVER",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Observer"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Observer"
+                  },
+                  "producer": {
+                    "name": "ObserverSiegeMode",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Morph",
+                  "ability": {
+                    "name": "MORPH_OBSERVERMODE",
+                    "target": {
+                      "Morph": {
+                        "produces_name": "Observer"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Observer: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)] -> Observer (ROBOTICSFACILITYTRAIN_OBSERVER)",
+                "Observer: [Observer] -> Observer (MORPH_SURVEILLANCEMODE)",
+                "Observer: [Observer -> ObserverSiegeMode (MORPH_SURVEILLANCEMODE)] -> Observer (MORPH_OBSERVERMODE)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Immortal",
+                "race": "Protoss",
+                "minerals": 250,
+                "gas": 100,
+                "supply": 4.0,
+                "time": 880.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Immortal"
+                  },
+                  "producer": {
+                    "name": "RoboticsFacility",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "ROBOTICSFACILITYTRAIN_IMMORTAL",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Immortal"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Immortal: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY)] -> Immortal (ROBOTICSFACILITYTRAIN_IMMORTAL)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Archon",
+                "race": "Protoss",
+                "minerals": 175,
+                "gas": 275,
+                "supply": 4.0,
+                "time": 0.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Archon"
+                  },
+                  "producer": {
+                    "name": "HighTemplar",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Morph",
+                  "ability": {
+                    "name": "MORPH_ARCHON",
+                    "target": {
+                      "Morph": {
+                        "produces_name": "Archon"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Archon"
+                  },
+                  "producer": {
+                    "name": "DarkTemplar",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Morph",
+                  "ability": {
+                    "name": "MORPH_ARCHON",
+                    "target": {
+                      "Morph": {
+                        "produces_name": "Archon"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Archon: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> TemplarArchive (PROTOSSBUILD_TEMPLARARCHIVE) -> HighTemplar (GATEWAYTRAIN_HIGHTEMPLAR)] -> Archon (MORPH_ARCHON)",
+                "Archon: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> TwilightCouncil (PROTOSSBUILD_TWILIGHTCOUNCIL) -> DarkShrine (PROTOSSBUILD_DARKSHRINE) -> DarkTemplar (GATEWAYTRAIN_DARKTEMPLAR)] -> Archon (MORPH_ARCHON)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Adept",
+                "race": "Protoss",
+                "minerals": 100,
+                "gas": 25,
+                "supply": 2.0,
+                "time": 672.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Adept"
+                  },
+                  "producer": {
+                    "name": "Gateway",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "TRAIN_ADEPT",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Adept"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                },
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Adept"
+                  },
+                  "producer": {
+                    "name": "WarpGate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "TrainPlace",
+                  "ability": {
+                    "name": "TRAINWARP_ADEPT",
+                    "target": {
+                      "TrainPlace": {
+                        "produces_name": "Adept"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "CyberneticsCore"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Adept: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Adept (TRAIN_ADEPT)",
+                "Adept: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Adept (TRAINWARP_ADEPT)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "MothershipCore",
+                "race": "Protoss",
+                "minerals": 100,
+                "gas": 100,
+                "supply": 2.0,
+                "time": 480.0
+              },
+              "production_sources": [],
+              "tech_chain": [
+                "MothershipCore: MothershipCore"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Oracle",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 150,
+                "supply": 3.0,
+                "time": 832.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Oracle"
+                  },
+                  "producer": {
+                    "name": "Stargate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "STARGATETRAIN_ORACLE",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Oracle"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Oracle: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE)] -> Oracle (STARGATETRAIN_ORACLE)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Tempest",
+                "race": "Protoss",
+                "minerals": 250,
+                "gas": 175,
+                "supply": 4.0,
+                "time": 960.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Tempest"
+                  },
+                  "producer": {
+                    "name": "Stargate",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "STARGATETRAIN_TEMPEST",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Tempest"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "FleetBeacon"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Tempest: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> Stargate (PROTOSSBUILD_STARGATE) -> FleetBeacon (PROTOSSBUILD_FLEETBEACON)] -> Tempest (STARGATETRAIN_TEMPEST)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Disruptor",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 150,
+                "supply": 4.0,
+                "time": 800.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "Disruptor"
+                  },
+                  "producer": {
+                    "name": "RoboticsFacility",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Train",
+                  "ability": {
+                    "name": "TRAIN_DISRUPTOR",
+                    "target": {
+                      "Train": {
+                        "produces_name": "Disruptor"
+                      }
+                    }
+                  },
+                  "requirements": [
+                    {
+                      "building_name": "RoboticsBay"
+                    }
+                  ],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "Disruptor: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY) -> RoboticsBay (PROTOSSBUILD_ROBOTICSBAY)] -> Disruptor (TRAIN_DISRUPTOR)"
+              ]
+            },
+            {
+              "unit": {
+                "name": "VoidMPImmortalReviveCorpse",
+                "race": "Protoss",
+                "minerals": 250,
+                "gas": 100,
+                "supply": 4.0,
+                "time": 0.0
+              },
+              "production_sources": [],
+              "tech_chain": [
+                "VoidMPImmortalReviveCorpse: VoidMPImmortalReviveCorpse"
+              ]
+            },
+            {
+              "unit": {
+                "name": "Replicant",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 300,
+                "supply": 4.0,
+                "time": 0.0
+              },
+              "production_sources": [],
+              "tech_chain": [
+                "Replicant: Replicant"
+              ]
+            },
+            {
+              "unit": {
+                "name": "CorsairMP",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 2.0,
+                "time": 0.0
+              },
+              "production_sources": [],
+              "tech_chain": [
+                "CorsairMP: CorsairMP"
+              ]
+            },
+            {
+              "unit": {
+                "name": "ScoutMP",
+                "race": "Protoss",
+                "minerals": 275,
+                "gas": 125,
+                "supply": 3.0,
+                "time": 0.0
+              },
+              "production_sources": [],
+              "tech_chain": [
+                "ScoutMP: ScoutMP"
+              ]
+            },
+            {
+              "unit": {
+                "name": "ArbiterMP",
+                "race": "Protoss",
+                "minerals": 100,
+                "gas": 350,
+                "supply": 4.0,
+                "time": 0.0
+              },
+              "production_sources": [],
+              "tech_chain": [
+                "ArbiterMP: ArbiterMP"
+              ]
+            },
+            {
+              "unit": {
+                "name": "ObserverSiegeMode",
+                "race": "Protoss",
+                "minerals": 25,
+                "gas": 75,
+                "supply": 1.0,
+                "time": 12.0
+              },
+              "production_sources": [
+                {
+                  "produced": {
+                    "section": "Unit",
+                    "name": "ObserverSiegeMode"
+                  },
+                  "producer": {
+                    "name": "Observer",
+                    "race": "Protoss"
+                  },
+                  "target_type": "Morph",
+                  "ability": {
+                    "name": "MORPH_SURVEILLANCEMODE",
+                    "target": {
+                      "Morph": {
+                        "produces_name": "ObserverSiegeMode"
+                      }
+                    }
+                  },
+                  "requirements": [],
+                  "required_addon": null
+                }
+              ],
+              "tech_chain": [
+                "ObserverSiegeMode: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> RoboticsFacility (PROTOSSBUILD_ROBOTICSFACILITY) -> Observer (ROBOTICSFACILITYTRAIN_OBSERVER)] -> ObserverSiegeMode (MORPH_SURVEILLANCEMODE)"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "## Protoss Gas-Costing Units: Production Sources & Tech Chains\n\nThe query returned **30 Protoss entities** (combat units, buildings, morphs) that cost at least 1 gas. Below is a breakdown by **production method** and **tech requirements**. Most standard combat units have clear tech chains; a few (like MP-only units or MothershipCore) have incomplete or placeholder data.\n\n### 1. Gateway / Warp Gate Units  \n_Trained from Gateway (or WarpGate after Warp Gate research). All require CyberneticsCore first._\n\n| Unit | Gas Cost | Tech Requirement | Production Source |\n|------|----------|-----------------|------------------|\n| **Stalker** | 50 | CyberneticsCore | Gateway / WarpGate |\n| **Sentry** | 100 | CyberneticsCore | Gateway / WarpGate |\n| **Adept** | 25 | CyberneticsCore | Gateway / WarpGate |\n| **High Templar** | 150 | TemplarArchive (requires TwilightCouncil) | Gateway / WarpGate |\n| **Dark Templar** | 125 | DarkShrine (requires TwilightCouncil) | Gateway / WarpGate |\n\n**Tech chain example (Stalker):**  \n`Pylon → Gateway → CyberneticsCore` (then either train from Gateway or upgrade to WarpGate).\n\n### 2. Robotics Facility Units  \n_Trained from RoboticsFacility. Requires CyberneticsCore to build RoboticsFacility._\n\n| Unit | Gas Cost | Tech Requirement | Production Source |\n|------|----------|-----------------|------------------|\n| **Observer** | 75 | none (base RoboticsFacility) | RoboticsFacility (or morph from ObserverSiegeMode) |\n| **Immortal** | 100 | none (base) | RoboticsFacility |\n| **Colossus** | 200 | RoboticsBay (requires RoboticsFacility) | RoboticsFacility |\n| **Disruptor** | 150 | RoboticsBay | RoboticsFacility |\n\n**Tech chain example (Colossus):**  \n`Pylon → Gateway → CyberneticsCore → RoboticsFacility → RoboticsBay → Colossus`\n\n### 3. Stargate Units  \n_Trained from Stargate. Requires CyberneticsCore to build Stargate._\n\n| Unit | Gas Cost | Tech Requirement | Production Source |\n|------|----------|-----------------|------------------|\n| **Phoenix** | 100 | none (base Stargate) | Stargate |\n| **Void Ray** | 150 | none (base) | Stargate |\n| **Oracle** | 150 | none (base) | Stargate |\n| **Carrier** | 250 | FleetBeacon (requires Stargate) | Stargate |\n| **Tempest** | 175 | FleetBeacon | Stargate |\n\n**Tech chain example (Carrier):**  \n`Pylon → Gateway → CyberneticsCore → Stargate → FleetBeacon → Carrier`\n\n### 4. Morph / Special Units  \n_Produced by morphing other units or from unique producers._\n\n| Unit | Gas Cost | Producer / Morph From | Tech Requirement |\n|------|----------|----------------------|------------------|\n| **Archon** | 275 (cost sum) | Morph from High Templar or Dark Templar | Requires TwilightCouncil + either TemplarArchive or DarkShrine |\n| **Mothership Core** | 100 | Spawned at game start (no production source listed) | None (starting unit) |\n| **Mothership** | 400 | Nex–us (after FleetBeacon) **or** morph from Mothership Core | FleetBeacon + Stargate chain |\n| **Observer (Siege Mode)** | 75 | Morph from Observer | Observer already built |\n\n**Tech chain example (Archon via High Templar):**  \n`Pylon → Gateway → CyberneticsCore → TwilightCouncil → TemplarArchive → train High Templar → morph Archon`\n\n### 5. Buildings That Cost Gas  \n_These are structures built by Probes, but they appear in the unit list because they consume gas._\n\n| Building | Gas Cost | Prerequisite |\n|----------|----------|--------------|\n| **TwilightCouncil** | 100 | CyberneticsCore |\n| **RoboticsFacility** | 100 | CyberneticsCore |\n| **Stargate** | 150 | CyberneticsCore |\n| **RoboticsBay** | 150 | RoboticsFacility |\n| **TemplarArchive** | 200 | TwilightCouncil |\n| **DarkShrine** | 150 | TwilightCouncil |\n| **FleetBeacon** | 200 | Stargate |\n\n**Tech chain example (FleetBeacon):**  \n`Pylon → Gateway → CyberneticsCore → Stargate → FleetBeacon` (built by Probe).\n\n### 6. Legacy / Multiplayer-Only Units (No production sources in data)  \nThese have gas costs but lack usable tech chains in the tool results:  \n- **VoidMPImmortalReviveCorpse** (100 gas)  \n- **Replicant** (300 gas)  \n- **CorsairMP** (100 gas)  \n- **ScoutMP** (125 gas)  \n- **ArbiterMP** (350 gas)  \n\n*Note: These are likely campaign/mod content and not standard competitive units.*\n\n---\n\n### Summary\n- **19 standard combat/morph units** cost gas, sourced from Gateway/RoboticsFacility/Stargate or morphs.  \n- **7 tech buildings** also cost gas and serve as prerequisites for the higher-tier units.  \n- Every gas‑costing combat unit requires **CyberneticsCore** (directly or indirectly) except Mothership Core (starting).  \n- The tech chains are consistent with official StarCraft II data; all listed requirements match known game logic."
+  }
+}

@@ -1,0 +1,1097 @@
+{
+  "case": {
+    "id": "Z05_infestor_ability_profile",
+    "race": "Zerg",
+    "question": "What abilities does Infestor have, and what are their target types, ranges, and energy costs?",
+    "expected_tools": [
+      "query_unit_abilities"
+    ],
+    "result_keywords": [
+      "Infestor",
+      "FUNGALGROWTH_FUNGALGROWTH",
+      "NEURALPARASITE_NEURALPARASITE"
+    ],
+    "answer_keywords": [
+      "Infestor",
+      "Fungal",
+      "Neural"
+    ]
+  },
+  "evaluation": {
+    "id": "Z05_infestor_ability_profile",
+    "race": "Zerg",
+    "question": "What abilities does Infestor have, and what are their target types, ranges, and energy costs?",
+    "passed": true,
+    "duration_seconds": 73.58,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_unit_abilities",
+      "query_unit_abilities",
+      "get_entity",
+      "get_entity",
+      "get_entity"
+    ],
+    "expected_tools": [
+      "query_unit_abilities"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "The Infestor (Zerg spellcaster) has **11 abilities** recorded in the dataset (including basic commands). Below is the breakdown of target type, cast range, and energy cost for each. **Important:** the dataset lists energy_cost as **0 for all abilities** – this is likely an artifact and does not reflect actual gameplay values (e.g., Fungal Growth normally costs 75 energy, Neural Parasite 100 energy, Infested Terran 25 energy). The data is incomplete/approximate for energy costs.\n\n## Active / Spel"
+  },
+  "result": {
+    "query": "What abilities does Infestor have, and what are their target types, ranges, and energy costs?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Infestor",
+                "expected_section": "Unit",
+                "race": "Zerg",
+                "limit": 5
+              }
+            }
+          ],
+          "notes": [
+            "Resolve canonical unit key for Infestor, then query its abilities with target type, range, and energy cost."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_unit_abilities",
+              "arguments": {
+                "unit_name": "Infestor",
+                "race": "Zerg",
+                "only_energy": false,
+                "include_passive_commands": true,
+                "ability_return_keys": [
+                  "name",
+                  "cast_range",
+                  "energy_cost",
+                  "target"
+                ],
+                "limit": 20
+              }
+            }
+          ],
+          "notes": [
+            "Entity Infestor resolved. Now fetching its abilities with target type, cast range, and energy cost using query_unit_abilities."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_unit_abilities",
+              "arguments": {
+                "unit_name": "Infestor",
+                "race": "Zerg",
+                "only_energy": false,
+                "include_passive_commands": false,
+                "limit": 20
+              }
+            }
+          ],
+          "notes": [
+            "Previous result included passive commands and showed only 8 of 11 abilities; missing 3 active abilities.",
+            "Excluding passive commands should reveal the Infestor's special abilities (Fungal Growth, Neural Parasite, Infested Terran) with their cast_range, energy_cost, and target fields."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "FUNGALGROWTH_FUNGALGROWTH",
+                "keys": [
+                  "name",
+                  "cast_range",
+                  "energy_cost",
+                  "target"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+                "keys": [
+                  "name",
+                  "cast_range",
+                  "energy_cost",
+                  "target"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "NEURALPARASITE_NEURALPARASITE",
+                "keys": [
+                  "name",
+                  "cast_range",
+                  "energy_cost",
+                  "target"
+                ]
+              }
+            }
+          ],
+          "notes": [
+            "The query_unit_abilities returned energy_cost=0 for all abilities, which is likely incorrect for the classic Infestor spells. Fetching the Ability records directly to get accurate energy_cost values.",
+            "We already have cast_range and target from unit_abilities, but will confirm from Ability records.",
+            "Burrow down abilities are low-value; may not need further investigation unless user asks about burrow."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Infestor",
+            "expected_section": "Unit",
+            "race": "Zerg",
+            "limit": 5
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Infestor",
+            "normalized_mention": "Infestor",
+            "resolved": {
+              "section": "Unit",
+              "name": "Infestor",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Infestor",
+                "race": "Zerg"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_unit_abilities",
+          "arguments": {
+            "unit_name": "Infestor",
+            "race": "Zerg",
+            "only_energy": false,
+            "include_passive_commands": true,
+            "ability_return_keys": [
+              "name",
+              "cast_range",
+              "energy_cost",
+              "target"
+            ],
+            "limit": 20
+          },
+          "result": {
+            "mode": "unit_abilities",
+            "count": 11,
+            "results": [
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "STOP_STOP",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": "None"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "MOVE_MOVE",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": "PointOrUnit"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "PATROL_PATROL",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": "PointOrUnit"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "HOLDPOSITION_HOLD",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": "None"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "SCAN_MOVE",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": "PointOrUnit"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "FUNGALGROWTH_FUNGALGROWTH",
+                  "cast_range": 10.0,
+                  "energy_cost": 0,
+                  "target": "Point"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+                  "cast_range": 9.0,
+                  "energy_cost": 0,
+                  "target": "Point"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "SMART",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": "PointOrUnit"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "NEURALPARASITE_NEURALPARASITE",
+                  "cast_range": 8.0,
+                  "energy_cost": 0,
+                  "target": "Unit"
+                },
+                "requirements": [
+                  {
+                    "upgrade_name": "NeuralParasite"
+                  }
+                ],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "BURROWDOWN_INFESTORTERRAN",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": {
+                    "Morph": {
+                      "produces_name": "InfestorTerranBurrowed"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "upgrade_name": "Burrow"
+                  }
+                ],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "BURROWDOWN_INFESTOR",
+                  "cast_range": 0.0,
+                  "energy_cost": 0,
+                  "target": {
+                    "Morph": {
+                      "produces_name": "InfestorBurrowed"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "upgrade_name": "Burrow"
+                  }
+                ],
+                "can_cast_immediately": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "query_unit_abilities",
+          "arguments": {
+            "unit_name": "Infestor",
+            "race": "Zerg",
+            "only_energy": false,
+            "include_passive_commands": false,
+            "limit": 20
+          },
+          "result": {
+            "mode": "unit_abilities",
+            "count": 6,
+            "results": [
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "SCAN_MOVE",
+                  "energy_cost": 0,
+                  "cast_range": 0.0,
+                  "cooldown": 0,
+                  "target": "PointOrUnit"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "FUNGALGROWTH_FUNGALGROWTH",
+                  "energy_cost": 0,
+                  "cast_range": 10.0,
+                  "cooldown": 0,
+                  "target": "Point"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+                  "energy_cost": 0,
+                  "cast_range": 9.0,
+                  "cooldown": 0,
+                  "target": "Point"
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "NEURALPARASITE_NEURALPARASITE",
+                  "energy_cost": 0,
+                  "cast_range": 8.0,
+                  "cooldown": 0,
+                  "target": "Unit"
+                },
+                "requirements": [
+                  {
+                    "upgrade_name": "NeuralParasite"
+                  }
+                ],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "BURROWDOWN_INFESTORTERRAN",
+                  "energy_cost": 0,
+                  "cast_range": 0.0,
+                  "cooldown": 0,
+                  "target": {
+                    "Morph": {
+                      "produces_name": "InfestorTerranBurrowed"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "upgrade_name": "Burrow"
+                  }
+                ],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Infestor",
+                  "race": "Zerg",
+                  "start_energy": 75,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "BURROWDOWN_INFESTOR",
+                  "energy_cost": 0,
+                  "cast_range": 0.0,
+                  "cooldown": 0,
+                  "target": {
+                    "Morph": {
+                      "produces_name": "InfestorBurrowed"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "upgrade_name": "Burrow"
+                  }
+                ],
+                "can_cast_immediately": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "FUNGALGROWTH_FUNGALGROWTH",
+            "keys": [
+              "name",
+              "cast_range",
+              "energy_cost",
+              "target"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "FUNGALGROWTH_FUNGALGROWTH",
+                "cast_range": 10.0,
+                "energy_cost": 0,
+                "target": "Point"
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+            "keys": [
+              "name",
+              "cast_range",
+              "energy_cost",
+              "target"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+                "cast_range": 9.0,
+                "energy_cost": 0,
+                "target": "Point"
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "NEURALPARASITE_NEURALPARASITE",
+            "keys": [
+              "name",
+              "cast_range",
+              "energy_cost",
+              "target"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "NEURALPARASITE_NEURALPARASITE",
+                "cast_range": 8.0,
+                "energy_cost": 0,
+                "target": "Unit"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Infestor",
+          "expected_section": "Unit",
+          "race": "Zerg",
+          "limit": 5
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Infestor",
+          "normalized_mention": "Infestor",
+          "resolved": {
+            "section": "Unit",
+            "name": "Infestor",
+            "race": "Zerg"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Infestor",
+              "race": "Zerg"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_unit_abilities",
+        "arguments": {
+          "unit_name": "Infestor",
+          "race": "Zerg",
+          "only_energy": false,
+          "include_passive_commands": true,
+          "ability_return_keys": [
+            "name",
+            "cast_range",
+            "energy_cost",
+            "target"
+          ],
+          "limit": 20
+        },
+        "result": {
+          "mode": "unit_abilities",
+          "count": 11,
+          "results": [
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "STOP_STOP",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": "None"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "MOVE_MOVE",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": "PointOrUnit"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "PATROL_PATROL",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": "PointOrUnit"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "HOLDPOSITION_HOLD",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": "None"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "SCAN_MOVE",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": "PointOrUnit"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "FUNGALGROWTH_FUNGALGROWTH",
+                "cast_range": 10.0,
+                "energy_cost": 0,
+                "target": "Point"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+                "cast_range": 9.0,
+                "energy_cost": 0,
+                "target": "Point"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "SMART",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": "PointOrUnit"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "NEURALPARASITE_NEURALPARASITE",
+                "cast_range": 8.0,
+                "energy_cost": 0,
+                "target": "Unit"
+              },
+              "requirements": [
+                {
+                  "upgrade_name": "NeuralParasite"
+                }
+              ],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "BURROWDOWN_INFESTORTERRAN",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": {
+                  "Morph": {
+                    "produces_name": "InfestorTerranBurrowed"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "upgrade_name": "Burrow"
+                }
+              ],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "BURROWDOWN_INFESTOR",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "target": {
+                  "Morph": {
+                    "produces_name": "InfestorBurrowed"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "upgrade_name": "Burrow"
+                }
+              ],
+              "can_cast_immediately": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "query_unit_abilities",
+        "arguments": {
+          "unit_name": "Infestor",
+          "race": "Zerg",
+          "only_energy": false,
+          "include_passive_commands": false,
+          "limit": 20
+        },
+        "result": {
+          "mode": "unit_abilities",
+          "count": 6,
+          "results": [
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "SCAN_MOVE",
+                "energy_cost": 0,
+                "cast_range": 0.0,
+                "cooldown": 0,
+                "target": "PointOrUnit"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "FUNGALGROWTH_FUNGALGROWTH",
+                "energy_cost": 0,
+                "cast_range": 10.0,
+                "cooldown": 0,
+                "target": "Point"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+                "energy_cost": 0,
+                "cast_range": 9.0,
+                "cooldown": 0,
+                "target": "Point"
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "NEURALPARASITE_NEURALPARASITE",
+                "energy_cost": 0,
+                "cast_range": 8.0,
+                "cooldown": 0,
+                "target": "Unit"
+              },
+              "requirements": [
+                {
+                  "upgrade_name": "NeuralParasite"
+                }
+              ],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "BURROWDOWN_INFESTORTERRAN",
+                "energy_cost": 0,
+                "cast_range": 0.0,
+                "cooldown": 0,
+                "target": {
+                  "Morph": {
+                    "produces_name": "InfestorTerranBurrowed"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "upgrade_name": "Burrow"
+                }
+              ],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Infestor",
+                "race": "Zerg",
+                "start_energy": 75,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "BURROWDOWN_INFESTOR",
+                "energy_cost": 0,
+                "cast_range": 0.0,
+                "cooldown": 0,
+                "target": {
+                  "Morph": {
+                    "produces_name": "InfestorBurrowed"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "upgrade_name": "Burrow"
+                }
+              ],
+              "can_cast_immediately": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 3,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "FUNGALGROWTH_FUNGALGROWTH",
+          "keys": [
+            "name",
+            "cast_range",
+            "energy_cost",
+            "target"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "FUNGALGROWTH_FUNGALGROWTH",
+              "cast_range": 10.0,
+              "energy_cost": 0,
+              "target": "Point"
+            }
+          ]
+        }
+      },
+      {
+        "step": 3,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+          "keys": [
+            "name",
+            "cast_range",
+            "energy_cost",
+            "target"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD",
+              "cast_range": 9.0,
+              "energy_cost": 0,
+              "target": "Point"
+            }
+          ]
+        }
+      },
+      {
+        "step": 3,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "NEURALPARASITE_NEURALPARASITE",
+          "keys": [
+            "name",
+            "cast_range",
+            "energy_cost",
+            "target"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "NEURALPARASITE_NEURALPARASITE",
+              "cast_range": 8.0,
+              "energy_cost": 0,
+              "target": "Unit"
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "The Infestor (Zerg spellcaster) has **11 abilities** recorded in the dataset (including basic commands). Below is the breakdown of target type, cast range, and energy cost for each. **Important:** the dataset lists energy_cost as **0 for all abilities** – this is likely an artifact and does not reflect actual gameplay values (e.g., Fungal Growth normally costs 75 energy, Neural Parasite 100 energy, Infested Terran 25 energy). The data is incomplete/approximate for energy costs.\n\n## Active / Spell‑like Abilities\n| Internal Name (common name) | Target | Cast Range | Energy Cost (data) | Notes |\n|-----------------------------|--------|------------|--------------------|-------|\n| `FUNGALGROWTH_FUNGALGROWTH` (Fungal Growth) | Point | 10.0 | 0 | No requirements |\n| `AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD` (possibly Infested Terran or other) | Point | 9.0 | 0 | No requirements |\n| `NEURALPARASITE_NEURALPARASITE` (Neural Parasite) | Unit | 8.0 | 0 | Requires NeuralParasite upgrade |\n| `BURROWDOWN_INFESTOR` (Burrow) | Morph → InfestorBurrowed | 0.0 | 0 | Requires Burrow upgrade |\n| `BURROWDOWN_INFESTORTERRAN` (Burrow – InfestorTerran) | Morph → InfestorTerranBurrowed | 0.0 | 0 | Requires Burrow upgrade |\n\n## Generic Unit Commands\n| Ability | Target | Cast Range | Energy Cost (data) |\n|---------|--------|------------|--------------------|\n| STOP | None | 0.0 | 0 |\n| MOVE | PointOrUnit | 0.0 | 0 |\n| PATROL | PointOrUnit | 0.0 | 0 |\n| HOLD POSITION | None | 0.0 | 0 |\n| SCAN_MOVE (attack‑move equivalent) | PointOrUnit | 0.0 | 0 |\n| SMART (smart‑cast / default action) | PointOrUnit | 0.0 | 0 |\n\n**Summary:** The Infestor’s three signature spells (Fungal Growth, Neural Parasite, and the Point‑targeted ability likely representing Infested Terran) have cast ranges of 10, 8, and 9 respectively. Their actual energy costs are **not present** in the dataset (shown as 0), but are well‑known to be 75, 100, and 25 in the standard game. Burrow down abilities also require the Burrow upgrade. All other abilities are standard unit commands with zero energy cost."
+  }
+}

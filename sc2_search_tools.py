@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import inspect
 import json
 import re
 from pathlib import Path
@@ -340,7 +341,12 @@ def combined_search(
     if tag_filters:
         items = filter_by_tags(items=items, **tag_filters)
     if combat_filters:
-        items = filter_combat_profile(items=items, **combat_filters)
+        allowed = {
+            name
+            for name, param in inspect.signature(filter_combat_profile).parameters.items()
+            if param.kind in {inspect.Parameter.POSITIONAL_OR_KEYWORD, inspect.Parameter.KEYWORD_ONLY}
+        }
+        items = filter_combat_profile(items=items, **{key: value for key, value in combat_filters.items() if key in allowed})
     if limit is not None:
         items = items[:limit]
     return apply_projection(items, keys)

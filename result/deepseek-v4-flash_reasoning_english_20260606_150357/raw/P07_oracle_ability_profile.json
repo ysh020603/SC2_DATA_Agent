@@ -1,0 +1,654 @@
+{
+  "case": {
+    "id": "P07_oracle_ability_profile",
+    "race": "Protoss",
+    "question": "What abilities does Oracle have, and what are their target types, ranges, and energy costs?",
+    "expected_tools": [
+      "query_unit_abilities"
+    ],
+    "result_keywords": [
+      "Oracle",
+      "ORACLEREVELATION_ORACLEREVELATION",
+      "BUILD_STASISTRAP"
+    ],
+    "answer_keywords": [
+      "Oracle",
+      "Revelation",
+      "Stasis"
+    ]
+  },
+  "evaluation": {
+    "id": "P07_oracle_ability_profile",
+    "race": "Protoss",
+    "question": "What abilities does Oracle have, and what are their target types, ranges, and energy costs?",
+    "passed": true,
+    "duration_seconds": 32.39,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_unit_abilities",
+      "get_entity",
+      "get_entity",
+      "get_entity",
+      "get_entity"
+    ],
+    "expected_tools": [
+      "query_unit_abilities"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "The Oracle (Protoss, 50 starting energy, max 200) has 4 abilities according to the data, but the **energy costs shown are all 0**, which conflicts with known game values (e.g., Revelation costs 75 energy, Stasis Trap costs 50). This indicates the tool’s energy_cost field may be unreliable for these abilities. Here's what the tool reports:\n\n1. **SCAN_MOVE** – Target: PointOrUnit, Range: 0, Energy: 0  \n2. **ORACLEREVELATION** (Revelation) – Target: Point, Range: 12, Energy: 0 (actual game cost: 75"
+  },
+  "result": {
+    "query": "What abilities does Oracle have, and what are their target types, ranges, and energy costs?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Oracle",
+                "expected_section": "Unit",
+                "race": "Protoss",
+                "limit": 1
+              }
+            }
+          ],
+          "notes": [
+            "Resolve canonical name for Oracle before querying its abilities."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_unit_abilities",
+              "arguments": {
+                "unit_name": "Oracle",
+                "ability_return_keys": [
+                  "name",
+                  "target",
+                  "cast_range",
+                  "energy_cost"
+                ],
+                "limit": 10
+              }
+            }
+          ],
+          "notes": [
+            "Oracle resolved as a Protoss unit.",
+            "Use query_unit_abilities to fetch all its abilities with target type, cast range, and energy cost."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "SCAN_MOVE",
+                "keys": [
+                  "name",
+                  "target",
+                  "cast_range",
+                  "energy_cost",
+                  "cooldown",
+                  "description"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "ORACLEREVELATION_ORACLEREVELATION",
+                "keys": [
+                  "name",
+                  "target",
+                  "cast_range",
+                  "energy_cost",
+                  "cooldown",
+                  "description"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "BEHAVIOR_PULSARBEAMON",
+                "keys": [
+                  "name",
+                  "target",
+                  "cast_range",
+                  "energy_cost",
+                  "cooldown",
+                  "description"
+                ]
+              }
+            },
+            {
+              "tool": "get_entity",
+              "arguments": {
+                "section": "Ability",
+                "name": "BUILD_STASISTRAP",
+                "keys": [
+                  "name",
+                  "target",
+                  "cast_range",
+                  "energy_cost",
+                  "cooldown",
+                  "description"
+                ]
+              }
+            }
+          ],
+          "notes": [
+            "The unit abilities join returned energy_cost=0 for all abilities, likely because the ability records themselves have correct fields. Fetch each ability entity to confirm energy_cost, target, and cast_range."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All Oracle abilities have been retrieved with target types, cast ranges, and energy costs. The four abilities are: SCAN_MOVE (PointOrUnit, 0 range, 0 energy), ORACLEREVELATION (Point, 12 range, 0 energy), BEHAVIOR_PULSARBEAMON (None, 0 range, 0 energy), and BUILD_STASISTRAP (Build target, 0 range, 0 energy)."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Oracle",
+            "expected_section": "Unit",
+            "race": "Protoss",
+            "limit": 1
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Oracle",
+            "normalized_mention": "Oracle",
+            "resolved": {
+              "section": "Unit",
+              "name": "Oracle",
+              "race": "Protoss"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Oracle",
+                "race": "Protoss"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_unit_abilities",
+          "arguments": {
+            "unit_name": "Oracle",
+            "ability_return_keys": [
+              "name",
+              "target",
+              "cast_range",
+              "energy_cost"
+            ],
+            "limit": 10
+          },
+          "result": {
+            "mode": "unit_abilities",
+            "count": 4,
+            "results": [
+              {
+                "unit": {
+                  "name": "Oracle",
+                  "race": "Protoss",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "SCAN_MOVE",
+                  "target": "PointOrUnit",
+                  "cast_range": 0.0,
+                  "energy_cost": 0
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Oracle",
+                  "race": "Protoss",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "ORACLEREVELATION_ORACLEREVELATION",
+                  "target": "Point",
+                  "cast_range": 12.0,
+                  "energy_cost": 0
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Oracle",
+                  "race": "Protoss",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "BEHAVIOR_PULSARBEAMON",
+                  "target": "None",
+                  "cast_range": 0.0,
+                  "energy_cost": 0
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              },
+              {
+                "unit": {
+                  "name": "Oracle",
+                  "race": "Protoss",
+                  "start_energy": 50,
+                  "max_energy": 200.0
+                },
+                "ability": {
+                  "name": "BUILD_STASISTRAP",
+                  "target": {
+                    "Build": {
+                      "produces_name": "OracleStasisTrap"
+                    }
+                  },
+                  "cast_range": 0.0,
+                  "energy_cost": 0
+                },
+                "requirements": [],
+                "can_cast_immediately": null
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "SCAN_MOVE",
+            "keys": [
+              "name",
+              "target",
+              "cast_range",
+              "energy_cost",
+              "cooldown",
+              "description"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "SCAN_MOVE",
+                "target": "PointOrUnit",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "cooldown": 0,
+                "description": []
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "ORACLEREVELATION_ORACLEREVELATION",
+            "keys": [
+              "name",
+              "target",
+              "cast_range",
+              "energy_cost",
+              "cooldown",
+              "description"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "ORACLEREVELATION_ORACLEREVELATION",
+                "target": "Point",
+                "cast_range": 12.0,
+                "energy_cost": 0,
+                "cooldown": 0,
+                "description": []
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "BEHAVIOR_PULSARBEAMON",
+            "keys": [
+              "name",
+              "target",
+              "cast_range",
+              "energy_cost",
+              "cooldown",
+              "description"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "BEHAVIOR_PULSARBEAMON",
+                "target": "None",
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "cooldown": 0,
+                "description": []
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "tool": "get_entity",
+          "arguments": {
+            "section": "Ability",
+            "name": "BUILD_STASISTRAP",
+            "keys": [
+              "name",
+              "target",
+              "cast_range",
+              "energy_cost",
+              "cooldown",
+              "description"
+            ]
+          },
+          "result": {
+            "mode": "get_entity",
+            "count": 1,
+            "results": [
+              {
+                "name": "BUILD_STASISTRAP",
+                "target": {
+                  "Build": {
+                    "produces_name": "OracleStasisTrap"
+                  }
+                },
+                "cast_range": 0.0,
+                "energy_cost": 0,
+                "cooldown": 0,
+                "description": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Oracle",
+          "expected_section": "Unit",
+          "race": "Protoss",
+          "limit": 1
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Oracle",
+          "normalized_mention": "Oracle",
+          "resolved": {
+            "section": "Unit",
+            "name": "Oracle",
+            "race": "Protoss"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Oracle",
+              "race": "Protoss"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_unit_abilities",
+        "arguments": {
+          "unit_name": "Oracle",
+          "ability_return_keys": [
+            "name",
+            "target",
+            "cast_range",
+            "energy_cost"
+          ],
+          "limit": 10
+        },
+        "result": {
+          "mode": "unit_abilities",
+          "count": 4,
+          "results": [
+            {
+              "unit": {
+                "name": "Oracle",
+                "race": "Protoss",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "SCAN_MOVE",
+                "target": "PointOrUnit",
+                "cast_range": 0.0,
+                "energy_cost": 0
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Oracle",
+                "race": "Protoss",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "ORACLEREVELATION_ORACLEREVELATION",
+                "target": "Point",
+                "cast_range": 12.0,
+                "energy_cost": 0
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Oracle",
+                "race": "Protoss",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "BEHAVIOR_PULSARBEAMON",
+                "target": "None",
+                "cast_range": 0.0,
+                "energy_cost": 0
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            },
+            {
+              "unit": {
+                "name": "Oracle",
+                "race": "Protoss",
+                "start_energy": 50,
+                "max_energy": 200.0
+              },
+              "ability": {
+                "name": "BUILD_STASISTRAP",
+                "target": {
+                  "Build": {
+                    "produces_name": "OracleStasisTrap"
+                  }
+                },
+                "cast_range": 0.0,
+                "energy_cost": 0
+              },
+              "requirements": [],
+              "can_cast_immediately": null
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "SCAN_MOVE",
+          "keys": [
+            "name",
+            "target",
+            "cast_range",
+            "energy_cost",
+            "cooldown",
+            "description"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "SCAN_MOVE",
+              "target": "PointOrUnit",
+              "cast_range": 0.0,
+              "energy_cost": 0,
+              "cooldown": 0,
+              "description": []
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "ORACLEREVELATION_ORACLEREVELATION",
+          "keys": [
+            "name",
+            "target",
+            "cast_range",
+            "energy_cost",
+            "cooldown",
+            "description"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "ORACLEREVELATION_ORACLEREVELATION",
+              "target": "Point",
+              "cast_range": 12.0,
+              "energy_cost": 0,
+              "cooldown": 0,
+              "description": []
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "BEHAVIOR_PULSARBEAMON",
+          "keys": [
+            "name",
+            "target",
+            "cast_range",
+            "energy_cost",
+            "cooldown",
+            "description"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "BEHAVIOR_PULSARBEAMON",
+              "target": "None",
+              "cast_range": 0.0,
+              "energy_cost": 0,
+              "cooldown": 0,
+              "description": []
+            }
+          ]
+        }
+      },
+      {
+        "step": 2,
+        "tool": "get_entity",
+        "arguments": {
+          "section": "Ability",
+          "name": "BUILD_STASISTRAP",
+          "keys": [
+            "name",
+            "target",
+            "cast_range",
+            "energy_cost",
+            "cooldown",
+            "description"
+          ]
+        },
+        "result": {
+          "mode": "get_entity",
+          "count": 1,
+          "results": [
+            {
+              "name": "BUILD_STASISTRAP",
+              "target": {
+                "Build": {
+                  "produces_name": "OracleStasisTrap"
+                }
+              },
+              "cast_range": 0.0,
+              "energy_cost": 0,
+              "cooldown": 0,
+              "description": []
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "The Oracle (Protoss, 50 starting energy, max 200) has 4 abilities according to the data, but the **energy costs shown are all 0**, which conflicts with known game values (e.g., Revelation costs 75 energy, Stasis Trap costs 50). This indicates the tool’s energy_cost field may be unreliable for these abilities. Here's what the tool reports:\n\n1. **SCAN_MOVE** – Target: PointOrUnit, Range: 0, Energy: 0  \n2. **ORACLEREVELATION** (Revelation) – Target: Point, Range: 12, Energy: 0 (actual game cost: 75)  \n3. **BEHAVIOR_PULSARBEAMON** (Pulsar Beam toggle) – Target: None (self-toggle), Range: 0, Energy: 0  \n4. **BUILD_STASISTRAP** (build a Stasis Trap) – Target: Build (produces OracleStasisTrap), Range: 0, Energy: 0 (actual game cost: 50)\n\n**Summary:** The data lists all four abilities with target types and ranges as shown, but the energy costs are uniformly reported as 0—this is likely a data gap. For accurate energy costs, refer to the actual game or official sources."
+  }
+}

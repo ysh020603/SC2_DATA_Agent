@@ -1,0 +1,432 @@
+{
+  "case": {
+    "id": "P03_stargate_outputs",
+    "race": "Protoss",
+    "question": "What air units can a Protoss Stargate produce, and what are their costs and supply?",
+    "expected_tools": [
+      "query_production_outputs"
+    ],
+    "result_keywords": [
+      "Stargate",
+      "Phoenix",
+      "VoidRay",
+      "Carrier",
+      "Tempest"
+    ],
+    "answer_keywords": [
+      "Phoenix",
+      "Void Ray",
+      "Carrier",
+      "Tempest"
+    ]
+  },
+  "evaluation": {
+    "id": "P03_stargate_outputs",
+    "race": "Protoss",
+    "question": "What air units can a Protoss Stargate produce, and what are their costs and supply?",
+    "passed": true,
+    "duration_seconds": 22.99,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_production_outputs"
+    ],
+    "expected_tools": [
+      "query_production_outputs"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "The Protoss Stargate can train 5 air units (all have is_flying=true). Here are their costs and supply:\n\n- **Phoenix**: 150 minerals, 100 gas, 2 supply  \n- **VoidRay**: 250 minerals, 150 gas, 4 supply  \n- **Oracle**: 150 minerals, 150 gas, 3 supply  \n- **Carrier**: 350 minerals, 250 gas, 6 supply  \n- **Tempest**: 250 minerals, 175 gas, 4 supply  \n\nAll are Protoss units. The data is complete and exact, derived from the game's internal values."
+  },
+  "result": {
+    "query": "What air units can a Protoss Stargate produce, and what are their costs and supply?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Stargate",
+                "expected_section": "Unit",
+                "race": "Protoss",
+                "limit": 1
+              }
+            }
+          ],
+          "notes": [
+            "Resolving the canonical name for Stargate before querying its production outputs to ensure accuracy.",
+            "After resolution, will use query_production_outputs to retrieve air units with costs and supply."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_production_outputs",
+              "arguments": {
+                "producer_name": "Stargate",
+                "producer_section": "Unit",
+                "output_sections": [
+                  "Unit"
+                ],
+                "target_types": [
+                  "Train"
+                ],
+                "return_keys": [
+                  "name",
+                  "race",
+                  "minerals",
+                  "gas",
+                  "supply",
+                  "time",
+                  "is_flying"
+                ],
+                "include_requirements": false,
+                "include_ability": false,
+                "limit": 50
+              }
+            }
+          ],
+          "notes": [
+            "Retrieve all units Stargate can train, including resource costs and supply, and is_flying flag to identify air units."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All Stargate trainable units have is_flying=true, so they are the air units requested. Their minerals, gas, and supply are present in the results: Phoenix (150/100/2), VoidRay (250/150/4), Oracle (150/150/3), Carrier (350/250/6), Tempest (250/175/4). No further queries needed."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Stargate",
+            "expected_section": "Unit",
+            "race": "Protoss",
+            "limit": 1
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Stargate",
+            "normalized_mention": "Stargate",
+            "resolved": {
+              "section": "Unit",
+              "name": "Stargate",
+              "race": "Protoss"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Stargate",
+                "race": "Protoss"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_production_outputs",
+          "arguments": {
+            "producer_name": "Stargate",
+            "producer_section": "Unit",
+            "output_sections": [
+              "Unit"
+            ],
+            "target_types": [
+              "Train"
+            ],
+            "return_keys": [
+              "name",
+              "race",
+              "minerals",
+              "gas",
+              "supply",
+              "time",
+              "is_flying"
+            ],
+            "include_requirements": false,
+            "include_ability": false,
+            "limit": 50
+          },
+          "result": {
+            "mode": "production_outputs",
+            "producer": {
+              "section": "Unit",
+              "name": "Stargate",
+              "race": "Protoss"
+            },
+            "count": 5,
+            "results": [
+              {
+                "producer_name": "Stargate",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Phoenix",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 100,
+                  "supply": 2.0,
+                  "time": 560.0,
+                  "is_flying": true
+                }
+              },
+              {
+                "producer_name": "Stargate",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "VoidRay",
+                  "race": "Protoss",
+                  "minerals": 250,
+                  "gas": 150,
+                  "supply": 4.0,
+                  "time": 963.19921875,
+                  "is_flying": true
+                }
+              },
+              {
+                "producer_name": "Stargate",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Oracle",
+                  "race": "Protoss",
+                  "minerals": 150,
+                  "gas": 150,
+                  "supply": 3.0,
+                  "time": 832.0,
+                  "is_flying": true
+                }
+              },
+              {
+                "producer_name": "Stargate",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Carrier",
+                  "race": "Protoss",
+                  "minerals": 350,
+                  "gas": 250,
+                  "supply": 6.0,
+                  "time": 1440.0,
+                  "is_flying": true
+                }
+              },
+              {
+                "producer_name": "Stargate",
+                "producer_section": "Unit",
+                "target_type": "Train",
+                "produced_section": "Unit",
+                "produced": {
+                  "name": "Tempest",
+                  "race": "Protoss",
+                  "minerals": 250,
+                  "gas": 175,
+                  "supply": 4.0,
+                  "time": 960.0,
+                  "is_flying": true
+                }
+              }
+            ],
+            "resolution": {
+              "mode": "entity_key_resolution",
+              "mention": "Stargate",
+              "normalized_mention": "Stargate",
+              "resolved": {
+                "section": "Unit",
+                "name": "Stargate",
+                "race": "Protoss"
+              },
+              "confidence": 1.0,
+              "candidates": [
+                {
+                  "section": "Unit",
+                  "name": "Stargate",
+                  "race": "Protoss"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Stargate",
+          "expected_section": "Unit",
+          "race": "Protoss",
+          "limit": 1
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Stargate",
+          "normalized_mention": "Stargate",
+          "resolved": {
+            "section": "Unit",
+            "name": "Stargate",
+            "race": "Protoss"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Stargate",
+              "race": "Protoss"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_production_outputs",
+        "arguments": {
+          "producer_name": "Stargate",
+          "producer_section": "Unit",
+          "output_sections": [
+            "Unit"
+          ],
+          "target_types": [
+            "Train"
+          ],
+          "return_keys": [
+            "name",
+            "race",
+            "minerals",
+            "gas",
+            "supply",
+            "time",
+            "is_flying"
+          ],
+          "include_requirements": false,
+          "include_ability": false,
+          "limit": 50
+        },
+        "result": {
+          "mode": "production_outputs",
+          "producer": {
+            "section": "Unit",
+            "name": "Stargate",
+            "race": "Protoss"
+          },
+          "count": 5,
+          "results": [
+            {
+              "producer_name": "Stargate",
+              "producer_section": "Unit",
+              "target_type": "Train",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Phoenix",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 100,
+                "supply": 2.0,
+                "time": 560.0,
+                "is_flying": true
+              }
+            },
+            {
+              "producer_name": "Stargate",
+              "producer_section": "Unit",
+              "target_type": "Train",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "VoidRay",
+                "race": "Protoss",
+                "minerals": 250,
+                "gas": 150,
+                "supply": 4.0,
+                "time": 963.19921875,
+                "is_flying": true
+              }
+            },
+            {
+              "producer_name": "Stargate",
+              "producer_section": "Unit",
+              "target_type": "Train",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Oracle",
+                "race": "Protoss",
+                "minerals": 150,
+                "gas": 150,
+                "supply": 3.0,
+                "time": 832.0,
+                "is_flying": true
+              }
+            },
+            {
+              "producer_name": "Stargate",
+              "producer_section": "Unit",
+              "target_type": "Train",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Carrier",
+                "race": "Protoss",
+                "minerals": 350,
+                "gas": 250,
+                "supply": 6.0,
+                "time": 1440.0,
+                "is_flying": true
+              }
+            },
+            {
+              "producer_name": "Stargate",
+              "producer_section": "Unit",
+              "target_type": "Train",
+              "produced_section": "Unit",
+              "produced": {
+                "name": "Tempest",
+                "race": "Protoss",
+                "minerals": 250,
+                "gas": 175,
+                "supply": 4.0,
+                "time": 960.0,
+                "is_flying": true
+              }
+            }
+          ],
+          "resolution": {
+            "mode": "entity_key_resolution",
+            "mention": "Stargate",
+            "normalized_mention": "Stargate",
+            "resolved": {
+              "section": "Unit",
+              "name": "Stargate",
+              "race": "Protoss"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Stargate",
+                "race": "Protoss"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "answer": "The Protoss Stargate can train 5 air units (all have is_flying=true). Here are their costs and supply:\n\n- **Phoenix**: 150 minerals, 100 gas, 2 supply  \n- **VoidRay**: 250 minerals, 150 gas, 4 supply  \n- **Oracle**: 150 minerals, 150 gas, 3 supply  \n- **Carrier**: 350 minerals, 250 gas, 6 supply  \n- **Tempest**: 250 minerals, 175 gas, 4 supply  \n\nAll are Protoss units. The data is complete and exact, derived from the game's internal values."
+  }
+}

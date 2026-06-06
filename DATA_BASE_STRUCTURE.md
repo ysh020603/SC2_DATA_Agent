@@ -1,6 +1,6 @@
 # DATA_BASE JSON Structure
 
-`DATA_BASE/data_base.json` is derived from `data.json`. It keeps the original top-level sections and original object fields, then adds two fields to every Ability, Unit, and Upgrade object: `tech_chain` and `description`.
+`DATA_BASE/data_base.json` is derived from `data.json`. It keeps the original top-level sections, replaces internal numeric ids with searchable names, and adds two fields to every Ability, Unit, and Upgrade object: `tech_chain` and `description`.
 
 ## Top-Level Object
 
@@ -47,11 +47,10 @@ Description coverage in this build:
 
 ## Ability Object Keys
 
-Ability objects keep their original `data.json` keys when present:
+Ability objects keep searchable `data.json` fields when present:
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `id` | number | Numeric ability id. |
 | `name` | string | Ability/action name. |
 | `cast_range` | number | Cast range. |
 | `energy_cost` | number | Energy required. |
@@ -60,18 +59,17 @@ Ability objects keep their original `data.json` keys when present:
 | `effect` | list | Effect ids or effect metadata from the source data. |
 | `buff` | list | Buff ids or buff metadata from the source data. |
 | `cooldown` | number | Cooldown value. |
-| `target` | string or object | Target type, or structured target payload such as `Build`, `Train`, `Morph`, or `Research`. |
-| `remaps_to_ability_id` | number | Optional remap target ability id. |
+| `target` | string or object | Target type, or structured target payload such as `Build`, `Train`, `Morph`, or `Research`. Structured payloads use names such as `produces_name` or `upgrade_name`. |
+| `remaps_to_ability_name` | string or null | Optional generic ability name that this specific command remaps to. Missing source ids are stored as `null`. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added ability/action descriptions. |
 
 ## Unit Object Keys
 
-Unit objects keep their original `data.json` keys when present:
+Unit objects keep searchable `data.json` fields when present:
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `id` | number | Numeric unit id. |
 | `name` | string | Unit or building name. |
 | `race` | string | Race, usually `Terran`, `Protoss`, or `Zerg`. |
 | `supply` | number | Supply usage or supply provided when negative. |
@@ -86,7 +84,7 @@ Unit objects keep their original `data.json` keys when present:
 | `start_energy` | number | Starting energy, when present. |
 | `weapons` | list<object> | Weapon definitions. |
 | `attributes` | list<string> | Unit attributes such as `Light`, `Armored`, `Biological`, `Mechanical`, or `Structure`. |
-| `abilities` | list<object> | Ability references and optional requirements available to this unit/building. |
+| `abilities` | list<object> | Ability names and optional requirements available to this unit/building. Requirement references use names such as `building_name`, `addon_name`, `addon_to_name`, and `upgrade_name`. |
 | `size` | number | Source size field. |
 | `radius` | number | Collision/selection radius. |
 | `power_radius` | number | Protoss power radius, when present. |
@@ -102,19 +100,18 @@ Unit objects keep their original `data.json` keys when present:
 | `minerals` | number | Mineral cost. |
 | `gas` | number | Vespene gas cost. |
 | `time` | number | Build/train/research time from the source data. |
-| `tech_alias` | list<number> | Unit ids treated as tech aliases. |
-| `unit_alias` | number | Unit alias id, when present. |
-| `normal_mode` | number | Normal/base form id for transformed variants, when present. |
+| `tech_alias_names` | list<string> | Unit names treated as tech aliases. |
+| `unit_alias_name` | string | Unit alias name, when present. Empty numeric aliases from the source are omitted. |
+| `normal_mode_name` | string | Normal/base form name for transformed variants, when present. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added unit/building descriptions. |
 
 ## Upgrade Object Keys
 
-Upgrade objects keep their original `data.json` keys when present:
+Upgrade objects keep searchable `data.json` fields when present:
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `id` | number | Numeric upgrade id. |
 | `name` | string | Upgrade/technology name. |
 | `cost` | object | Cost payload, usually with `minerals`, `gas`, and `time`. |
 | `tech_chain` | list<string> | Added chain list. |
@@ -124,6 +121,7 @@ Upgrade objects keep their original `data.json` keys when present:
 
 - `tech_chain` values are copied from `DATA_0/action_chain_text.json`.
 - `description` values are plain strings only; source file paths and URLs are deliberately removed.
+- Internal numeric ids are removed from stored records and id references are replaced with names for retrieval quality.
 - The JSON itself does not store source metadata. Source files are documented here instead.
 - Objects without a matched chain or description still include the corresponding key with an empty list.
 - The builder script is `build_data_base.py`.

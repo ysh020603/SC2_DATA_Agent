@@ -1,0 +1,57 @@
+# Protoss Unit Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `Adept` (Protoss) - Adepts are "highly trained battlefield commanders", warped in at the Gateway after the Cybernetics Core has finished. They were first introduced in Legacy of the Void . Two definin
+- `AdeptPhaseShift` (Protoss)
+- `ArbiterMP` (Protoss)
+- `Archon` (Protoss) - The Archon is a powerful Protoss short-range unit. It excels against biological units and structures. An Archon is created when two of either Dark Templar or High Templar merge tog
+- `Assimilator` (Protoss) - The Assimilator , a Protoss structure that can only be built on top of Vespene Geysers, allows the player to collect Vespene Gas. Probes sent to an Assimilator will return Vespene 
+- `AssimilatorRich` (Protoss)
+- `Carrier` (Protoss) - Carriers are the capital ships in the Protoss air force, built at the Stargate with the Fleet Beacon as a prerequisite. Unlike other units, Carriers do not engage the enemy directl
+- `Colossus` (Protoss) - The Colossus ( plural -lossi, -lossuses) is a massive Protoss battle strider that towers over all other ground units on the battlefield. It is built at the Robotics Facility , but 
+- `CorsairMP` (Protoss)
+- `CyberneticsCore` (Protoss) - The Cybernetics Core (sometimes referred to as Cyber Core or just Core ) is a structure on the Protoss Technology Tree , which requires a Gateway before it can be warped in. The Cy
+- `DarkShrine` (Protoss) - The Dark Shrine is a structure on the Protoss Technology Tree . Its only function is to unlock the powerful Dark Templar stealth melee unit at the Gateway and/or Warp Gate . The Da
+- `DarkTemplar` (Protoss) - The Dark Templar (often abbreviated to DT ) is a permanently cloaked Protoss assassin and a huge disruption to most standard builds for both sides. Dark Templar are warped-in at th
+- `Disruptor` (Protoss) - The Disruptor is a Protoss Construct unit with no auto attack, produced from the Robotics Facility after finishing the Robotics Bay . It was introduced in Legacy of the Void . Orig
+- `DisruptorPhased` (Protoss)
+- `FleetBeacon` (Protoss) - The Fleet Beacon is a structure on the Protoss Technology Tree that unlocks capital ship level air units, specifically the Carrier and the Tempest at the Stargate and the Mothershi
+- `Forge` (Protoss) - The Forge is a structure in the Protoss Tech Tree , which requires a Nexus before it can be warped in. The Forge is the research center for Ground Weapons , Ground Armor , and Shie
+- `Gateway` (Protoss) - The Gateway is a unit production structure for the Protoss , responsible for warping in ground units. Gateways can be warped in by a Probe only within range of the Psionic Matrix ,
+- `HighTemplar` (Protoss) - The High Templar (often abbreviated to HT ) is a spell-casting unit for the Protoss . The High Templar is warped in from a Gateway , with the Templar Archives as a prerequisite. Hi
+- `IceProtossCrates` (Protoss)
+- `Immortal` (Protoss) - The Immortal is a durable ranged, mechanized strider for the Protoss army, produced at the Robotics Facility . Their Barrier ability makes them specialists at taking damage. Additi
+- `Interceptor` (Protoss) - The Interceptor is a small, autonomous flying unit that gives the Protoss Carrier its offensive capabilities. Each Carrier warps in with an initial set of 4 Interceptors that can a
+- `Mothership` (Protoss) - The Mothership is the most powerful unit in the Protoss arsenal: Once a Fleet Beacon has been built, it may be warped in at a Nexus . Because of its extensive capabilities, the Mot
+- `MothershipCore` (Protoss) - The Mothership Core was a flying support caster for the Protoss that could be built from the Nexus once the Cybernetics Core is finished. Its primary roles were base defence and ar
+- `Nexus` (Protoss) - The Nexus ( plural Nexi, [ 1 ] Nexuses, [ 2 ] nexūs) is the fundamental building for the Protoss . It warps in the Protoss worker, the Probe . Since patch 4.0.0, after the Fleet Be
+- `Observer` (Protoss) - The Observer is a flying cloaked spy drone and Detector for the Protoss , built at the Robotics Facility . It is permanently cloaked, so opponents need detection in order to see an
+- `ObserverSiegeMode` (Protoss)
+- `Oracle` (Protoss) - The Oracle is a flying harassment and support caster for the Protoss that is produced from the Stargate . In LotV the ability Stasis Ward was added. While fairly expensive and frag
+- `OracleStasisTrap` (Protoss) - The Stasis Ward is a Protoss structure that is constructed by an Oracle . When an enemy Ground unit draws near, the Stasis Ward traps all nearby enemy ground units for 21 seconds. 
+- `Phoenix` (Protoss) - The Phoenix is a swift and deadly spacecraft well suited for air-to-air combat (even while moving). It warps in at the Stargate . Made either pre-emptively to counter early air thr
+- `PhotonCannon` (Protoss) - The Photon Cannon (often shortened to just Cannon ) is the sole static defense building for the Protoss . The player must control a Forge before building Photon Cannons. It's more 
+- `Probe` (Protoss) - The Probe is the Protoss worker unit, warped in at the Nexus . It harvests resources , has a low-powered melee attack, and can warp-in any Protoss building. All Protoss buildings o
+- `ProtossCrates` (Protoss)
+- `Pylon` (Protoss) - The Pylon is the Protoss supply building and the primary source of the Psionic Matrix power field. After warping in, the Pylon is surrounded by a circular field of the Psionic Matr
+- `PylonOvercharged` (Protoss)
+- `ReleaseInterceptorsBeacon` (Protoss)
+- `Replicant` (Protoss)
+- `ResourceBlocker` (Protoss)
+- `RoboticsBay` (Protoss) - The Robotics Bay (often abbreviated to Robo Bay ) is a structure on the Protoss Technology Tree that unlocks the Colossus and the Disruptor units at the Robotics Facility . It also
+- `RoboticsFacility` (Protoss) - The Robotics Facility (or Robo ), is a unit producing structure for the Protoss , which requires a Cybernetics Core before it can be warped in. The Robotics Facility can produce th
+- `ScoutMP` (Protoss)
+- `Sentry` (Protoss) - The Sentry is an unusual Protoss spell-casting unit produced from the Gateway after the Cybernetics Core has been built. The Sentry's spells are very powerful: Force Field , Guardi
+- `ShieldBattery` (Protoss) - The Shield Battery is a structure that restores Protoss shields . While it was always part of the multiplayer in Brood War , it was only introduced to StarCraft II 's multiplayer i
+- `Stalker` (Protoss) - The Stalker is a fast-moving, ranged Protoss ground unit, capable of hitting both air and ground targets. They are warped in at the Gateway , and require a Cybernetics Core . The S
+- `Stargate` (Protoss) - The Stargate is a unit producing structure for the Protoss , responsible for producing most of the Protoss air units. It requires a Cybernetics Core before it can be warped in. The
+- `Tempest` (Protoss) - The Tempest is a powerful capital ship for the Protoss that can be built from the Stargate once the Fleet Beacon has been completed. Its primary role is as a heavy bombardment unit
+- `TemplarArchive` (Protoss) - The Templar Archives is a structure on the Protoss Technology Tree that unlocks the High Templar spell caster unit and the Psionic Storm upgrade. The Templar Archives requires a Tw
+- `TwilightCouncil` (Protoss) - The Twilight Council is a structure on the Protoss Technology Tree , which requires a Cybernetics Core before it can be warped in. The Twilight Council enables research of the Char
+- `VoidMPImmortalReviveCorpse` (Protoss)
+- `VoidRay` (Protoss) - The Void Ray is an airborne siege cannon for the Protoss that is built at the Stargate . Unlike the Void Ray in Wings of Liberty, its attack does not charge up over time. Instead, 
+- `WarpGate` (Protoss) - The Warp Gate is a unit producing structure for the Protoss , capable of warping in ground units. Warp Gates provide an ability unique to the Protoss: the rapid creation of units a
+- `WarpPrism` (Protoss) - The Warp Prism is a Protoss transport unit, produced at the Robotics Facility . In Legacy of the Void , it can pickup units from a larger distance (5 range away). The Warp Prism ca
+- `WarpPrismPhasing` (Protoss)
+- `Zealot` (Protoss) - The first unit available to a Protoss player. Of the basic units, in terms of raw health and damage the zealot is second to none. Their total HP even rivals that of many larger arm

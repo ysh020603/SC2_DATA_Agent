@@ -1,0 +1,133 @@
+# Protoss Ability Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `ADEPTPHASESHIFT_ADEPTPHASESHIFT` (Protoss, Point) - Activate the Adept's Phase Shift ability, allowing it to teleport to its psionic shade after a short delay, bypassing obstacles and enemy units.
+- `ARBITERMPRECALL_ARBITERMPRECALL` (Protoss, Point)
+- `ARBITERMPSTASISFIELD_ARBITERMPSTASISFIELD` (Protoss, PointOrUnit)
+- `ATTACK_ATTACK` (Protoss/Terran/Zerg, PointOrUnit) - Attack some unit or structure.
+- `BEHAVIOR_PULSARBEAMON` (Protoss, None)
+- `BUILD_INTERCEPTORS` (Protoss, None)
+- `BUILD_SHIELDBATTERY` (Protoss, Build) - Build a Shield Battery to restore shields of a single friendly unit or building within 6 range.
+- `BUILD_STASISTRAP` (Protoss, Build)
+- `CANCEL_ADEPTSHADEPHASESHIFT` (Protoss, None)
+- `CANCEL_HANGARQUEUE5` (Protoss, None)
+- `CORSAIRMPDISRUPTIONWEB_CORSAIRMPDISRUPTIONWEB` (Protoss, Point)
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRARMORLEVEL1` (Protoss, Research) - Upgrades the armor of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRARMORLEVEL2` (Protoss, Research) - Upgrades the armor of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRARMORLEVEL3` (Protoss, Research) - Upgrades the armor of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRWEAPONSLEVEL1` (Protoss, Research) - Upgrades the damage of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRWEAPONSLEVEL2` (Protoss, Research) - Upgrades the damage of Protoss air units.
+- `CYBERNETICSCORERESEARCH_PROTOSSAIRWEAPONSLEVEL3` (Protoss, Research) - Upgrades the damage of Protoss air units.
+- `EFFECT_BLINK_STALKER` (Protoss, Point)
+- `EFFECT_CHARGE` (Protoss, Unit)
+- `EFFECT_CHRONOBOOSTENERGYCOST` (Protoss, Unit) - Reduce the unit production time or technological research time of the target building.
+- `EFFECT_MASSRECALL_MOTHERSHIPCORE` (Protoss, Unit) - Instantly teleport the unit back to its current location.
+- `EFFECT_MASSRECALL_NEXUS` (Protoss, Point) - Instantly teleport the unit back to its current location.
+- `EFFECT_MASSRECALL_STRATEGICRECALL` (Protoss, Point) - Instantly teleport the unit back to its current location.
+- `EFFECT_PHOTONOVERCHARGE` (Protoss, Unit)
+- `EFFECT_PURIFICATIONNOVA` (Protoss, Point)
+- `EFFECT_SHADOWSTRIDE` (Protoss, Point)
+- `EFFECT_SPRAY_PROTOSS` (Protoss, Point) - Spray a marker.
+- `EFFECT_TIMEWARP` (Protoss, Point)
+- `EFFECT_VOIDRAYPRISMATICALIGNMENT` (Protoss, None)
+- `ENERGYRECHARGE_ENERGYRECHARGE` (Protoss, Unit) - Restore energy to designated units.
+- `FEEDBACK_FEEDBACK` (Protoss, Unit)
+- `FLEETBEACONRESEARCH_RESEARCHVOIDRAYSPEEDUPGRADE` (Protoss, Research)
+- `FLEETBEACONRESEARCH_TEMPESTRESEARCHGROUNDATTACKUPGRADE` (Protoss, Research)
+- `FORCEFIELD_FORCEFIELD` (Protoss, Point) - Create a Force Field that blocks movement for 11 seconds.
+- `FORGERESEARCH_PROTOSSGROUNDARMORLEVEL1` (Protoss, Research) - Increases the armor of all Protoss ground forces.
+- `FORGERESEARCH_PROTOSSGROUNDARMORLEVEL2` (Protoss, Research) - Increases the armor of all Protoss ground forces.
+- `FORGERESEARCH_PROTOSSGROUNDARMORLEVEL3` (Protoss, Research) - Increases the armor of all Protoss ground forces.
+- `FORGERESEARCH_PROTOSSGROUNDWEAPONSLEVEL1` (Protoss, Research) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `FORGERESEARCH_PROTOSSGROUNDWEAPONSLEVEL2` (Protoss, Research) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `FORGERESEARCH_PROTOSSGROUNDWEAPONSLEVEL3` (Protoss, Research) - Increases the attack damage of Zealots, Dragoons, Dark Templars and Archons.
+- `FORGERESEARCH_PROTOSSSHIELDSLEVEL1` (Protoss, Research) - Upgrades the armor of shields for all Protoss units and structures.
+- `FORGERESEARCH_PROTOSSSHIELDSLEVEL2` (Protoss, Research) - Upgrades the armor of shields for all Protoss units and structures.
+- `FORGERESEARCH_PROTOSSSHIELDSLEVEL3` (Protoss, Research) - Upgrades the armor of shields for all Protoss units and structures.
+- `GATEWAYTRAIN_DARKTEMPLAR` (Protoss, Train) - Train a Dark Templar, a permanently cloaked assassin that deals devastating melee damage to any ground unit that cannot detect it.
+- `GATEWAYTRAIN_HIGHTEMPLAR` (Protoss, Train) - Train a High Templar, a powerful spellcaster that devastates armies with Psionic Storm and neutralizes enemy casters with Feedback.
+- `GATEWAYTRAIN_SENTRY` (Protoss, Train) - Train a Sentry, a tactical support caster that manipulates the battlefield with Force Fields and protects allies with a Guardian Shield.
+- `GATEWAYTRAIN_STALKER` (Protoss, Train) - Train a Stalker, a mobile ranged warrior that can Blink to outmaneuver foes and attack both ground and air targets.
+- `GATEWAYTRAIN_ZEALOT` (Protoss, Train) - Train a Zealot, a durable frontline warrior that charges to rapidly close with and attack ground enemies.
+- `GRAVITONBEAM_GRAVITONBEAM` (Protoss, Unit)
+- `GUARDIANSHIELD_GUARDIANSHIELD` (Protoss, None) - Create a shield bubble around the Sentry that reduces the damage of all incoming ranged attacks by 2 for 15 seconds.
+- `HALLUCINATION_ADEPT` (Protoss, None) - Create a fake Adept to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_ARCHON` (Protoss, None) - Create a fake Archon to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_COLOSSUS` (Protoss, None) - Create a fake Colossus to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_DISRUPTOR` (Protoss, None) - Create a fake Disruptor to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_HIGHTEMPLAR` (Protoss, None) - Create a fake High Templar to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_IMMORTAL` (Protoss, None) - Create a fake Immortal to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_ORACLE` (Protoss, None) - Create a fake Oracle to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_PHOENIX` (Protoss, None) - Create a fake Phoenix to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_PROBE` (Protoss, None) - Create a fake Probe to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_STALKER` (Protoss, None) - Create a fake Stalker to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_VOIDRAY` (Protoss, None) - Create a fake Void Ray to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_WARPPRISM` (Protoss, None) - Create a fake Warp Prism to serve as a durable scout or to draw enemy fire.
+- `HALLUCINATION_ZEALOT` (Protoss, None) - Create a fake Zealot to serve as a durable scout or to draw enemy fire.
+- `HARVEST_GATHER_PROBE` (Protoss, Unit)
+- `HOLDPOSITION_HOLD` (Protoss/Terran/Zerg, None)
+- `LOAD_WARPPRISM` (Protoss, Unit)
+- `MORPH_ARCHON` (Protoss, Morph)
+- `MORPH_GATEWAY` (Protoss, Morph) - The Warpgate transforms back into a Gateway.
+- `MORPH_MOTHERSHIP` (Protoss, Morph)
+- `MORPH_OBSERVERMODE` (Protoss, Morph) - Transforms the Observer to standard Observer Mode. Allows the Observer to move at the cost of decreased sight radius.
+- `MORPH_SURVEILLANCEMODE` (Protoss, Morph) - Transforms the Observer to Surveillance Mode. The Observer gains 25% wider vision, but loses the ability to move.
+- `MORPH_WARPGATE` (Protoss, Morph) - Transforms the Gateway into a Warp Gate.
+- `MORPH_WARPPRISMPHASINGMODE` (Protoss, Morph)
+- `MORPH_WARPPRISMTRANSPORTMODE` (Protoss, Morph)
+- `MOTHERSHIPCLOAK_ORACLECLOAKFIELD` (Protoss, None)
+- `MOVE_MOVE` (Protoss/Terran/Zerg, PointOrUnit) - Move to target position.
+- `NEXUSTRAINMOTHERSHIP_MOTHERSHIP` (Protoss, Train)
+- `NEXUSTRAIN_PROBE` (Protoss, Train) - Train a Probe.
+- `ORACLEREVELATION_ORACLEREVELATION` (Protoss, Point)
+- `PATROL_PATROL` (Protoss/Terran/Zerg, PointOrUnit) - Command unit to patrol from current position to target position.
+- `PROTOSSBUILD_ASSIMILATOR` (Protoss, BuildOnUnit) - Build an assimilator, built on a Vespene Geyser that allows Probes to harvest gas.
+- `PROTOSSBUILD_CYBERNETICSCORE` (Protoss, Build) - Build a Cybernetics Core.
+- `PROTOSSBUILD_DARKSHRINE` (Protoss, Build) - Build a Dark Shrine.
+- `PROTOSSBUILD_FLEETBEACON` (Protoss, Build) - Build a Fleet Beacon.
+- `PROTOSSBUILD_FORGE` (Protoss, Build) - Build a Forge.
+- `PROTOSSBUILD_GATEWAY` (Protoss, Build) - Build a Gateway to training ground units.
+- `PROTOSSBUILD_NEXUS` (Protoss, Build) - Build a Nexus.
+- `PROTOSSBUILD_PHOTONCANNON` (Protoss, Build) - Build a Photon Cannon, a static defense structure that detects and attacks both ground and air units.
+- `PROTOSSBUILD_PYLON` (Protoss, Build) - Build a Pylon, providing supply and projects a power field.
+- `PROTOSSBUILD_ROBOTICSBAY` (Protoss, Build) - Build a Robotics Bay to unlocks the powerful Colossus and Disruptor units.
+- `PROTOSSBUILD_ROBOTICSFACILITY` (Protoss, Build) - Build a Robotics Facility.
+- `PROTOSSBUILD_STARGATE` (Protoss, Build) - Build a Protoss Stargate.
+- `PROTOSSBUILD_TEMPLARARCHIVE` (Protoss, Build) - Build a Templar Archive.
+- `PROTOSSBUILD_TWILIGHTCOUNCIL` (Protoss, Build) - Build a Twilight Council.
+- `PSISTORM_PSISTORM` (Protoss, Point)
+- `RALLY_BUILDING` (Protoss/Terran/Zerg, PointOrUnit)
+- `RALLY_NEXUS` (Protoss, PointOrUnit)
+- `RESEARCH_ADEPTRESONATINGGLAIVES` (Protoss, Research) - Increases the attack speed of the Adept by 45%.
+- `RESEARCH_BLINK` (Protoss, Research) - Gives Stalkers the ability to teleport to a nearby target location.
+- `RESEARCH_CHARGE` (Protoss, Research) - Grants the Charge ability. Also increases the movement speed of Zealots to 4.725.
+- `RESEARCH_EXTENDEDTHERMALLANCE` (Protoss, Research)
+- `RESEARCH_GRAVITICBOOSTER` (Protoss, Research)
+- `RESEARCH_GRAVITICDRIVE` (Protoss, Research)
+- `RESEARCH_PHOENIXANIONPULSECRYSTALS` (Protoss, Research)
+- `RESEARCH_PSISTORM` (Protoss, Research)
+- `RESEARCH_SHADOWSTRIKE` (Protoss, Research)
+- `RESEARCH_WARPGATE` (Protoss, Research) - Allows Gateways to be changed into Warp Gates.
+- `ROBOTICSFACILITYTRAIN_COLOSSUS` (Protoss, Train) - Train a Colossus, a massive walker whose twin thermal lances incinerate large groups of ground units from a long range.
+- `ROBOTICSFACILITYTRAIN_IMMORTAL` (Protoss, Train) - Train a Immortal, a heavily armored walker that demolishes armored targets and can activate a barrier to survive heavy fire.
+- `ROBOTICSFACILITYTRAIN_OBSERVER` (Protoss, Train) - Train an Observer, a permanently cloaked aerial scout that provides crucial vision and detects hidden enemy units.
+- `ROBOTICSFACILITYTRAIN_WARPPRISM` (Protoss, Train) - Train a Warpprism, an aerial transport that can deploy into a mobile power field, allowing you to warp in units anywhere on the battlefield.
+- `SCAN_MOVE` (Protoss/Terran/Zerg, PointOrUnit)
+- `SHIELDBATTERYRECHARGEEX5_SHIELDBATTERYRECHARGE` (Protoss, Unit) - Recharges the shield of a close-by friendly Protoss unit for 119.1 shield per second.
+- `SMART` (Protoss/Terran/Zerg, PointOrUnit)
+- `STARGATETRAIN_CARRIER` (Protoss, Train) - Train a Carrier, a powerful capital ship that launches swarms of robotic Interceptors to overwhelm its targets.
+- `STARGATETRAIN_ORACLE` (Protoss, Train) - Train an Oracle, a swift harassment and support craft that can reveal enemy armies, trap units in stasis, and eliminate worker lines.
+- `STARGATETRAIN_PHOENIX` (Protoss, Train) - Train a Phoenix, a swift anti-air fighter that can lift and disable single ground units.
+- `STARGATETRAIN_TEMPEST` (Protoss, Train) - Train a Tempest, a long-range artillery ship that bombards key targets from extreme distances, specializing in destroying massive air units.
+- `STARGATETRAIN_VOIDRAY` (Protoss, Train) - Train a Void Ray, an assault ship whose beam focuses on a single target to rapidly ramp up its damage, melting armored units and buildings.
+- `STOP_STOP` (Protoss/Terran/Zerg, None)
+- `TRAINWARP_ADEPT` (Protoss, TrainPlace) - Train an Adept, a ranged warrior that projects a psionic shade to teleport past enemy forces and harass light units.
+- `TRAIN_ADEPT` (Protoss, Train) - Train an Adept, a ranged warrior that projects a psionic shade to teleport past enemy forces and harass light units.
+- `TRAIN_DISRUPTOR` (Protoss, Train)
+- `VOIDMPIMMORTALREVIVEREBUILD_IMMORTAL` (Protoss, None)
+- `WARPGATETRAIN_DARKTEMPLAR` (Protoss, TrainPlace) - Train a Dark Templar, a permanently cloaked assassin that deals devastating melee damage to any ground unit that cannot detect it.
+- `WARPGATETRAIN_HIGHTEMPLAR` (Protoss, TrainPlace) - Train a High Templar, a powerful spellcaster that devastates armies with Psionic Storm and neutralizes enemy casters with Feedback.
+- `WARPGATETRAIN_SENTRY` (Protoss, TrainPlace) - Train a Sentry, a tactical support caster that manipulates the battlefield with Force Fields and protects allies with a Guardian Shield.
+- `WARPGATETRAIN_STALKER` (Protoss, TrainPlace) - Train a Stalker, a mobile ranged warrior that can Blink to outmaneuver foes and attack both ground and air targets.
+- `WARPGATETRAIN_ZEALOT` (Protoss, TrainPlace) - Train a Zealot, a durable frontline warrior that charges to rapidly close with and attack ground enemies.

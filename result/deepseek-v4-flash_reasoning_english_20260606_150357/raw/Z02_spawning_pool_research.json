@@ -1,0 +1,308 @@
+{
+  "case": {
+    "id": "Z02_spawning_pool_research",
+    "race": "Zerg",
+    "question": "Which upgrades can the Zerg Spawning Pool research, and what are their costs?",
+    "expected_tools": [
+      "query_research_outputs"
+    ],
+    "result_keywords": [
+      "SpawningPool",
+      "zerglingmovementspeed",
+      "zerglingattackspeed"
+    ],
+    "answer_keywords": [
+      "Zergling",
+      "movement",
+      "attack"
+    ]
+  },
+  "evaluation": {
+    "id": "Z02_spawning_pool_research",
+    "race": "Zerg",
+    "question": "Which upgrades can the Zerg Spawning Pool research, and what are their costs?",
+    "passed": true,
+    "duration_seconds": 26.01,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_research_outputs"
+    ],
+    "expected_tools": [
+      "query_research_outputs"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "The Zerg Spawning Pool can research **2 upgrades**, both for Zerglings:\n\n1. **Metabolic Boost** (zerglingmovementspeed)  \n   - Cost: 100 minerals, 100 gas  \n   - Time: 1,760 (≈29.3 seconds)  \n   - Effect: +60% movement speed (to 6.58).  \n   - No additional building requirement.\n\n2. **Adrenal Glands** (zerglingattackspeed)  \n   - Cost: 200 minerals, 200 gas  \n   - Time: 2,080 (≈34.7 seconds)  \n   - Effect: Increases attack speed (description field empty, but known in-game to increase attack speed"
+  },
+  "result": {
+    "query": "Which upgrades can the Zerg Spawning Pool research, and what are their costs?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Spawning Pool",
+                "expected_section": "Unit",
+                "race": "Zerg",
+                "limit": 1
+              }
+            }
+          ],
+          "notes": [
+            "Resolve the canonical key for Spawning Pool, then query its research outputs to get upgrade names and costs."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_research_outputs",
+              "arguments": {
+                "producer_name": "SpawningPool",
+                "race": "Zerg",
+                "return_keys": [
+                  "name",
+                  "cost.minerals",
+                  "cost.gas",
+                  "cost.time",
+                  "description"
+                ],
+                "limit": 10
+              }
+            }
+          ],
+          "notes": [
+            "Spawning Pool resolved to SpawningPool. Now query research outputs to list all upgrades it provides, with their mineral, gas, and time costs."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "Resolved Spawning Pool to SpawningPool (Zerg).",
+            "query_research_outputs returned two upgrades: zerglingmovementspeed (100 minerals, 100 gas, 1760.0 time) and zerglingattackspeed (200 minerals, 200 gas, 2080.0 time, requires Hive).",
+            "All requested cost fields are present; evidence sufficient."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Spawning Pool",
+            "expected_section": "Unit",
+            "race": "Zerg",
+            "limit": 1
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Spawning Pool",
+            "normalized_mention": "Spawning Pool",
+            "resolved": {
+              "section": "Unit",
+              "name": "SpawningPool",
+              "race": "Zerg"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "SpawningPool",
+                "race": "Zerg"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_research_outputs",
+          "arguments": {
+            "producer_name": "SpawningPool",
+            "race": "Zerg",
+            "return_keys": [
+              "name",
+              "cost.minerals",
+              "cost.gas",
+              "cost.time",
+              "description"
+            ],
+            "limit": 10
+          },
+          "result": {
+            "mode": "research_outputs",
+            "count": 2,
+            "results": [
+              {
+                "producer": {
+                  "name": "SpawningPool",
+                  "race": "Zerg"
+                },
+                "upgrade": {
+                  "name": "zerglingmovementspeed",
+                  "cost.minerals": 100,
+                  "cost.gas": 100,
+                  "cost.time": 1760.0,
+                  "description": [
+                    "Increases Zergling movement speed by 60% to 6.58 (+2.45)."
+                  ]
+                },
+                "ability": {
+                  "name": "RESEARCH_ZERGLINGMETABOLICBOOST",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "zerglingmovementspeed"
+                    }
+                  }
+                },
+                "requirements": [],
+                "required_addon": null
+              },
+              {
+                "producer": {
+                  "name": "SpawningPool",
+                  "race": "Zerg"
+                },
+                "upgrade": {
+                  "name": "zerglingattackspeed",
+                  "cost.minerals": 200,
+                  "cost.gas": 200,
+                  "cost.time": 2080.0,
+                  "description": []
+                },
+                "ability": {
+                  "name": "RESEARCH_ZERGLINGADRENALGLANDS",
+                  "target": {
+                    "Research": {
+                      "upgrade_name": "zerglingattackspeed"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "Hive"
+                  }
+                ],
+                "required_addon": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Spawning Pool",
+          "expected_section": "Unit",
+          "race": "Zerg",
+          "limit": 1
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Spawning Pool",
+          "normalized_mention": "Spawning Pool",
+          "resolved": {
+            "section": "Unit",
+            "name": "SpawningPool",
+            "race": "Zerg"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "SpawningPool",
+              "race": "Zerg"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_research_outputs",
+        "arguments": {
+          "producer_name": "SpawningPool",
+          "race": "Zerg",
+          "return_keys": [
+            "name",
+            "cost.minerals",
+            "cost.gas",
+            "cost.time",
+            "description"
+          ],
+          "limit": 10
+        },
+        "result": {
+          "mode": "research_outputs",
+          "count": 2,
+          "results": [
+            {
+              "producer": {
+                "name": "SpawningPool",
+                "race": "Zerg"
+              },
+              "upgrade": {
+                "name": "zerglingmovementspeed",
+                "cost.minerals": 100,
+                "cost.gas": 100,
+                "cost.time": 1760.0,
+                "description": [
+                  "Increases Zergling movement speed by 60% to 6.58 (+2.45)."
+                ]
+              },
+              "ability": {
+                "name": "RESEARCH_ZERGLINGMETABOLICBOOST",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "zerglingmovementspeed"
+                  }
+                }
+              },
+              "requirements": [],
+              "required_addon": null
+            },
+            {
+              "producer": {
+                "name": "SpawningPool",
+                "race": "Zerg"
+              },
+              "upgrade": {
+                "name": "zerglingattackspeed",
+                "cost.minerals": 200,
+                "cost.gas": 200,
+                "cost.time": 2080.0,
+                "description": []
+              },
+              "ability": {
+                "name": "RESEARCH_ZERGLINGADRENALGLANDS",
+                "target": {
+                  "Research": {
+                    "upgrade_name": "zerglingattackspeed"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "Hive"
+                }
+              ],
+              "required_addon": null
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "The Zerg Spawning Pool can research **2 upgrades**, both for Zerglings:\n\n1. **Metabolic Boost** (zerglingmovementspeed)  \n   - Cost: 100 minerals, 100 gas  \n   - Time: 1,760 (≈29.3 seconds)  \n   - Effect: +60% movement speed (to 6.58).  \n   - No additional building requirement.\n\n2. **Adrenal Glands** (zerglingattackspeed)  \n   - Cost: 200 minerals, 200 gas  \n   - Time: 2,080 (≈34.7 seconds)  \n   - Effect: Increases attack speed (description field empty, but known in-game to increase attack speed by 40%).  \n   - Requires a **Hive** (Lair upgrade) before it can be researched.\n\nAll cost fields (minerals, gas, time) were directly retrieved from the SC2 data, confirming the results match the original query."
+  }
+}

@@ -1,0 +1,70 @@
+# Terran Unit Keys
+
+Generated from `data_base.json`. Use these canonical keys for tool arguments.
+
+- `Armory` (Terran) - The Armory is a Terran tech building that requires a Factory to be built. It unlocks the Thor and Hellbat units at the Factory and the Level 2 & 3 Infantry upgrades at the Engineer
+- `AutoTurret` (Terran) - The Auto-Turret is a temporary and immobile structure deployed by the Raven at the cost of 50 energy. It automatically attacks nearby air and ground targets that come within its ra
+- `Banshee` (Terran) - The Banshee is a strong Air-to-Ground unit that is built from a Starport with a Tech Lab add-on. The Banshee has a number of common uses. Used early on in any match-up, they can ca
+- `Barracks` (Terran) - The Barracks (Rax for short) is the infantry production building for Terran; allowing them to build Marines , Marauders , Reapers and Ghosts . It is commonly used as part of a Terr
+- `BarracksFlying` (Terran)
+- `BarracksReactor` (Terran)
+- `BarracksTechLab` (Terran)
+- `Battlecruiser` (Terran) - The Battlecruiser is the Terran's capital ship. In LotV , the Battlecruiser has been granted the Tactical Jump ability, allowing it to teleport anywhere on the map (regardless of f
+- `Bunker` (Terran)
+- `BypassArmorDrone` (Terran)
+- `CommandCenter` (Terran) - The Command Center is the town center of a Terran base. It is the building where SCVs are created and where they bring their collected Minerals and Vespene Gas. The Command Center 
+- `CommandCenterFlying` (Terran)
+- `Cyclone` (Terran) - The Cyclone is a fast hit-and-away vehicle produced from a Factory with an attached Tech Lab . It was first introduced in Legacy of the Void . The Cyclone has an ability called Loc
+- `Elsecaro_Colonist_Hut` (Terran)
+- `EngineeringBay` (Terran) - The Engineering Bay (commonly abbreviated as E-Bay or Engi-Bay) is a structure in the Terran Tech Tree which requires a Command Center before it can be built. The Engineering Bay i
+- `Factory` (Terran) - The Factory is one of the advanced Terran tech buildings that allows Terran to build Hellions , Hellbats , Widow Mines , Siege Tanks , and Thors . The Factory requires a Barracks b
+- `FactoryFlying` (Terran)
+- `FactoryReactor` (Terran)
+- `FactoryTechLab` (Terran)
+- `FusionCore` (Terran) - The Fusion Core is a 3.5 tier building that allows the Battlecruiser to be built at the Starport . The Fusion Core requires a Starport to be built and can research Weapon Refit , t
+- `Ghost` (Terran) - The Ghost is a specialized infantry unit built from a Barracks with an attached Tech Lab once a Ghost Academy has been constructed. The Ghost stands as an Anti-Spellcaster unit and
+- `GhostAcademy` (Terran) - The Ghost Academy unlocks the Ghost unit, which can be built from the Barracks . The Ghost Academy can research upgrades for Ghosts and can arm itself with a Nuke that can be deplo
+- `GhostNova` (Terran)
+- `HERC` (Terran)
+- `HERCPlacement` (Terran)
+- `Hellion` (Terran) - A fast expansion-raiding unit and anti-Melee unit when transformed into Hellbats . With a line of effect attack, the same range as a Marine 's attack, Hellions excel at fighting in
+- `HellionTank` (Terran) - A tough melee-range unit with conical splash damage. After finishing an Armory Hellbats can be produced from the Factory or transformed from and into the Hellion (transformation ta
+- `Liberator` (Terran) - The Liberator is a fast and versatile Terran air unit introduced in Legacy of the Void . It can be built from the Starport and double produced from a Reactor . "In order to combat 
+- `LiberatorAG` (Terran)
+- `MULE` (Terran) - The Mobile Utility Lunar Excavator (MULE) is a temporary unit that can mine minerals (not gas) and repair for the Terran forces. MULEs are called down from the Orbital Command at t
+- `Marauder` (Terran) - Produced from a Barracks with a Tech Lab , most of this unit's attention will be against other armored units such as the Roach or the Stalker . Being almost the opposite of a Marin
+- `Marine` (Terran) - Marines are the all-purpose infantry unit produced from a Barracks . Having the quickest and cheapest production of all Terran units make the Mineral backbone that scales very well
+- `Medivac` (Terran) - A dual-purpose Dropship and Medic (12.6 Health per second), the Medivac can be produced immediately from a Starport , possibly with a Reactor . It has the Ignite Afterburners abili
+- `MissileTurret` (Terran) - The Missile Turret (or Turret for short) is the Terran's anti-air static defense as well as one of the Terran's detectors . Missile Turrets require an Engineering Bay in order to b
+- `Nuke` (Terran)
+- `OrbitalCommand` (Terran) - The Orbital Command is an upgraded version of the Command Center that grants the Terran player the ability to Calldown: MULEs , Calldown: Extra Supplies , and use Scanner Sweep . I
+- `OrbitalCommandFlying` (Terran)
+- `PlanetaryFortress` (Terran) - The Planetary Fortress is a static defense upgrade to the Command Center that requires an Engineering Bay to construct. The Planetary Fortress is a defense-oriented upgrade that ha
+- `PointDefenseDrone` (Terran) - The Point Defense Drone (or PDD for short) was a light-air Terran unit removed in the 4.0.0 patch, it is deployed by a Raven at the cost of 100 energy . The Drone is immobile and c
+- `Raven` (Terran) - The Raven is a flying support craft with Detection. Its abilities provide both defensive and offensive capabilities. The Raven is the spiritual successor to StarCraft: Brood War's 
+- `RavenRepairDrone` (Terran)
+- `Reactor` (Terran) - The Reactor is one of the two Terran add-on buildings , which can be built from and attached to Barracks , Factories and Starports . It enables the attached building to build two u
+- `Reaper` (Terran) - The Reaper is a Lightly Armored scouting unit with excellent freedom of movement, with an out-of-combat Health-regeneration ability. This unit can now be produced from a Barracks a
+- `Refinery` (Terran) - The Refinery is the gas extraction building for Terran. When constructed on top of a Vespene Gas Geyser, it allows the Terran player to collect Vespene Gas by sending SCVs into it.
+- `RefineryRich` (Terran)
+- `SCV` (Terran) - The SCV ( S pace C onstruction V ehicle) is the Terran worker unit. It harvests resources, constructs buildings and can repair all Terran mechanical units and buildings. As a build
+- `SensorTower` (Terran) - The Sensor Tower senses - but does not detect - any approaching uncloaked, unburrowed enemy units and displays them as red exclamation marks in the fog of war . An opponent can see
+- `SiegeTank` (Terran) - The long-ranged Siege Tank is a Mechanical unit with high damage, particularly versus Armored like Roaches and Stalkers . Against masses of smaller units, the Siege Tank can switch
+- `SiegeTankSieged` (Terran)
+- `Starport` (Terran) - The Starport is the Terran production building for air units. It requires a Factory before it can be built. It can be lifted off. Initially, the Starport can only produce Vikings ,
+- `StarportFlying` (Terran)
+- `StarportReactor` (Terran)
+- `StarportTechLab` (Terran)
+- `SupplyDepot` (Terran) - The Supply Depot is a building constructed by Terran for the purpose of providing supply. Each Supply Depot raises the Terran's supply cap by eight. Supply Depots are also used for
+- `SupplyDepotLowered` (Terran)
+- `TechLab` (Terran) - The Tech Lab is an add-on for the Barracks , Factory and Starport that unlocks new tech and upgrades. For example, a Barracks with a Tech Lab can produce Marauder and Ghost units. 
+- `Thor` (Terran) - The Thor is a Massive Terran walking gun battery with a strong single-target ground weapon and two long-range anti-air weapons. It is the unit with the highest health, highest armo
+- `ThorAALance` (Terran)
+- `ThorAP` (Terran)
+- `TowerMine` (Terran)
+- `Viking` (Terran)
+- `VikingAssault` (Terran)
+- `VikingFighter` (Terran) - The Viking is an anti-air fighter with the ability to transform into an assault walker, with the transformation taking a number of seconds. The Viking is strongest when supported b
+- `WarHound` (Terran)
+- `WidowMine` (Terran) - A Light Mechanical Mine produced from the Factory with a Reactor . Has no auto attack and must be Burrowed into the ground to use its "Activate Mine" ability to deal Splash damage 
+- `WidowMineBurrowed` (Terran)

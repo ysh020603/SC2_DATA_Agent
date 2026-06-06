@@ -137,6 +137,69 @@ def enrich_section(
     return enriched
 
 
+def replace_id_reference(
+    item: dict[str, Any],
+    old_key: str,
+    new_key: str,
+    id_to_name: dict[int, str],
+    keep_null: bool = False,
+) -> None:
+    if old_key not in item:
+        return
+    old_value = item.pop(old_key)
+    name = id_to_name.get(old_value)
+    if name is not None or keep_null:
+        item[new_key] = name
+
+
+def remove_numeric_ids(output: dict[str, list[dict[str, Any]]]) -> dict[str, list[dict[str, Any]]]:
+    ability_by_id = {item["id"]: item["name"] for item in output["Ability"] if "id" in item and "name" in item}
+    unit_by_id = {item["id"]: item["name"] for item in output["Unit"] if "id" in item and "name" in item}
+    upgrade_by_id = {item["id"]: item["name"] for item in output["Upgrade"] if "id" in item and "name" in item}
+
+    cleaned = deepcopy(output)
+    for section in ("Ability", "Unit", "Upgrade"):
+        for item in cleaned[section]:
+            item.pop("id", None)
+
+    for ability in cleaned["Ability"]:
+        replace_id_reference(
+            ability,
+            "remaps_to_ability_id",
+            "remaps_to_ability_name",
+            ability_by_id,
+            keep_null=True,
+        )
+        target = ability.get("target")
+        if isinstance(target, dict):
+            for payload in target.values():
+                if not isinstance(payload, dict):
+                    continue
+                replace_id_reference(payload, "upgrade", "upgrade_name", upgrade_by_id)
+                replace_id_reference(payload, "produces", "produces_name", unit_by_id)
+
+    for unit in cleaned["Unit"]:
+        replace_id_reference(unit, "normal_mode", "normal_mode_name", unit_by_id)
+        if unit.get("unit_alias") == 0:
+            unit.pop("unit_alias", None)
+        else:
+            replace_id_reference(unit, "unit_alias", "unit_alias_name", unit_by_id)
+        if "tech_alias" in unit:
+            aliases = [unit_by_id[value] for value in unit.get("tech_alias") or [] if value in unit_by_id]
+            if aliases:
+                unit["tech_alias_names"] = aliases
+            unit.pop("tech_alias", None)
+        for ability_ref in unit.get("abilities") or []:
+            replace_id_reference(ability_ref, "ability", "ability_name", ability_by_id)
+            for requirement in ability_ref.get("requirements") or []:
+                replace_id_reference(requirement, "building", "building_name", unit_by_id)
+                replace_id_reference(requirement, "addon", "addon_name", unit_by_id)
+                replace_id_reference(requirement, "addon_to", "addon_to_name", unit_by_id)
+                replace_id_reference(requirement, "upgrade", "upgrade_name", upgrade_by_id)
+
+    return cleaned
+
+
 def build_schema_doc(output: dict[str, Any], stats: dict[str, Any]) -> str:
     counts = {
         "Ability": len(output["Ability"]),
@@ -145,7 +208,7 @@ def build_schema_doc(output: dict[str, Any], stats: dict[str, Any]) -> str:
     }
     return f"""# DATA_BASE JSON Structure
 
-`DATA_BASE/data_base.json` is derived from `data.json`. It keeps the original top-level sections and original object fields, then adds two fields to every Ability, Unit, and Upgrade object: `tech_chain` and `description`.
+`DATA_BASE/data_base.json` is derived from `data.json`. It keeps the original top-level sections, replaces internal numeric ids with searchable names, and adds two fields to every Ability, Unit, and Upgrade object: `tech_chain` and `description`.
 
 ## Top-Level Object
 
@@ -192,11 +255,10 @@ Description coverage in this build:
 
 ## Ability Object Keys
 
-Ability objects keep their original `data.json` keys when present:
+Ability objects keep searchable `data.json` fields when present:
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `id` | number | Numeric ability id. |
 | `name` | string | Ability/action name. |
 | `cast_range` | number | Cast range. |
 | `energy_cost` | number | Energy required. |
@@ -205,18 +267,17 @@ Ability objects keep their original `data.json` keys when present:
 | `effect` | list | Effect ids or effect metadata from the source data. |
 | `buff` | list | Buff ids or buff metadata from the source data. |
 | `cooldown` | number | Cooldown value. |
-| `target` | string or object | Target type, or structured target payload such as `Build`, `Train`, `Morph`, or `Research`. |
-| `remaps_to_ability_id` | number | Optional remap target ability id. |
+| `target` | string or object | Target type, or structured target payload such as `Build`, `Train`, `Morph`, or `Research`. Structured payloads use names such as `produces_name` or `upgrade_name`. |
+| `remaps_to_ability_name` | string or null | Optional generic ability name that this specific command remaps to. Missing source ids are stored as `null`. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added ability/action descriptions. |
 
 ## Unit Object Keys
 
-Unit objects keep their original `data.json` keys when present:
+Unit objects keep searchable `data.json` fields when present:
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `id` | number | Numeric unit id. |
 | `name` | string | Unit or building name. |
 | `race` | string | Race, usually `Terran`, `Protoss`, or `Zerg`. |
 | `supply` | number | Supply usage or supply provided when negative. |
@@ -231,7 +292,7 @@ Unit objects keep their original `data.json` keys when present:
 | `start_energy` | number | Starting energy, when present. |
 | `weapons` | list<object> | Weapon definitions. |
 | `attributes` | list<string> | Unit attributes such as `Light`, `Armored`, `Biological`, `Mechanical`, or `Structure`. |
-| `abilities` | list<object> | Ability references and optional requirements available to this unit/building. |
+| `abilities` | list<object> | Ability names and optional requirements available to this unit/building. Requirement references use names such as `building_name`, `addon_name`, `addon_to_name`, and `upgrade_name`. |
 | `size` | number | Source size field. |
 | `radius` | number | Collision/selection radius. |
 | `power_radius` | number | Protoss power radius, when present. |
@@ -247,19 +308,18 @@ Unit objects keep their original `data.json` keys when present:
 | `minerals` | number | Mineral cost. |
 | `gas` | number | Vespene gas cost. |
 | `time` | number | Build/train/research time from the source data. |
-| `tech_alias` | list<number> | Unit ids treated as tech aliases. |
-| `unit_alias` | number | Unit alias id, when present. |
-| `normal_mode` | number | Normal/base form id for transformed variants, when present. |
+| `tech_alias_names` | list<string> | Unit names treated as tech aliases. |
+| `unit_alias_name` | string | Unit alias name, when present. Empty numeric aliases from the source are omitted. |
+| `normal_mode_name` | string | Normal/base form name for transformed variants, when present. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added unit/building descriptions. |
 
 ## Upgrade Object Keys
 
-Upgrade objects keep their original `data.json` keys when present:
+Upgrade objects keep searchable `data.json` fields when present:
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `id` | number | Numeric upgrade id. |
 | `name` | string | Upgrade/technology name. |
 | `cost` | object | Cost payload, usually with `minerals`, `gas`, and `time`. |
 | `tech_chain` | list<string> | Added chain list. |
@@ -269,6 +329,7 @@ Upgrade objects keep their original `data.json` keys when present:
 
 - `tech_chain` values are copied from `DATA_0/action_chain_text.json`.
 - `description` values are plain strings only; source file paths and URLs are deliberately removed.
+- Internal numeric ids are removed from stored records and id references are replaced with names for retrieval quality.
 - The JSON itself does not store source metadata. Source files are documented here instead.
 - Objects without a matched chain or description still include the corresponding key with an empty list.
 - The builder script is `build_data_base.py`.
@@ -307,6 +368,7 @@ def main() -> None:
             upgrade_descriptions,
         ),
     }
+    output = remove_numeric_ids(output)
 
     stats = {
         "described": {

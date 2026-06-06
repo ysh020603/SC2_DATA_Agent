@@ -1,0 +1,926 @@
+{
+  "case": {
+    "id": "P06_stalker_reverse_source",
+    "race": "Protoss",
+    "question": "Where is a Stalker produced, what prerequisite does it require, and what does it cost?",
+    "expected_tools": [
+      "query_reverse_production_sources"
+    ],
+    "result_keywords": [
+      "Stalker",
+      "Gateway",
+      "CyberneticsCore"
+    ],
+    "answer_keywords": [
+      "Stalker",
+      "Gateway",
+      "Cybernetics Core"
+    ]
+  },
+  "evaluation": {
+    "id": "P06_stalker_reverse_source",
+    "race": "Protoss",
+    "question": "Where is a Stalker produced, what prerequisite does it require, and what does it cost?",
+    "passed": true,
+    "duration_seconds": 34.05,
+    "called_tools": [
+      "resolve_entity_key",
+      "query_reverse_production_sources",
+      "filter_attributes_and_resources",
+      "query_tech_tree"
+    ],
+    "expected_tools": [
+      "query_reverse_production_sources"
+    ],
+    "tool_ok": true,
+    "result_missing": [],
+    "answer_missing": [],
+    "errors": [],
+    "answer_preview": "The **Stalker** is produced at the **Gateway** (as a trainable unit) or at the **WarpGate** (after Warp Gate Research is completed). The only prerequisite building needed to unlock Stalker production is the **Cybernetics Core**.\n\n**Cost:**\n- Minerals: 125\n- Vespene gas: 50\n- Supply: 2\n- Build time: 608 frames (≈60.8 seconds at normal speed)\n\nThe WarpGate path additionally requires the Warp Gate Research upgrade at the Cybernetics Core, but the Stalker itself does not require any other tech struc"
+  },
+  "result": {
+    "query": "Where is a Stalker produced, what prerequisite does it require, and what does it cost?",
+    "plan": {
+      "language": "English",
+      "steps": [
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "resolve_entity_key",
+              "arguments": {
+                "mention": "Stalker",
+                "expected_section": "Unit",
+                "race": "Protoss",
+                "limit": 5
+              }
+            }
+          ],
+          "notes": [
+            "Resolve Stalker to canonical name before querying production source, cost, and prerequisites."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "need_tools",
+          "tool_calls": [
+            {
+              "tool": "query_reverse_production_sources",
+              "arguments": {
+                "produced_name": "Stalker",
+                "produced_section": "Unit",
+                "include_requirements": true,
+                "limit": 5
+              }
+            },
+            {
+              "tool": "filter_attributes_and_resources",
+              "arguments": {
+                "sections": [
+                  "Unit"
+                ],
+                "name_query": "Stalker",
+                "name_mode": "exact",
+                "return_keys": [
+                  "name",
+                  "minerals",
+                  "gas",
+                  "supply",
+                  "time"
+                ],
+                "limit": 1
+              }
+            },
+            {
+              "tool": "query_tech_tree",
+              "arguments": {
+                "target": "Stalker",
+                "sections": [
+                  "Unit"
+                ],
+                "limit": 5
+              }
+            }
+          ],
+          "notes": [
+            "Resolved Stalker to canonical name. Now retrieving production source (reverse production), cost fields, and tech chain (prerequisites) in parallel."
+          ]
+        },
+        {
+          "language": "English",
+          "status": "final",
+          "tool_calls": [],
+          "notes": [
+            "All required evidence collected: Stalker produced at Gateway and WarpGate, requires CyberneticsCore, costs 125 minerals, 50 gas, 2 supply, 608 time."
+          ]
+        }
+      ],
+      "observations": [
+        {
+          "step": 0,
+          "tool": "resolve_entity_key",
+          "arguments": {
+            "mention": "Stalker",
+            "expected_section": "Unit",
+            "race": "Protoss",
+            "limit": 5
+          },
+          "result": {
+            "mode": "entity_key_resolution",
+            "mention": "Stalker",
+            "normalized_mention": "Stalker",
+            "resolved": {
+              "section": "Unit",
+              "name": "Stalker",
+              "race": "Protoss"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Stalker",
+                "race": "Protoss"
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_reverse_production_sources",
+          "arguments": {
+            "produced_name": "Stalker",
+            "produced_section": "Unit",
+            "include_requirements": true,
+            "limit": 5
+          },
+          "result": {
+            "mode": "reverse_production_sources",
+            "produced": {
+              "section": "Unit",
+              "name": "Stalker",
+              "race": "Protoss"
+            },
+            "count": 2,
+            "results": [
+              {
+                "produced": {
+                  "section": "Unit",
+                  "name": "Stalker"
+                },
+                "producer": {
+                  "name": "Gateway",
+                  "race": "Protoss",
+                  "supply": 0.0,
+                  "max_health": 500.0,
+                  "armor": 1.0,
+                  "sight": 9.0,
+                  "speed_creep_mul": 1.0,
+                  "weapons": [],
+                  "attributes": [
+                    "Armored",
+                    "Structure"
+                  ],
+                  "size": 0,
+                  "radius": 1.8125,
+                  "power_radius": 6.5,
+                  "accepts_addon": false,
+                  "needs_power": true,
+                  "needs_creep": false,
+                  "needs_geyser": false,
+                  "is_structure": true,
+                  "is_addon": false,
+                  "is_worker": false,
+                  "is_townhall": false,
+                  "minerals": 150,
+                  "gas": 0,
+                  "time": 1040.0,
+                  "max_shield": 500.0,
+                  "is_flying": false,
+                  "abilities": [
+                    {
+                      "ability_name": "RALLY_BUILDING"
+                    },
+                    {
+                      "ability_name": "GATEWAYTRAIN_ZEALOT"
+                    },
+                    {
+                      "ability_name": "SMART"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "CyberneticsCore"
+                        }
+                      ],
+                      "ability_name": "GATEWAYTRAIN_STALKER"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "TemplarArchive"
+                        }
+                      ],
+                      "ability_name": "GATEWAYTRAIN_HIGHTEMPLAR"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "DarkShrine"
+                        }
+                      ],
+                      "ability_name": "GATEWAYTRAIN_DARKTEMPLAR"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "CyberneticsCore"
+                        }
+                      ],
+                      "ability_name": "GATEWAYTRAIN_SENTRY"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "CyberneticsCore"
+                        }
+                      ],
+                      "ability_name": "TRAIN_ADEPT"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "upgrade_name": "WarpGateResearch"
+                        }
+                      ],
+                      "ability_name": "MORPH_WARPGATE"
+                    }
+                  ],
+                  "tech_chain": [
+                    "Gateway: [Pylon (PROTOSSBUILD_PYLON)] + [Probe (NEXUSTRAIN_PROBE)] -> Gateway (PROTOSSBUILD_GATEWAY)",
+                    "Gateway: [Gateway -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE)] -> Gateway (MORPH_WARPGATE)",
+                    "Gateway: [Gateway -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Gateway (MORPH_GATEWAY)"
+                  ],
+                  "description": [
+                    "The Gateway is a unit production structure for the Protoss , responsible for warping in ground units. Gateways can be warped in by a Probe only within range of the Psionic Matrix , and only if the player controls a Nexus . Like most Protoss structures, the Gateway can only function if it remains within the Matrix, otherwise it becomes unpowered.",
+                    "Initially, the Protoss player can only build the Zealot at the Gateway. After a Cybernetics Core is completed, Stalkers , Sentries and Adepts can also be warped in from the Gateway. Once the player warps in a Templar Archives , High Templar become available, and after a Dark Shrine is acquired, the Dark Templar can be warped in at the Gateway."
+                  ],
+                  "_section": "Unit"
+                },
+                "target_type": "Train",
+                "ability": {
+                  "name": "GATEWAYTRAIN_STALKER",
+                  "target": {
+                    "Train": {
+                      "produces_name": "Stalker"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "CyberneticsCore"
+                  }
+                ],
+                "required_addon": null
+              },
+              {
+                "produced": {
+                  "section": "Unit",
+                  "name": "Stalker"
+                },
+                "producer": {
+                  "name": "WarpGate",
+                  "race": "Protoss",
+                  "supply": 0.0,
+                  "max_health": 500.0,
+                  "armor": 1.0,
+                  "sight": 9.0,
+                  "speed_creep_mul": 1.0,
+                  "weapons": [],
+                  "attributes": [
+                    "Armored",
+                    "Structure"
+                  ],
+                  "size": 0,
+                  "radius": 1.8125,
+                  "power_radius": 6.5,
+                  "accepts_addon": false,
+                  "needs_power": true,
+                  "needs_creep": false,
+                  "needs_geyser": false,
+                  "is_structure": true,
+                  "is_addon": false,
+                  "is_worker": false,
+                  "is_townhall": false,
+                  "minerals": 150,
+                  "gas": 0,
+                  "time": 160.0,
+                  "max_shield": 500.0,
+                  "is_flying": false,
+                  "abilities": [
+                    {
+                      "ability_name": "WARPGATETRAIN_ZEALOT"
+                    },
+                    {
+                      "ability_name": "MORPH_GATEWAY"
+                    },
+                    {
+                      "ability_name": "SMART"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "CyberneticsCore"
+                        }
+                      ],
+                      "ability_name": "WARPGATETRAIN_STALKER"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "TemplarArchive"
+                        }
+                      ],
+                      "ability_name": "WARPGATETRAIN_HIGHTEMPLAR"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "DarkShrine"
+                        }
+                      ],
+                      "ability_name": "WARPGATETRAIN_DARKTEMPLAR"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "CyberneticsCore"
+                        }
+                      ],
+                      "ability_name": "WARPGATETRAIN_SENTRY"
+                    },
+                    {
+                      "requirements": [
+                        {
+                          "building_name": "CyberneticsCore"
+                        }
+                      ],
+                      "ability_name": "TRAINWARP_ADEPT"
+                    }
+                  ],
+                  "tech_chain": [
+                    "WarpGate: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE)] -> WarpGate (MORPH_WARPGATE)"
+                  ],
+                  "description": [
+                    "The Warp Gate is a unit producing structure for the Protoss , capable of warping in ground units. Warp Gates provide an ability unique to the Protoss: the rapid creation of units at any location on the map covered by the Psionic Matrix , so long as the location is not obscured by the fog of war. This allows for quick, on-demand deployment of troops at key strategic locations. Warp Gates are created by transforming a Gateway after Warp Gate Research has been completed at the Cybernetics Core . By default, this transformation is set to auto-cast.",
+                    "All units created at the Gateway can also be warped in by a Warp Gate. If a Cybernetics Core is controlled by the player, Stalkers , Sentries and Adepts can be warped in from the Warp Gate. Once the player warps in a Templar Archives , High Templar become available, and after a Dark Shrine is acquired, the Dark Templar can be warped in. If none of these additional buildings are available, then the Warp Gate is only capable of producing the Zealot .",
+                    "Any unit created by the Warp Gate has a typical warp-in time of 11.4 seconds (16 seconds at Normal speed). The warp-in process can be sped up to only 3.6 seconds (5 seconds at Normal speed) if the unit is in the Psionic Matrix of a Pylon which is close to a Nexus or a Warp Gate (a Gateway has no effect). This acceleration can disappear/appear mid warp-in, if the condition cited before disappear/appear (for example, a Pylon is destroyed/warped in, or a Gateway becomes a Warp Gate, or a Warp Gate becomes a Gateway).",
+                    "As the warp-in starts, the Warp Gate enters a variable cooldown period. During this cooldown, the Warp Gate cannot produce any units. The length of the cooldown varies, based on the type of unit warped in, as seen in the table below. If the Psionic Matrix is destroyed during the warp-in period, the resource cost of the unit is fully refunded and the Warp Gate cooldown is reset to zero. [ 1 ] This is the only way to interrupt a warp-in; the warp-in will not be interrupted if the Warp Gate that started it is destroyed or unpowered. The order of Warp Gate use is determined by the proximity of the Warp Gate to the warp-in location; this can be used to find and Chrono Boost Warp Gates with longer cooldowns. [ 2 ]",
+                    "The ability to almost instantaneously produce units at specific locations on the map is a very potent capability for the Protoss, a capability utilized in almost all competitive games.",
+                    "Rather than waiting for the unit to complete at the back end of the production cycle, Warp Gate allows the player to get the unit a short time after paying. Furthermore, Warp Gates are able to warp in units immediately once the seven-second conversion from a Gateway is complete (the cooldown timer is not activated). This means that not only is there no time penalty to switch to Warp Gate, but production is pushed ahead the 30–40 seconds that a unit would otherwise spend in the queue. The vast reduction in queue time, combined with the ability to deploy anywhere in Pylon or Warp Prism power, is a major bonus that makes Warp Gate research essential for every match-up.",
+                    "The length of the Warp Gate cooldown period is, in all cases except Sentry , seven seconds shorter (three seconds for a Sentry) than the length of time required to produce the same unit at a conventional Gateway . This amounts to approximately a 15-35% increase in overall production compared to the Gateway, allowing maximum production with fewer Warp Gates. The saved money causes Warp Gate research to practically pay for itself.",
+                    "It is useful to note that during the warp-in process, the unit warping in is vulnerable in two ways. First, enemy forces can directly attack the warping-in unit, suffering normal damage. During the warp-in period, the unit being created gradually gains health and shields, but if attacked before it is fully constructed, it will have less health and/or shields when it enters the battle. Another vulnerability is the loss of the Psionic Matrix during warp-in. If the Pylon or Warp Prism providing the power field is destroyed (or if the Warp Prism goes out of phasing mode ) while a unit is warping in to that power field, then the unit warping in is instantly destroyed. The unit mineral and vespene costs are fully refunded to the player's resource pool, and the Warp Gate cooldown is reset. This can cause a disruption to the production cycles, but only a brief one if the player is attentive and immediately warps in to a safer location.",
+                    "The Four Gate Rush (often written as 4-gate) is not used in competitive games anymore, but it is a common strategy in the lower leagues. Timing Warpgate Technology and the completion of four Warp Gates at the very earliest moments possible can allow the Protoss player to mount a very powerful rush . The number of Warp Gates (four) is considered the maximum number that can be used efficiently given the player's available resources at the early stage of the game.",
+                    "When going for this rush, the player should begin warping in three Gateways (bringing the total to four) when the Warpgate Research is at 30%. Assuming that you continuously Chrono Boost Warpgate Research, the Gateways will complete at exactly the same time as the research finishes, allowing the player to immediately warp in four units. Alternatively, when not Chrono Boosting Warpgate Research (or only boosting the first half), the player should build the three Gateways at 50% research completion. For more information, see the relevant articles in Protoss Strategy ."
+                  ],
+                  "normal_mode_name": "Gateway",
+                  "tech_alias_names": [
+                    "Gateway"
+                  ],
+                  "_section": "Unit"
+                },
+                "target_type": "TrainPlace",
+                "ability": {
+                  "name": "WARPGATETRAIN_STALKER",
+                  "target": {
+                    "TrainPlace": {
+                      "produces_name": "Stalker"
+                    }
+                  }
+                },
+                "requirements": [
+                  {
+                    "building_name": "CyberneticsCore"
+                  }
+                ],
+                "required_addon": null
+              }
+            ],
+            "resolution": {
+              "mode": "entity_key_resolution",
+              "mention": "Stalker",
+              "normalized_mention": "Stalker",
+              "resolved": {
+                "section": "Unit",
+                "name": "Stalker",
+                "race": "Protoss"
+              },
+              "confidence": 1.0,
+              "candidates": [
+                {
+                  "section": "Unit",
+                  "name": "Stalker",
+                  "race": "Protoss"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "step": 1,
+          "tool": "filter_attributes_and_resources",
+          "arguments": {
+            "sections": [
+              "Unit"
+            ],
+            "name_query": "Stalker",
+            "name_mode": "exact",
+            "return_keys": [
+              "name",
+              "minerals",
+              "gas",
+              "supply",
+              "time"
+            ],
+            "limit": 1
+          },
+          "result": {
+            "mode": "query_ir",
+            "count": 1,
+            "results": [
+              {
+                "name": "Stalker",
+                "minerals": 125,
+                "gas": 50,
+                "supply": 2.0,
+                "time": 608.0
+              }
+            ]
+          }
+        },
+        {
+          "step": 1,
+          "tool": "query_tech_tree",
+          "arguments": {
+            "target": "Stalker",
+            "sections": [
+              "Unit"
+            ],
+            "limit": 5
+          },
+          "result": {
+            "mode": "tech_tree",
+            "count": 1,
+            "results": [
+              {
+                "_section": "Unit",
+                "name": "Stalker",
+                "race": "Protoss",
+                "tech_chain": [
+                  "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Stalker (GATEWAYTRAIN_STALKER)",
+                  "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Stalker (WARPGATETRAIN_STALKER)"
+                ],
+                "parsed_tech_chain": [
+                  {
+                    "raw": "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Stalker (GATEWAYTRAIN_STALKER)",
+                    "paths": [
+                      [
+                        "Pylon",
+                        "Gateway",
+                        "CyberneticsCore"
+                      ]
+                    ],
+                    "target": "Stalker",
+                    "has_parallel_and": false
+                  },
+                  {
+                    "raw": "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Stalker (WARPGATETRAIN_STALKER)",
+                    "paths": [
+                      [
+                        "Pylon",
+                        "Gateway",
+                        "CyberneticsCore",
+                        "WarpGateResearch",
+                        "WarpGate"
+                      ]
+                    ],
+                    "target": "Stalker",
+                    "has_parallel_and": false
+                  }
+                ],
+                "description": [
+                  "The Stalker is a fast-moving, ranged Protoss ground unit, capable of hitting both air and ground targets. They are warped in at the Gateway , and require a Cybernetics Core .",
+                  "The Stalker's name is indicative of its hit-and-run capabilities: they have a relatively high movement speed, and after the Blink upgrade has been researched at the Twilight Council , they can advance or retreat literally in a flash, bypassing rocks and hopping up and down cliffs.",
+                  "Stalkers have more health (160 vs 150), but deal less damage than zealots."
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "resolve_entity_key",
+        "arguments": {
+          "mention": "Stalker",
+          "expected_section": "Unit",
+          "race": "Protoss",
+          "limit": 5
+        },
+        "result": {
+          "mode": "entity_key_resolution",
+          "mention": "Stalker",
+          "normalized_mention": "Stalker",
+          "resolved": {
+            "section": "Unit",
+            "name": "Stalker",
+            "race": "Protoss"
+          },
+          "confidence": 1.0,
+          "candidates": [
+            {
+              "section": "Unit",
+              "name": "Stalker",
+              "race": "Protoss"
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_reverse_production_sources",
+        "arguments": {
+          "produced_name": "Stalker",
+          "produced_section": "Unit",
+          "include_requirements": true,
+          "limit": 5
+        },
+        "result": {
+          "mode": "reverse_production_sources",
+          "produced": {
+            "section": "Unit",
+            "name": "Stalker",
+            "race": "Protoss"
+          },
+          "count": 2,
+          "results": [
+            {
+              "produced": {
+                "section": "Unit",
+                "name": "Stalker"
+              },
+              "producer": {
+                "name": "Gateway",
+                "race": "Protoss",
+                "supply": 0.0,
+                "max_health": 500.0,
+                "armor": 1.0,
+                "sight": 9.0,
+                "speed_creep_mul": 1.0,
+                "weapons": [],
+                "attributes": [
+                  "Armored",
+                  "Structure"
+                ],
+                "size": 0,
+                "radius": 1.8125,
+                "power_radius": 6.5,
+                "accepts_addon": false,
+                "needs_power": true,
+                "needs_creep": false,
+                "needs_geyser": false,
+                "is_structure": true,
+                "is_addon": false,
+                "is_worker": false,
+                "is_townhall": false,
+                "minerals": 150,
+                "gas": 0,
+                "time": 1040.0,
+                "max_shield": 500.0,
+                "is_flying": false,
+                "abilities": [
+                  {
+                    "ability_name": "RALLY_BUILDING"
+                  },
+                  {
+                    "ability_name": "GATEWAYTRAIN_ZEALOT"
+                  },
+                  {
+                    "ability_name": "SMART"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "ability_name": "GATEWAYTRAIN_STALKER"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "TemplarArchive"
+                      }
+                    ],
+                    "ability_name": "GATEWAYTRAIN_HIGHTEMPLAR"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "DarkShrine"
+                      }
+                    ],
+                    "ability_name": "GATEWAYTRAIN_DARKTEMPLAR"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "ability_name": "GATEWAYTRAIN_SENTRY"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "ability_name": "TRAIN_ADEPT"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "upgrade_name": "WarpGateResearch"
+                      }
+                    ],
+                    "ability_name": "MORPH_WARPGATE"
+                  }
+                ],
+                "tech_chain": [
+                  "Gateway: [Pylon (PROTOSSBUILD_PYLON)] + [Probe (NEXUSTRAIN_PROBE)] -> Gateway (PROTOSSBUILD_GATEWAY)",
+                  "Gateway: [Gateway -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE)] -> Gateway (MORPH_WARPGATE)",
+                  "Gateway: [Gateway -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Gateway (MORPH_GATEWAY)"
+                ],
+                "description": [
+                  "The Gateway is a unit production structure for the Protoss , responsible for warping in ground units. Gateways can be warped in by a Probe only within range of the Psionic Matrix , and only if the player controls a Nexus . Like most Protoss structures, the Gateway can only function if it remains within the Matrix, otherwise it becomes unpowered.",
+                  "Initially, the Protoss player can only build the Zealot at the Gateway. After a Cybernetics Core is completed, Stalkers , Sentries and Adepts can also be warped in from the Gateway. Once the player warps in a Templar Archives , High Templar become available, and after a Dark Shrine is acquired, the Dark Templar can be warped in at the Gateway."
+                ],
+                "_section": "Unit"
+              },
+              "target_type": "Train",
+              "ability": {
+                "name": "GATEWAYTRAIN_STALKER",
+                "target": {
+                  "Train": {
+                    "produces_name": "Stalker"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "CyberneticsCore"
+                }
+              ],
+              "required_addon": null
+            },
+            {
+              "produced": {
+                "section": "Unit",
+                "name": "Stalker"
+              },
+              "producer": {
+                "name": "WarpGate",
+                "race": "Protoss",
+                "supply": 0.0,
+                "max_health": 500.0,
+                "armor": 1.0,
+                "sight": 9.0,
+                "speed_creep_mul": 1.0,
+                "weapons": [],
+                "attributes": [
+                  "Armored",
+                  "Structure"
+                ],
+                "size": 0,
+                "radius": 1.8125,
+                "power_radius": 6.5,
+                "accepts_addon": false,
+                "needs_power": true,
+                "needs_creep": false,
+                "needs_geyser": false,
+                "is_structure": true,
+                "is_addon": false,
+                "is_worker": false,
+                "is_townhall": false,
+                "minerals": 150,
+                "gas": 0,
+                "time": 160.0,
+                "max_shield": 500.0,
+                "is_flying": false,
+                "abilities": [
+                  {
+                    "ability_name": "WARPGATETRAIN_ZEALOT"
+                  },
+                  {
+                    "ability_name": "MORPH_GATEWAY"
+                  },
+                  {
+                    "ability_name": "SMART"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "ability_name": "WARPGATETRAIN_STALKER"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "TemplarArchive"
+                      }
+                    ],
+                    "ability_name": "WARPGATETRAIN_HIGHTEMPLAR"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "DarkShrine"
+                      }
+                    ],
+                    "ability_name": "WARPGATETRAIN_DARKTEMPLAR"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "ability_name": "WARPGATETRAIN_SENTRY"
+                  },
+                  {
+                    "requirements": [
+                      {
+                        "building_name": "CyberneticsCore"
+                      }
+                    ],
+                    "ability_name": "TRAINWARP_ADEPT"
+                  }
+                ],
+                "tech_chain": [
+                  "WarpGate: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE)] -> WarpGate (MORPH_WARPGATE)"
+                ],
+                "description": [
+                  "The Warp Gate is a unit producing structure for the Protoss , capable of warping in ground units. Warp Gates provide an ability unique to the Protoss: the rapid creation of units at any location on the map covered by the Psionic Matrix , so long as the location is not obscured by the fog of war. This allows for quick, on-demand deployment of troops at key strategic locations. Warp Gates are created by transforming a Gateway after Warp Gate Research has been completed at the Cybernetics Core . By default, this transformation is set to auto-cast.",
+                  "All units created at the Gateway can also be warped in by a Warp Gate. If a Cybernetics Core is controlled by the player, Stalkers , Sentries and Adepts can be warped in from the Warp Gate. Once the player warps in a Templar Archives , High Templar become available, and after a Dark Shrine is acquired, the Dark Templar can be warped in. If none of these additional buildings are available, then the Warp Gate is only capable of producing the Zealot .",
+                  "Any unit created by the Warp Gate has a typical warp-in time of 11.4 seconds (16 seconds at Normal speed). The warp-in process can be sped up to only 3.6 seconds (5 seconds at Normal speed) if the unit is in the Psionic Matrix of a Pylon which is close to a Nexus or a Warp Gate (a Gateway has no effect). This acceleration can disappear/appear mid warp-in, if the condition cited before disappear/appear (for example, a Pylon is destroyed/warped in, or a Gateway becomes a Warp Gate, or a Warp Gate becomes a Gateway).",
+                  "As the warp-in starts, the Warp Gate enters a variable cooldown period. During this cooldown, the Warp Gate cannot produce any units. The length of the cooldown varies, based on the type of unit warped in, as seen in the table below. If the Psionic Matrix is destroyed during the warp-in period, the resource cost of the unit is fully refunded and the Warp Gate cooldown is reset to zero. [ 1 ] This is the only way to interrupt a warp-in; the warp-in will not be interrupted if the Warp Gate that started it is destroyed or unpowered. The order of Warp Gate use is determined by the proximity of the Warp Gate to the warp-in location; this can be used to find and Chrono Boost Warp Gates with longer cooldowns. [ 2 ]",
+                  "The ability to almost instantaneously produce units at specific locations on the map is a very potent capability for the Protoss, a capability utilized in almost all competitive games.",
+                  "Rather than waiting for the unit to complete at the back end of the production cycle, Warp Gate allows the player to get the unit a short time after paying. Furthermore, Warp Gates are able to warp in units immediately once the seven-second conversion from a Gateway is complete (the cooldown timer is not activated). This means that not only is there no time penalty to switch to Warp Gate, but production is pushed ahead the 30–40 seconds that a unit would otherwise spend in the queue. The vast reduction in queue time, combined with the ability to deploy anywhere in Pylon or Warp Prism power, is a major bonus that makes Warp Gate research essential for every match-up.",
+                  "The length of the Warp Gate cooldown period is, in all cases except Sentry , seven seconds shorter (three seconds for a Sentry) than the length of time required to produce the same unit at a conventional Gateway . This amounts to approximately a 15-35% increase in overall production compared to the Gateway, allowing maximum production with fewer Warp Gates. The saved money causes Warp Gate research to practically pay for itself.",
+                  "It is useful to note that during the warp-in process, the unit warping in is vulnerable in two ways. First, enemy forces can directly attack the warping-in unit, suffering normal damage. During the warp-in period, the unit being created gradually gains health and shields, but if attacked before it is fully constructed, it will have less health and/or shields when it enters the battle. Another vulnerability is the loss of the Psionic Matrix during warp-in. If the Pylon or Warp Prism providing the power field is destroyed (or if the Warp Prism goes out of phasing mode ) while a unit is warping in to that power field, then the unit warping in is instantly destroyed. The unit mineral and vespene costs are fully refunded to the player's resource pool, and the Warp Gate cooldown is reset. This can cause a disruption to the production cycles, but only a brief one if the player is attentive and immediately warps in to a safer location.",
+                  "The Four Gate Rush (often written as 4-gate) is not used in competitive games anymore, but it is a common strategy in the lower leagues. Timing Warpgate Technology and the completion of four Warp Gates at the very earliest moments possible can allow the Protoss player to mount a very powerful rush . The number of Warp Gates (four) is considered the maximum number that can be used efficiently given the player's available resources at the early stage of the game.",
+                  "When going for this rush, the player should begin warping in three Gateways (bringing the total to four) when the Warpgate Research is at 30%. Assuming that you continuously Chrono Boost Warpgate Research, the Gateways will complete at exactly the same time as the research finishes, allowing the player to immediately warp in four units. Alternatively, when not Chrono Boosting Warpgate Research (or only boosting the first half), the player should build the three Gateways at 50% research completion. For more information, see the relevant articles in Protoss Strategy ."
+                ],
+                "normal_mode_name": "Gateway",
+                "tech_alias_names": [
+                  "Gateway"
+                ],
+                "_section": "Unit"
+              },
+              "target_type": "TrainPlace",
+              "ability": {
+                "name": "WARPGATETRAIN_STALKER",
+                "target": {
+                  "TrainPlace": {
+                    "produces_name": "Stalker"
+                  }
+                }
+              },
+              "requirements": [
+                {
+                  "building_name": "CyberneticsCore"
+                }
+              ],
+              "required_addon": null
+            }
+          ],
+          "resolution": {
+            "mode": "entity_key_resolution",
+            "mention": "Stalker",
+            "normalized_mention": "Stalker",
+            "resolved": {
+              "section": "Unit",
+              "name": "Stalker",
+              "race": "Protoss"
+            },
+            "confidence": 1.0,
+            "candidates": [
+              {
+                "section": "Unit",
+                "name": "Stalker",
+                "race": "Protoss"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "step": 1,
+        "tool": "filter_attributes_and_resources",
+        "arguments": {
+          "sections": [
+            "Unit"
+          ],
+          "name_query": "Stalker",
+          "name_mode": "exact",
+          "return_keys": [
+            "name",
+            "minerals",
+            "gas",
+            "supply",
+            "time"
+          ],
+          "limit": 1
+        },
+        "result": {
+          "mode": "query_ir",
+          "count": 1,
+          "results": [
+            {
+              "name": "Stalker",
+              "minerals": 125,
+              "gas": 50,
+              "supply": 2.0,
+              "time": 608.0
+            }
+          ]
+        }
+      },
+      {
+        "step": 1,
+        "tool": "query_tech_tree",
+        "arguments": {
+          "target": "Stalker",
+          "sections": [
+            "Unit"
+          ],
+          "limit": 5
+        },
+        "result": {
+          "mode": "tech_tree",
+          "count": 1,
+          "results": [
+            {
+              "_section": "Unit",
+              "name": "Stalker",
+              "race": "Protoss",
+              "tech_chain": [
+                "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Stalker (GATEWAYTRAIN_STALKER)",
+                "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Stalker (WARPGATETRAIN_STALKER)"
+              ],
+              "parsed_tech_chain": [
+                {
+                  "raw": "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE)] -> Stalker (GATEWAYTRAIN_STALKER)",
+                  "paths": [
+                    [
+                      "Pylon",
+                      "Gateway",
+                      "CyberneticsCore"
+                    ]
+                  ],
+                  "target": "Stalker",
+                  "has_parallel_and": false
+                },
+                {
+                  "raw": "Stalker: [Pylon (PROTOSSBUILD_PYLON) -> Gateway (PROTOSSBUILD_GATEWAY) -> CyberneticsCore (PROTOSSBUILD_CYBERNETICSCORE) -> WarpGateResearch (RESEARCH_WARPGATE) -> WarpGate (MORPH_WARPGATE)] -> Stalker (WARPGATETRAIN_STALKER)",
+                  "paths": [
+                    [
+                      "Pylon",
+                      "Gateway",
+                      "CyberneticsCore",
+                      "WarpGateResearch",
+                      "WarpGate"
+                    ]
+                  ],
+                  "target": "Stalker",
+                  "has_parallel_and": false
+                }
+              ],
+              "description": [
+                "The Stalker is a fast-moving, ranged Protoss ground unit, capable of hitting both air and ground targets. They are warped in at the Gateway , and require a Cybernetics Core .",
+                "The Stalker's name is indicative of its hit-and-run capabilities: they have a relatively high movement speed, and after the Blink upgrade has been researched at the Twilight Council , they can advance or retreat literally in a flash, bypassing rocks and hopping up and down cliffs.",
+                "Stalkers have more health (160 vs 150), but deal less damage than zealots."
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "answer": "The **Stalker** is produced at the **Gateway** (as a trainable unit) or at the **WarpGate** (after Warp Gate Research is completed). The only prerequisite building needed to unlock Stalker production is the **Cybernetics Core**.\n\n**Cost:**\n- Minerals: 125\n- Vespene gas: 50\n- Supply: 2\n- Build time: 608 frames (≈60.8 seconds at normal speed)\n\nThe WarpGate path additionally requires the Warp Gate Research upgrade at the Cybernetics Core, but the Stalker itself does not require any other tech structure."
+  }
+}
