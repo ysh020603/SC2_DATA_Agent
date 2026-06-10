@@ -2,12 +2,28 @@
 
 Map natural-language phrases to fields.
 
-## Resources
+## Resources &amp; Time
 
 - minerals, mineral cost, mineral budget -> `minerals` or `cost.minerals`
 - gas, vespene, vespene gas -> `gas` or `cost.gas`
 - supply, population -> `supply`
 - build time, train time, research time -> `time` or `cost.time`
+
+### Time Conversion (Game Loops to Seconds)
+
+All `time` / `cost.time` values in the data are stored as **game loops** (logical frames).
+
+**Conversion rule:**  
+1 real second = 1 game UI second = **22.4 game loops**
+
+To convert a time value to seconds: **divide by 22.4**.
+
+When presenting any time value in the final answer:
+- Always show both the raw game-loop value from the data and the converted seconds (rounded to 1 decimal).
+- Explicitly annotate that the conversion uses **22.4 game loops per second**.
+- If the raw data provides a time value in game loops, never present it as seconds without this annotated conversion.
+
+Example: `"1440 game loops / 22.4 ~ 64.3 seconds (converted at 22.4 game loops/sec)"`
 
 ## Unit Stats
 

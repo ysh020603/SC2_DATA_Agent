@@ -61,113 +61,6 @@ ENTITY_ALIASES = {
     "\u89e3\u653e\u8005": "Liberator",
     "\u6218\u5217\u5de1\u822a\u8230": "Battlecruiser",
     "\u5927\u548c\u6218\u8230": "Battlecruiser",
-    "兵营": "Barracks",
-    "重工厂": "Factory",
-    "工厂": "Factory",
-    "星港": "Starport",
-    "机场": "Starport",
-    "指挥中心": "CommandCenter",
-    "幽灵军校": "GhostAcademy",
-    "幽灵学院": "GhostAcademy",
-    "工程站": "EngineeringBay",
-    "工程湾": "EngineeringBay",
-    "军械库": "Armory",
-    "科技实验室": "TechLab",
-    "反应堆": "Reactor",
-    "机枪兵": "Marine",
-    "陆战队员": "Marine",
-    "掠夺者": "Marauder",
-    "死神": "Reaper",
-    "幽灵": "Ghost",
-    "坦克": "SiegeTank",
-    "攻城坦克": "SiegeTank",
-    "恶火": "Hellion",
-    "火车": "Hellion",
-    "恶蝠": "HellionTank",
-    "飓风": "Cyclone",
-    "寡妇雷": "WidowMine",
-    "雷神": "Thor",
-    "医疗运输机": "Medivac",
-    "维京": "VikingFighter",
-    "女妖": "Banshee",
-    "渡鸦": "Raven",
-    "解放者": "Liberator",
-    "战列巡航舰": "Battlecruiser",
-    "大和战舰": "Battlecruiser",
-    "星灵枢纽": "Nexus",
-    "主基地": "Nexus",
-    "水晶塔": "Pylon",
-    "气矿": "Assimilator",
-    "吸收舱": "Assimilator",
-    "传送门": "Gateway",
-    "折跃门": "WarpGate",
-    "锻炉": "Forge",
-    "控制核心": "CyberneticsCore",
-    "机械台": "RoboticsFacility",
-    "机械研究所": "RoboticsBay",
-    "星门": "Stargate",
-    "舰队航标": "FleetBeacon",
-    "暮光议会": "TwilightCouncil",
-    "圣堂文库": "TemplarArchive",
-    "黑暗圣坛": "DarkShrine",
-    "狂热者": "Zealot",
-    "追猎者": "Stalker",
-    "哨兵": "Sentry",
-    "使徒": "Adept",
-    "高阶圣堂": "HighTemplar",
-    "黑暗圣堂": "DarkTemplar",
-    "执政官": "Archon",
-    "探机": "Probe",
-    "凤凰": "Phoenix",
-    "先知": "Oracle",
-    "虚空辉光舰": "VoidRay",
-    "航母": "Carrier",
-    "航空母舰": "Carrier",
-    "风暴战舰": "Tempest",
-    "母舰": "Mothership",
-    "观察者": "Observer",
-    "不朽者": "Immortal",
-    "巨像": "Colossus",
-    "棱镜": "WarpPrism",
-    "干扰者": "Disruptor",
-    "幼虫": "Larva",
-    "孵化场": "Hatchery",
-    "二本": "Lair",
-    "主巢": "Hive",
-    "萃取房": "Extractor",
-    "气房": "Extractor",
-    "血池": "SpawningPool",
-    "狗池": "SpawningPool",
-    "进化腔": "EvolutionChamber",
-    "蟑螂温室": "RoachWarren",
-    "毒爆虫巢": "BanelingNest",
-    "刺蛇巢": "HydraliskDen",
-    "感染深渊": "InfestationPit",
-    "飞龙塔": "Spire",
-    "大龙塔": "GreaterSpire",
-    "坑道网络": "NydusNetwork",
-    "雷兽窟": "UltraliskCavern",
-    "潜伏者巢": "LurkerDenMP",
-    "工蜂": "Drone",
-    "小狗": "Zergling",
-    "跳虫": "Zergling",
-    "毒爆": "Baneling",
-    "毒爆虫": "Baneling",
-    "蟑螂": "Roach",
-    "破坏者": "Ravager",
-    "刺蛇": "Hydralisk",
-    "潜伏者": "LurkerMP",
-    "王虫": "Overlord",
-    "眼虫": "Overseer",
-    "女王": "Queen",
-    "飞龙": "Mutalisk",
-    "腐化者": "Corruptor",
-    "巢虫领主": "BroodLord",
-    "感染者": "Infestor",
-    "宿主": "SwarmHostMP",
-    "虫群宿主": "SwarmHostMP",
-    "雷兽": "Ultralisk",
-    "飞蛇": "Viper",
 }
 
 PRODUCTION_TARGET_TYPES = {"Train", "TrainPlace", "Build", "BuildInstant", "BuildOnUnit", "Morph", "MorphPlace"}
@@ -1246,6 +1139,115 @@ def assess_target_compatibility(ability: dict[str, Any] | None, unit: dict[str, 
     return f"The ability target type is {target!r}; direct compatibility cannot be proven from this dataset."
 
 
+def _build_relations_index(data):
+    by_subject = {}
+    by_object = {}
+    for entity_type, entities in data.items():
+        for entity in entities:
+            for rel in entity.get("relations", []):
+                relation = rel.get("relation", "")
+                subj = rel.get("subject_name", "")
+                obj = rel.get("object_name", "")
+                desc = rel.get("description", "")
+                key_s = (relation, subj)
+                if key_s not in by_subject:
+                    by_subject[key_s] = []
+                by_subject[key_s].append({"object_type": entity_type, "object_name": obj, "description": desc})
+                key_o = (relation, obj)
+                if key_o not in by_object:
+                    by_object[key_o] = []
+                by_object[key_o].append({"subject_type": entity_type, "subject_name": subj, "description": desc})
+    for k in list(by_subject):
+        seen = set()
+        deduped = []
+        for item in by_subject[k]:
+            sig = (item["object_type"], item["object_name"], item["description"])
+            if sig not in seen:
+                seen.add(sig)
+                deduped.append(item)
+        by_subject[k] = deduped
+    for k in list(by_object):
+        seen = set()
+        deduped = []
+        for item in by_object[k]:
+            sig = (item["subject_type"], item["subject_name"], item["description"])
+            if sig not in seen:
+                seen.add(sig)
+                deduped.append(item)
+        by_object[k] = deduped
+    return {"by_subject": by_subject, "by_object": by_object}
+
+
+def _query_relation(data, relation_names, entity_name, direction="both"):
+    idx = _build_relations_index(data)
+    results = []
+    for rel_name in relation_names:
+        if direction in ("forward", "both"):
+            for item in idx["by_subject"].get((rel_name, entity_name), []):
+                results.append({
+                    "subject_name": entity_name, "relation": rel_name,
+                    "object_type": item["object_type"], "object_name": item["object_name"],
+                    "description": item["description"], "direction": "forward"
+                })
+        if direction in ("reverse", "both"):
+            for item in idx["by_object"].get((rel_name, entity_name), []):
+                results.append({
+                    "subject_type": item["subject_type"], "subject_name": item["subject_name"],
+                    "relation": rel_name, "object_name": entity_name,
+                    "description": item["description"], "direction": "reverse"
+                })
+    return {"count": len(results), "results": results}
+
+
+def query_counter_relations(entity_name, counter_type="all", data_path=None):
+    if data_path is None:
+        from sc2_search_tools import DEFAULT_DATA_PATH as dp
+        data_path = dp
+    data = load_data(data_path)
+    relations = []
+    if counter_type in ("hard", "all"):
+        relations.append("hard_counters")
+    if counter_type in ("soft", "all"):
+        relations.append("soft_counters")
+    return _query_relation(data, relations, entity_name, direction="both")
+
+def query_combat_synergy(entity_name, direction="both", data_path=None):
+    if data_path is None:
+        from sc2_search_tools import DEFAULT_DATA_PATH as dp
+        data_path = dp
+    data = load_data(data_path)
+    return _query_relation(data, ["synergizes_with"], entity_name, direction=direction)
+
+def query_garrison_relations(entity_name, direction="both", data_path=None):
+    if data_path is None:
+        from sc2_search_tools import DEFAULT_DATA_PATH as dp
+        data_path = dp
+    data = load_data(data_path)
+    return _query_relation(data, ["garrisons_in"], entity_name, direction=direction)
+
+def query_stat_bonuses(entity_name, direction="both", data_path=None):
+    if data_path is None:
+        from sc2_search_tools import DEFAULT_DATA_PATH as dp
+        data_path = dp
+    data = load_data(data_path)
+    return _query_relation(data, ["grants_stat_bonus"], entity_name, direction=direction)
+
+def query_ability_unlocks(entity_name, direction="both", data_path=None):
+    if data_path is None:
+        from sc2_search_tools import DEFAULT_DATA_PATH as dp
+        data_path = dp
+    data = load_data(data_path)
+    return _query_relation(data, ["unlocks_unit_ability"], entity_name, direction=direction)
+
+def query_morph_enablers(entity_name, direction="both", data_path=None):
+    if data_path is None:
+        from sc2_search_tools import DEFAULT_DATA_PATH as dp
+        data_path = dp
+    data = load_data(data_path)
+    return _query_relation(data, ["enables_morph"], entity_name, direction=direction)
+
+
+
 def run_query_ir(query_ir: dict[str, Any], data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
     results = combined_search(
         name_query=query_ir.get("name_query"),
@@ -1325,7 +1327,19 @@ def execute_tool(tool_name: str, arguments: dict[str, Any], data_path: str | Pat
         return call_query_function(search_descriptions, arguments, data_path)
     if tool_name == "strategic_join_analysis":
         return call_query_function(strategic_join_analysis, arguments, data_path)
-    raise ValueError(f"Unknown tool: {tool_name}")
+    if tool_name == "query_counter_relations":
+        return call_query_function(query_counter_relations, arguments, data_path)
+    if tool_name == "query_combat_synergy":
+        return call_query_function(query_combat_synergy, arguments, data_path)
+    if tool_name == "query_garrison_relations":
+        return call_query_function(query_garrison_relations, arguments, data_path)
+    if tool_name == "query_stat_bonuses":
+        return call_query_function(query_stat_bonuses, arguments, data_path)
+    if tool_name == "query_ability_unlocks":
+        return call_query_function(query_ability_unlocks, arguments, data_path)
+    if tool_name == "query_morph_enablers":
+        return call_query_function(query_morph_enablers, arguments, data_path)
+        raise ValueError(f"Unknown tool: {tool_name}")
 
 
 def first_n(values: list[Any], n: int) -> list[Any]:

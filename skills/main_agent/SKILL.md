@@ -10,6 +10,7 @@ Use this skill for natural-language SC2 questions that require planning across U
 - Keep an evidence state after each tool call.
 - Replan from observations when the first result exposes new entities or missing fields.
 - Return the final answer only after all user-requested fields are present or an evidence gap is explicit.
+- **Time in answers:** All `time`/`cost.time` values are in game loops; ensure the answer converts to seconds using **22.4 game loops/sec** and annotates the conversion.
 
 ## Minimal Context Policy
 

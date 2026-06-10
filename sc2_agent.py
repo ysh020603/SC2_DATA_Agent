@@ -23,6 +23,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_DIR = SCRIPT_DIR / "skills" / "sc2_data_query"
 MAIN_AGENT_SKILL_DIR = SCRIPT_DIR / "skills" / "main_agent"
 CONFIG_DIR = SCRIPT_DIR / "config"
+OPTIONAL_SKILLS_DIR = SCRIPT_DIR / "skills" / "optional_skills"
 CONFIG_FILE = CONFIG_DIR / "provider_config.json"
 MAX_AGENT_STEPS = 4
 
@@ -267,6 +268,54 @@ Arguments:
   "filters": object,
   "top_n": integer
 }
+6. query_counter_relations
+Use for hard/soft counter questions: "what counters Marine?", "what does Archon hard-counter?"
+Arguments:
+{
+  "entity_name": string (canonical unit name),
+  "counter_type": optional "hard"|"soft"|"all"
+}
+
+7. query_combat_synergy
+Use for synergy/composition questions: "what units work well with SiegeTank?"
+Arguments:
+{
+  "entity_name": string (canonical unit name),
+  "direction": optional "forward"|"reverse"|"both"
+}
+
+8. query_garrison_relations
+Use for garrison/transport questions: "what units can enter Bunker?", "can SiegeTank load into Medivac?"
+Arguments:
+{
+  "entity_name": string (canonical unit/structure name),
+  "direction": optional "forward"|"reverse"|"both"
+}
+
+9. query_stat_bonuses
+Use for upgrade stat bonus questions: "what upgrades improve MissileTurret?", "what units does HiSecAutoTracking affect?"
+Arguments:
+{
+  "entity_name": string (canonical upgrade or unit name),
+  "direction": optional "forward"|"reverse"|"both"
+}
+
+10. query_ability_unlocks
+Use for upgrade ability unlock questions: "what does Stimpack unlock?", "what upgrades give Marine new abilities?"
+Arguments:
+{
+  "entity_name": string (canonical upgrade or unit name),
+  "direction": optional "forward"|"reverse"|"both"
+}
+
+11. query_morph_enablers
+Use for morph/transform unlock questions: "what upgrade lets Hellion transform?", "what does SmartServos enable?"
+Arguments:
+{
+  "entity_name": string (canonical upgrade or unit name),
+  "direction": optional "forward"|"reverse"|"both"
+}
+
 """
 
 
@@ -395,39 +444,31 @@ def load_skill_context() -> str:
     return "\n\n".join(chunks)
 
 
-def route_skill_names(user_query: str) -> list[str]:
-    lowered = user_query.lower()
-    routed = []
-    production_markers = ["produce", "train", "from", "source", "barracks", "factory", "starport", "\u751f\u4ea7", "\u8bad\u7ec3", "\u9020", "\u54ea\u4e9b\u5355\u4f4d"]
-    tech_markers = ["tech", "unlock", "prerequisite", "destroyed", "broken", "dependency", "\u79d1\u6280", "\u89e3\u9501", "\u524d\u7f6e", "\u4f9d\u8d56"]
-    if any(marker in lowered for marker in production_markers):
-        routed.append("production_chain")
-    if any(marker in lowered for marker in tech_markers):
-        routed.append("tech_dependency")
-    return routed
 
-
-def load_main_agent_context(user_query: str) -> str:
+def load_main_agent_context(selected_skills: list[str], selected_races: list[str]) -> str:
     files = [
         MAIN_AGENT_SKILL_DIR / "SKILL.md",
         MAIN_AGENT_SKILL_DIR / "routing.md",
         SCRIPT_DIR / "skills" / "subagents" / "entity_key_resolver" / "SKILL.md",
     ]
-    for skill_name in route_skill_names(user_query):
-        files.append(MAIN_AGENT_SKILL_DIR / "subskills" / f"{skill_name}.md")
-    race = detect_query_race(user_query)
-    race_context_dir = {
-        "Terran": "terran",
-        "Protoss": "protoss",
-        "Zerg": "zerg",
-    }.get(race or "")
-    if race_context_dir:
-        entity_context = SCRIPT_DIR / "skills" / "subagents" / "entity_key_resolver" / "context" / race_context_dir
-        files.append(entity_context / "units.md")
-        if any(marker in user_query.lower() for marker in ["ability", "abilities", "spell", "spells", "技能", "法术"]):
+
+    # 1. Dynamically load Optional Skills selected by LLM
+    skills_index_path = OPTIONAL_SKILLS_DIR / "index.json"
+    if skills_index_path.exists():
+        skills_index = json.loads(skills_index_path.read_text(encoding="utf-8"))
+        for skill_id in selected_skills:
+            if skill_id in skills_index:
+                files.append(OPTIONAL_SKILLS_DIR / skills_index[skill_id]["file"])
+
+    # 2. Dynamically load race dictionaries selected by LLM
+    for race in selected_races:
+        race_dir = race.lower()
+        if race_dir in ["terran", "protoss", "zerg"]:
+            entity_context = SCRIPT_DIR / "skills" / "subagents" / "entity_key_resolver" / "context" / race_dir
+            files.append(entity_context / "units.md")
             files.append(entity_context / "abilities.md")
-        if any(marker in user_query.lower() for marker in ["upgrade", "research", "升级", "研究"]):
             files.append(entity_context / "upgrades.md")
+
     chunks = []
     for path in files:
         if path.exists():
@@ -435,9 +476,57 @@ def load_main_agent_context(user_query: str) -> str:
     return "\n\n".join(chunks)
 
 
+def router_prompt(user_query: str) -> list[dict[str, str]]:
+    """Build Context Router prompt so the LLM picks Skills and race dictionaries from the user query."""
+    skills_index_path = OPTIONAL_SKILLS_DIR / "index.json"
+    skills_summary: dict[str, dict[str, str]] = {}
+    if skills_index_path.exists():
+        skills_summary = json.loads(skills_index_path.read_text(encoding="utf-8"))
+
+    skills_text = "\n".join([f"- {skill_id}: {info['description']}" for skill_id, info in skills_summary.items()])
+
+    system = f"""
+You are a Context Router for a StarCraft II Agent. Your task is to analyze the user's query and decide which optional skills and race-specific data dictionaries should be loaded into the working memory.
+
+Available Optional Skills (Summaries):
+{skills_text}
+
+Available Race Dictionaries:
+- Terran
+- Protoss
+- Zerg
+
+Rules:
+1. Select skills ONLY if their description matches the user's intent. Leave empty if none match.
+2. Select a race ONLY if the query implies or mentions units/mechanics of that race.
+3. Return valid JSON only.
+
+Output Schema:
+{{
+  "selected_skills": ["skill_id_1"],
+  "selected_races": ["Terran"]
+}}
+"""
+    return [{"role": "system", "content": system}, {"role": "user", "content": user_query}]
+
+
+def llm_context_router(user_query: str, provider: str, model: str | None) -> dict[str, list[str]]:
+    """Call LLM to decide which contexts to load."""
+    try:
+        response = call_llm(
+            router_prompt(user_query),
+            provider=provider,
+            model=model,
+            enable_reasoning=False,
+        )
+        return parse_json_response(response)
+    except Exception as e:
+        print(f"Router failed: {e}. Falling back to empty context.")
+        return {"selected_skills": [], "selected_races": []}
+
 def planner_prompt(
     user_query: str,
-    response_language: str = "Chinese",
+    context_text: str,
     state: dict[str, Any] | None = None,
 ) -> list[dict[str, str]]:
     state = state or {"observations": [], "step": 0}
@@ -451,7 +540,6 @@ Rules:
 - For multi-hop questions, call tools step by step. Use observations from previous steps before planning the next step.
 - Use resolve_entity_key when a user-facing name may need canonical Unit/Ability/Upgrade keys.
 - Use query_production_outputs or query_reverse_production_sources for production joins instead of trying to compose this with generic filters.
-- Use Chinese aliases only as input names; output tool arguments must use internal English field names.
 - Do not answer the user directly. Planning only.
 - Keep limits modest unless the user asks for exhaustive output.
 - If enough evidence has been collected, return status "final" with no tool calls.
@@ -462,7 +550,7 @@ Core skill context:
 {load_skill_context()}
 
 Selected main-agent skill context:
-{load_main_agent_context(user_query)}
+{context_text}
 """
     user = f"""
 User query:
@@ -473,12 +561,11 @@ Current state:
 
 Return JSON with this schema:
 {{
-  "language": "{response_language}",
   "status": "need_tools"|"final",
   "tool_calls": [
     {{"tool": "tool_name", "arguments": {{}}}}
   ],
-  "notes": ["short planning notes in English"]
+  "notes": [string]
 }}
 """
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
@@ -488,13 +575,11 @@ def answer_prompt(
     user_query: str,
     plan: dict[str, Any],
     tool_results: list[dict[str, Any]],
-    response_language: str = "Chinese",
 ) -> list[dict[str, str]]:
     system = """
-You are an SC2 data analyst. Use the provided tool results to answer the user's question.
+You are an SC2 data analyst. Use the provided tool results to answer the user's question. Respond in English.
 
 Rules:
-- Answer strictly in the requested response language.
 - Do not output raw JSON.
 - Summarize the useful findings, mention counts, and explain why the results match.
 - If the evidence is incomplete or approximate, say so clearly.
@@ -503,9 +588,6 @@ Rules:
     user = f"""
 Original user query:
 {user_query}
-
-Requested response language:
-{response_language}
 
 Tool plan:
 {json.dumps(plan, ensure_ascii=False, indent=2)}
@@ -564,31 +646,6 @@ def detect_query_race(user_query: str) -> str | None:
 def infer_target_name(user_query: str, fallback: str) -> str:
     aliases = dict(ENTITY_ALIASES)
     aliases.update({
-        "母舰": "Mothership",
-        "控制核心": "CyberneticsCore",
-        "兴奋剂": "Stimpack",
-        "大和战舰": "Battlecruiser",
-        "战列巡航舰": "Battlecruiser",
-        "兵营": "Barracks",
-        "重工厂": "Factory",
-        "工厂": "Factory",
-        "幽灵军校": "GhostAcademy",
-        "幽灵学院": "GhostAcademy",
-        "工程站": "EngineeringBay",
-        "工程湾": "EngineeringBay",
-        "军械库": "Armory",
-        "科技实验室": "TechLab",
-        "反应堆": "Reactor",
-        "掠夺者": "Marauder",
-        "恶火": "Hellion",
-        "寡妇雷": "WidowMine",
-        "攻城坦克": "SiegeTank",
-        "坦克": "SiegeTank",
-        "渡鸦": "Raven",
-        "女妖": "Banshee",
-        "解放者": "Liberator",
-        "机场": "Starport",
-        "星港": "Starport",
     })
     for alias, name in aliases.items():
         if alias in user_query:
@@ -612,8 +669,7 @@ def infer_target_name(user_query: str, fallback: str) -> str:
             return name
     return fallback
 
-
-def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[str, Any]:
+def fallback_plan(user_query: str, ) -> dict[str, Any]:
     lowered = user_query.lower()
     race_hint = detect_query_race(user_query)
     if any(marker in lowered for marker in ["research", "upgrades", "upgrade", "\u7814\u7a76", "\u5347\u7ea7"]) and not any(
@@ -621,7 +677,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
     ):
         producer = infer_target_name(user_query, None)
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -640,8 +695,7 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
     if any(marker in lowered for marker in ["addon", "tech lab", "techlab", "reactor", "without tech lab", "\u6302", "\u79d1\u6280\u5b9e\u9a8c\u5ba4", "\u53cd\u5e94\u5806", "\u4e0d\u6302", "\u53cc\u4ea7"]):
         if any(marker in lowered for marker in ["all", "which structures", "\u6240\u6709", "\u54ea\u4e9b\u5efa\u7b51", "\u54ea\u4e9b\u80fd\u6302"]):
             return {
-                "language": response_language,
-                "status": "need_tools",
+                    "status": "need_tools",
                 "tool_calls": [
                     {
                         "tool": "query_addon_producers",
@@ -660,8 +714,7 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
             producer = infer_target_name(user_query, user_query)
         if any(marker in lowered for marker in ["which upgrades", "upgrades", "research", "\u54ea\u4e9b\u5347\u7ea7", "\u5347\u7ea7", "\u7814\u7a76"]):
             return {
-                "language": response_language,
-                "status": "need_tools",
+                    "status": "need_tools",
                 "tool_calls": [
                     {
                         "tool": "query_research_outputs",
@@ -671,7 +724,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
                 "notes": ["Fallback plan: research outputs requiring TechLab."],
             }
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -685,7 +737,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
     if any(marker in lowered for marker in ["from which", "where is", "source", "produced from", "\u4ece\u54ea\u4e2a\u5efa\u7b51", "\u54ea\u4e2a\u5efa\u7b51\u751f\u4ea7", "\u4ece\u54ea\u6765"]):
         target = infer_target_name(user_query, user_query)
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -706,7 +757,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
     if any(marker in lowered for marker in ["abilities", "spells", "energy", "cast range", "cooldown", "target type", "\u6280\u80fd", "\u80fd\u91cf", "\u5c04\u7a0b", "\u51b7\u5374", "\u76ee\u6807\u7c7b\u578b"]):
         unit = infer_target_name(user_query, None)
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -726,7 +776,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
     if any(marker in lowered for marker in ["destroyed", "missing", "not built", "dependency", "depend", "\u88ab\u6253\u6389", "\u6ca1\u6709\u5efa\u597d", "\u4e0d\u53ef\u7528", "\u4f9d\u8d56", "\u5f71\u54cd"]):
         node = infer_target_name(user_query, user_query)
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -739,7 +788,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
 
     if any(marker in lowered for marker in ["engineeringbay", "engineering bay", "infantry weapons", "infantry armor", "\u5de5\u7a0b\u7ad9", "\u6b65\u5175\u653b\u9632", "\u6b65\u5175\u5347\u7ea7"]):
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -752,7 +800,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
 
     if any(marker in lowered for marker in ["stimpack", "\u5174\u594b\u5242"]):
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -765,7 +812,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
 
     if any(marker in lowered for marker in ["gas units", "cost gas", "vespene", "\u9700\u8981\u6c14", "\u8017\u6c14", "\u6c14\u4f53"]):
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -778,7 +824,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
 
     if any(marker in lowered for marker in ["anti-air", "attack air", "\u5bf9\u7a7a"]):
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -796,7 +841,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
 
     if any(marker in lowered for marker in ["fastest", "without techlab", "without tech lab", "\u6700\u5feb", "\u6ca1\u6709 tech lab", "\u6ca1\u6709\u79d1\u6280\u5b9e\u9a8c\u5ba4"]):
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -825,7 +869,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
         producer = infer_target_name(user_query, user_query)
         target_types = ["Train", "Morph"] if producer == "Larva" else ["Train"]
         return {
-            "language": response_language,
             "status": "need_tools",
             "tool_calls": [
                 {
@@ -852,13 +895,13 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
         "build",
         "destroyed",
         "broken",
-        "科技链",
-        "前置",
-        "解锁",
-        "建造",
-        "摧毁",
-        "断掉",
-        "多路径",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
     ]
     if any(marker in lowered for marker in tech_markers):
         target = user_query
@@ -866,22 +909,21 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
             "to build",
             "build",
             "unlock",
-            "建造",
-            "解锁",
-            "所需",
-            "完整",
-            "科技链",
-            "。",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ".",
-            "？",
+            "",
             "?",
         ]:
             target = target.replace(marker, " ")
         target = infer_target_name(user_query, " ".join(target.split()) or user_query)
-        if "destroyed" in lowered or "broken" in lowered or "摧毁" in lowered or "断掉" in lowered:
+        if "destroyed" in lowered or "broken" in lowered or "" in lowered or "" in lowered:
             return {
-                "language": response_language,
-                "tool_calls": [
+                    "tool_calls": [
                     {
                         "tool": "query_tech_tree",
                         "arguments": {"broken_node": target, "sections": ["Unit", "Upgrade"], "limit": 50},
@@ -890,7 +932,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
                 "notes": ["Fallback plan: reverse tech-chain query."],
             }
         return {
-            "language": response_language,
             "tool_calls": [
                 {
                     "tool": "query_tech_tree",
@@ -900,7 +941,6 @@ def fallback_plan(user_query: str, response_language: str = "Chinese") -> dict[s
             "notes": ["Fallback plan: tech-chain query."],
         }
     return {
-        "language": response_language,
         "tool_calls": [
             {
                 "tool": "search_descriptions",
@@ -918,8 +958,21 @@ def run_agent(
     data_path: str | Path = DEFAULT_DATA_PATH,
     dry_run: bool = False,
     enable_reasoning: bool = DEFAULT_ENABLE_REASONING,
-    response_language: str = "Chinese",
+    response_language: str = "English",
 ) -> dict[str, Any]:
+
+    # === Phase 1: LLM Context Routing ===
+    if dry_run:
+        routing_decision: dict[str, list[str]] = {"selected_skills": [], "selected_races": []}
+    else:
+        routing_decision = llm_context_router(user_query, provider, model)
+
+    context_text = load_main_agent_context(
+        routing_decision.get("selected_skills", []),
+        routing_decision.get("selected_races", []),
+    )
+    # ===================================
+
     state: dict[str, Any] = {"step": 0, "observations": []}
     plans = []
     tool_results = []
@@ -929,12 +982,12 @@ def run_agent(
         state["step"] = step
         planner_failed = False
         if dry_run:
-            plan = fallback_plan(user_query, response_language=response_language)
+            plan = fallback_plan(user_query)
         else:
             try:
                 plan = parse_json_response(
                     call_llm(
-                        planner_prompt(user_query, response_language, state=state),
+                        planner_prompt(user_query, context_text, state=state),
                         provider=provider,
                         model=model,
                         enable_reasoning=enable_reasoning,
@@ -943,7 +996,7 @@ def run_agent(
             except Exception as exc:  # noqa: BLE001
                 planner_error = exc
                 planner_failed = True
-                plan = fallback_plan(user_query, response_language=response_language)
+                plan = fallback_plan(user_query)
                 plan["planner_error"] = repr(exc)
         plans.append(plan)
 
@@ -965,21 +1018,21 @@ def run_agent(
         if dry_run or planner_failed:
             break
 
-    plan_bundle = {"language": response_language, "steps": plans, "observations": state["observations"]}
+    plan_bundle = {"steps": plans, "observations": state["observations"]}
     if dry_run:
-        answer = dry_run_answer(tool_results, response_language=response_language)
+        answer = dry_run_answer(tool_results)
     elif planner_error is not None:
-        answer = fallback_answer(tool_results, planner_error, response_language=response_language)
+        answer = fallback_answer(tool_results, planner_error)
     else:
         try:
             answer = call_llm(
-                answer_prompt(user_query, plan_bundle, tool_results, response_language),
+                answer_prompt(user_query, plan_bundle, tool_results),
                 provider=provider,
                 model=model,
                 enable_reasoning=enable_reasoning,
             )
         except Exception as exc:  # noqa: BLE001
-            answer = fallback_answer(tool_results, exc, response_language=response_language)
+            answer = fallback_answer(tool_results, exc)
 
     return {"query": user_query, "plan": plan_bundle, "tool_results": tool_results, "answer": answer}
 
@@ -997,11 +1050,8 @@ def compact_tool_results(tool_results: list[dict[str, Any]], max_items: int = 30
     return compacted
 
 
-def dry_run_answer(tool_results: list[dict[str, Any]], response_language: str = "Chinese") -> str:
-    if response_language == "English":
-        lines = ["Dry run completed. Tool calls were executed without LLM summarization."]
-    else:
-        lines = ["试运行已完成。工具调用已执行，下面是结构化检索摘要："]
+def dry_run_answer(tool_results: list[dict[str, Any]]) -> str:
+    lines = ["Dry run completed. Tool calls were executed without LLM summarization."]
     for tool_result in tool_results:
         result = tool_result.get("result") or {}
         lines.append(f"- {tool_result.get('tool')}: {result.get('count', 'unknown')} results")
@@ -1030,12 +1080,9 @@ def dry_run_answer(tool_results: list[dict[str, Any]], response_language: str = 
     return "\n".join(lines)
 
 
-def fallback_answer(tool_results: list[dict[str, Any]], exc: Exception, response_language: str = "Chinese") -> str:
-    if response_language == "English":
-        lines = [f"LLM planning or summarization failed: {exc!r}", "Deterministic retrieval summary:"]
-    else:
-        lines = [f"LLM 规划或总结失败：{exc!r}", "下面是确定性工具检索摘要："]
-    summary = dry_run_answer(tool_results, response_language=response_language).splitlines()
+def fallback_answer(tool_results: list[dict[str, Any]], exc: Exception) -> str:
+    lines = [f"LLM planning or summarization failed: {exc!r}", "Deterministic retrieval summary:"]
+    summary = dry_run_answer(tool_results).splitlines()
     return "\n".join(lines + summary[1:])
 
 
@@ -1044,7 +1091,6 @@ def main() -> None:
     parser.add_argument("query", nargs="+")
     parser.add_argument("--provider", default=DEFAULT_PROVIDER)
     parser.add_argument("--model", default=None)
-    parser.add_argument("--language", default="Chinese", choices=["Chinese", "English"])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--reasoning", action="store_true")
     args = parser.parse_args()
@@ -1054,7 +1100,7 @@ def main() -> None:
         model=args.model,
         dry_run=args.dry_run,
         enable_reasoning=args.reasoning,
-        response_language=args.language,
+        
     )
     print(result["answer"])
     print("\n--- Tool trace ---")

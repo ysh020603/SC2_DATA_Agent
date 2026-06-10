@@ -1,14 +1,14 @@
-# DATA_BASE JSON Structure
+﻿# DATA_BASE_ADD_GRAPH JSON Structure
 
-`DATA_BASE/data_base.json` is derived from `data.json`. It keeps the original top-level sections, replaces internal numeric ids with searchable names, and adds two fields to every Ability, Unit, and Upgrade object: `tech_chain` and `description`.
+`data_base_add_graph.json` is derived from `data.json`. It keeps the original top-level sections, replaces internal numeric ids with searchable names, and adds three fields to every Ability, Unit, and Upgrade object: `tech_chain`, `description`, and `relations`.
 
 ## Top-Level Object
 
 | Key | Type | Meaning |
 | --- | --- | --- |
-| `Ability` | list<object> | Ability/action records copied from `data.json`, enriched with chain and description lists. |
-| `Unit` | list<object> | Unit/building records copied from `data.json`, enriched with chain and description lists. |
-| `Upgrade` | list<object> | Upgrade/technology records copied from `data.json`, enriched with chain and description lists. |
+| `Ability` | list<object> | Ability/action records copied from `data.json`, enriched with chain, description, and relation lists. |
+| `Unit` | list<object> | Unit/building records copied from `data.json`, enriched with chain, description, and relation lists. |
+| `Upgrade` | list<object> | Upgrade/technology records copied from `data.json`, enriched with chain, description, and relation lists. |
 
 Current counts:
 
@@ -20,12 +20,13 @@ Current counts:
 
 ## Common Added Keys
 
-These two keys are present on every object in `Ability`, `Unit`, and `Upgrade`.
+These three keys are present on every object in `Ability`, `Unit`, and `Upgrade`.
 
 | Key | Type | Meaning |
 | --- | --- | --- |
 | `tech_chain` | list<string> | Action-chain text matched from `DATA_0/action_chain_text.json`. If the item has one chain, the list has one string. If it has multiple alternative chains, each option is stored as a separate list element. A string may contain `[path A] + [path B] -> target`, where `+` means parallel AND requirements. |
 | `description` | list<string> | Plain-text descriptions mapped from the description sources. Source metadata is intentionally not stored in this field. |
+| `relations` | list<object> | Inter-entity relationship edges. Each relation object contains `subject_name`, `relation`, `object_name`, and `description` (see Relations section below). Objects without matched relations still include this key with an empty list. |
 
 ## Description Sources
 
@@ -45,6 +46,45 @@ Description coverage in this build:
 | `Unit` | 118 |
 | `Upgrade` | 84 |
 
+## Relations
+
+Relation coverage in this build:
+
+| Section | Entries with non-empty `relations` |
+| --- | ---: |
+| `Ability` | 345 |
+| `Unit` | 180 |
+| `Upgrade` | 72 |
+
+Each relation object has these keys:
+
+| Key | Type | Meaning |
+| --- | --- | --- |
+| `subject_name` | string | The name of the entity this relation belongs to (matches the parent object `name`). |
+| `relation` | string | The relationship type. See table below for all types and their direction. |
+| `object_name` | string | The name of the entity on the other side of the relation. |
+| `description` | string | A natural-language sentence describing this specific relation. |
+
+### Relation Types
+
+| Relation | Count | Direction |
+| --- | ---: | --- |
+| `action_result` | 326 | Source ability → result entity (buff/effect/unit). |
+| `synergizes_with` | 223 | Source entity → synergistic partner. |
+| `soft_counters` | 311 | Source entity → entity it soft-counters. |
+| `hard_counters` | 205 | Source entity → entity it hard-counters. |
+| `grants_stat_bonus` | 207 | Source upgrade → entity receiving stats. |
+| `has_ability` | 1078 | Source unit/building → ability it can use. |
+| `ability_requires_unit` | 126 | Source ability → unit required. |
+| `ability_requires_upgrade` | 60 | Source ability → upgrade required. |
+| `morphs_into` | 123 | Source unit → morphed form. |
+| `produces` | 108 | Source building → unit it can produce. |
+| `researches` | 105 | Source building → upgrade it can research. |
+| `unlocks_unit_ability` | 61 | Source building/upgrade → ability it unlocks. |
+| `spawns` | 47 | Source unit → unit it can spawn. |
+| `garrisons_in` | 28 | Source unit → loadable transport/structure. |
+| `enables_morph` | 15 | Source entity → morph target it enables. |
+
 ## Ability Object Keys
 
 Ability objects keep searchable `data.json` fields when present:
@@ -63,6 +103,7 @@ Ability objects keep searchable `data.json` fields when present:
 | `remaps_to_ability_name` | string or null | Optional generic ability name that this specific command remaps to. Missing source ids are stored as `null`. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added ability/action descriptions. |
+| `relations` | list<object> | Added relation edges. |
 
 ## Unit Object Keys
 
@@ -105,6 +146,7 @@ Unit objects keep searchable `data.json` fields when present:
 | `normal_mode_name` | string | Normal/base form name for transformed variants, when present. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added unit/building descriptions. |
+| `relations` | list<object> | Added relation edges. |
 
 ## Upgrade Object Keys
 
@@ -116,12 +158,14 @@ Upgrade objects keep searchable `data.json` fields when present:
 | `cost` | object | Cost payload, usually with `minerals`, `gas`, and `time`. |
 | `tech_chain` | list<string> | Added chain list. |
 | `description` | list<string> | Added upgrade/technology descriptions. |
+| `relations` | list<object> | Added relation edges. |
 
 ## Build Notes
 
 - `tech_chain` values are copied from `DATA_0/action_chain_text.json`.
 - `description` values are plain strings only; source file paths and URLs are deliberately removed.
+- `relations` edges are derived from multiple cross-reference sources. Relation target names are resolved against the same canonical name set as the rest of the database.
 - Internal numeric ids are removed from stored records and id references are replaced with names for retrieval quality.
 - The JSON itself does not store source metadata. Source files are documented here instead.
-- Objects without a matched chain or description still include the corresponding key with an empty list.
+- Objects without a matched chain, description, or relation still include the corresponding key with an empty list.
 - The builder script is `build_data_base.py`.

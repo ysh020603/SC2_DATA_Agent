@@ -1,0 +1,14 @@
+{
+  "production_chain": {
+    "description": "用于解决生产链问题：查询某个建筑或单位能生产、训练、建造、孵化或研究什么。",
+    "file": "production_chain.md"
+  },
+  "tech_dependency": {
+    "description": "用于解决科技与依赖问题：查询单位/科技的前置解锁条件、依赖路径、或某建筑被摧毁后的影响。",
+    "file": "tech_dependency.md"
+  },
+  "combat_production_filter": {
+    "description": "Used for production-path + combat-filter compound queries: which units from a specified producer or tech line have specific combat attributes (anti-air, anti-ground, range, speed, etc.), optionally sorted by cost, time, or combat stats.",
+    "file": "combat_production_filter.md"
+  }
+}

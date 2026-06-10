@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reusable search/filter tools for DATA_BASE/data_base.json.
+"""Reusable search/filter tools for DATA_BASE/data_base_add_graph.json.
 
 The functions in this module are intentionally plain Python so they can be
 wrapped as Agent tools later. Each search function can run independently, and
@@ -19,9 +19,9 @@ from typing import Any, Iterable
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_DATA_PATH = (
-    SCRIPT_DIR / "data_base.json"
-    if (SCRIPT_DIR / "data_base.json").exists()
-    else SCRIPT_DIR / "DATA_BASE" / "data_base.json"
+    SCRIPT_DIR / "data_base_add_graph.json"
+    if (SCRIPT_DIR / "data_base_add_graph.json").exists()
+    else SCRIPT_DIR / "DATA_BASE" / "data_base_add_graph.json"
 )
 DEFAULT_SECTIONS = ("Ability", "Unit", "Upgrade")
 
@@ -360,7 +360,7 @@ def parse_key_list(text: str | None) -> list[str] | None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Search DATA_BASE/data_base.json.")
+    parser = argparse.ArgumentParser(description="Search DATA_BASE/data_base_add_graph.json.")
     parser.add_argument("--name", default=None)
     parser.add_argument("--name-mode", default="contains", choices=["exact", "contains", "fuzzy"])
     parser.add_argument("--sections", default=None, help="Comma separated: Ability,Unit,Upgrade")
