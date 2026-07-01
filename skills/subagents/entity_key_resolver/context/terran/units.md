@@ -1,6 +1,6 @@
 # Terran Unit Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `Armory` (Terran) - The Armory is a Terran tech building that requires a Factory to be built. It unlocks the Thor and Hellbat units at the Factory and the Level 2 & 3 Infantry upgrades at the Engineer
 - `AutoTurret` (Terran) - The Auto-Turret is a temporary and immobile structure deployed by the Raven at the cost of 50 energy. It automatically attacks nearby air and ground targets that come within its ra

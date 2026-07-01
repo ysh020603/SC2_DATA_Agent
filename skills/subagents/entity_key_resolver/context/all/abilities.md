@@ -1,6 +1,6 @@
 # All Ability Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `ADEPTPHASESHIFT_ADEPTPHASESHIFT` (Protoss, Point) - Activate the Adept's Phase Shift ability, allowing it to teleport to its psionic shade after a short delay, bypassing obstacles and enemy units.
 - `AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD` (Zerg, Point)

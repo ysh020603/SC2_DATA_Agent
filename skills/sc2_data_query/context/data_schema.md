@@ -1,59 +1,31 @@
-# Data Schema
+# Dataset Schema
 
-The dataset has three top-level sections.
+The active release is `data_sc2_260701/data_base_sc2_260701.json`.
 
-## Ability
+## Collections
 
-Ability records represent actions, skills, commands, research actions, build commands, train commands, and morph commands.
+- `Ability`: 683 commands, casts, builds, trains, researches, and morph actions.
+- `Unit`: 204 units, structures, alternate forms, and temporary entities.
+- `Upgrade`: 124 technologies and improvements.
+- `SubOntology`: 109 canonical Unit classes.
 
-Important fields:
+## New Unit fields
 
-- `id`: numeric ability id.
-- `name`: internal ability name.
-- `cast_range`: cast range.
-- `energy_cost`: energy required.
-- `allow_minimap`: whether minimap targeting is allowed.
-- `allow_autocast`: whether autocast is supported.
-- `cooldown`: cooldown value.
-- `target`: target type or structured payload such as `Build`, `Train`, `Morph`, or `Research`.
-- `tech_chain`: list of chain strings.
-- `description`: list of plain-language descriptions.
+- `attack_type`: `None`, `Ground`, `Air`, or `Both`.
+- `dimension_a_classes`: membership in the 28 primary Unit classes.
 
-## Unit
+## SubOntology fields
 
-Unit records include units, buildings, add-ons, forms, summons, and some hidden or technical variants.
+- `name`, `entity_type`, `level`, `parents`, `members`, `description`, `relations`.
+- `level` is `dimension_a`, `race`, or `secondary`.
+- Secondary classes are non-empty Race × Dimension intersections.
 
-Important fields:
+## Unified relation object
 
-- `id`: numeric unit id.
-- `name`: internal unit name.
-- `race`: `Terran`, `Protoss`, or `Zerg`.
-- `supply`: supply used, or supply provided when negative.
-- `max_health`, `max_shield`, `armor`, `sight`, `speed`.
-- `minerals`, `gas`, `time`: resource and production fields.
-- `attributes`: tags such as `Armored`, `Light`, `Biological`, `Mechanical`, `Structure`, `Massive`, `Psionic`.
-- `weapons`: list of weapon records.
-- `abilities`: list of ability id references.
-- `is_structure`, `is_flying`, `is_worker`, `is_townhall`, `is_addon`.
-- `accepts_addon`, `needs_power`, `needs_creep`, `needs_geyser`.
-- `normal_mode`: base form id for transformed variants.
-- `tech_chain`: list of chain strings.
-- `description`: list of plain-language descriptions.
+Every relation contains `relation_id`, typed subject and object names, `relation`, list-valued `description`, list-valued `source`, and list-valued `fact`.
 
-## Upgrade
+Source kinds are `structured_data_direct`, `structured_data_inference`, `markdown_semantic_extraction`, `subontology_expansion`, and `pending_postprocess`.
 
-Upgrade records represent researched technologies.
+Markdown facts contain document path, document entity, race, heading path, one-based line range, block ID, fact ID, and exact evidence text.
 
-Important fields:
-
-- `id`: numeric upgrade id.
-- `name`: internal upgrade name.
-- `cost.minerals`, `cost.gas`, `cost.time`.
-- `tech_chain`: list of chain strings.
-- `description`: list of plain-language descriptions.
-
-## Join Rules
-
-- `Unit.abilities[*].ability` joins to `Ability.id`.
-- `Ability.target.Research.upgrade` joins to `Upgrade.id`.
-- `Ability.target.*.produces` joins to `Unit.id`.
+The semantic relations are `counters`, `synergizes_with`, `garrisons_in`, `grants_stat_bonus`, and `enables_morph`. Structured relations include production, research, abilities, requirements, spawns, morphs, action results, and ability unlocks.

@@ -5,63 +5,25 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any
 
-try:
-    from openai import OpenAI
-except ModuleNotFoundError:  # pragma: no cover - dry-run and deterministic tests do not need the SDK.
-    OpenAI = None
-
+from API_Tools.llm_caller import call_openai_detailed, load_agent_pool
+from sc2_data_store import get_dataset_store
 from sc2_query_engine import ENTITY_ALIASES, execute_tool
 from sc2_search_tools import DEFAULT_DATA_PATH
+from sc2_trace import TraceRecorder
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_DIR = SCRIPT_DIR / "skills" / "sc2_data_query"
 MAIN_AGENT_SKILL_DIR = SCRIPT_DIR / "skills" / "main_agent"
-CONFIG_DIR = SCRIPT_DIR / "config"
 OPTIONAL_SKILLS_DIR = SCRIPT_DIR / "skills" / "optional_skills"
-CONFIG_FILE = CONFIG_DIR / "provider_config.json"
-MAX_AGENT_STEPS = 4
+MAX_AGENT_STEPS = 10
 
-DEFAULT_PROVIDER = "glm-4.7"
+DEFAULT_PROVIDER = "DeepSeek-V4-flash"
 DEFAULT_ENABLE_REASONING = False
-DEFAULT_LLM_TIMEOUT_SECONDS = 180.0
-PROVIDER_PRESETS: dict[str, dict[str, Any]] = {
-    "kimi-k2.5": {
-        "model": "kimi-k2.5",
-        "api_key": "",
-        "base_url": "http://172.18.39.161:19003/v1",
-        "temperature": 0.2,
-        "top_p": 0.8,
-        "max_tokens": 8192,
-    },
-    "deepseek-v4-flash": {
-        "model": "deepseek-v4-flash",
-        "api_key": "",
-        "base_url": "https://api.deepseek.com/v1",
-        "temperature": 0.2,
-        "top_p": 0.8,
-        "max_tokens": 8192,
-    },
-    "glm-4.7": {
-        "model": "glm-4.7",
-        "api_key": "",
-        "base_url": "https://open.bigmodel.cn/api/paas/v4",
-        "temperature": 0.2,
-        "top_p": 0.8,
-        "max_tokens": 8192,
-    },
-}
-
-ENV_OVERRIDES = {
-    "kimi-k2.5": {"api_key": "KIMI_API_KEY", "base_url": "KIMI_BASE_URL"},
-    "deepseek-v4-flash": {"api_key": "DEEPSEEK_API_KEY", "base_url": "DEEPSEEK_BASE_URL"},
-    "glm-4.7": {"api_key": "GLM_API_KEY", "base_url": "GLM_BASE_URL"},
-}
 
 
 TOOL_SPEC = """
@@ -72,7 +34,7 @@ Use as the entity-key resolver subagent. It resolves user mentions or aliases in
 Arguments:
 {
   "mention": string,
-  "expected_section": optional "Unit"|"Ability"|"Upgrade",
+  "expected_section": optional "Unit"|"Ability"|"Upgrade"|"SubOntology",
   "sections": optional list,
   "race": optional string,
   "limit": integer
@@ -82,7 +44,7 @@ Arguments:
 Use to fetch one canonical entity record by section/name.
 Arguments:
 {
-  "section": "Unit"|"Ability"|"Upgrade",
+  "section": "Unit"|"Ability"|"Upgrade"|"SubOntology",
   "name": string,
   "keys": optional list of key paths
 }
@@ -269,11 +231,11 @@ Arguments:
   "top_n": integer
 }
 6. query_counter_relations
-Use for hard/soft counter questions: "what counters Marine?", "what does Archon hard-counter?"
+Use for unified counter questions in the 2026-07-01 graph.
 Arguments:
 {
   "entity_name": string (canonical unit name),
-  "counter_type": optional "hard"|"soft"|"all"
+  "direction": optional "forward"|"reverse"|"both"
 }
 
 7. query_combat_synergy
@@ -316,89 +278,66 @@ Arguments:
   "direction": optional "forward"|"reverse"|"both"
 }
 
+12. get_subontology / list_subontology_members / query_unit_classes / filter_units_by_subontology
+Use these for ontology classes such as GroundUnits, Spellcasters, Terran_AirUnits, or for class membership questions.
+
+13. query_relations / query_relation_evidence
+Use query_relations for generic typed graph traversal. Use query_relation_evidence with relation_id or fact_id to retrieve provenance.
+
+14. resolve_markdown_documents / read_markdown_evidence / search_markdown
+Use these to route an entity or semantic question to the release Markdown corpus and retrieve exact, line-addressable evidence.
+
 """
 
 
-def model_family(model_name: str) -> str:
-    name = model_name.lower()
-    if "kimi" in name:
-        return "kimi"
-    if "glm" in name:
-        return "glm"
-    if "deepseek" in name:
-        return "deepseek"
-    if "qwen" in name:
-        return "qwen"
-    return "generic"
-
-
-def build_inference_config(
-    model_name: str,
-    enable_reasoning: bool,
-    temperature: float | None = None,
-    top_p: float | None = None,
-    max_tokens: int | None = None,
-) -> dict[str, Any]:
-    config: dict[str, Any] = {"model": model_name}
-    if temperature is not None:
-        config["temperature"] = temperature
-    if top_p is not None:
-        config["top_p"] = top_p
-    if max_tokens is not None:
-        config["max_tokens"] = max_tokens
-    family = model_family(model_name)
-    if enable_reasoning:
-        if family == "kimi":
-            config["temperature"] = 1.0
-            config["extra_body"] = {"thinking": {"type": "enabled"}, "chat_template_kwargs": {"thinking": True}}
-        elif family in {"glm", "deepseek"}:
-            config["extra_body"] = {"thinking": {"type": "enabled"}}
-        elif family == "qwen":
-            config["extra_body"] = {"enable_thinking": True}
-        else:
-            config["extra_body"] = {"chat_template_kwargs": {"enable_thinking": True}}
-    else:
-        if family == "kimi":
-            config["temperature"] = 0.6
-            config["extra_body"] = {"thinking": {"type": "disabled"}, "chat_template_kwargs": {"thinking": False}}
-        elif family in {"glm", "deepseek"}:
-            config["extra_body"] = {"thinking": {"type": "disabled"}}
-        else:
-            config["extra_body"] = {"chat_template_kwargs": {"enable_thinking": False}}
-    return config
-
-
-def load_provider_config_file() -> dict[str, dict[str, Any]]:
-    if not CONFIG_FILE.exists():
-        return {}
-    raw = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
-    providers = raw.get("providers", raw)
-    return {key: value for key, value in providers.items() if isinstance(value, dict)}
-
-
 def get_provider_catalog() -> dict[str, dict[str, Any]]:
-    catalog = {key: dict(value) for key, value in PROVIDER_PRESETS.items()}
-    for provider, cfg in load_provider_config_file().items():
-        current = dict(catalog.get(provider, {}))
-        current.update(cfg)
-        catalog[provider] = current
-    for provider, env_map in ENV_OVERRIDES.items():
-        if provider not in catalog:
-            continue
-        for field, env_name in env_map.items():
-            if os.environ.get(env_name):
-                catalog[provider][field] = os.environ[env_name]
-    return catalog
+    pool = load_agent_pool().get("llm_agents_pool") or {}
+    return {key: dict(value) for key, value in pool.items() if isinstance(value, dict)}
 
 
 def resolve_provider_config(provider: str = DEFAULT_PROVIDER) -> dict[str, Any]:
     catalog = get_provider_catalog()
     if provider not in catalog:
-        raise ValueError(f"Unknown provider: {provider}")
-    cfg = dict(catalog[provider])
-    if not cfg.get("api_key") or not cfg.get("base_url"):
-        raise ValueError(f"Provider {provider} misses api_key or base_url. Configure DATA_BASE/config/provider_config.json.")
-    return cfg
+        raise ValueError(f"Unknown model_key: {provider}. Configure API_config/config.json.")
+    return dict(catalog[provider])
+
+
+def _paired_reasoning_key(provider: str, enable_reasoning: bool) -> str:
+    catalog = get_provider_catalog()
+    if provider not in catalog:
+        return provider
+    current = catalog[provider]
+    if bool(current.get("is_reasoning")) == enable_reasoning:
+        return provider
+    wanted = provider[:-6] if provider.lower().endswith("_think") else f"{provider}_think"
+    for key, value in catalog.items():
+        if key.lower() == wanted.lower() and bool(value.get("is_reasoning")) == enable_reasoning:
+            return key
+    return provider
+
+
+def resolve_reasoning_model_key(provider: str, enable_reasoning: bool) -> str:
+    """Resolve a configured model key to its reasoning/non-reasoning pair when available."""
+    return _paired_reasoning_key(provider, enable_reasoning)
+
+
+def call_llm_detailed(
+    messages: list[dict[str, str]],
+    provider: str = DEFAULT_PROVIDER,
+    model: str | None = None,
+    enable_reasoning: bool = DEFAULT_ENABLE_REASONING,
+) -> dict[str, Any]:
+    model_key = _paired_reasoning_key(provider, enable_reasoning)
+    result = call_openai_detailed(
+        messages=messages,
+        model_key=model_key,
+        model=model,
+        is_reasoning=enable_reasoning,
+    )
+    if result.get("error"):
+        raise RuntimeError(f"LLM call failed for {model_key}: {result['error']}")
+    result["model_key"] = model_key
+    return result
 
 
 def call_llm(
@@ -407,25 +346,7 @@ def call_llm(
     model: str | None = None,
     enable_reasoning: bool = DEFAULT_ENABLE_REASONING,
 ) -> str:
-    if OpenAI is None:
-        raise RuntimeError("The openai package is not installed in this Python environment.")
-    cfg = resolve_provider_config(provider)
-    if model:
-        cfg["model"] = model
-    client = OpenAI(
-        api_key=cfg["api_key"],
-        base_url=cfg["base_url"],
-        timeout=float(cfg.get("timeout", DEFAULT_LLM_TIMEOUT_SECONDS)),
-    )
-    inference = build_inference_config(
-        cfg["model"],
-        enable_reasoning=enable_reasoning,
-        temperature=cfg.get("temperature"),
-        top_p=cfg.get("top_p"),
-        max_tokens=cfg.get("max_tokens"),
-    )
-    completion = client.chat.completions.create(messages=messages, **inference)
-    return completion.choices[0].message.content or ""
+    return call_llm_detailed(messages, provider, model, enable_reasoning).get("content", "")
 
 
 def load_skill_context() -> str:
@@ -436,6 +357,8 @@ def load_skill_context() -> str:
         SKILL_DIR / "context" / "query_recipes.md",
         SKILL_DIR / "context" / "tech_chain_rules.md",
         SKILL_DIR / "context" / "domain_aliases.md",
+        SKILL_DIR / "context" / "subontology.md",
+        SKILL_DIR / "context" / "evidence_routing.md",
     ]
     chunks = []
     for path in files:
@@ -575,14 +498,17 @@ def answer_prompt(
     user_query: str,
     plan: dict[str, Any],
     tool_results: list[dict[str, Any]],
+    response_language: str = "English",
 ) -> list[dict[str, str]]:
-    system = """
-You are an SC2 data analyst. Use the provided tool results to answer the user's question. Respond in English.
+    system = f"""
+You are an SC2 data analyst. Use the provided tool results to answer the user's question. Respond in {response_language}.
 
 Rules:
 - Do not output raw JSON.
 - Summarize the useful findings, mention counts, and explain why the results match.
 - If the evidence is incomplete or approximate, say so clearly.
+- When facts include a Markdown document and line range, cite that release-relative evidence location.
+- Preserve the distinction between structured facts, Markdown semantic facts, and SubOntology-expanded facts.
 - Keep the answer compact but useful.
 """
     user = f"""
@@ -672,6 +598,21 @@ def infer_target_name(user_query: str, fallback: str) -> str:
 def fallback_plan(user_query: str, ) -> dict[str, Any]:
     lowered = user_query.lower()
     race_hint = detect_query_race(user_query)
+    if any(marker in lowered for marker in ["counter", "counters", "克制", "对抗"]):
+        target = infer_target_name(user_query, user_query)
+        return {"status": "need_tools", "tool_calls": [{"tool": "query_counter_relations", "arguments": {"entity_name": target, "direction": "both"}}], "notes": ["Fallback plan: unified counter relation query."]}
+    if any(marker in lowered for marker in ["synergy", "synergize", "composition", "协同", "配合"]):
+        target = infer_target_name(user_query, user_query)
+        return {"status": "need_tools", "tool_calls": [{"tool": "query_combat_synergy", "arguments": {"entity_name": target, "direction": "both"}}], "notes": ["Fallback plan: synergy relation query."]}
+    if any(marker in lowered for marker in ["subontology", "class members", "ontology class", "本体", "类别成员"]):
+        normalized_query = re.sub(r"[^a-z0-9]+", "", lowered)
+        class_name = next(
+            (item.get("name") for item in get_dataset_store(DEFAULT_DATA_PATH).data.get("SubOntology", []) if re.sub(r"[^a-z0-9]+", "", item.get("name", "").lower()) in normalized_query),
+            user_query,
+        )
+        return {"status": "need_tools", "tool_calls": [{"tool": "list_subontology_members", "arguments": {"name": class_name, "race": race_hint, "limit": 250}}], "notes": ["Fallback plan: SubOntology membership query."]}
+    if any(marker in lowered for marker in ["markdown", "source evidence", "line evidence", "原文", "证据", "来源"]):
+        return {"status": "need_tools", "tool_calls": [{"tool": "search_markdown", "arguments": {"query": user_query, "race": race_hint, "limit": 20}}], "notes": ["Fallback plan: Markdown evidence search."]}
     if any(marker in lowered for marker in ["research", "upgrades", "upgrade", "\u7814\u7a76", "\u5347\u7ea7"]) and not any(
         marker in lowered for marker in ["tech lab", "techlab", "\u79d1\u6280\u5b9e\u9a8c\u5ba4"]
     ):
@@ -959,82 +900,150 @@ def run_agent(
     dry_run: bool = False,
     enable_reasoning: bool = DEFAULT_ENABLE_REASONING,
     response_language: str = "English",
+    log_dir: str | Path | None = None,
 ) -> dict[str, Any]:
+    recorder = TraceRecorder(user_query, log_dir=log_dir)
+    llm_trace: list[dict[str, Any]] = []
+    result: dict[str, Any] | None = None
 
-    # === Phase 1: LLM Context Routing ===
-    if dry_run:
-        routing_decision: dict[str, list[str]] = {"selected_skills": [], "selected_races": []}
-    else:
-        routing_decision = llm_context_router(user_query, provider, model)
+    def invoke_llm(phase: str, messages: list[dict[str, str]], reasoning: bool) -> str:
+        recorder.record("llm_request", {
+            "phase": phase,
+            "provider": provider,
+            "model_override": model,
+            "reasoning_requested": reasoning,
+            "messages": messages,
+        })
+        try:
+            detailed = call_llm_detailed(messages, provider, model, reasoning)
+        except Exception as exc:
+            recorder.record("llm_error", {"phase": phase, "error": exc})
+            raise
+        entry = {
+            "phase": phase,
+            "model_key": detailed.get("model_key"),
+            "model": detailed.get("model"),
+            "is_reasoning": detailed.get("is_reasoning"),
+            "reasoning": detailed.get("reasoning", ""),
+            "reasoning_available": bool(detailed.get("reasoning")),
+            "reasoning_source": detailed.get("reasoning_source"),
+            "reasoning_extract_mode": detailed.get("reasoning_extract_mode"),
+            "content": detailed.get("content", ""),
+            "raw_content": detailed.get("raw_content", ""),
+            "raw_message": detailed.get("raw_message", {}),
+            "usage": detailed.get("usage", {}),
+            "finish_reason": detailed.get("finish_reason", ""),
+            "latency_seconds": detailed.get("latency_seconds", 0.0),
+            "request_metadata": detailed.get("request_metadata", {}),
+        }
+        llm_trace.append(entry)
+        recorder.record("llm_response", entry)
+        return entry["content"]
 
-    context_text = load_main_agent_context(
-        routing_decision.get("selected_skills", []),
-        routing_decision.get("selected_races", []),
-    )
-    # ===================================
+    try:
+        dataset_metadata = get_dataset_store(data_path).metadata()
+        recorder.record("dataset_loaded", dataset_metadata)
 
-    state: dict[str, Any] = {"step": 0, "observations": []}
-    plans = []
-    tool_results = []
-    planner_error: Exception | None = None
-
-    for step in range(MAX_AGENT_STEPS):
-        state["step"] = step
-        planner_failed = False
         if dry_run:
-            plan = fallback_plan(user_query)
+            routing_decision: dict[str, list[str]] = {"selected_skills": [], "selected_races": []}
         else:
             try:
-                plan = parse_json_response(
-                    call_llm(
-                        planner_prompt(user_query, context_text, state=state),
-                        provider=provider,
-                        model=model,
-                        enable_reasoning=enable_reasoning,
+                routing_decision = parse_json_response(
+                    invoke_llm("router", router_prompt(user_query), False)
+                )
+            except Exception as exc:
+                routing_decision = {"selected_skills": [], "selected_races": []}
+                recorder.record("router_fallback", {"error": exc, "decision": routing_decision})
+
+        recorder.record("routing_decision", routing_decision)
+        context_text = load_main_agent_context(
+            routing_decision.get("selected_skills", []),
+            routing_decision.get("selected_races", []),
+        )
+
+        state: dict[str, Any] = {"step": 0, "observations": []}
+        plans = []
+        tool_results = []
+        planner_error: Exception | None = None
+
+        for step in range(MAX_AGENT_STEPS):
+            state["step"] = step
+            planner_failed = False
+            if dry_run:
+                plan = fallback_plan(user_query)
+            else:
+                try:
+                    plan = parse_json_response(
+                        invoke_llm(
+                            f"planner_step_{step + 1}",
+                            planner_prompt(user_query, context_text, state=state),
+                            enable_reasoning,
+                        )
                     )
+                except Exception as exc:  # noqa: BLE001
+                    planner_error = exc
+                    planner_failed = True
+                    plan = fallback_plan(user_query)
+                    plan["planner_error"] = repr(exc)
+                    recorder.record("planner_fallback", {"step": step, "error": exc, "plan": plan})
+            plans.append(plan)
+            recorder.record("plan", {"step": step, "plan": plan})
+
+            calls = plan.get("tool_calls") or []
+            if plan.get("status") == "final" or not calls:
+                break
+
+            for call in calls:
+                tool = call.get("tool")
+                arguments = call.get("arguments") or {}
+                observation = {"step": step, "tool": tool, "arguments": arguments}
+                recorder.record("tool_request", observation)
+                try:
+                    observation["result"] = execute_tool(tool, arguments, data_path=data_path)
+                except Exception as exc:  # noqa: BLE001
+                    observation["error"] = repr(exc)
+                recorder.record("tool_response", observation)
+                tool_results.append(observation)
+                state["observations"].append(observation)
+
+            if dry_run or planner_failed:
+                break
+
+        plan_bundle = {"steps": plans, "observations": state["observations"]}
+        if dry_run:
+            answer = dry_run_answer(tool_results)
+        elif planner_error is not None:
+            answer = fallback_answer(tool_results, planner_error)
+        else:
+            try:
+                answer = invoke_llm(
+                    "final_answer",
+                    answer_prompt(user_query, plan_bundle, tool_results, response_language=response_language),
+                    enable_reasoning,
                 )
             except Exception as exc:  # noqa: BLE001
-                planner_error = exc
-                planner_failed = True
-                plan = fallback_plan(user_query)
-                plan["planner_error"] = repr(exc)
-        plans.append(plan)
+                answer = fallback_answer(tool_results, exc)
+                recorder.record("answer_fallback", {"error": exc, "answer": answer})
 
-        calls = plan.get("tool_calls") or []
-        if plan.get("status") == "final" or not calls:
-            break
-
-        for call in calls:
-            tool = call.get("tool")
-            arguments = call.get("arguments") or {}
-            observation = {"step": step, "tool": tool, "arguments": arguments}
-            try:
-                observation["result"] = execute_tool(tool, arguments, data_path=data_path)
-            except Exception as exc:  # noqa: BLE001
-                observation["error"] = repr(exc)
-            tool_results.append(observation)
-            state["observations"].append(observation)
-
-        if dry_run or planner_failed:
-            break
-
-    plan_bundle = {"steps": plans, "observations": state["observations"]}
-    if dry_run:
-        answer = dry_run_answer(tool_results)
-    elif planner_error is not None:
-        answer = fallback_answer(tool_results, planner_error)
-    else:
-        try:
-            answer = call_llm(
-                answer_prompt(user_query, plan_bundle, tool_results),
-                provider=provider,
-                model=model,
-                enable_reasoning=enable_reasoning,
-            )
-        except Exception as exc:  # noqa: BLE001
-            answer = fallback_answer(tool_results, exc)
-
-    return {"query": user_query, "plan": plan_bundle, "tool_results": tool_results, "answer": answer}
+        result = {
+            "run_id": recorder.run_id,
+            "log_path": str(recorder.trace_path),
+            "query": user_query,
+            "provider": provider,
+            "reasoning_enabled": enable_reasoning,
+            "dataset": dataset_metadata,
+            "routing": routing_decision,
+            "plan": plan_bundle,
+            "tool_results": tool_results,
+            "reasoning_trace": llm_trace,
+            "answer": answer,
+        }
+        status = "completed_with_fallback" if planner_error is not None else "completed"
+        recorder.finalize(result, status=status)
+        return result
+    except Exception as exc:
+        recorder.finalize(result, status="failed", error=exc)
+        raise
 
 
 def compact_tool_results(tool_results: list[dict[str, Any]], max_items: int = 30) -> list[dict[str, Any]]:
@@ -1089,22 +1098,38 @@ def fallback_answer(tool_results: list[dict[str, Any]], exc: Exception) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the SC2 natural-language search Agent.")
     parser.add_argument("query", nargs="+")
-    parser.add_argument("--provider", default=DEFAULT_PROVIDER)
+    parser.add_argument("--provider", "--model-key", dest="provider", default=DEFAULT_PROVIDER, help="Key in API_config/config.json")
     parser.add_argument("--model", default=None)
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--reasoning", action="store_true")
+    parser.add_argument("--reasoning", action="store_true", help="Compatibility shortcut for --reasoning-mode on")
+    parser.add_argument("--reasoning-mode", choices=["auto", "on", "off"], default="auto")
+    parser.add_argument("--data-path", default=str(DEFAULT_DATA_PATH))
+    parser.add_argument("--language", default="English")
+    parser.add_argument("--show-reasoning", action="store_true")
+    parser.add_argument("--show-tools", action="store_true")
     args = parser.parse_args()
+    provider_cfg = resolve_provider_config(args.provider)
+    enable_reasoning = args.reasoning or (
+        bool(provider_cfg.get("is_reasoning")) if args.reasoning_mode == "auto" else args.reasoning_mode == "on"
+    )
     result = run_agent(
         " ".join(args.query),
         provider=args.provider,
         model=args.model,
+        data_path=args.data_path,
         dry_run=args.dry_run,
-        enable_reasoning=args.reasoning,
-        
+        enable_reasoning=enable_reasoning,
+        response_language=args.language,
     )
     print(result["answer"])
-    print("\n--- Tool trace ---")
-    print(json.dumps({"plan": result["plan"], "tool_results": result["tool_results"]}, ensure_ascii=False, indent=2))
+    print(f"\nRun ID: {result['run_id']}")
+    print(f"Trace: {result['log_path']}")
+    if args.show_reasoning:
+        print("\n--- Reasoning trace ---")
+        print(json.dumps(result.get("reasoning_trace", []), ensure_ascii=False, indent=2))
+    if args.show_tools:
+        print("\n--- Tool trace ---")
+        print(json.dumps({"plan": result["plan"], "tool_results": result["tool_results"]}, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

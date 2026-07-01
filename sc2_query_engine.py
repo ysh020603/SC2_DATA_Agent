@@ -10,6 +10,8 @@ import inspect
 from pathlib import Path
 from typing import Any
 
+from sc2_data_store import ALL_SECTIONS, get_dataset_store
+
 from sc2_search_tools import (
     DEFAULT_DATA_PATH,
     apply_projection,
@@ -74,7 +76,7 @@ def all_items(data_path: str | Path = DEFAULT_DATA_PATH) -> list[dict[str, Any]]
 def entity_indexes(data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, dict[str, dict[str, Any]]]:
     data = load_data(data_path)
     indexes: dict[str, dict[str, dict[str, Any]]] = {}
-    for section in ("Ability", "Unit", "Upgrade"):
+    for section in ALL_SECTIONS:
         indexes[section] = {normalize_text(item.get("name")): item for item in data.get(section, []) if item.get("name")}
     return indexes
 
@@ -88,7 +90,7 @@ def resolve_entity_key(
     data_path: str | Path = DEFAULT_DATA_PATH,
 ) -> dict[str, Any]:
     """Resolve a user-facing mention to canonical database keys."""
-    wanted_sections = sections or ([expected_section] if expected_section else ["Unit", "Ability", "Upgrade"])
+    wanted_sections = sections or ([expected_section] if expected_section else ["Unit", "Ability", "Upgrade", "SubOntology"])
     alias = ENTITY_ALIASES.get(mention.strip(), mention)
     items = flatten_items(sections=wanted_sections, data_path=data_path)
     if race:
@@ -1139,112 +1141,199 @@ def assess_target_compatibility(ability: dict[str, Any] | None, unit: dict[str, 
     return f"The ability target type is {target!r}; direct compatibility cannot be proven from this dataset."
 
 
-def _build_relations_index(data):
+def _build_relations_index(data_path=DEFAULT_DATA_PATH):
+    """Return relation indexes backed by the unified typed dataset store."""
     by_subject = {}
     by_object = {}
-    for entity_type, entities in data.items():
-        for entity in entities:
-            for rel in entity.get("relations", []):
-                relation = rel.get("relation", "")
-                subj = rel.get("subject_name", "")
-                obj = rel.get("object_name", "")
-                desc = rel.get("description", "")
-                key_s = (relation, subj)
-                if key_s not in by_subject:
-                    by_subject[key_s] = []
-                by_subject[key_s].append({"object_type": entity_type, "object_name": obj, "description": desc})
-                key_o = (relation, obj)
-                if key_o not in by_object:
-                    by_object[key_o] = []
-                by_object[key_o].append({"subject_type": entity_type, "subject_name": subj, "description": desc})
-    for k in list(by_subject):
-        seen = set()
-        deduped = []
-        for item in by_subject[k]:
-            sig = (item["object_type"], item["object_name"], item["description"])
-            if sig not in seen:
-                seen.add(sig)
-                deduped.append(item)
-        by_subject[k] = deduped
-    for k in list(by_object):
-        seen = set()
-        deduped = []
-        for item in by_object[k]:
-            sig = (item["subject_type"], item["subject_name"], item["description"])
-            if sig not in seen:
-                seen.add(sig)
-                deduped.append(item)
-        by_object[k] = deduped
+    for relation in get_dataset_store(data_path).relations():
+        name = relation.get("relation", "")
+        subject = relation.get("subject_name", "")
+        object_name = relation.get("object_name", "")
+        by_subject.setdefault((name, normalize_text(subject)), []).append(relation)
+        by_object.setdefault((name, normalize_text(object_name)), []).append(relation)
     return {"by_subject": by_subject, "by_object": by_object}
 
 
-def _query_relation(data, relation_names, entity_name, direction="both"):
-    idx = _build_relations_index(data)
+def _query_relation(data_path, relation_names, entity_name, direction="both", include_evidence=True, limit=100):
+    idx = _build_relations_index(data_path)
     results = []
+    normalized = normalize_text(entity_name)
     for rel_name in relation_names:
         if direction in ("forward", "both"):
-            for item in idx["by_subject"].get((rel_name, entity_name), []):
-                results.append({
-                    "subject_name": entity_name, "relation": rel_name,
-                    "object_type": item["object_type"], "object_name": item["object_name"],
-                    "description": item["description"], "direction": "forward"
-                })
+            for item in idx["by_subject"].get((rel_name, normalized), []):
+                row = dict(item)
+                row["matched_direction"] = "forward"
+                results.append(row)
         if direction in ("reverse", "both"):
-            for item in idx["by_object"].get((rel_name, entity_name), []):
-                results.append({
-                    "subject_type": item["subject_type"], "subject_name": item["subject_name"],
-                    "relation": rel_name, "object_name": entity_name,
-                    "description": item["description"], "direction": "reverse"
-                })
-    return {"count": len(results), "results": results}
+            for item in idx["by_object"].get((rel_name, normalized), []):
+                row = dict(item)
+                row["matched_direction"] = "reverse"
+                results.append(row)
+    deduped = []
+    seen = set()
+    for item in results:
+        signature = item.get("relation_id") or (
+            item.get("subject_type"), item.get("subject_name"), item.get("relation"),
+            item.get("object_type"), item.get("object_name"), item.get("matched_direction"),
+        )
+        if signature in seen:
+            continue
+        seen.add(signature)
+        if not include_evidence:
+            item.pop("source", None)
+            item.pop("fact", None)
+        deduped.append(item)
+        if len(deduped) >= max(1, limit):
+            break
+    return {"mode": "relation_query", "count": len(deduped), "results": deduped}
 
 
-def query_counter_relations(entity_name, counter_type="all", data_path=None):
-    if data_path is None:
-        from sc2_search_tools import DEFAULT_DATA_PATH as dp
-        data_path = dp
-    data = load_data(data_path)
-    relations = []
-    if counter_type in ("hard", "all"):
-        relations.append("hard_counters")
-    if counter_type in ("soft", "all"):
-        relations.append("soft_counters")
-    return _query_relation(data, relations, entity_name, direction="both")
+def query_counter_relations(entity_name, counter_type="all", direction="both", data_path=None):
+    result = _query_relation(data_path or DEFAULT_DATA_PATH, ["counters"], entity_name, direction=direction)
+    if counter_type not in (None, "all"):
+        result["migration_note"] = "The new dataset unifies hard_counters and soft_counters as counters."
+    return result
 
 def query_combat_synergy(entity_name, direction="both", data_path=None):
     if data_path is None:
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
-    data = load_data(data_path)
-    return _query_relation(data, ["synergizes_with"], entity_name, direction=direction)
+    return _query_relation(data_path, ["synergizes_with"], entity_name, direction=direction)
 
 def query_garrison_relations(entity_name, direction="both", data_path=None):
     if data_path is None:
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
-    data = load_data(data_path)
-    return _query_relation(data, ["garrisons_in"], entity_name, direction=direction)
+    return _query_relation(data_path, ["garrisons_in"], entity_name, direction=direction)
 
 def query_stat_bonuses(entity_name, direction="both", data_path=None):
     if data_path is None:
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
-    data = load_data(data_path)
-    return _query_relation(data, ["grants_stat_bonus"], entity_name, direction=direction)
+    return _query_relation(data_path, ["grants_stat_bonus"], entity_name, direction=direction)
 
 def query_ability_unlocks(entity_name, direction="both", data_path=None):
     if data_path is None:
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
-    data = load_data(data_path)
-    return _query_relation(data, ["unlocks_unit_ability"], entity_name, direction=direction)
+    return _query_relation(data_path, ["unlocks_unit_ability"], entity_name, direction=direction)
 
 def query_morph_enablers(entity_name, direction="both", data_path=None):
     if data_path is None:
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
-    data = load_data(data_path)
-    return _query_relation(data, ["enables_morph"], entity_name, direction=direction)
+    return _query_relation(data_path, ["enables_morph"], entity_name, direction=direction)
+
+
+def query_relations(
+    entity_name: str | None = None,
+    relation: str | list[str] | None = None,
+    direction: str = "both",
+    endpoint_type: str | None = None,
+    include_evidence: bool = True,
+    limit: int = 100,
+    data_path: str | Path = DEFAULT_DATA_PATH,
+) -> dict[str, Any]:
+    names = [relation] if isinstance(relation, str) else list(relation or [])
+    if entity_name and names:
+        result = _query_relation(data_path, names, entity_name, direction, include_evidence, limit)
+    else:
+        results = []
+        normalized = normalize_text(entity_name) if entity_name else ""
+        for item in get_dataset_store(data_path).relations():
+            if names and item.get("relation") not in names:
+                continue
+            if normalized and normalized not in {
+                normalize_text(item.get("subject_name")), normalize_text(item.get("object_name"))
+            }:
+                continue
+            row = dict(item)
+            if not include_evidence:
+                row.pop("source", None)
+                row.pop("fact", None)
+            results.append(row)
+            if len(results) >= max(1, limit):
+                break
+        result = {"mode": "relation_query", "count": len(results), "results": results}
+    if endpoint_type:
+        filtered = [
+            item for item in result["results"]
+            if normalize_text(item.get("subject_type")) == normalize_text(endpoint_type)
+            or normalize_text(item.get("object_type")) == normalize_text(endpoint_type)
+        ]
+        result["results"] = filtered
+        result["count"] = len(filtered)
+    return result
+
+
+def get_subontology(name: str, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    item = get_dataset_store(data_path).subontology(name)
+    return {"mode": "subontology", "count": 1 if item else 0, "results": [item] if item else []}
+
+
+def list_subontology_members(name: str, race: str | None = None, limit: int = 250, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    store = get_dataset_store(data_path)
+    ontology = store.subontology(name)
+    if not ontology:
+        return {"mode": "subontology_members", "count": 0, "results": []}
+    members = []
+    for member_name in ontology.get("members") or []:
+        unit = store.get_entity("Unit", member_name)
+        if not unit or (race and normalize_text(unit.get("race")) != normalize_text(race)):
+            continue
+        members.append({
+            "name": unit.get("name"), "race": unit.get("race"),
+            "attack_type": unit.get("attack_type"),
+            "dimension_a_classes": unit.get("dimension_a_classes") or [],
+        })
+        if len(members) >= max(1, limit):
+            break
+    return {"mode": "subontology_members", "subontology": ontology.get("name"), "count": len(members), "results": members}
+
+
+def query_unit_classes(unit_name: str, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    classes = get_dataset_store(data_path).unit_classes(unit_name)
+    return {"mode": "unit_classes", "unit_name": unit_name, "count": len(classes), "results": classes}
+
+
+def filter_units_by_subontology(class_name: str, race: str | None = None, limit: int = 250, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    return list_subontology_members(class_name, race=race, limit=limit, data_path=data_path)
+
+
+def query_relation_evidence(relation_id: str | None = None, fact_id: str | None = None, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    store = get_dataset_store(data_path)
+    item = store.relation(relation_id) if relation_id else store.fact(fact_id or "")
+    return {"mode": "relation_evidence" if relation_id else "fact_evidence", "count": 1 if item else 0, "results": [item] if item else []}
+
+
+def resolve_markdown_documents(entity_name: str, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    documents = get_dataset_store(data_path).markdown_documents(entity_name)
+    return {"mode": "markdown_documents", "entity_name": entity_name, "count": len(documents), "results": documents}
+
+
+def read_markdown_evidence(document: str, line_start: int = 1, line_end: int | None = None, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    result = get_dataset_store(data_path).read_markdown(document, line_start, line_end)
+    return {"mode": "markdown_evidence", "count": 1, "results": [result]}
+
+
+def search_markdown(query: str, race: str | None = None, limit: int = 20, data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, Any]:
+    store = get_dataset_store(data_path)
+    needle = query.casefold().strip()
+    results = []
+    if not needle:
+        return {"mode": "markdown_search", "count": 0, "results": []}
+    for path in sorted(store.markdown_dir.rglob("*.md")):
+        if race and normalize_text(path.parent.name) != normalize_text(race):
+            continue
+        for index, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            if needle in line.casefold():
+                results.append({
+                    "document": path.relative_to(store.dataset_dir).as_posix(),
+                    "line_start": index, "line_end": index, "evidence_text": line,
+                })
+                if len(results) >= max(1, limit):
+                    return {"mode": "markdown_search", "count": len(results), "results": results}
+    return {"mode": "markdown_search", "count": len(results), "results": results}
 
 
 
@@ -1339,7 +1428,25 @@ def execute_tool(tool_name: str, arguments: dict[str, Any], data_path: str | Pat
         return call_query_function(query_ability_unlocks, arguments, data_path)
     if tool_name == "query_morph_enablers":
         return call_query_function(query_morph_enablers, arguments, data_path)
-        raise ValueError(f"Unknown tool: {tool_name}")
+    if tool_name == "query_relations":
+        return call_query_function(query_relations, arguments, data_path)
+    if tool_name == "get_subontology":
+        return call_query_function(get_subontology, arguments, data_path)
+    if tool_name == "list_subontology_members":
+        return call_query_function(list_subontology_members, arguments, data_path)
+    if tool_name == "query_unit_classes":
+        return call_query_function(query_unit_classes, arguments, data_path)
+    if tool_name == "filter_units_by_subontology":
+        return call_query_function(filter_units_by_subontology, arguments, data_path)
+    if tool_name == "query_relation_evidence":
+        return call_query_function(query_relation_evidence, arguments, data_path)
+    if tool_name == "resolve_markdown_documents":
+        return call_query_function(resolve_markdown_documents, arguments, data_path)
+    if tool_name == "read_markdown_evidence":
+        return call_query_function(read_markdown_evidence, arguments, data_path)
+    if tool_name == "search_markdown":
+        return call_query_function(search_markdown, arguments, data_path)
+    raise ValueError(f"Unknown tool: {tool_name}")
 
 
 def first_n(values: list[Any], n: int) -> list[Any]:

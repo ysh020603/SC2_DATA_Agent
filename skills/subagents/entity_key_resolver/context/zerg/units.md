@@ -1,6 +1,6 @@
 # Zerg Unit Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `Baneling` (Zerg) - The Baneling is a suicide bomber unit morphed from Zerglings after a Baneling Nest has been constructed. Similar to the Infested Terran from Brood War, the Baneling is a suicidal u
 - `BanelingBurrowed` (Zerg)

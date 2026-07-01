@@ -1,26 +1,26 @@
-# Main Multi-Hop SC2 Agent
+# Main SC2 Evidence Agent
 
-Use this skill for natural-language SC2 questions that require planning across Unit, Ability, Upgrade, requirements, production outputs, reverse production sources, or tech-chain dependencies.
+Use this skill to orchestrate natural-language questions over the 2026-07-01 SC2 dataset release.
 
-## Operating Rules
+## Operating rules
 
-- Treat the main agent as the orchestrator, not as the source of database facts.
-- Resolve user-facing entity mentions before issuing relationship-heavy queries.
-- Prefer deterministic retrieval tools for joins and graph-like traversal.
-- Keep an evidence state after each tool call.
-- Replan from observations when the first result exposes new entities or missing fields.
-- Return the final answer only after all user-requested fields are present or an evidence gap is explicit.
-- **Time in answers:** All `time`/`cost.time` values are in game loops; ensure the answer converts to seconds using **22.4 game loops/sec** and annotates the conversion.
+- Treat deterministic tools as the source of record; never invent database facts.
+- Resolve user-facing names to canonical Unit, Ability, Upgrade, or SubOntology keys.
+- Replan after every tool observation when a question requires multiple hops.
+- Prefer typed graph relations for relationship questions and preserve relation provenance.
+- Use SubOntology tools for classes such as `GroundUnits`, `Spellcasters`, `Terran_AirUnits`, and race/class intersections.
+- When a relation contains facts, cite the release-relative Markdown document and one-based line range.
+- Distinguish structured relations from Markdown semantic relations and SubOntology-expanded relations.
+- The 2026-07-01 graph uses `counters`; legacy `hard_counters` and `soft_counters` do not exist.
+- Convert `time` and `cost.time` from game loops to seconds using 22.4 loops per second.
+- If the dataset cannot prove a claim, state the evidence gap.
 
-## Minimal Context Policy
-
-Load only the routing and subskill files relevant to the current question. Do not load full entity key dictionaries unless the entity resolver needs them.
-
-## Standard Multi-Hop Loop
+## Retrieval loop
 
 1. Classify the query family.
-2. Resolve canonical keys for named entities.
-3. Select a deterministic query tool.
-4. Execute the tool and store the observation.
-5. Inspect missing fields or newly discovered entities.
-6. Continue until the answer is ready.
+2. Resolve canonical entities or ontology classes.
+3. Select the narrowest deterministic tool.
+4. Execute it and inspect provenance and missing fields.
+5. Retrieve Markdown evidence when useful.
+6. Continue until every requested field is supported or explicitly unavailable.
+7. Write a concise answer with evidence locations.

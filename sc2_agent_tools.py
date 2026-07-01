@@ -8,15 +8,20 @@ from typing import Any
 
 from sc2_query_engine import (
     execute_tool,
+    get_subontology,
+    list_subontology_members,
     query_ability_unlocks,
     query_combat_synergy,
     query_counter_relations,
     query_garrison_relations,
     query_morph_enablers,
+    query_relation_evidence,
+    query_relations,
     query_stat_bonuses,
     query_tactical_profile,
     query_tech_tree,
     search_descriptions,
+    search_markdown,
     strategic_join_analysis,
 )
 from sc2_search_tools import DEFAULT_DATA_PATH
@@ -48,7 +53,7 @@ def strategic_decision_support(arguments: dict[str, Any], data_path: str | Path 
 
 
 def query_unit_counters(arguments, data_path=None):
-    """Query which units hard-counter or soft-counter a given unit."""
+    """Query the 2026-07-01 graph's unified counter relations."""
     if data_path is None:
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
@@ -88,3 +93,28 @@ def query_morph_unlocks(arguments, data_path=None):
         from sc2_search_tools import DEFAULT_DATA_PATH as dp
         data_path = dp
     return query_morph_enablers(data_path=data_path, **arguments)
+
+
+def query_ontology(arguments, data_path=None):
+    """Fetch a SubOntology definition or expand its canonical Unit members."""
+    data_path = data_path or DEFAULT_DATA_PATH
+    if arguments.get("include_members", True):
+        payload = dict(arguments)
+        payload.pop("include_members", None)
+        return list_subontology_members(data_path=data_path, **payload)
+    return get_subontology(data_path=data_path, name=arguments["name"])
+
+
+def query_typed_relations(arguments, data_path=None):
+    """Query typed graph edges while retaining descriptions, sources, and facts."""
+    return query_relations(data_path=data_path or DEFAULT_DATA_PATH, **arguments)
+
+
+def retrieve_relation_evidence(arguments, data_path=None):
+    """Retrieve one relation or fact by stable identifier."""
+    return query_relation_evidence(data_path=data_path or DEFAULT_DATA_PATH, **arguments)
+
+
+def semantic_markdown_search(arguments, data_path=None):
+    """Search the copied release Markdown corpus."""
+    return search_markdown(data_path=data_path or DEFAULT_DATA_PATH, **arguments)

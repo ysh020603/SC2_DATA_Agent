@@ -1,42 +1,37 @@
 # Main Agent Routing
 
-## Query Families
+## Core entity and production routing
 
-- Production chain: questions about what a building/unit can produce, train, build, morph, or research.
-- Reverse production: questions about where a unit or upgrade comes from.
-- Tech dependency: questions about prerequisites, unlock paths, broken chains, add-ons, or dependency impact.
-- Tactical profile: questions about abilities, energy, cast range, cooldown, target type, or transformed forms.
-- Attribute filtering: questions about numeric fields, tags, booleans, sorting, or cost constraints.
+- Use `resolve_entity_key` for natural-language, Chinese, ambiguous, display, or SubOntology names.
+- Use `get_entity` for one complete Unit, Ability, Upgrade, or SubOntology record.
+- Use `query_production_outputs` and `query_reverse_production_sources` for production joins.
+- Use `query_addon_branches` and `query_addon_producers` for Terran add-on logic.
+- Use `query_research_outputs` for structure-to-upgrade joins.
+- Use `query_unit_abilities` and `query_tactical_profile` for ability and tactical fields.
+- Use `query_dependency_impact` and `query_tech_tree` for prerequisites and reverse impact.
+- Use `filter_attributes_and_resources` for numeric, race, attribute, boolean, `attack_type`, or class filters.
 
-## Tool Routing
+## Unified graph routing
 
-- Use `resolve_entity_key` when a mention is natural-language, Chinese, ambiguous, or display-name-like.
-- Use `query_production_outputs` for producer -> output joins.
-- Use `query_reverse_production_sources` for output -> producer joins.
-- Use `query_addon_branches` for one producer split into no-add-on, TechLab-required, Reactor-required, and Reactor-compatible outputs.
-- Use `query_addon_producers` for all add-on-capable producers in a race.
-- Use `query_research_outputs` for producer -> researched Upgrade joins.
-- Use `query_unit_abilities` for Unit -> Ability joins, including energy, range, cooldown, and target type.
-- Use `query_dependency_impact` for tech-chain and requirement reverse impact.
-- Use `query_upgrade_effects` for Upgrade -> affected Unit inference from descriptions.
-- Use `query_gas_units_with_sources` for gas-costing units plus reverse production source and tech chain.
-- Use `query_combat_production_options` for production results filtered by combat properties such as anti-air or sorted by time.
-- Use `query_tech_tree` for unlock paths and reverse dependency scans.
-- Use `query_tactical_profile` for Unit -> Ability tactical fields.
-- Use `filter_attributes_and_resources` for direct field filters.
+- Use `query_counter_relations` for the unified `counters` relation.
+- Use `query_combat_synergy` for `synergizes_with`.
+- Use `query_garrison_relations` for `garrisons_in`.
+- Use `query_stat_bonuses` for `grants_stat_bonus`.
+- Use `query_ability_unlocks` for `unlocks_unit_ability`.
+- Use `query_morph_enablers` for `enables_morph`.
+- Use `query_relations` when relation type, endpoint type, or direction must be selected dynamically.
 
-## Query Families (Knowledge Graph)
+## SubOntology routing
 
-- **Counter relations**: questions about hard/soft counters between units.
-- **Unit synergy**: questions about which units work well together.
-- **Garrison / transport**: questions about loading, garrisoning, and transport.
-- **Structured upgrade effects**: reverse-direction stat bonus, ability unlock, and morph enabler queries.
+- Use `get_subontology` for definition, level, parents, members, and ontology-scope relations.
+- Use `list_subontology_members` or `filter_units_by_subontology` for class-to-unit expansion.
+- Use `query_unit_classes` for unit-to-class reverse lookup.
+- Secondary classes are race intersections, for example `Protoss_Spellcasters`.
 
-## Tool Routing (Knowledge Graph)
+## Evidence routing
 
-- Use `query_counter_relations` for hard/soft counter questions.
-- Use `query_combat_synergy` for synergy/composition questions.
-- Use `query_garrison_relations` for garrison/transport questions.
-- Use `query_stat_bonuses` for upgrade -> unit stat bonus questions.
-- Use `query_ability_unlocks` for upgrade -> unlocked ability questions.
-- Use `query_morph_enablers` for upgrade -> enabled morph/transform questions.
+- Use `query_relation_evidence` when a `relation_id` or `fact_id` is already known.
+- Use `resolve_markdown_documents` to map an entity/display name to copied Markdown documents.
+- Use `read_markdown_evidence` for exact line-addressed excerpts.
+- Use `search_markdown` for semantic information not represented by a structured field.
+- Do not infer that every one of the 204 Units has a dedicated Markdown page; this release contains 116 copied documents.

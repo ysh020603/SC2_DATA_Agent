@@ -1,6 +1,6 @@
 # Zerg Ability Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `AMORPHOUSARMORCLOUD_AMORPHOUSARMORCLOUD` (Zerg, Point)
 - `ATTACK_ATTACK` (Protoss/Terran/Zerg, PointOrUnit) - Attack some unit or structure.

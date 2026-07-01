@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reusable search/filter tools for DATA_BASE/data_base_add_graph.json.
+"""Reusable search/filter tools for the versioned SC2 dataset.
 
 The functions in this module are intentionally plain Python so they can be
 wrapped as Agent tools later. Each search function can run independently, and
@@ -16,14 +16,12 @@ import re
 from pathlib import Path
 from typing import Any, Iterable
 
+from sc2_data_store import ALL_SECTIONS, DEFAULT_DATABASE_PATH, ENTITY_SECTIONS, get_dataset_store
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-DEFAULT_DATA_PATH = (
-    SCRIPT_DIR / "data_base_add_graph.json"
-    if (SCRIPT_DIR / "data_base_add_graph.json").exists()
-    else SCRIPT_DIR / "DATA_BASE" / "data_base_add_graph.json"
-)
-DEFAULT_SECTIONS = ("Ability", "Unit", "Upgrade")
+DEFAULT_DATA_PATH = DEFAULT_DATABASE_PATH
+DEFAULT_SECTIONS = ENTITY_SECTIONS
 
 
 def normalize_text(value: Any) -> str:
@@ -31,8 +29,7 @@ def normalize_text(value: Any) -> str:
 
 
 def load_data(data_path: str | Path = DEFAULT_DATA_PATH) -> dict[str, list[dict[str, Any]]]:
-    path = Path(data_path)
-    return json.loads(path.read_text(encoding="utf-8"))
+    return get_dataset_store(data_path).data
 
 
 def flatten_items(
@@ -43,7 +40,7 @@ def flatten_items(
     data = data or load_data(data_path)
     wanted = set(sections or DEFAULT_SECTIONS)
     flattened: list[dict[str, Any]] = []
-    for section in DEFAULT_SECTIONS:
+    for section in ALL_SECTIONS:
         if section not in wanted:
             continue
         for item in data.get(section, []):
@@ -360,10 +357,10 @@ def parse_key_list(text: str | None) -> list[str] | None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Search DATA_BASE/data_base_add_graph.json.")
+    parser = argparse.ArgumentParser(description="Search the configured SC2 dataset release.")
     parser.add_argument("--name", default=None)
     parser.add_argument("--name-mode", default="contains", choices=["exact", "contains", "fuzzy"])
-    parser.add_argument("--sections", default=None, help="Comma separated: Ability,Unit,Upgrade")
+    parser.add_argument("--sections", default=None, help="Comma separated: Ability,Unit,Upgrade,SubOntology")
     parser.add_argument("--ranges-json", default=None, help='Example: {"max_health":{"min":100}}')
     parser.add_argument("--race", default=None)
     parser.add_argument("--attributes-any", default=None)

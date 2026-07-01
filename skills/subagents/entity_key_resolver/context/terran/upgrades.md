@@ -1,6 +1,6 @@
 # Terran Upgrade Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `BansheeCloak` (Terran) - Allows Banshees to use the Cloak ability.
 - `BansheeSpeed` (Terran) - Increases the movement speed of Banshees from 3.85 to 5.25.

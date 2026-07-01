@@ -1,6 +1,6 @@
 # Zerg Upgrade Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `AnabolicSynthesis` (Zerg) - Increases the movement speed of Ultralisks off creep.
 - `Burrow` (Zerg) - Enables all Zerg ground units to use the Burrow ability. Burrow allows a unit to take cover underground, rendering it unable to attack.

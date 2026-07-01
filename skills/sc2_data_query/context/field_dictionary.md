@@ -68,6 +68,18 @@ Example: `"1440 game loops / 22.4 ~ 64.3 seconds (converted at 22.4 game loops/s
 - DPS -> `weapons.dps`
 - bonus to armored -> `weapons.bonuses.against == Armored`
 - bonus to light -> `weapons.bonuses.against == Light`
+- declared attack domain -> `attack_type` (`None`, `Ground`, `Air`, or `Both`)
+
+## Ontology Fields
+
+- primary Unit classes -> `dimension_a_classes`
+- ontology name -> `SubOntology.name`
+- ontology hierarchy level -> `SubOntology.level`
+- parent classes -> `SubOntology.parents`
+- canonical class members -> `SubOntology.members`
+- race/class intersection -> secondary SubOntology such as `Zerg_Spellcasters`
+
+Use SubOntology membership for semantic classes such as detector, worker, transport, support, stealth, caster, harasser, ground, or air. Do not approximate these groups from descriptions.
 
 ## Ability Fields
 

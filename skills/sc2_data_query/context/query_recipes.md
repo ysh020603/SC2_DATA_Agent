@@ -14,7 +14,7 @@ Tool:
   "arguments": {
     "sections": ["Unit"],
     "numeric_ranges": {
-      "time": {"max": 30},
+      "time": {"max": 672},
       "minerals": {"max": 50}
     },
     "tag_filters": {"race": "Zerg"},
@@ -22,6 +22,8 @@ Tool:
   }
 }
 ```
+
+The 30-second limit is converted to 672 game loops before querying (`30 * 22.4`).
 
 ## Sorting
 
@@ -110,3 +112,29 @@ Use `strategic_join_analysis`:
   "top_n": 3
 }
 ```
+
+## Unified Counter Relation
+
+User asks:
+
+> What counters Marine, and where is the evidence?
+
+Use `query_counter_relations` with `direction: both`. Keep each result's `relation_id`, `description`, `source`, and `fact`. Cite fact documents and line ranges in the answer.
+
+## SubOntology Expansion
+
+User asks:
+
+> Which Terran units are Spellcasters?
+
+Use:
+
+```json
+{"tool": "list_subontology_members", "arguments": {"name": "Terran_Spellcasters"}}
+```
+
+Use `query_unit_classes` for the reverse question: which ontology classes contain a specific Unit.
+
+## Markdown Evidence
+
+When a relation already supplies a fact, call `read_markdown_evidence` with the returned `document`, `line_start`, and `line_end`. When starting from an entity, call `resolve_markdown_documents`. Use `search_markdown` only when no structured field or relation represents the requested information.

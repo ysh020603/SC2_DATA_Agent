@@ -1,6 +1,6 @@
 # Terran Ability Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL1` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).
 - `ARMORYRESEARCH_TERRANSHIPWEAPONSLEVEL2` (Terran, Research) - Increase the damage of Terran Air units (Viking, Liberator, Banshee, and Battlecruiser).

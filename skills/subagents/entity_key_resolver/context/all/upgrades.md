@@ -1,6 +1,6 @@
 # All Upgrade Keys
 
-Generated from `data_base.json`. Use these canonical keys for tool arguments.
+Generated for `data_sc2_260701/data_base_sc2_260701.json`. Use these canonical keys for tool arguments.
 
 - `AdeptPiercingAttack` (Protoss) - Increases the attack speed of the Adept by 45%.
 - `AmplifiedShielding`

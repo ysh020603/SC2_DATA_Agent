@@ -1,0 +1,18 @@
+{
+  "experiment_name": "deepseek_agent_evaluation",
+  "mode": "agent",
+  "answer_model_key": "DeepSeek-V4-flash",
+  "judge_model_key": "Kimi-k2.5_think",
+  "dataset": "qa_multihop_sc2_60.json",
+  "answer_reasoning": "auto",
+  "judge_reasoning": "auto",
+  "workers": 1,
+  "answer_retries": 2,
+  "judge_retries": 2,
+  "retry_backoff_seconds": 3.0,
+  "request_delay_seconds": 0.0,
+  "races": [],
+  "hop_counts": [],
+  "ids": [],
+  "limit": null
+}

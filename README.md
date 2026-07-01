@@ -1,187 +1,450 @@
-﻿# SC2 DATA Search & Natural-Language Agent
+# StarCraft II Data Agent
 
-A structured, searchable database and query system for StarCraft II: Legacy of the Void units, buildings, abilities, and upgrades.
+StarCraft II Data Agent is an evidence-aware natural-language retrieval system for the **2026-07-01 StarCraft II: Legacy of the Void dataset release**. It combines deterministic Python query tools, a typed relationship graph, hierarchical Unit SubOntologies, file-addressable Markdown evidence, and an OpenAI-compatible multi-model agent.
 
-## Database
+The application can answer questions about units, structures, abilities, upgrades, production, research, technology dependencies, tactical properties, counters, synergy, transport rules, ontology classes, and supporting source passages. Every question is written to a durable local trace whether it is submitted from the command line, Streamlit, or Python.
 
-Core data file:
+## Key capabilities
 
-``text
-data_base_add_graph.json
-``
+- Searches 683 Abilities, 204 Units, 124 Upgrades, and 109 SubOntology classes.
+- Traverses 6,503 typed relations with stable relation IDs and provenance.
+- Uses the unified `counters` relation introduced by the 2026-07-01 release.
+- Expands semantic assertions over canonical SubOntology members.
+- Routes entities and relations to 116 copied Markdown documents.
+- Retrieves exact one-based source line ranges and evidence text.
+- Supports production, reverse production, research, add-on, morph, ability, and technology-chain joins.
+- Calls DeepSeek, Kimi, Gemini, Qwen, or other OpenAI-compatible endpoints through a configurable model pool.
+- Extracts provider-visible reasoning from separate fields or embedded thinking tags.
+- Persists prompts, routing decisions, plans, tool calls, reasoning, answers, errors, timing, and usage metadata for every run.
 
-It is built from the raw data.json plus tech-chain and description sources, containing three top-level sections:
+## Repository layout
 
-| Section   | Content | Count |
-|-----------|---------|------:|
-| Ability | Skills, actions, and commands (train, build, research, cast, move, attack, etc.) | 683 |
-| Unit    | Units and buildings across Terran, Protoss, and Zerg, including transformed variants | 204 |
-| Upgrade | Technologies and upgrades (weapon/armor tiers, ability unlocks, special research) | 124 |
+```text
+SC2_DATA_Agent/
+├── API_config/
+│   ├── config.example.json
+│   └── config.json                 # local secrets; ignored by Git
+├── API_Tools/
+│   ├── llm_caller.py               # model-pool OpenAI-compatible caller
+│   ├── reasoning_extractor.py      # reasoning response-shape extraction
+│   ├── reasoning_extractors.md
+│   └── probe_reasoning_extraction.py
+├── data_sc2_260701/
+│   ├── data_base_sc2_260701.json   # active entity and relation database
+│   ├── BUILD_MANIFEST.json
+│   ├── DATA_STRUCTURE.md
+│   ├── SUB_ONTOLOGY.md
+│   ├── markdown/{Terran,Protoss,Zerg}/*.md
+│   └── relations/entity_expanded_relations.json
+├── skills/                         # agent routing and schema guidance
+├── archive/legacy_v1/              # inactive pre-2026-07-01 files
+├── sc2_data_store.py               # version-aware data and evidence indexes
+├── sc2_search_tools.py             # low-level filters and projections
+├── sc2_query_engine.py             # joins, graph, ontology, and evidence tools
+├── sc2_agent_tools.py              # agent-facing convenience wrappers
+├── sc2_trace.py                    # durable per-question logging
+├── sc2_agent.py                    # router, planner, tool loop, and answerer
+└── streamlit_search_app.py         # interactive interface
+```
 
-Every object retains searchable original fields from data.json with internal numeric IDs replaced by readable names, plus three added fields:
+The legacy archive is retained for reference only. Nothing under `archive/legacy_v1` participates in the current runtime.
 
-| Key           | Type              | Purpose |
-|---------------|-------------------|---------|
-| 	ech_chain  | list<string>    | Tech-tree unlock paths, supporting single paths, multi-path alternatives, and parallel AND dependencies ([path A] + [path B] -> target). |
-| description | list<string>    | Natural-language descriptions of the unit, ability, or upgrade. |
-| elations   | list<object>    | Inter-entity relationship graph edges (counter, synergy, production, morph, garrison, stat bonuses, ability locks). 345 Abilities, 180 Units, and 72 Upgrades carry non-empty relations. |
+## Active dataset
 
-Full schema details are in [DATA_BASE_STRUCTURE.md](DATA_BASE_STRUCTURE.md).
+The default database is:
 
-## Query Engine
+```text
+data_sc2_260701/data_base_sc2_260701.json
+```
 
-The tools are organized across three layers:
+The release contains four top-level collections:
 
-### Layer 1 — Core search/filter (sc2_search_tools.py)
+| Collection | Count | Purpose |
+|---|---:|---|
+| `Ability` | 683 | Commands, casts, production, research, movement, and morph actions |
+| `Unit` | 204 | Units, structures, transformed forms, summons, and temporary entities |
+| `Upgrade` | 124 | Technologies, unlocks, and stat improvements |
+| `SubOntology` | 109 | Canonical Unit classes and race/class intersections |
 
-Reusable Python functions that can be called standalone or wrapped as Agent tools.
+`Unit` records retain the original combat, cost, movement, weapon, ability, requirement, and technology-chain fields. The current release also adds:
 
-| Function                   | Purpose |
-|----------------------------|---------|
-| search_by_name           | Search by name with exact, contains, or fuzzy matching. |
-| ilter_by_numeric_ranges | Filter by any numeric field (max_health, weapons.range, cost.gas, etc.). |
-| ilter_by_tags           | Filter by race, attributes (Armored, Light, ...), and boolean flags (is_flying, 
-eeds_power, ...). |
-| ilter_combat_profile    | Filter by weapon properties: air/ground target, range, damage, DPS, bonus damage type. |
-| combined_search          | Compose all four filters in one pass. |
-| pply_projection         | Return only selected key paths instead of the full record. |
+- `attack_type`: `None`, `Ground`, `Air`, or `Both`.
+- `dimension_a_classes`: membership in the 28 primary Unit classes.
 
-### Layer 2 — Higher-level query engine (sc2_query_engine.py)
+The dataset location can be overridden by passing `--data-path` to the CLI or a path to `run_agent(..., data_path=...)`. `sc2_data_store.DatasetStore` also accepts a release directory and selects its `data_base_sc2_*.json` file.
 
-Domain-aware functions that perform cross-table joins, tech-chain parsing, and relation-graph traversal.
+## SubOntology model
 
-**Entity lookup:**
+SubOntologies are classes over canonical Units; they are not additional game units.
 
-| Tool                       | Purpose |
-|----------------------------|---------|
-| esolve_entity_key       | Resolve user-facing names (including Chinese aliases) to canonical database keys. |
-| get_entity               | Fetch one full entity record by section and name. |
+The hierarchy contains:
 
-**Production joins:**
+- 28 Dimension A classes, including `GroundUnits`, `AirUnits`, `Spellcasters`, `Detectors`, `Workers`, `Harassers`, and `TransportUnits`.
+- 3 race classes: `Protoss`, `Terran`, and `Zerg`.
+- 78 non-empty race/class intersections such as `Terran_Spellcasters` and `Zerg_GroundUnits`.
 
-| Tool                              | Purpose |
-|-----------------------------------|---------|
-| query_production_outputs        | Given a producer, return everything it can train/build/morph, with cost/supply/time. |
-| query_reverse_production_sources | Given a unit or upgrade, return which buildings produce it and under what add-on conditions. |
-| query_addon_branches            | Show TechLab-only, Reactor-compatible, and no-addon production branches for a given structure. |
-| query_addon_producers           | List all Terran structures that accept add-ons and their branch breakdowns. |
-| query_research_outputs          | Given a research building, return all upgrades it can research. |
+Each SubOntology record contains `name`, `entity_type`, `level`, `parents`, `members`, `description`, and `relations`. `GroundUnits` and `AirUnits` form a complete, disjoint partition of all 204 Units.
 
-**Unit-ability and dependency analysis:**
+Source semantic assertions may use a SubOntology endpoint. The release expands those assertions to concrete member relations. Expanded relations retain the original class names, member binding, descriptions, source facts, and `source.kind = subontology_expansion` metadata.
 
-| Tool                       | Purpose |
-|----------------------------|---------|
-| query_unit_abilities     | Join unit → ability with energy cost, range, cooldown, and target-type details. |
-| query_dependency_impact  | Reverse-impact analysis: what breaks if a given building or upgrade is destroyed/missing. |
-| query_upgrade_effects    | Infer which units an upgrade affects by name-substring matching. |
-| query_gas_units_with_sources | Return all gas-costing units with their production sources and tech chains. |
-| query_combat_production_options | Combine production-source and combat-profile filters in one call. |
+## Unified relation graph
 
-**Tech-tree analysis:**
+Every relation uses the same structure:
 
-| Tool              | Purpose |
-|-------------------|---------|
-| query_tech_tree | Forward or reverse tech-chain lookup, add-on requirements, multi-path detection. |
+```json
+{
+  "relation_id": "stable SHA-256 identifier",
+  "subject_name": "Marine",
+  "subject_type": "Unit",
+  "relation": "counters",
+  "object_name": "Zergling",
+  "object_type": "Unit",
+  "description": ["Retained relation descriptions"],
+  "source": [{"kind": "markdown_semantic_extraction"}],
+  "fact": [{"document": "markdown/Terran/marine.md", "line_start": 91, "line_end": 91}]
+}
+```
 
-**Tactical and semantic:**
+`description`, `source`, and `fact` are always lists. The supported derivation kinds are:
 
-| Tool                      | Purpose |
-|---------------------------|---------|
-| query_tactical_profile  | Unit × ability join with energy, range, cooldown, immediate-cast checks, creep speed, and transforming forms. |
-| search_descriptions     | Keyword search of description text for tactical effects (detector, cloak, splash, burrow, harass, etc.). |
+- `structured_data_direct`
+- `structured_data_inference`
+- `markdown_semantic_extraction`
+- `subontology_expansion`
+- `pending_postprocess`
 
-**Strategic analysis:**
+The semantic graph uses these relation names:
 
-| Tool                       | Purpose |
-|----------------------------|---------|
-| strategic_join_analysis  | Derived-metric analysis: cost efficiency rankings, add-on dependency reports, spell target compatibility. |
+| Relation | Meaning |
+|---|---|
+| `counters` | A tactical or matchup advantage |
+| `synergizes_with` | Useful unit or strategy interaction |
+| `garrisons_in` | Loading, transport, or garrison compatibility |
+| `grants_stat_bonus` | Upgrade-to-Unit stat effect |
+| `enables_morph` | Upgrade or structure enabling a morph |
 
-### Layer 3 — Relation graph queries (sc2_query_engine.py)
+The former `hard_counters` and `soft_counters` relation names are not present in the active release. Compatibility calls that pass a hard/soft selector return the unified results with a migration note.
 
-Query the elations edges in data_base_add_graph.json:
+Structured relations additionally cover abilities, requirements, action results, production, research, spawning, morphing, and ability unlocks.
 
-| Tool                       | Relation queried | Purpose |
-|----------------------------|------------------|---------|
-| query_counter_relations  | hard_counters, soft_counters | What counters Marine? What does Archon hard-counter? |
-| query_combat_synergy     | synergizes_with | What units work well with SiegeTank? |
-| query_garrison_relations | garrisons_in    | What units can enter Bunker? Can SiegeTank load into Medivac? |
-| query_stat_bonuses       | grants_stat_bonus | What upgrades improve MissileTurret? What does HiSecAutoTracking affect? |
-| query_ability_unlocks    | unlocks_unit_ability | What does Stimpack unlock? What upgrades give Marine new abilities? |
-| query_morph_enablers     | enables_morph   | What upgrade lets Hellion transform? What does SmartServos enable? |
+## Markdown evidence
 
-## Natural-Language Agent
+The release includes 116 Markdown files copied from the extraction corpus:
 
-The Agent (sc2_agent.py) performs multi-step, tool-calling retrieval:
+| Race | Documents |
+|---|---:|
+| Protoss | 38 |
+| Terran | 36 |
+| Zerg | 42 |
 
-1. User enters a natural-language question.
-2. A context router picks relevant skill modules and race dictionaries.
-3. The LLM plans one or more tool calls from the available catalog.
-4. Deterministic query functions execute the retrieval.
-5. The LLM summarizes the evidence into a natural-language answer.
+Semantic facts contain:
 
-Agent supports both Chinese and English I/O modes, with an optional reasoning toggle.
+- a release-relative document path;
+- document entity and race;
+- heading path;
+- one-based start and end lines;
+- block ID and fact ID;
+- exact evidence text.
 
-Run from the project root:
+The runtime never accepts arbitrary Markdown filesystem paths. `DatasetStore.safe_markdown_path` restricts reads to the active release's `markdown` directory.
 
-``powershell
-python sc2_agent.py "Retrieve the complete tech_chain to build a Mothership." --language English
-python sc2_agent.py "What counters a Battlecruiser?" --language English
-python sc2_agent.py "Which upgrades from the EngineeringBay affect Marines?" --language English
-``
+## Query tools
 
-Dry-run mode executes tools without LLM calls:
+### Entity and low-level search
 
-``powershell
-python sc2_agent.py "What does a Barracks produce?" --dry-run
-``
+- `resolve_entity_key`
+- `get_entity`
+- `run_query_ir`
+- `filter_attributes_and_resources`
+- `search_by_name`
+- `filter_by_numeric_ranges`
+- `filter_by_tags`
+- `filter_combat_profile`
+- `combined_search`
 
-### Agent tools catalog
+### Production and technology
 
-The Agent has access to 20+ deterministic tools through sc2_agent_tools.py. The full tool spec with argument schemas is defined in sc2_agent.py (the TOOL_SPEC constant). Each tool can be independently invoked with the standard execute_tool(tool_name, arguments) interface from sc2_query_engine.py.
+- `query_production_outputs`
+- `query_reverse_production_sources`
+- `query_addon_branches`
+- `query_addon_producers`
+- `query_research_outputs`
+- `query_unit_abilities`
+- `query_dependency_impact`
+- `query_upgrade_effects`
+- `query_gas_units_with_sources`
+- `query_combat_production_options`
+- `query_tech_tree`
+- `query_tactical_profile`
+- `search_descriptions`
+- `strategic_join_analysis`
 
-### Provider configuration
+### Typed graph
 
-API settings are stored in config/provider_config.json (gitignored). See config/provider_config.example.json for the format. Supported providers:
+- `query_relations`
+- `query_counter_relations`
+- `query_combat_synergy`
+- `query_garrison_relations`
+- `query_stat_bonuses`
+- `query_ability_unlocks`
+- `query_morph_enablers`
+- `query_relation_evidence`
 
-| Provider           | Model              |
-|--------------------|--------------------|
-| glm-4.7          | glm-4.7            |
-| kimi-k2.5        | kimi-k2.5          |
-| deepseek-v4-flash| deepseek-v4-flash  |
+### SubOntology and evidence
 
-Environment variable overrides:
+- `get_subontology`
+- `list_subontology_members`
+- `query_unit_classes`
+- `filter_units_by_subontology`
+- `resolve_markdown_documents`
+- `read_markdown_evidence`
+- `search_markdown`
 
-``text
-GLM_API_KEY / GLM_BASE_URL
-KIMI_API_KEY / KIMI_BASE_URL
-DEEPSEEK_API_KEY / DEEPSEEK_BASE_URL
-``
+All Agent tools are dispatched through `sc2_query_engine.execute_tool(tool_name, arguments, data_path=...)`.
 
-## Streamlit UI
+## Installation
 
-Run from the project root:
+Python 3.11 or later is recommended.
 
-``powershell
+```powershell
+cd C:\code\SC2_DATA_Agent
+python -m pip install -r requirements.txt
+```
+
+The deterministic tools do not require an API connection. Natural-language routing, planning, and answer generation require the `openai` package and at least one configured model entry. The interactive interface additionally requires Streamlit.
+
+## API configuration
+
+Copy the example configuration:
+
+```powershell
+Copy-Item API_config\config.example.json API_config\config.json
+```
+
+The real `API_config/config.json` is ignored by Git. It contains a `llm_agents_pool` object keyed by user-facing model keys.
+
+Important fields include:
+
+| Field | Purpose |
+|---|---|
+| `api_url` | OpenAI-compatible base URL |
+| `api_key` | Local credential; never written to traces |
+| `api_key_env` | Optional environment-variable override |
+| `model_name` | Model identifier sent to the endpoint |
+| `temperature`, `top_p`, `max_tokens` | Generation controls |
+| `timeout_seconds` | Client timeout |
+| `is_reasoning` | Whether this entry represents reasoning mode |
+| `reasoning_extract_mode` | Response shape used to separate reasoning and answer |
+| `reasoning_extra_body` | Request body merged when reasoning is enabled |
+| `non_reasoning_extra_body` | Request body merged when reasoning is disabled |
+
+The caller gives explicit function arguments priority over model-pool values. If `api_key_env` is configured and present, its value overrides the file credential.
+
+## Reasoning extraction
+
+The API layer can extract provider-visible reasoning from several OpenAI-compatible response shapes:
+
+| Mode | Source |
+|---|---|
+| `none` | No reasoning extraction |
+| `auto` | Separated fields first, then embedded tags |
+| `field_reasoning_content` | `message.reasoning_content` |
+| `field_reasoning` | `message.reasoning` |
+| `field_reasoning_details` | `message.reasoning_details` |
+| `content_think_tags` | `<think>...</think>` inside content |
+| `content_redacted_thinking_tags` | `<redacted_thinking>...</redacted_thinking>` inside content |
+
+Only reasoning returned by the configured provider can be recorded. If an endpoint does not expose a reasoning field or tag, the trace records `reasoning_available: false` and the detected source instead of manufacturing a chain of thought.
+
+Model keys ending in `_think` can be paired with a non-thinking entry of the same base name. The CLI and UI can select the paired key when reasoning is switched on or off.
+
+To inspect a configured response shape manually:
+
+```powershell
+python API_Tools\probe_reasoning_extraction.py `
+  --model-key Qwen3-8b_think `
+  --mode auto `
+  --prompt "Which is larger, 9.11 or 9.8? Answer briefly."
+```
+
+Probe reports are local and ignored by Git.
+
+## Command-line usage
+
+Basic question:
+
+```powershell
+python sc2_agent.py "What counters a Marine, and which source lines support the answer?"
+```
+
+Choose a model and enable reasoning:
+
+```powershell
+python sc2_agent.py "List the members of Terran_Spellcasters." `
+  --model-key DeepSeek-V4-flash `
+  --reasoning-mode on `
+  --language English
+```
+
+Display the provider-visible reasoning trace in the terminal:
+
+```powershell
+python sc2_agent.py "Explain the production path for a Battlecruiser." `
+  --reasoning-mode on `
+  --show-reasoning
+```
+
+Run deterministic retrieval without any API call:
+
+```powershell
+python sc2_agent.py "What counters Marine?" --dry-run
+```
+
+Useful CLI options:
+
+```text
+--provider / --model-key     key from API_config/config.json
+--model                      optional underlying model-name override
+--reasoning                  compatibility shortcut for reasoning on
+--reasoning-mode             auto, on, or off
+--language                   answer language
+--data-path                  database file or dataset release path
+--dry-run                    deterministic tools only
+--show-reasoning             print the captured reasoning trace
+--show-tools                 print plans and complete tool results
+```
+
+Every invocation prints its run ID and canonical trace path.
+
+## Python usage
+
+Run the complete natural-language agent:
+
+```python
+from sc2_agent import run_agent
+
+result = run_agent(
+    "Which Zerg units are Spellcasters?",
+    provider="DeepSeek-V4-flash",
+    enable_reasoning=False,
+    response_language="English",
+)
+
+print(result["answer"])
+print(result["run_id"])
+print(result["log_path"])
+```
+
+Call a deterministic tool directly:
+
+```python
+from sc2_query_engine import execute_tool
+
+result = execute_tool(
+    "list_subontology_members",
+    {"name": "Zerg_Spellcasters"},
+)
+print(result["results"])
+```
+
+Retrieve exact Markdown lines:
+
+```python
+result = execute_tool(
+    "read_markdown_evidence",
+    {
+        "document": "markdown/Terran/marine.md",
+        "line_start": 21,
+        "line_end": 29,
+    },
+)
+```
+
+## Streamlit interface
+
+Start the application from the repository root:
+
+```powershell
 streamlit run streamlit_search_app.py --server.port 8501
-``
+```
 
-Then open http://localhost:8501.
+The interface provides:
 
-The app includes:
-- **Main Search page**: manually compose name, numeric, tag/attribute, and combat filters with a sortable results table.
-- **Agent Search subpage** (pages/1_Agent_Search.py): enter a natural-language instruction and let the Agent plan and execute retrieval automatically, with expandable tool-trace panels.
+- dynamic model selection from `API_config/config.json`;
+- auto/on/off reasoning selection;
+- English or Chinese answer generation;
+- answer, run ID, and local trace location;
+- expandable routing and planning details;
+- provider-visible reasoning by LLM phase;
+- complete deterministic tool and evidence results;
+- downloadable run results.
 
-## Key Files
+The UI does not own the logging mechanism. It calls the same `run_agent` function as the CLI, so closing the browser does not remove the trace.
 
-| File | Purpose |
-|------|---------|
-| data_base_add_graph.json | Core structured database with tech chains, descriptions, and relations. |
-| uild_data_base.py | Build script that generates the database from raw sources. |
-| sc2_search_tools.py | Low-level search/filter functions. |
-| sc2_query_engine.py | Higher-level query engine with cross-table joins and relation graphs. |
-| sc2_agent_tools.py | Agent-facing wrappers around the query engine. |
-| sc2_agent.py | Natural-language Agent with LLM planning, routing, and summarization. |
-| streamlit_search_app.py | Streamlit main search UI. |
-| pages/1_Agent_Search.py | Streamlit Agent subpage. |
-| config/provider_config.example.json | API configuration example. |
-| DATA_BASE_STRUCTURE.md | Full database schema documentation. |
+## Durable logs
+
+Every question creates:
+
+```text
+logs/YYYY-MM-DD/<run_id>/
+├── events.jsonl
+└── trace.json
+```
+
+`events.jsonl` is appended and flushed throughout execution. It can survive a process failure before the final answer is produced. `trace.json` is written atomically when the run finishes or fails.
+
+The trace records:
+
+- query, timestamps, run status, and dataset metadata;
+- complete router, planner, and answer messages;
+- routing decisions and plans;
+- tool names, arguments, results, and exceptions;
+- answer content and provider-visible reasoning;
+- reasoning source and extraction mode;
+- model key, model name, latency, usage, and finish reason;
+- fallback and failure events.
+
+Keys whose names resemble credentials, authorization values, tokens, secrets, or passwords are redacted before serialization. API keys and authorization headers are never deliberately included in request metadata.
+
+Set `SC2_LOG_DIR` to move logs to another local directory. Logging is initialized before retrieval begins; an unwritable log location causes the run to fail rather than silently produce an unrecorded answer.
+
+## Security notes
+
+- Never commit `API_config/config.json`.
+- Prefer `api_key_env` for shared or long-lived environments.
+- Treat traces as sensitive because they contain full user prompts, model output, tool evidence, and provider-visible reasoning.
+- Keep `logs/` private and apply an external retention policy appropriate to the deployment.
+- Markdown reads are restricted to the active release directory.
+- The archived legacy private configuration is also ignored by Git.
+
+## Legacy archive
+
+The pre-2026-07-01 database, builder, schema documentation, provider configuration format, old search-tool documentation, and historical Streamlit output files are stored under:
+
+```text
+archive/legacy_v1/
+```
+
+These files exist only to explain earlier behavior or support manual migration review. The active code does not fall back to them.
+
+## Troubleshooting
+
+### `Unknown model_key`
+
+Ensure the selected key exists under `llm_agents_pool` in `API_config/config.json`. Model keys are case-sensitive at the Agent boundary.
+
+### Reasoning is empty
+
+Confirm that the endpoint exposes reasoning and that `reasoning_extract_mode` matches its actual response shape. Use `probe_reasoning_extraction.py` to inspect the source and raw message keys.
+
+### A Markdown document cannot be opened
+
+Use release-relative paths beginning with `markdown/`. Absolute paths and paths outside the active Markdown directory are rejected.
+
+### A hard/soft counter query no longer distinguishes severity
+
+This is expected. The current dataset replaced both legacy relations with `counters`; the release does not provide a reliable severity field.
+
+### An entity has no dedicated Markdown page
+
+The structured database contains 204 Units, while the release includes 116 Markdown documents. Use structured fields and relation facts when a dedicated page is unavailable.

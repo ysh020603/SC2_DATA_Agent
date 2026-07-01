@@ -1,8 +1,10 @@
 result/
-config/provider_config.json
-streamlit_stdout.log
-streamlit_stderr.log
+API_config/config.json
+logs/
+SC2_QA/logs/
+API_Tools/reasoning_probe_reports/
+archive/legacy_v1/private/
+/streamlit_stdout.log
+/streamlit_stderr.log
 __pycache__/
-pages/__pycache__/
 .codex-run/
-tests/__pycache__/
