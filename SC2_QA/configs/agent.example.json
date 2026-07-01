@@ -1,5 +1,5 @@
 {
-  "experiment_name": "deepseek_agent_evaluation",
+  "experiment_name": "agent",
   "mode": "agent",
   "answer_model_key": "DeepSeek-V4-flash",
   "judge_model_key": "Kimi-k2.5_think",

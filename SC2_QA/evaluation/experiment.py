@@ -44,9 +44,9 @@ def make_experiment_id(config: ExperimentConfig) -> str:
     ).hexdigest()[:8]
     return "_".join([
         now,
-        slug(config.experiment_name),
         config.mode,
         slug(config.answer_model_key),
+        slug(config.judge_model_key),
         fingerprint,
     ])
 

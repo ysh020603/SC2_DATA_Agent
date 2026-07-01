@@ -1,5 +1,5 @@
 {
-  "experiment_name": "deepseek_plain_evaluation",
+  "experiment_name": "plain",
   "mode": "plain",
   "answer_model_key": "DeepSeek-V4-flash",
   "judge_model_key": "Kimi-k2.5_think",

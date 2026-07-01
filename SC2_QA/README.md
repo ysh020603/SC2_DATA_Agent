@@ -197,7 +197,7 @@ Agent and Plain use separate configuration templates. The `mode` field is a sing
 
 ```json
 {
-  "experiment_name": "deepseek_agent_evaluation",
+  "experiment_name": "agent",
   "mode": "agent",
   "answer_model_key": "DeepSeek-V4-flash",
   "judge_model_key": "Kimi-k2.5_think",
@@ -309,7 +309,19 @@ Every experiment writes only under:
 SC2_QA/logs/<experiment_id>/
 ```
 
-The experiment ID includes UTC time, experiment name, mode, answer model key, and a configuration fingerprint.
+The experiment ID is generated automatically with this format:
+
+```text
+{UTC时间}_{mode}_{answer_model_key}_{judge_model_key}_{config指纹}
+```
+
+For example:
+
+```text
+20260701_103352_agent_Kimi-k2.5_Kimi-k2.5_bbe1c68e
+```
+
+`config指纹` is the first 8 characters of the SHA-256 hash of the full experiment configuration JSON.
 
 ```text
 logs/<experiment_id>/
