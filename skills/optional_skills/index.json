@@ -1,10 +1,10 @@
 {
   "production_chain": {
-    "description": "用于解决生产链问题：查询某个建筑或单位能生产、训练、建造、孵化或研究什么。",
+    "description": "Use for production-chain questions about what a structure or unit can produce, train, build, morph, spawn, or research.",
     "file": "production_chain.md"
   },
   "tech_dependency": {
-    "description": "用于解决科技与依赖问题：查询单位/科技的前置解锁条件、依赖路径、或某建筑被摧毁后的影响。",
+    "description": "Use for technology and dependency questions about prerequisites, unlock paths, dependency chains, or the impact of a missing or destroyed structure.",
     "file": "tech_dependency.md"
   },
   "combat_production_filter": {
