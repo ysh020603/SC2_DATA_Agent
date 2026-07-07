@@ -81,7 +81,7 @@ class ExperimentConfig:
             raise ValueError(f"mode must be one of {sorted(VALID_MODES)}, got {self.mode!r}")
         if self.answer_reasoning not in VALID_REASONING_MODES:
             raise ValueError(f"Invalid answer_reasoning: {self.answer_reasoning}")
-        if self.agent_version not in {"v1", "v2"}:
+        if self.agent_version not in {"v1", "v2", "v2.1"}:
             raise ValueError(f"Invalid agent_version: {self.agent_version}")
         if self.judge_reasoning not in VALID_REASONING_MODES:
             raise ValueError(f"Invalid judge_reasoning: {self.judge_reasoning}")

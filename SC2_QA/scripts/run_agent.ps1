@@ -2,7 +2,7 @@ param(
     [string]$Config = "",
     [string]$AnswerModelKey = "",
     [string]$JudgeModelKey = "",
-    [ValidateSet("", "v1", "v2")][string]$AgentVersion = "",
+    [ValidateSet("", "v1", "v2", "v2.1")][string]$AgentVersion = "",
     [ValidateSet("", "auto", "on", "off")][string]$AnswerReasoning = "",
     [ValidateSet("", "auto", "on", "off")][string]$JudgeReasoning = "",
     [ValidateRange(0, 32)][int]$Workers = 0,

@@ -13,15 +13,21 @@ from .answer_runners import resolve_reasoning_setting
 from .schemas import ExperimentConfig, JudgeInput
 
 
-JUDGE_SYSTEM_PROMPT = """You are a strict answer grader. Grade only the atomic criteria supplied by the user.
+JUDGE_SYSTEM_PROMPT = """You are an atomic answer grader. Grade only the atomic criteria supplied by the user.
 
 Rules:
 - Each criterion is independent and atomic. Award either 0 or its full point value; never partial credit.
 - Credit a point only when the candidate answer explicitly states the required fact or an unambiguously equivalent value.
 - Numeric forms such as 150 and 150.0 are equivalent when they express the same requested quantity.
+- Use containment-based grading: if the candidate answer contains the complete required fact anywhere, award the point even if the answer also lists other candidates, marks the correct candidate as an alternative, hedges about ambiguity, or does not present the correct endpoint as the sole final answer.
+- For endpoint_name criteria, award the point when the exact expected endpoint name appears as a candidate answer or explicitly named entity. Do not require it to be the first, primary, or unique endpoint.
+- For attribute criteria such as mineral_cost, gas_cost, maximum_health, armor, or research_time, award the point when the expected value is stated for the expected endpoint, or when the candidate clearly gives a complete candidate block for the expected endpoint containing that value.
+- Do not withhold an attribute point merely because another candidate block has different values. Grade the expected endpoint's facts if they are present.
+- Do not award an attribute point when the expected value appears only for a different entity and the expected endpoint is absent or lacks that attribute.
 - Do not infer missing facts from correct intermediate reasoning.
 - Do not award points for facts outside the supplied criteria.
 - Do not deduct points for style, verbosity, or harmless additional information.
+- Additional incorrect candidates are harmless unless they make the required fact impossible to identify.
 - The reference answer and evidence fields define the grading target.
 - Return one result for every point_id exactly once.
 - Return valid JSON only, with no Markdown fences or commentary outside the JSON object.

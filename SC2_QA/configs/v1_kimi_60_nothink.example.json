@@ -1,7 +1,7 @@
 {
-  "experiment_name": "v2_kimi_60_nothink",
+  "experiment_name": "v1_kimi_60_nothink",
   "mode": "agent",
-  "agent_version": "v2",
+  "agent_version": "v1",
   "answer_model_key": "Kimi-k2.5",
   "judge_model_key": "Kimi-k2.5",
   "dataset": "qa_multihop_sc2_60.json",

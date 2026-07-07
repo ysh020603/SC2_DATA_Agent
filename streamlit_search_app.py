@@ -32,7 +32,7 @@ if not model_keys:
 
 with st.sidebar:
     st.header("Agent settings")
-    agent_version = st.selectbox("Agent version", ["v2", "v1"], index=0)
+    agent_version = st.selectbox("Agent version", ["v2.1", "v2", "v1"], index=0)
     default_index = model_keys.index(DEFAULT_PROVIDER) if DEFAULT_PROVIDER in model_keys else 0
     model_key = st.selectbox("Model key", model_keys, index=default_index)
     configured_reasoning = bool(catalog[model_key].get("is_reasoning"))

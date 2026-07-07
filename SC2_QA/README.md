@@ -154,6 +154,9 @@ The Judge must return one result for every `point_id` exactly once:
 - Every criterion receives either zero or its full point value.
 - Partial point values are rejected.
 - Equivalent numeric forms such as `150` and `150.0` are accepted.
+- The Judge uses containment-based grading: if the candidate answer contains the complete required fact anywhere, the point should be awarded even when the answer also lists other candidates or labels the correct endpoint as an alternative.
+- For endpoint-name criteria, the exact expected endpoint only needs to appear as a candidate or explicitly named entity; it does not need to be the first, primary, or unique endpoint.
+- For attribute criteria, the expected value must be stated for the expected endpoint or inside a complete candidate block for that endpoint. The same value appearing only for a different entity is not enough.
 - Missing facts are not inferred from correct intermediate reasoning.
 - Facts outside the scoring criteria do not earn points.
 - Style, verbosity, and harmless extra information do not reduce the score.
@@ -240,7 +243,7 @@ Reasoning modes are:
 
 Only reasoning exposed by the provider is stored. If no reasoning field or tag is returned, the record contains `reasoning_available: false`.
 
-`agent_version` is required to be `v1` or `v2` in Agent mode. It is ignored by Plain answer generation.
+`agent_version` is required to be `v1`, `v2`, or `v2.1` in Agent mode. It is ignored by Plain answer generation.
 
 ## Validate without API calls
 
@@ -282,7 +285,7 @@ python -m SC2_QA.evaluation.cli `
   --agent-version v2
 ```
 
-Run the same configuration through V1 by changing the final override to `--agent-version v1`. V1 and V2 produce separate experiment IDs and must be run as independent experiments.
+Run the same configuration through another agent version by changing the final override to `--agent-version v1`, `--agent-version v2`, or `--agent-version v2.1`. V1, V2, and V2.1 produce separate experiment IDs and must be run as independent experiments.
 
 ### Three-case V2 Kimi smoke test
 
@@ -298,6 +301,21 @@ python -m SC2_QA.evaluation.cli `
 ```
 
 The selected IDs are `TERRAN_001`, `PROTOSS_009`, and `ZERG_019`. All three were individually verified at 5/5 with `Kimi-k2.5`, reasoning off, and zero answer or Judge errors. `ZERG_017` and `ZERG_018` are not used as stable smoke gates because their wording does not uniquely select the hidden generated path.
+
+### Three-case V2.1 Kimi smoke test
+
+The V2.1 smoke configuration focuses on issues found in the first V2 full runs: nested upgrade time fields, multi-candidate upgrade answers, and production-output candidate coverage.
+
+```powershell
+python -m SC2_QA.evaluation.cli `
+  --config SC2_QA\configs\v2_1_kimi_smoke.example.json `
+  --validate-only
+
+python -m SC2_QA.evaluation.cli `
+  --config SC2_QA\configs\v2_1_kimi_smoke.example.json
+```
+
+The selected IDs are `PROTOSS_003`, `PROTOSS_015`, and `ZERG_020`. On 2026-07-07, this smoke run completed with zero answer errors and zero Judge errors at `SC2_QA/logs/20260707_060007_agent_v2.1_Kimi-k2.5_Kimi-k2.5_0cb002f3`, scoring 12/14. The missed points were endpoint-name points on weakly constrained or variant-sensitive answers where V2.1 returned detailed candidates instead of forcing a single hidden endpoint.
 
 ## Run Plain evaluation
 

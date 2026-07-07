@@ -1,8 +1,8 @@
-# SC2 Agent V1 and V2
+# SC2 Agent V1, V2, and V2.1
 
 ## Version overview
 
-V1 and V2 share the active SC2 dataset, deterministic query engine, provider configuration, and QA evaluator. They differ only in LLM orchestration.
+V1, V2, and V2.1 share the active SC2 dataset, deterministic query engine, provider configuration, and QA evaluator. They differ only in LLM orchestration and version-local prompts, context, and wrappers.
 
 ### V1
 
@@ -48,6 +48,21 @@ V2 enforces these boundaries:
 
 V2 limits MainAgent to 12 decisions and each DataSubAgent session to 5 tool rounds. Transient 429, timeout, overloaded, and 5xx model errors receive up to three attempts with a short backoff.
 
+### V2.1
+
+V2.1 is an isolated copy of the V2 architecture under `sc2_agents/v2_1`. It keeps the same MainAgent plus DataSubAgent structure and does not modify V1 or V2.
+
+V2.1 adds version-local English context and generic robustness improvements:
+
+- MainAgent may use up to 20 rounds.
+- MainAgent receives stronger guidance for weakly constrained questions, multi-candidate evidence, endpoint-role separation, and best-effort final answers near the round limit.
+- DataSubAgent returns optional `candidate_entities` with roles, supporting relations, fields, and limitations.
+- Upgrade field extraction falls back from empty keyed lookups to full records and maps research time to `cost.time`.
+- Large production-output results are compacted so later candidates are not hidden behind long entity records.
+- Forward morph candidate discovery is supplemented with production-output candidates when direct relation results are incomplete.
+
+V2.1 intentionally avoids test-case-specific answer rules. When a question is genuinely ambiguous, V2.1 should answer in detail rather than forcing a single unsupported endpoint.
+
 ## Command-line usage
 
 Run V2:
@@ -55,6 +70,15 @@ Run V2:
 ```powershell
 python sc2_agent.py "Which structure researches Stimpack?" `
   --agent-version v2 `
+  --model-key Kimi-k2.5 `
+  --reasoning-mode off
+```
+
+Run V2.1:
+
+```powershell
+python sc2_agent.py "Which structure researches Stimpack?" `
+  --agent-version v2.1 `
   --model-key Kimi-k2.5 `
   --reasoning-mode off
 ```
@@ -68,7 +92,7 @@ python sc2_agent.py "Which structure researches Stimpack?" `
   --reasoning-mode off
 ```
 
-The CLI defaults to V2. The root Python compatibility function accepts `agent_version="v1"` or `agent_version="v2"`; its default remains V1 to avoid silently changing existing integrations.
+The CLI defaults to V2. The root Python compatibility function accepts `agent_version="v1"`, `agent_version="v2"`, or `agent_version="v2.1"`; its default remains V1 to avoid silently changing existing integrations.
 
 ## Python usage
 
@@ -91,6 +115,7 @@ Use a versioned import when the version must be fixed in code:
 ```python
 from sc2_agents.v1 import run_agent as run_v1
 from sc2_agents.v2 import run_agent as run_v2
+from sc2_agents.v2_1 import run_agent as run_v2_1
 ```
 
 ## Local tests
@@ -106,7 +131,7 @@ The tests verify catalog/dispatcher parity, native tool schemas, English-only V2
 
 ## QA evaluation
 
-The QA evaluator has an `agent_version` field and a matching `--agent-version` override. Run V1 and V2 as separate experiments so each version retains independent traces and reports.
+The QA evaluator has an `agent_version` field and a matching `--agent-version` override. Run V1, V2, and V2.1 as separate experiments so each version retains independent traces and reports.
 
 ### Kimi request limit and concurrency
 
@@ -136,6 +161,13 @@ python -m SC2_QA.evaluation.cli `
   --config SC2_QA\configs\v2_kimi_smoke.example.json
 ```
 
+Run the V2.1 issue-focused smoke set:
+
+```powershell
+python -m SC2_QA.evaluation.cli `
+  --config SC2_QA\configs\v2_1_kimi_smoke.example.json
+```
+
 Run the same selected cases with V1:
 
 ```powershell
@@ -144,7 +176,7 @@ python -m SC2_QA.evaluation.cli `
   --agent-version v1
 ```
 
-For a full 60-case comparison, create separate V1 and V2 configurations with empty `ids` and `limit: null`, then run each configuration independently. Compare their generated `summary.json` files. Do not reuse one experiment directory across versions.
+For a full 60-case comparison, create separate V1, V2, and V2.1 configurations with empty `ids` and `limit: null`, then run each configuration independently. Compare their generated `summary.json` files. Do not reuse one experiment directory across versions.
 
 ## Verified Kimi smoke run
 
@@ -157,3 +189,15 @@ On 2026-07-06, V2 was exercised with `Kimi-k2.5`, answer reasoning off, and Judg
 | `ZERG_019` | Zerg | 5 | 5/5 |
 
 All three stable smoke cases were individually verified at 5/5 with zero answer and Judge errors. `ZERG_017` and `ZERG_018` are intentionally excluded from the stable smoke gate because their question text does not uniquely select the hidden generated path. They remain useful for exploratory robustness testing, but not as deterministic release gates. Generated experiment logs remain local under `SC2_QA/logs/` and are not committed.
+
+## Verified V2.1 Kimi smoke run
+
+On 2026-07-07, V2.1 was exercised with `Kimi-k2.5`, answer reasoning off, and Judge reasoning off:
+
+| Case | Purpose | Score |
+|---|---|---:|
+| `PROTOSS_003` | Upgrade nested `cost.time` research-time mapping | 4/4 |
+| `PROTOSS_015` | Weakly constrained multi-upgrade answer | 4/5 |
+| `ZERG_020` | Production-output candidate coverage and spawned-unit variants | 4/5 |
+
+The smoke experiment completed with zero answer errors and zero Judge errors at `SC2_QA/logs/20260707_060007_agent_v2.1_Kimi-k2.5_Kimi-k2.5_0cb002f3`. The total score was 12/14 under the previous stricter endpoint-primary judging prompt. The Judge prompt now uses containment-based grading, so complete expected endpoint facts should receive credit even when V2.1 also lists other defensible candidates.

@@ -12,7 +12,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STATE_PATH = REPO_ROOT / "logs" / ".rate_limits" / "requests.sqlite3"
 KIMI_BUCKET = "kimi"
 KIMI_PROVIDER_MAX_RPM = 60
-DEFAULT_KIMI_RPM = 58
+DEFAULT_KIMI_RPM = 50
 DEFAULT_WINDOW_SECONDS = 60.0
 
 

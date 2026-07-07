@@ -12,8 +12,10 @@ from pathlib import Path
 from typing import Any
 
 from sc2_agent import MAX_AGENT_STEPS, get_provider_catalog
-from sc2_agents.v2.main_agent import MAX_MAIN_ROUNDS
-from sc2_agents.v2.sub_agent import MAX_SUB_TOOL_ROUNDS
+from sc2_agents.v2.main_agent import MAX_MAIN_ROUNDS as V2_MAX_MAIN_ROUNDS
+from sc2_agents.v2.sub_agent import MAX_SUB_TOOL_ROUNDS as V2_MAX_SUB_TOOL_ROUNDS
+from sc2_agents.v2_1.main_agent import MAX_MAIN_ROUNDS as V2_1_MAX_MAIN_ROUNDS
+from sc2_agents.v2_1.sub_agent import MAX_SUB_TOOL_ROUNDS as V2_1_MAX_SUB_TOOL_ROUNDS
 from API_Tools.rate_limiter import DEFAULT_KIMI_RPM, KIMI_PROVIDER_MAX_RPM
 
 from .answer_runners import run_answer
@@ -96,8 +98,10 @@ class EvaluationExperiment:
                 "agent_version": self.config.agent_version,
                 "agent_limits": {
                     "v1_planner_steps": MAX_AGENT_STEPS,
-                    "v2_main_rounds": MAX_MAIN_ROUNDS,
-                    "v2_sub_tool_rounds": MAX_SUB_TOOL_ROUNDS,
+                    "v2_main_rounds": V2_MAX_MAIN_ROUNDS,
+                    "v2_sub_tool_rounds": V2_MAX_SUB_TOOL_ROUNDS,
+                    "v2_1_main_rounds": V2_1_MAX_MAIN_ROUNDS,
+                    "v2_1_sub_tool_rounds": V2_1_MAX_SUB_TOOL_ROUNDS,
                 },
                 "provider_rate_limits": {
                     "kimi_default_rpm": DEFAULT_KIMI_RPM,

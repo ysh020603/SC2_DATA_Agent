@@ -20,7 +20,7 @@ SCRIPT_DIR = Path(__file__).resolve().parents[2]
 SKILL_DIR = SCRIPT_DIR / "skills" / "sc2_data_query"
 MAIN_AGENT_SKILL_DIR = SCRIPT_DIR / "skills" / "main_agent"
 OPTIONAL_SKILLS_DIR = SCRIPT_DIR / "skills" / "optional_skills"
-MAX_AGENT_STEPS = 10
+MAX_AGENT_STEPS = 20
 
 DEFAULT_PROVIDER = "DeepSeek-V4-flash"
 DEFAULT_ENABLE_REASONING = False
