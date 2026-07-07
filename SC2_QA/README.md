@@ -2,7 +2,7 @@
 
 This directory contains a 60-question StarCraft II multi-hop QA dataset and a resumable LLM evaluation pipeline. The pipeline evaluates one answer mode at a time:
 
-- **Agent mode** sends each dataset question to the repository's SC2 Data Agent, including its own router, skills, planner, deterministic tools, and answer stage.
+- **Agent mode** sends each dataset question to the selected V1 or V2 SC2 Data Agent. V1 uses the historical router/planner pipeline; V2 uses the MainAgent plus fresh DataSubAgent architecture.
 - **Plain mode** sends the exact dataset question directly to one configured OpenAI-compatible model without a system message, tools, skills, reference data, or additional answer guidance.
 
 Both modes use a separately selected Judge LLM to score the resulting answer against the reference answer and atomic scoring criteria. There is intentionally no combined or comparison mode. Agent and Plain experiments are independent runs with independent logs and reports.
@@ -73,10 +73,13 @@ run_agent(
     enable_reasoning=reasoning_enabled,
     response_language="English",
     log_dir=case_agent_log_directory,
+    agent_version=config.agent_version,
 )
 ```
 
-The evaluator adds no textual guidance. The Agent may use only its normal internal behavior:
+The evaluator adds no textual guidance. The selected Agent may use only its normal internal behavior.
+
+V1 behavior includes:
 
 1. context routing;
 2. main and optional skills;
@@ -85,6 +88,17 @@ The evaluator adds no textual guidance. The Agent may use only its normal intern
 5. deterministic SC2 tools;
 6. observations from earlier tool calls;
 7. its normal final-answer prompt.
+
+V2 behavior includes:
+
+1. a tool-isolated MainAgent that decomposes the question;
+2. a fresh DataSubAgent context for every focused subquestion;
+3. catalog-only tool selection followed by selected full schemas;
+4. native assistant `tool_calls` and `tool` messages;
+5. compressed DataSubAgent replies returned to MainAgent;
+6. a maximum of 12 MainAgent decisions and 5 tool rounds per DataSubAgent session.
+
+V2 does not load V1 optional execution skills or race dictionaries. All static V2 prompts and contexts are English.
 
 The Agent's nested trace is redirected into the evaluation experiment directory instead of the repository's general `logs/` directory.
 
@@ -156,6 +170,7 @@ SC2_QA/
 ├── README.md
 ├── configs/
 │   ├── agent.example.json
+│   ├── v2_kimi_smoke.example.json
 │   └── plain.example.json
 ├── evaluation/
 │   ├── answer_runners.py
@@ -199,6 +214,7 @@ Agent and Plain use separate configuration templates. The `mode` field is a sing
 {
   "experiment_name": "agent",
   "mode": "agent",
+  "agent_version": "v2",
   "answer_model_key": "DeepSeek-V4-flash",
   "judge_model_key": "Kimi-k2.5_think",
   "dataset": "qa_multihop_sc2_60.json",
@@ -224,6 +240,8 @@ Reasoning modes are:
 
 Only reasoning exposed by the provider is stored. If no reasoning field or tag is returned, the record contains `reasoning_available: false`.
 
+`agent_version` is required to be `v1` or `v2` in Agent mode. It is ignored by Plain answer generation.
+
 ## Validate without API calls
 
 Validate the dataset, configuration, model keys, and selected cases:
@@ -248,6 +266,7 @@ Override model keys and run only two cases:
 
 ```powershell
 .\SC2_QA\scripts\run_agent.ps1 `
+  -AgentVersion v2 `
   -AnswerModelKey DeepSeek-V4-flash_think `
   -JudgeModelKey Kimi-k2.5_think `
   -AnswerReasoning on `
@@ -259,8 +278,26 @@ Direct CLI equivalent:
 ```powershell
 python -m SC2_QA.evaluation.cli `
   --config SC2_QA\configs\agent.example.json `
-  --mode agent
+  --mode agent `
+  --agent-version v2
 ```
+
+Run the same configuration through V1 by changing the final override to `--agent-version v1`. V1 and V2 produce separate experiment IDs and must be run as independent experiments.
+
+### Three-case V2 Kimi smoke test
+
+The supplied smoke configuration selects one case from each race and covers 3, 4, and 5 hops. Both answer and Judge use the non-thinking `Kimi-k2.5` entry:
+
+```powershell
+python -m SC2_QA.evaluation.cli `
+  --config SC2_QA\configs\v2_kimi_smoke.example.json `
+  --validate-only
+
+python -m SC2_QA.evaluation.cli `
+  --config SC2_QA\configs\v2_kimi_smoke.example.json
+```
+
+The selected IDs are `TERRAN_001`, `PROTOSS_009`, and `ZERG_019`. All three were individually verified at 5/5 with `Kimi-k2.5`, reasoning off, and zero answer or Judge errors. `ZERG_017` and `ZERG_018` are not used as stable smoke gates because their wording does not uniquely select the hidden generated path.
 
 ## Run Plain evaluation
 
@@ -312,16 +349,16 @@ SC2_QA/logs/<experiment_id>/
 The experiment ID is generated automatically with this format:
 
 ```text
-{UTC时间}_{mode}_{answer_model_key}_{judge_model_key}_{config指纹}
+{UTC timestamp}_{mode}_{agent version}_{answer model key}_{Judge model key}_{config fingerprint}
 ```
 
 For example:
 
 ```text
-20260701_103352_agent_Kimi-k2.5_Kimi-k2.5_bbe1c68e
+20260706_140625_agent_v2_Kimi-k2.5_Kimi-k2.5_6af8ad02
 ```
 
-`config指纹` is the first 8 characters of the SHA-256 hash of the full experiment configuration JSON.
+`config fingerprint` is the first 8 characters of the SHA-256 hash of the full experiment configuration JSON.
 
 ```text
 logs/<experiment_id>/
@@ -402,7 +439,19 @@ Metrics include:
 
 ## Concurrency and retries
 
-`workers` defaults to 1. Agent mode may make many API calls per question, so low concurrency is recommended until endpoint rate limits are understood.
+The example configurations use four workers for Agent mode, eight for Plain mode, and three for the three-case Kimi smoke run. Agent mode makes multiple sequential model calls per question, while Plain mode usually makes one answer call before judging, so the wider Plain pool provides better throughput.
+
+All Kimi answer and Judge calls share a cross-thread and cross-process sliding-window limiter. The hard provider ceiling is 60 requests per minute; the repository uses 58 by default for safety. Kimi thinking and non-thinking entries use the same bucket, and retries count as requests. Other providers bypass the limiter completely. The ignored limiter database is stored under `logs/.rate_limits/`.
+
+The batch scripts default to `AgentWorkers=4` and `PlainWorkers=8`. They can be overridden without changing configuration files:
+
+```powershell
+.\SC2_QA\scripts\run_kimi_deepseek_batch.ps1 `
+  -AgentWorkers 4 `
+  -PlainWorkers 8
+```
+
+`SC2_KIMI_RPM` may be set from 1 through 60. Keep the default value of 58 unless the provider documents different behavior.
 
 `answer_retries` and `judge_retries` count retries after the first attempt. For example, a value of 2 permits at most three total attempts. `retry_backoff_seconds` controls the delay between attempts, while `request_delay_seconds` can pace answer requests.
 
@@ -411,7 +460,7 @@ Metrics include:
 - Do not commit `API_config/config.json` or `SC2_QA/logs/`.
 - Evaluation logs contain full prompts, answers, reference answers, scores, and provider-visible reasoning; treat them as sensitive.
 - Use a Judge model different from the answer model when practical.
-- The manifest records the dataset SHA-256, Git commit, dirty-worktree status, selected case count, and Agent step limit.
+- The manifest records the dataset SHA-256, Git commit, dirty-worktree status, selected case count, selected Agent version, and Agent limits.
 - The evaluator never modifies the QA dataset.
 - The answer and Judge stages use separate data contracts so scoring information cannot accidentally enter answer requests.
 
@@ -432,3 +481,7 @@ The provider may not expose reasoning, or the model's `reasoning_extract_mode` m
 ### Missing Agent trace
 
 Check the answer record's `error` and `attempts`. Agent trace initialization happens before routing; filesystem or configuration failures are recorded at the case level.
+
+### Transient overloaded or 5xx model error
+
+V2 retries a transient 429, timeout, overloaded, or 5xx model response up to three attempts with a short backoff. If all attempts fail, the evaluator records `answer_error`; rerun the failed case with `--resume <experiment directory> --retry-failed` after the provider recovers.

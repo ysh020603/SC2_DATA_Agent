@@ -180,6 +180,7 @@ def judge_answer(judge_input: JudgeInput, config: ExperimentConfig) -> dict[str,
             "usage": result.get("usage", {}),
             "finish_reason": result.get("finish_reason", ""),
             "latency_seconds": result.get("latency_seconds", 0.0),
+            "rate_limit_wait_seconds": result.get("rate_limit_wait_seconds", 0.0),
             "error": result.get("error", ""),
         }
         attempts.append(attempt)

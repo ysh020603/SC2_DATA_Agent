@@ -25,6 +25,7 @@ from API_Tools.reasoning_extractor import (
     REASONING_NONE,
     extract_reasoning,
 )
+from API_Tools.rate_limiter import acquire_provider_slot
 
 logger = logging.getLogger("API_Tools.llm_caller")
 
@@ -195,6 +196,7 @@ def _empty_call_result(
         "usage": {},
         "finish_reason": "",
         "latency_seconds": 0.0,
+        "rate_limit_wait_seconds": 0.0,
         "request_metadata": {},
         "error": error,
     }
@@ -384,6 +386,17 @@ def call_openai_detailed(
 
     request_kwargs.update(passthrough)
 
+    try:
+        rate_limit_wait_seconds = acquire_provider_slot(model_key, str(final_model))
+    except Exception as exc:
+        logger.warning("call_openai: provider rate limiter failed (%s)", exc)
+        return _empty_call_result(
+            model_key=model_key,
+            model=str(final_model),
+            is_reasoning=final_is_reasoning,
+            reasoning_extract_mode=final_reasoning_extract_mode,
+            error=f"rate_limit_failed: {exc}",
+        )
     started_at = time.perf_counter()
     try:
         completion = client.chat.completions.create(**request_kwargs)
@@ -444,6 +457,7 @@ def call_openai_detailed(
         "usage": usage or {},
         "finish_reason": getattr(choice, "finish_reason", "") or "",
         "latency_seconds": round(time.perf_counter() - started_at, 6),
+        "rate_limit_wait_seconds": round(rate_limit_wait_seconds, 6),
         "request_metadata": safe_request,
         "error": "",
     }

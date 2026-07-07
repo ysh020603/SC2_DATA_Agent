@@ -4,6 +4,7 @@ param(
     [string]$JudgeModelKey = "",
     [ValidateSet("", "auto", "on", "off")][string]$AnswerReasoning = "",
     [ValidateSet("", "auto", "on", "off")][string]$JudgeReasoning = "",
+    [ValidateRange(0, 32)][int]$Workers = 0,
     [int]$Limit = 0,
     [switch]$ValidateOnly
 )
@@ -15,6 +16,7 @@ if ($AnswerModelKey) { $Arguments += @("--answer-model-key", $AnswerModelKey) }
 if ($JudgeModelKey) { $Arguments += @("--judge-model-key", $JudgeModelKey) }
 if ($AnswerReasoning) { $Arguments += @("--answer-reasoning", $AnswerReasoning) }
 if ($JudgeReasoning) { $Arguments += @("--judge-reasoning", $JudgeReasoning) }
+if ($Workers -gt 0) { $Arguments += @("--workers", $Workers) }
 if ($Limit -gt 0) { $Arguments += @("--limit", $Limit) }
 if ($ValidateOnly) { $Arguments += "--validate-only" }
 

@@ -25,6 +25,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--retry-failed", action="store_true")
     parser.add_argument("--validate-only", action="store_true", help="Validate config, dataset, filters, and model keys without API calls.")
     parser.add_argument("--mode", choices=["agent", "plain"])
+    parser.add_argument("--agent-version", choices=["v1", "v2"])
     parser.add_argument("--answer-model-key")
     parser.add_argument("--judge-model-key")
     parser.add_argument("--answer-reasoning", choices=["auto", "on", "off"])
@@ -46,6 +47,7 @@ def load_config(args: argparse.Namespace) -> ExperimentConfig:
         raise ValueError("--config is required for a new experiment; use --resume for an existing one")
     overrides = {
         "mode": args.mode,
+        "agent_version": args.agent_version,
         "answer_model_key": args.answer_model_key,
         "judge_model_key": args.judge_model_key,
         "answer_reasoning": args.answer_reasoning,
@@ -83,6 +85,7 @@ def main() -> int:
         print(json.dumps({
             "status": "valid",
             "mode": config.mode,
+            "agent_version": config.agent_version,
             "answer_model_key": config.answer_model_key,
             "judge_model_key": config.judge_model_key,
             "selected_case_count": len(selected),

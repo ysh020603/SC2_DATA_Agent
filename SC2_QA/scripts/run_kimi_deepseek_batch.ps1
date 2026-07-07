@@ -2,7 +2,9 @@
 # Judge defaults to Kimi-k2.5.
 param(
     [string]$JudgeModelKey = "Kimi-k2.5",
-    [string[]]$SkipAgentAnswerModels = @()
+    [string[]]$SkipAgentAnswerModels = @(),
+    [ValidateRange(1, 32)][int]$AgentWorkers = 4,
+    [ValidateRange(1, 32)][int]$PlainWorkers = 8
 )
 
 $ErrorActionPreference = "Stop"
@@ -65,7 +67,8 @@ try {
             "--config", $Job.Config,
             "--mode", $Mode,
             "--answer-model-key", $AnswerModel,
-            "--judge-model-key", $JudgeModelKey
+            "--judge-model-key", $JudgeModelKey,
+            "--workers", $(if ($Mode -eq "agent") { $AgentWorkers } else { $PlainWorkers })
         )
         & python @Args
         $Code = $LASTEXITCODE

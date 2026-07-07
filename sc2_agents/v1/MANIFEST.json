@@ -1,0 +1,10 @@
+{
+  "agent_version": "v1",
+  "source_commit": "dc93ebb",
+  "implementation": "sc2_agents/v1/legacy_runtime.py",
+  "packaged_runtime_sha256": "0379E9BBBC115456722B8C2CE23083206A8A224349D73B9FD60CB04E39FD03CD",
+  "dataset_release": "data_sc2_260701",
+  "trace_schema": "sc2-agent-trace-v1",
+  "entrypoint": "sc2_agents.v1.agent:run_agent",
+  "notes": "V1 retains a packaged runtime snapshot of the router, planner, deterministic tool loop, and final answerer. Shared query, data, and API infrastructure remains at repository root."
+}

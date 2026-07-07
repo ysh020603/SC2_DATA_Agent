@@ -30,10 +30,12 @@ def run_agent_answer(answer_input: AnswerInput, config: ExperimentConfig, agent_
             enable_reasoning=reasoning_enabled,
             response_language="English",
             log_dir=agent_log_root / answer_input.case_id,
+            agent_version=config.agent_version,
         )
         return {
             "status": "completed",
             "mode": "agent",
+            "agent_version": config.agent_version,
             "case_id": answer_input.case_id,
             **answer_input.audit_record(),
             "answer_model_key": config.answer_model_key,
@@ -52,6 +54,7 @@ def run_agent_answer(answer_input: AnswerInput, config: ExperimentConfig, agent_
         return {
             "status": "error",
             "mode": "agent",
+            "agent_version": config.agent_version,
             "case_id": answer_input.case_id,
             **answer_input.audit_record(),
             "answer_model_key": config.answer_model_key,
@@ -96,6 +99,7 @@ def run_plain_answer(answer_input: AnswerInput, config: ExperimentConfig) -> dic
         "usage": result.get("usage", {}),
         "finish_reason": result.get("finish_reason", ""),
         "latency_seconds": result.get("latency_seconds") or round(time.perf_counter() - started, 6),
+        "rate_limit_wait_seconds": result.get("rate_limit_wait_seconds", 0.0),
         "error": result.get("error", ""),
     }
 

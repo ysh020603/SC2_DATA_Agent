@@ -75,6 +75,7 @@ def build_summary(records: list[dict[str, Any]], run_config: dict[str, Any]) -> 
     return {
         "experiment_name": run_config.get("experiment_name"),
         "mode": run_config.get("mode"),
+        "agent_version": run_config.get("agent_version") if run_config.get("mode") == "agent" else None,
         "answer_model_key": run_config.get("answer_model_key"),
         "judge_model_key": run_config.get("judge_model_key"),
         "overall": score_metrics(records),
@@ -120,6 +121,7 @@ def write_reports(run_dir: str | Path) -> dict[str, Any]:
     lines = [
         f"# Evaluation Report: {summary['experiment_name']}", "",
         f"- Mode: `{summary['mode']}`",
+        f"- Agent version: `{summary.get('agent_version') or 'n/a'}`",
         f"- Answer model: `{summary['answer_model_key']}`",
         f"- Judge model: `{summary['judge_model_key']}`",
         f"- Cases: {overall['case_count']}",

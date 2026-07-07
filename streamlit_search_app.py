@@ -32,6 +32,7 @@ if not model_keys:
 
 with st.sidebar:
     st.header("Agent settings")
+    agent_version = st.selectbox("Agent version", ["v2", "v1"], index=0)
     default_index = model_keys.index(DEFAULT_PROVIDER) if DEFAULT_PROVIDER in model_keys else 0
     model_key = st.selectbox("Model key", model_keys, index=default_index)
     configured_reasoning = bool(catalog[model_key].get("is_reasoning"))
@@ -64,6 +65,7 @@ if st.button("Run agent", type="primary"):
                 data_path=DEFAULT_DATA_PATH,
                 enable_reasoning=enable_reasoning,
                 response_language=response_language,
+                agent_version=agent_version,
             )
         except Exception as exc:
             st.exception(exc)
@@ -72,9 +74,10 @@ result = st.session_state.get("agent_result")
 if result:
     st.subheader("Answer")
     st.markdown(result.get("answer", ""))
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     col1.metric("Run ID", result.get("run_id", ""))
     col2.code(result.get("log_path", ""), language=None)
+    col3.metric("Agent version", result.get("agent_version", ""))
 
     with st.expander("Reasoning trace", expanded=False):
         traces = result.get("reasoning_trace") or []

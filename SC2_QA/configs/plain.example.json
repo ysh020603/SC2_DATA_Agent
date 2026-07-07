@@ -6,7 +6,7 @@
   "dataset": "qa_multihop_sc2_60.json",
   "answer_reasoning": "auto",
   "judge_reasoning": "auto",
-  "workers": 1,
+  "workers": 8,
   "answer_retries": 2,
   "judge_retries": 2,
   "retry_backoff_seconds": 3.0,

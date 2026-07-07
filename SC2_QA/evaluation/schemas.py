@@ -64,6 +64,7 @@ class ExperimentConfig:
     judge_model_key: str
     dataset: str = "qa_multihop_sc2_60.json"
     answer_reasoning: str = "auto"
+    agent_version: str = "v2"
     judge_reasoning: str = "auto"
     workers: int = 1
     answer_retries: int = 2
@@ -80,6 +81,8 @@ class ExperimentConfig:
             raise ValueError(f"mode must be one of {sorted(VALID_MODES)}, got {self.mode!r}")
         if self.answer_reasoning not in VALID_REASONING_MODES:
             raise ValueError(f"Invalid answer_reasoning: {self.answer_reasoning}")
+        if self.agent_version not in {"v1", "v2"}:
+            raise ValueError(f"Invalid agent_version: {self.agent_version}")
         if self.judge_reasoning not in VALID_REASONING_MODES:
             raise ValueError(f"Invalid judge_reasoning: {self.judge_reasoning}")
         if not self.answer_model_key or not self.judge_model_key:

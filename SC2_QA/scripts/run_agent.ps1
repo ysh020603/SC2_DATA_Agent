@@ -2,8 +2,10 @@ param(
     [string]$Config = "",
     [string]$AnswerModelKey = "",
     [string]$JudgeModelKey = "",
+    [ValidateSet("", "v1", "v2")][string]$AgentVersion = "",
     [ValidateSet("", "auto", "on", "off")][string]$AnswerReasoning = "",
     [ValidateSet("", "auto", "on", "off")][string]$JudgeReasoning = "",
+    [ValidateRange(0, 32)][int]$Workers = 0,
     [int]$Limit = 0,
     [switch]$ValidateOnly
 )
@@ -13,8 +15,10 @@ if (-not $Config) { $Config = Join-Path $RepoRoot "SC2_QA\configs\agent.example.
 $Arguments = @("-m", "SC2_QA.evaluation.cli", "--config", $Config, "--mode", "agent")
 if ($AnswerModelKey) { $Arguments += @("--answer-model-key", $AnswerModelKey) }
 if ($JudgeModelKey) { $Arguments += @("--judge-model-key", $JudgeModelKey) }
+if ($AgentVersion) { $Arguments += @("--agent-version", $AgentVersion) }
 if ($AnswerReasoning) { $Arguments += @("--answer-reasoning", $AnswerReasoning) }
 if ($JudgeReasoning) { $Arguments += @("--judge-reasoning", $JudgeReasoning) }
+if ($Workers -gt 0) { $Arguments += @("--workers", $Workers) }
 if ($Limit -gt 0) { $Arguments += @("--limit", $Limit) }
 if ($ValidateOnly) { $Arguments += "--validate-only" }
 

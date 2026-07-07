@@ -1,7 +1,9 @@
 # Batch SC2_QA evaluation: answer models x agent/plain, judge = Kimi-k2.5
 # Qwen35-27b variants excluded (16k context too small for Agent mode).
 param(
-    [string]$JudgeModelKey = "Kimi-k2.5"
+    [string]$JudgeModelKey = "Kimi-k2.5",
+    [ValidateRange(1, 32)][int]$AgentWorkers = 4,
+    [ValidateRange(1, 32)][int]$PlainWorkers = 8
 )
 
 $ErrorActionPreference = "Stop"
@@ -32,7 +34,8 @@ try {
                 -AnswerModelKey $model `
                 -JudgeModelKey $JudgeModelKey `
                 -AnswerReasoning auto `
-                -JudgeReasoning auto
+                -JudgeReasoning auto `
+                -Workers $(if ($mode -eq "agent") { $AgentWorkers } else { $PlainWorkers })
             if ($LASTEXITCODE -ne 0) {
                 Write-Log "FAILED $mode :: $model exit=$LASTEXITCODE"
                 exit $LASTEXITCODE

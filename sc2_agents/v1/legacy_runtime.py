@@ -16,7 +16,7 @@ from sc2_search_tools import DEFAULT_DATA_PATH
 from sc2_trace import TraceRecorder
 
 
-SCRIPT_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parents[2]
 SKILL_DIR = SCRIPT_DIR / "skills" / "sc2_data_query"
 MAIN_AGENT_SKILL_DIR = SCRIPT_DIR / "skills" / "main_agent"
 OPTIONAL_SKILLS_DIR = SCRIPT_DIR / "skills" / "optional_skills"

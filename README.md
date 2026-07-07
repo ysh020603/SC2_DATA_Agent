@@ -17,6 +17,15 @@ The application can answer questions about units, structures, abilities, upgrade
 - Extracts provider-visible reasoning from separate fields or embedded thinking tags.
 - Persists prompts, routing decisions, plans, tool calls, reasoning, answers, errors, timing, and usage metadata for every run.
 
+## Agent versions
+
+The repository now contains two selectable Agent implementations:
+
+- **V1** preserves the original context-router, planner, deterministic retrieval, and final-answer pipeline. Its explicit entry point is `sc2_agents.v1.run_agent`.
+- **V2** uses a tool-isolated MainAgent and a fresh DataSubAgent session for every focused subquestion. MainAgent never receives tool schemas or raw tool results. DataSubAgent first selects a small tool set from an English catalog, then uses native OpenAI-compatible tool calls with full schemas.
+
+All static V2 prompts, contexts, and tool descriptions are English. The answer language remains configurable. See [docs/AGENT_VERSIONS.md](docs/AGENT_VERSIONS.md) for architecture and test commands.
+
 ## Repository layout
 
 ```text
@@ -37,6 +46,10 @@ SC2_DATA_Agent/
 │   ├── markdown/{Terran,Protoss,Zerg}/*.md
 │   └── relations/entity_expanded_relations.json
 ├── skills/                         # agent routing and schema guidance
+├── sc2_agents/
+│   ├── v1/                         # preserved V1 entry point and manifest
+│   └── v2/                         # MainAgent, DataSubAgent, contracts, prompts, and tool registry
+├── tests/                          # local V2 protocol and isolation tests
 ├── archive/legacy_v1/              # inactive pre-2026-07-01 files
 ├── sc2_data_store.py               # version-aware data and evidence indexes
 ├── sc2_search_tools.py             # low-level filters and projections
@@ -240,6 +253,8 @@ Important fields include:
 
 The caller gives explicit function arguments priority over model-pool values. If `api_key_env` is configured and present, its value overrides the file credential.
 
+Kimi requests are protected by a shared rolling-window limiter. All Kimi model variants, answer calls, Judge calls, and retries share a default 58-RPM bucket below the provider's 60-RPM ceiling. The limiter coordinates evaluator threads and sequential Python processes through `logs/.rate_limits/requests.sqlite3`. Non-Kimi providers are not rate-limited by this mechanism. Set `SC2_KIMI_RPM` to a value from 1 through 60 to override the default.
+
 ## Reasoning extraction
 
 The API layer can extract provider-visible reasoning from several OpenAI-compatible response shapes:
@@ -312,6 +327,7 @@ Useful CLI options:
 --dry-run                    deterministic tools only
 --show-reasoning             print the captured reasoning trace
 --show-tools                 print plans and complete tool results
+--agent-version              v1 or v2; the CLI defaults to v2
 ```
 
 Every invocation prints its run ID and canonical trace path.
@@ -328,6 +344,7 @@ result = run_agent(
     provider="DeepSeek-V4-flash",
     enable_reasoning=False,
     response_language="English",
+    agent_version="v2",
 )
 
 print(result["answer"])
@@ -403,6 +420,8 @@ The trace records:
 - reasoning source and extraction mode;
 - model key, model name, latency, usage, and finish reason;
 - fallback and failure events.
+
+V1 writes `sc2-agent-trace-v1`. V2 writes `sc2-agent-trace-v2` and additionally records MainAgent decisions, DataSubAgent session boundaries, two-stage tool selection, native tool messages, compressed SubAgent replies, and transient API retries.
 
 Keys whose names resemble credentials, authorization values, tokens, secrets, or passwords are redacted before serialization. API keys and authorization headers are never deliberately included in request metadata.
 

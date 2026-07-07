@@ -1,0 +1,19 @@
+{
+  "experiment_name": "v2_kimi_smoke",
+  "mode": "agent",
+  "agent_version": "v2",
+  "answer_model_key": "Kimi-k2.5",
+  "judge_model_key": "Kimi-k2.5",
+  "dataset": "qa_multihop_sc2_60.json",
+  "answer_reasoning": "off",
+  "judge_reasoning": "off",
+  "workers": 3,
+  "answer_retries": 0,
+  "judge_retries": 0,
+  "retry_backoff_seconds": 0.0,
+  "request_delay_seconds": 0.0,
+  "races": [],
+  "hop_counts": [],
+  "ids": ["TERRAN_001", "PROTOSS_009", "ZERG_019"],
+  "limit": null
+}
